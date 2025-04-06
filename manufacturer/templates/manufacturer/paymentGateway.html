@@ -66,10 +66,16 @@
 
     <div class="supplier-info">
       <h3>Payment to: {{ supplier_name }}</h3>
-      <p>Wallet address: <span id="supplierAddress"></span></p>
+      <p>Wallet address: <span id="supplierAddressDisplay"></span></p>
       <p>Negotiation Amount: {{ amount }} ETH</p>
-      <p>Negotiation ID: {{ negotiation_id }}</p>
     </div>
+    <!-- <input type="text" id="supplierAddress" placeholder="Enter supplier address" value="{{ supplier_address }}" /> -->
+
+    <button id="connectWallet">Connect Wallet</button>
+    <span id="walletStatus">Not connected</span>
+    <br /><br />
+
+
 
     <h2>Step 1: Deploy Escrow Contract</h2>
     <input
@@ -119,8 +125,14 @@
 
         // Set values from URL
 
-        document.getElementById("supplierAddress").textContent =
-          urlParams.get("supplier_address");
+        const addressFromURL = urlParams.get("supplier_address");
+
+        if (addressFromURL) {
+          document.getElementById("supplierAddress").value = addressFromURL;
+        }
+
+        const amountFromURL = urlParams.get("amount");document.getElementById("supplierAddressDisplay").textContent =
+        urlParams.get("supplier_address");        
       });
 
       let provider, signer, factoryContract, escrowContract;
@@ -290,71 +302,58 @@
       ];
 
       // Connect MetaMask
-      document.getElementById("connectWallet").onclick = async () => {
-        try {
-          debugLog("Attempting to connect wallet...");
-
-          if (!window.ethereum) {
-            throw new Error("MetaMask not detected. Please install MetaMask.");
-          }
-
-          provider = new ethers.providers.Web3Provider(window.ethereum);
-          debugLog("Web3 provider initialized");
-
-          const accounts = await provider.send("eth_requestAccounts", []);
-          debugLog(`Accounts received: ${accounts.length} account(s)`);
-
-          signer = provider.getSigner();
-          userAddress = await signer.getAddress();
-          debugLog(`Connected wallet: ${userAddress}`);
-
-          document.getElementById(
-            "walletStatus"
-          ).textContent = `Connected: ${userAddress.substring(
-            0,
-            6
-          )}...${userAddress.substring(38)}`;
-          document.getElementById("walletStatus").className = "status";
-
-          // Initialize factory contract
-          factoryContract = new ethers.Contract(
-            factoryAddress,
-            factoryAbi,
-            signer
-          );
-          debugLog("Factory contract initialized");
-
-          document.getElementById("statusMessage").textContent =
-            "Wallet connected successfully!";
-          document.getElementById("statusMessage").className = "success";
-        } catch (error) {
-          debugLog(`Wallet connection failed: ${error.message}`, true);
-          document.getElementById(
-            "statusMessage"
-          ).textContent = `Error: ${error.message}`;
-          document.getElementById("statusMessage").className = "error";
-        }
-      };
+      // Wallet connection function
+document.getElementById("connectWallet").onclick = async () => {
+  try {
+    debugLog("Attempting to connect wallet...");
+    
+    // Check if MetaMask is installed
+    if (!window.ethereum) {
+      throw new Error("Please install MetaMask or another Web3 wallet");
+    }
+    
+    // Initialize Web3 provider
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    debugLog("Web3 provider initialized");
+    
+    // Request account access
+    const accounts = await provider.send("eth_requestAccounts", []);
+    userAddress = accounts[0];
+    debugLog(`Connected account: ${userAddress}`);
+    
+    // Get signer
+    signer = provider.getSigner();
+    
+    // Update UI
+    document.getElementById("walletStatus").textContent = 
+      `Connected: ${userAddress.substring(0, 6)}...${userAddress.substring(38)}`;
+    document.getElementById("walletStatus").className = "status";
+    
+    debugLog("Wallet connected successfully");
+    
+    // Initialize contract instances
+    factoryContract = new ethers.Contract(factoryAddress, factoryAbi, signer);
+    debugLog("Factory contract instance created");
+    
+  } catch (error) {
+    debugLog(`Wallet connection failed: ${error.message}`, true);
+    document.getElementById("walletStatus").textContent = `Error: ${error.message}`;
+    document.getElementById("walletStatus").className = "error";
+  }
+};
 
       // Deploy a new escrow contract
       document.getElementById("deployEscrow").onclick = async () => {
-        const btn = document.getElementById("deployEscrow");
-        const originalText = btn.textContent;
-
+              const btn = document.getElementById("deployEscrow");
+              const originalText = btn.textContent;
         try {
-          if (!signer) throw new Error("Connect your wallet first.");
-
-          const supplierAddress = document
-            .getElementById("supplierAddress")
-            .value.trim();
-          const totalAmountInput = document
-            .getElementById("totalAmount")
-            .value.trim();
-
-          debugLog(
-            `Starting escrow deployment with supplier: ${supplierAddress}, amount: ${totalAmountInput} ETH`
-          );
-
+          // Check if wallet is connected
+          if (!signer) throw new Error("Please connect your wallet first");
+          
+          // Now safe to access inputs
+          const supplierAddress = document.getElementById("supplierAddress").value.trim();
+          const totalAmountInput = document.getElementById("totalAmount").value.trim();
+          
           if (!supplierAddress) throw new Error("Supplier address is required");
           if (!totalAmountInput) throw new Error("Total amount is required");
           if (!ethers.utils.isAddress(supplierAddress))

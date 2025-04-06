@@ -2306,3 +2306,328 @@ geopy.exc.GeocoderUnavailable: HTTPSConnectionPool(host='nominatim.openstreetmap
 2025-04-05 22:23:10,688 - ERROR - Carbon calculation failed: Could not geocode addresses
 2025-04-05 22:23:30,338 - WARNING - Not Found: /favicon.ico
 2025-04-06 09:56:36,202 - WARNING - Not Found: /favicon.ico
+2025-04-06 10:58:48,257 - WARNING - Not Found: /api/placeholder/300/300
+2025-04-06 11:13:20,637 - WARNING - Not Found: /api/placeholder/300/300
+2025-04-06 11:13:26,385 - WARNING - Not Found: /api/placeholder/300/300
+2025-04-06 11:15:29,315 - WARNING - Not Found: /api/placeholder/300/300
+2025-04-06 11:15:29,648 - WARNING - Not Found: /favicon.ico
+2025-04-06 11:16:16,629 - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-04-06 11:16:16,630 - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-04-06 11:16:16,630 - INFO - Geocoder initialized successfully
+2025-04-06 11:16:16,630 - DEBUG - Nominatim.geocode: https://nominatim.openstreetmap.org/search?q=Chennai%2C+Tamil+Nadu&format=json&limit=1
+2025-04-06 11:16:16,631 - DEBUG - Starting new HTTPS connection (1): nominatim.openstreetmap.org:443
+2025-04-06 11:16:17,787 - DEBUG - https://nominatim.openstreetmap.org:443 "GET /search?q=Chennai%2C+Tamil+Nadu&format=json&limit=1 HTTP/11" 200 418
+2025-04-06 11:16:17,787 - DEBUG - Nominatim.geocode: https://nominatim.openstreetmap.org/search?q=Mumbai%2C+Maharashtra&format=json&limit=1
+2025-04-06 11:16:19,019 - DEBUG - https://nominatim.openstreetmap.org:443 "GET /search?q=Mumbai%2C+Maharashtra&format=json&limit=1 HTTP/11" 200 441
+2025-04-06 11:16:19,022 - DEBUG - Starting new HTTPS connection (1): api.openrouteservice.org:443
+2025-04-06 11:16:20,028 - DEBUG - https://api.openrouteservice.org:443 "POST /v2/directions/driving-car HTTP/11" 200 None
+2025-04-06 11:24:10,310 - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-04-06 11:24:10,311 - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-04-06 11:24:10,311 - INFO - Geocoder initialized successfully
+2025-04-06 11:24:10,311 - DEBUG - Nominatim.geocode: https://nominatim.openstreetmap.org/search?q=Chennai%2C+Tamil+Nadu&format=json&limit=1
+2025-04-06 11:24:10,312 - DEBUG - Starting new HTTPS connection (1): nominatim.openstreetmap.org:443
+2025-04-06 11:24:11,524 - DEBUG - https://nominatim.openstreetmap.org:443 "GET /search?q=Chennai%2C+Tamil+Nadu&format=json&limit=1 HTTP/11" 200 418
+2025-04-06 11:24:11,525 - DEBUG - Nominatim.geocode: https://nominatim.openstreetmap.org/search?q=Mumbai%2C+Maharashtra&format=json&limit=1
+2025-04-06 11:24:12,600 - DEBUG - https://nominatim.openstreetmap.org:443 "GET /search?q=Mumbai%2C+Maharashtra&format=json&limit=1 HTTP/11" 200 441
+2025-04-06 11:24:12,601 - DEBUG - Starting new HTTPS connection (1): api.openrouteservice.org:443
+2025-04-06 11:24:13,238 - DEBUG - https://api.openrouteservice.org:443 "POST /v2/directions/driving-car HTTP/11" 200 None
+2025-04-06 11:57:42,232 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\supplier\urls.py changed, reloading.
+2025-04-06 11:57:59,868 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\supplier\urls.py changed, reloading.
+2025-04-06 11:59:29,713 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\supplier\urls.py changed, reloading.
+2025-04-06 12:09:44,923 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:09:57,281 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:10:18,785 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:11:26,319 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:11:47,849 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:12:34,286 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:13:14,597 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:18:54,866 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:19:01,132 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:19:16,493 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:19:48,068 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:19:56,861 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:20:04,637 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:20:14,928 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:20:25,153 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:20:32,346 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:20:38,412 - ERROR - Internal Server Error: /negotiation/payment-gateway/
+Traceback (most recent call last):
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\fields\__init__.py", line 2053, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py", line 494, in payment_gateway_view
+    negotiation = Negotiation.objects.get(id=negotiation_id)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 1492, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 1319, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\lookups.py", line 27, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\lookups.py", line 341, in get_prep_lookup
+    return super().get_prep_lookup()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\lookups.py", line 85, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\fields\__init__.py", line 2055, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got ''.
+2025-04-06 12:20:50,475 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:21:17,327 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 12:21:23,097 - ERROR - Internal Server Error: /negotiation/payment-gateway/
+Traceback (most recent call last):
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\fields\__init__.py", line 2053, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py", line 495, in payment_gateway_view
+    negotiation = Negotiation.objects.get(id=negotiation_id)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 1492, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 1319, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\lookups.py", line 27, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\lookups.py", line 341, in get_prep_lookup
+    return super().get_prep_lookup()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\lookups.py", line 85, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\fields\__init__.py", line 2055, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got ''.
+2025-04-06 12:21:23,804 - ERROR - Internal Server Error: /negotiation/payment-gateway/
+Traceback (most recent call last):
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\fields\__init__.py", line 2053, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py", line 495, in payment_gateway_view
+    negotiation = Negotiation.objects.get(id=negotiation_id)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 1492, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\sql\query.py", line 1319, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\lookups.py", line 27, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\lookups.py", line 341, in get_prep_lookup
+    return super().get_prep_lookup()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\lookups.py", line 85, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\db\models\fields\__init__.py", line 2055, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got ''.
+2025-04-06 12:21:37,390 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 13:12:35,545 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 13:12:42,148 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 13:17:33,589 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 13:18:42,948 - ERROR - Internal Server Error: /negotiation/payment-gateway/
+Traceback (most recent call last):
+  File "C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py", line 500, in payment_gateway_view
+    raise ValueError("Missing negotiation ID")
+ValueError: Missing negotiation ID
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py", line 516, in payment_gateway_view
+    logger.error(f"Payment gateway error: {str(e)}")
+    ^^^^^^
+NameError: name 'logger' is not defined
+2025-04-06 13:18:58,549 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 13:19:03,683 - ERROR - Payment gateway error: Missing negotiation ID
+2025-04-06 13:19:30,939 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 13:19:36,275 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 13:22:00,838 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 13:22:16,953 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 13:22:29,970 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 13:22:56,310 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 13:28:37,514 - INFO - C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py changed, reloading.
+2025-04-06 13:33:22,848 - ERROR - Internal Server Error: /negotiation/payment-gateway/
+Traceback (most recent call last):
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\Hackathons\supplyChainGS\Supplychain\manufacturer\views.py", line 498, in payment_gateway_view
+    return render(request, 'manufacturer/paymentGateway.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 484, in parse
+    raise self.error(token, e)
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 482, in parse
+    filter_expression = self.compile_filter(token.contents)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ganesh\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\template\base.py", line 703, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '<span id="supplierAddress"></span>' from '<span id="supplierAddress"></span>'
+2025-04-06 13:35:09,320 - WARNING - Not Found: /supplier/bid/24/
+2025-04-06 13:36:28,955 - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-04-06 13:36:28,955 - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-04-06 13:36:28,955 - INFO - Geocoder initialized successfully
+2025-04-06 13:36:28,955 - DEBUG - Nominatim.geocode: https://nominatim.openstreetmap.org/search?q=Chennai%2C+Tamil+Nadu&format=json&limit=1
+2025-04-06 13:36:28,956 - DEBUG - Starting new HTTPS connection (1): nominatim.openstreetmap.org:443
+2025-04-06 13:36:29,913 - DEBUG - https://nominatim.openstreetmap.org:443 "GET /search?q=Chennai%2C+Tamil+Nadu&format=json&limit=1 HTTP/11" 200 418
+2025-04-06 13:36:29,914 - DEBUG - RateLimiter sleep(0.041921699994418304)
+2025-04-06 13:36:29,957 - DEBUG - Nominatim.geocode: https://nominatim.openstreetmap.org/search?q=Mumbai%2C+Maharashtra&format=json&limit=1
+2025-04-06 13:36:30,997 - DEBUG - https://nominatim.openstreetmap.org:443 "GET /search?q=Mumbai%2C+Maharashtra&format=json&limit=1 HTTP/11" 200 441
+2025-04-06 13:36:30,998 - DEBUG - Starting new HTTPS connection (1): api.openrouteservice.org:443
+2025-04-06 13:36:31,692 - DEBUG - https://api.openrouteservice.org:443 "POST /v2/directions/driving-car HTTP/11" 200 None

@@ -15,7 +15,7 @@
             transition: all 0.3s ease;
         }
         .card-hover:hover {
-            transform: scale(1.01);
+            transform: translateY(-5px);
             box-shadow: 0 15px 25px rgba(0,0,0,0.1);
         }
         .hamburger-menu {
@@ -45,7 +45,7 @@
             border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
         }
-        .info-panel {
+        .info-card {
             background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
         }
     </style>
@@ -90,55 +90,68 @@
         </div>
     </nav>
 
-    <!-- Main Content - Two Column Layout -->
-    <main class="flex-grow flex flex-col md:flex-row">
-        <!-- Left Column - Manufacturer Info -->
-        <div class="info-panel text-white w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center">
-            <h2 class="text-4xl font-bold mb-6">Join Our Manufacturer Network</h2>
-            <p class="text-xl mb-8">Connect with global buyers and expand your business reach through our comprehensive supply chain portal.</p>
-            
-            <div class="space-y-6">
-                <div class="flex items-start space-x-4">
-                    <div class="bg-white bg-opacity-20 p-3 rounded-full">
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold">Expand Your Network</h3>
-                        <p class="mt-1 text-white text-opacity-80">Connect with thousands of qualified buyers looking for your products.</p>
+    <!-- Main Content - Cards Layout -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <!-- Header Section -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-extrabold text-blue-800 mb-2">Manufacturer Registration</h1>
+            <p class="text-xl text-gray-600">Join our global network of manufacturers and suppliers</p>
+        </div>
+        
+        <!-- Information Card -->
+        <div class="info-card text-white rounded-xl shadow-lg p-8 mb-8 card-hover">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="w-full md:w-2/3">
+                    <h2 class="text-3xl font-bold mb-4">Join Our Manufacturer Network</h2>
+                    <p class="text-lg mb-6">Connect with global buyers and expand your business reach through our comprehensive supply chain portal.</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-white bg-opacity-20 p-2 rounded-full">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Expand Your Network</h3>
+                                <p class="text-sm text-white text-opacity-80">Connect with thousands of qualified buyers.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-white bg-opacity-20 p-2 rounded-full">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Secure Platform</h3>
+                                <p class="text-sm text-white text-opacity-80">Your data is protected with high security.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-white bg-opacity-20 p-2 rounded-full">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Global Visibility</h3>
+                                <p class="text-sm text-white text-opacity-80">Showcase products to worldwide buyers.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="flex items-start space-x-4">
-                    <div class="bg-white bg-opacity-20 p-3 rounded-full">
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold">Secure Platform</h3>
-                        <p class="mt-1 text-white text-opacity-80">Your data is protected with industry-leading security protocols.</p>
-                    </div>
-                </div>
-                
-                <div class="flex items-start space-x-4">
-                    <div class="bg-white bg-opacity-20 p-3 rounded-full">
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold">Global Visibility</h3>
-                        <p class="mt-1 text-white text-opacity-80">Showcase your products to a worldwide audience of buyers.</p>
-                    </div>
+                <div class="w-full md:w-1/3 flex justify-center mt-8 md:mt-0">
+                    <img src="/api/placeholder/300/300" alt="Manufacturing network" class="rounded-lg shadow-xl" />
                 </div>
             </div>
         </div>
         
-        <!-- Right Column - Registration Form -->
-        <div class="w-full md:w-1/2 bg-white p-8 md:p-16 flex flex-col justify-center">
-            <h1 class="text-3xl font-extrabold text-blue-700 mb-8">Manufacturer Registration</h1>
+        <!-- Registration Form Card -->
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
+            <h2 class="text-2xl font-bold text-blue-700 mb-6">Complete Your Registration</h2>
             
             <form method="post" class="space-y-6">
                 {% csrf_token %}
@@ -203,10 +216,47 @@
                 </div>
             </form>
         </div>
+        
+        <!-- Additional Features Card -->
+        <div class="bg-gray-50 rounded-xl shadow-lg p-8 mt-8 card-hover">
+            <h2 class="text-2xl font-bold text-blue-700 mb-6">Features & Benefits</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white mb-4">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Business Growth</h3>
+                    <p class="text-gray-600">Access new markets and grow your business with our global platform.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white mb-4">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Efficient Process</h3>
+                    <p class="text-gray-600">Streamline your supply chain operations and reduce overhead costs.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white mb-4">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Customer Connection</h3>
+                    <p class="text-gray-600">Build long-lasting relationships with quality buyers around the world.</p>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6">
+    <footer class="bg-gray-800 text-white py-6 mt-8">
         <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
             <div>
                 <h3 class="text-lg font-bold mb-2">Quick Links</h3>
