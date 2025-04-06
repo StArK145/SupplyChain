@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account Created</title>
+</head>
+<body>
+    <h2>Welcome to Supply Chain Portal!</h2>
+    <p>Dear {{ supplier.first_name }},</p>
+    <p>Your supplier account has been successfully created with the following details:</p>
+    <ul>
+        <li>Company Name: {{ supplier.company_name }}</li>
+        <li>Username: {{ user.username }}</li>
+        <li>Email: {{ user.email }}</li>
+    </ul>
+    <p>You can now login and start bidding on quote requests.</p>
+    <p>Best regards,<br>Supply Chain Team</p>
+</body>
+</html>

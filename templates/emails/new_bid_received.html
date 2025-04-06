@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Bid Received</title>
+</head>
+<body>
+    <h2>New Bid Received</h2>
+    <p>Dear {{ manufacturer.first_name }},</p>
+    <p>You have received a new bid for your quote request <strong>{{ quote.product }}</strong> from {{ supplier.company_name }}.</p>
+    <p>Bid Details:</p>
+    <ul>
+        <li>Amount: {{ quote.currency }} {{ bid.bid_amount }}</li>
+        <li>Delivery Time: {{ bid.delivery_time }} days</li>
+        <li>Comments: {{ bid.comments|default:"None" }}</li>
+    </ul>
+    <p>You can view all bids for this quote in your dashboard.</p>
+    <p>Best regards,<br>Supply Chain Team</p>
+</body>
+</html>

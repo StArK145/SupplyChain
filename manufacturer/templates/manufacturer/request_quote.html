@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request for Quotation | Supply Chain Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', sans-serif;
+        }
+        .dashboard-card {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        .dashboard-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+        }
+        .action-link {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .action-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .action-link:hover::after {
+            width: 100%;
+        }
+        .required:after {
+            content: " *";
+            color: red;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gray-50">
+    <!-- Navigation -->
+    <nav class="relative bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-blue-700">Supply Chain Portal</h1>
+                </div>
+                <div class="hidden md:flex space-x-6 nav-menu">
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Sidebar Navigation -->
+            <div class="md:col-span-1 space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold text-blue-600">
+                                {{ manufacturer.first_name.0 }}{{ manufacturer.last_name.0 }}
+                            </span>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-800">
+                                {{ manufacturer.first_name }} {{ manufacturer.last_name }}
+                            </h2>
+                            <p class="text-gray-500">{{ manufacturer.business_type }}</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 space-y-3">
+                        <a href="{% url 'manufacturer_dashboard' %}" class="block text-blue-600 hover:text-blue-800 action-link">
+                            Back to Dashboard
+                        </a>
+                        <a href="{% url 'manufacturer_quote_history' %}" class="block text-green-600 hover:text-green-800 action-link">
+                            Quote History
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Request for Quotation Form -->
+            <div class="md:col-span-2 space-y-6">
+                <form method="post" class="bg-white p-8 rounded-xl shadow-lg dashboard-card">
+                    {% csrf_token %}
+                    <h1 class="text-3xl font-extrabold text-blue-700 mb-6 border-b pb-4">Request for Quotation</h1>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="form-group md:col-span-2">
+                            <label class="block text-gray-700 font-semibold mb-2 required">Product</label>
+                            <input type="text" name="product" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div class="form-group md:col-span-2">
+                            <label class="block text-gray-700 font-semibold mb-2 required">Category</label>
+                            <select name="category" required 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Choose</option>
+                                <optgroup label="Agricultural Raw Materials">
+                                    <option value="copra">Copra</option>
+                                    <option value="cotton">Cotton</option>
+                                    <option value="hides">Hides</option>
+                                    <option value="rubber">Rubber</option>
+                                    <option value="wool">Wool</option>
+                                </optgroup>
+                                <optgroup label="Agriculture">
+                                    <option value="coffee">Coffee</option>
+                                    <option value="other_agriculture">Other Agriculture</option>
+                                    <option value="peanuts">Peanuts</option>
+                                    <option value="soybeans">Soybeans</option>
+                                    <option value="sugar">Sugar</option>
+                                    <option value="tea">Tea</option>
+                                    <option value="tobacco">Tobacco</option>
+                                </optgroup>
+                                <optgroup label="Energy">
+                                    <option value="coal">Coal</option>
+                                    <option value="crude_oil">Crude Oil</option>
+                                    <option value="diesel">Diesel</option>
+                                    <option value="gasoline">Gasoline</option>
+                                    <option value="natural_gas">Natural Gas</option>
+                                </optgroup>
+                                <optgroup label="Metals">
+                                    <option value="aluminum">Aluminum</option>
+                                    <option value="antimony">Antimony</option>
+                                    <option value="copper">Copper</option>
+                                    <option value="gold">Gold</option>
+                                    <option value="iron">Iron</option>
+                                    <option value="lead">Lead</option>
+                                    <option value="manganese">Manganese</option>
+                                    <option value="nickel">Nickel</option>
+                                    <option value="other_metals">Other Metals</option>
+                                    <option value="silver">Silver</option>
+                                    <option value="steel">Steel</option>
+                                    <option value="tin">Tin</option>
+                                    <option value="titanium">Titanium</option>
+                                    <option value="tungsten">Tungsten</option>
+                                    <option value="zinc">Zinc</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div class="form-group md:col-span-2">
+                            <label class="block text-gray-700 font-semibold mb-2 required">Description</label>
+                            <textarea name="description" required 
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-gray-700 font-semibold mb-2 required">Deadline</label>
+                            <input type="date" name="deadline" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-gray-700 font-semibold mb-2 required">Quantity</label>
+                            <input type="number" name="quantity" required 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-gray-700 font-semibold mb-2 required">Unit</label>
+                            <select name="unit" required 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Choose</option>
+                                <option value="kg">Kilograms (kg)</option>
+                                <option value="lb">Pounds (lb)</option>
+                                <option value="ton">Tons</option>
+                                <option value="piece">Pieces</option>
+                                <option value="liter">Liters</option>
+                                <option value="gallon">Gallons</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-gray-700 font-semibold mb-2 required">Currency</label>
+                            <select name="currency" required 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Choose</option>
+                                <option value="BTC">Bitcoin (₿)</option>
+                                <option value="ETH">Ethereum (Ξ)</option>
+                                <option value="USDT">Tether (USDT)</option>
+                                <option value="BNB">Binance Coin (BNB)</option>
+                                <option value="SOL">Solana (SOL)</option>
+                                <option value="XRP">Ripple (XRP)</option>
+                                <option value="ADA">Cardano (ADA)</option>
+                                <option value="DOGE">Dogecoin (DOGE)</option>
+                                <option value="DOT">Polkadot (DOT)</option>
+                                <option value="SHIB">Shiba Inu (SHIB)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-4 mt-6">
+                        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300 ease-in-out">
+                            Create
+                        </button>
+                        <a href="{% url 'manufacturer_dashboard' %}" class="bg-gray-200 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-300 transition duration-300 ease-in-out">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-blue-400">Home</a></li>
+                    <li><a href="#" class="hover:text-blue-400">About Us</a></li>
+                    <li><a href="#" class="hover:text-blue-400">Services</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Support</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-blue-400">Help Center</a></li>
+                    <li><a href="#" class="hover:text-blue-400">Contact Support</a></li>
+                    <li><a href="#" class="hover:text-blue-400">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-blue-400 hover:text-blue-600">Twitter</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-600">LinkedIn</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-600">Facebook</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-8 text-sm text-gray-400">
+            © 2024 Supply Chain Portal. All Rights Reserved.
+        </div>
+    </footer>
+    <script>
+      // Mobile menu toggle
+      const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+
+      if (mobileMenuToggle && mobileNav) {
+          mobileMenuToggle.addEventListener('click', () => {
+              mobileNav.classList.toggle('active');
+          });
+
+          // Close mobile menu when clicking outside
+          document.addEventListener('click', (event) => {
+              const isClickInsideMenu = mobileNav.contains(event.target);
+              const isClickOnToggle = mobileMenuToggle.contains(event.target);
+              
+              if (!isClickInsideMenu && !isClickOnToggle) {
+                  mobileNav.classList.remove('active');
+              }
+          });
+      }
+  </script>
+</body>
+</html>

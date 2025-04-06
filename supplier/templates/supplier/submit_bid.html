@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Bid</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .container_footer {
+            max-width: 900px;
+            margin: 2rem auto;
+            /* background: white; */
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            transition: all 0.3s ease;
+        }
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            box-sizing: border-box;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+        }
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+            background-color: #fff;
+        }
+        button {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-right: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .route-options {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: #f9fafb;
+            border-radius: 10px;
+            border-left: 4px solid #10b981;
+        }
+        .transport-details {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .loading {
+            display: none;
+            color: #6b7280;
+            font-style: italic;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        .error {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: #fee2e2;
+            border-radius: 4px;
+        }
+        .info-message {
+            color: #3b82f6;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .info-message:before {
+            content: "\f05a";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-right: 0.5rem;
+        }
+        #delivery-time-result {
+            font-weight: bold;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #ecfdf5;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+            color: #065f46;
+        }
+        .route-details {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .directions-container {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 0.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+        .direction-step {
+            padding: 0.75rem 0.5rem;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+        }
+        .direction-step:before {
+            content: "\f30b";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            margin-right: 0.75rem;
+            color: #10b981;
+        }
+        .direction-step:last-child {
+            border-bottom: none;
+        }
+        .route-stats {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            border-left: 3px solid #3b82f6;
+        }
+        .highway-step {
+            color: #047857;
+            font-weight: bold;
+        }
+        .turn-step {
+            color: #1d4ed8;
+        }
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 0.75rem 1rem;
+            background: #f3f4f6;
+            border-radius: 8px;
+        }
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            color: #6b7280;
+        }
+        .breadcrumb-item a {
+            color: #10b981;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .breadcrumb-item a:hover {
+            color: #059669;
+            text-decoration: underline;
+        }
+        .breadcrumb-arrow {
+            margin: 0 0.75rem;
+            color: #9ca3af;
+        }
+        .quote-details {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #3b82f6;
+        }
+        .quote-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .quote-icon {
+            background: #10b981;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        .form-section-title {
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.75rem;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        .form-section-title i {
+            margin-right: 0.75rem;
+            color: #10b981;
+        }
+        .btn-cancel {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #f3f4f6;
+            color: #4b5563;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-cancel:hover {
+            background: #e5e7eb;
+            color: #1f2937;
+        }
+        .transport-mode-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .transport-option {
+            flex: 1;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .transport-option:hover {
+            border-color: #d1d5db;
+            background: #f9fafb;
+        }
+        .transport-option.selected {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+        .transport-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #6b7280;
+        }
+        .transport-option.selected .transport-icon {
+            color: #10b981;
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumb">
+            <div class="breadcrumb-item">
+                <a href="{% url 'supplier_dashboard' %}"><i class="fas fa-home"></i> Dashboard</a>
+            </div>
+            <div class="breadcrumb-arrow">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="breadcrumb-item">
+                Submit Bid
+            </div>
+        </div>
+
+        <div class="quote-title">
+            <div class="quote-icon">
+                <i class="fas fa-file-invoice-dollar"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-800">Submit Bid for {{ quote.product }}</h1>
+        </div>
+
+        <div class="quote-details">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-building mr-2 text-blue-500"></i>
+                <span><strong>Manufacturer:</strong> {{ quote.manufacturer.company_name }} ({{ quote.manufacturer.city }}, {{ quote.manufacturer.state }})</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex items-center">
+                    <i class="fas fa-boxes mr-2 text-blue-500"></i>
+                    <span><strong>Quantity:</strong> {{ quote.quantity }} {{ quote.unit }}</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-calendar-alt mr-2 text-blue-500"></i>
+                    <span><strong>Deadline:</strong> {{ quote.deadline|date:"M d, Y" }}</span>
+                </div>
+            </div>
+            <div class="mt-3 flex items-start">
+                <i class="fas fa-clipboard-list mr-2 text-blue-500 mt-1"></i>
+                <span><strong>Special Requirements:</strong> {{ quote.special_requirements|default:"None" }}</span>
+            </div>
+        </div>
+
+        <form method="post" id="bid-form">
+            {% csrf_token %}
+
+            <div class="form-section-title">
+                <i class="fas fa-tags"></i> Pricing Information
+            </div>
+
+            <div class="form-group">
+                <label for="id_bid_amount">Your Price ({{ quote.currency }})</label>
+                {{ form.bid_amount }}
+                {% if form.bid_amount.errors %}
+                <div class="error">{{ form.bid_amount.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-section-title">
+                <i class="fas fa-truck"></i> Transportation Details
+            </div>
+
+            <div class="transport-mode-selector">
+                <div class="transport-option" data-mode="road">
+                    <div class="transport-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="transport-label">By Road</div>
+                </div>
+                <div class="transport-option" data-mode="air">
+                    <div class="transport-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <div class="transport-label">By Air</div>
+                </div>
+            </div>
+
+            <div class="form-group" style="display: none;">
+                <select id="transport_mode" name="transport_mode" required>
+                    <option value="">Select transportation mode</option>
+                    <option value="road">By Road</option>
+                    <option value="air">By Air</option>
+                </select>
+            </div>
+
+            <!-- Road Transport Details -->
+            <div id="road-details" class="transport-details road-details">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-truck-moving mr-2 text-green-600"></i> Road Transport Details
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label for="vehicle_type">Vehicle Type</label>
+                        <select id="vehicle_type" name="vehicle_type" class="px-4">
+                            <option value="">Select vehicle type</option>
+                            <option value="small_truck">Small Truck (3.5-7.5 tons)</option>
+                            <option value="medium_truck">Medium Truck (7.5-16 tons)</option>
+                            <option value="large_truck">Large Truck (16-32 tons)</option>
+                            <option value="articulated_truck">Articulated Truck (>32 tons)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="vehicle_count">Number of Vehicles</label>
+                        <input type="number" id="vehicle_count" name="vehicle_count" min="1" value="1">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label for="load_percentage">Load Percentage (%)</label>
+                        <input type="number" id="load_percentage" name="load_percentage" min="1" max="100" value="100">
+                    </div>
+                    <div class="form-group flex items-center">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" id="empty_return" name="empty_return" class="mr-2">
+                            <span>Empty Return Trip</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Air Transport Details -->
+            <div id="air-details" class="transport-details air-details">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-plane-departure mr-2 text-blue-600"></i> Air Transport Details
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label for="aircraft_type">Aircraft Type</label>
+                        <select id="aircraft_type" name="aircraft_type">
+                            <option value="">Select aircraft type</option>
+                            <option value="cargo_plane">Cargo Plane</option>
+                            <option value="passenger_plane">Passenger Plane (Cargo Hold)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="flight_count">Number of Flights</label>
+                        <input type="number" id="flight_count" name="flight_count" min="1" value="1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section-title">
+                <i class="fas fa-clock"></i> Timing Information
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="form-group">
+                    <label for="lead_time">Lead Time (days for production/processing)</label>
+                    <input type="number" id="lead_time" name="lead_time" min="0" step="1" required>
+                    <div class="info-message">
+                        Enter the number of days needed to prepare the goods for shipment
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_delivery_time">Delivery Time (days)</label>
+                    {{ form.delivery_time }}
+                    {% if form.delivery_time.errors %}
+                    <div class="error">{{ form.delivery_time.errors }}</div>
+                    {% endif %}
+                    <div class="info-message">
+                        This will be calculated automatically
+                    </div>
+                </div>
+            </div>
+
+            <div class="route-options">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-route mr-2 text-blue-600"></i> Route Information
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex items-center">
+                        <i class="fas fa-map-marker-alt mr-2 text-red-500"></i>
+                        <span><strong>From:</strong> {{ supplier.company_name }} ({{ supplier.city }}, {{ supplier.state }})</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-map-pin mr-2 text-green-500"></i>
+                        <span><strong>To:</strong> {{ quote.manufacturer.company_name }} ({{ quote.manufacturer.city }}, {{ quote.manufacturer.state }})</span>
+                    </div>
+                </div>
+
+                <div id="route-results" class="mt-4">
+                    <div class="flex items-center justify-center p-4 bg-blue-50 rounded-lg">
+                        <i class="fas fa-info-circle mr-2 text-blue-500"></i>
+                        <p>Select transportation mode and click "Calculate" to see route details.</p>
+                    </div>
+                </div>
+
+                <div class="loading" id="route-loading">
+                    <div class="flex items-center justify-center">
+                        <i class="fas fa-spinner fa-spin mr-2"></i>
+                        Calculating route information...
+                    </div>
+                </div>
+
+                <div id="delivery-time-result"></div>
+            </div>
+
+            <div class="form-section-title">
+                <i class="fas fa-comment"></i> Additional Information
+            </div>
+
+            <div class="form-group">
+                <label for="id_comments">Comments (Optional)</label>
+                {{ form.comments }}
+                {% if form.comments.errors %}
+                <div class="error">{{ form.comments.errors }}</div>
+                {% endif %}
+                <div class="info-message">
+                    Add any special conditions or notes about your bid
+                </div>
+            </div>
+
+            <div class="form-actions flex flex-wrap items-center justify-between mt-8">
+                <div>
+                    <button type="button" id="calculate-btn" class="flex items-center bg-blue-600 hover:bg-blue-700">
+                        <i class="fas fa-calculator mr-2"></i> Calculate Delivery Time
+                    </button>
+                    <button type="submit" id="submit-btn" class="flex items-center">
+                        <i class="fas fa-paper-plane mr-2"></i> Submit Bid
+                    </button>
+                </div>
+                <a href="{% url 'supplier_dashboard' %}" class="btn-cancel mt-4 md:mt-0">
+                    <i class="fas fa-times mr-2"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <footer class="bg-gray-800 text-white py-6 mt-8">
+        <div class="container_footer mx-auto px-4 grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-lg font-bold mb-2">Quick Links</h3>
+                <ul class="space-y-1">
+                    <li><a href="#" class="hover:text-green-400">Home</a></li>
+                    <li><a href="#" class="hover:text-green-400">About Us</a></li>
+                    <li><a href="#" class="hover:text-green-400">Services</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-2">Support</h3>
+                <ul class="space-y-1">
+                    <li><a href="#" class="hover:text-green-400">Help Center</a></li>
+                    <li><a href="#" class="hover:text-green-400">Contact Support</a></li>
+                    <li><a href="#" class="hover:text-green-400">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-2">Connect With Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-green-400 hover:text-green-600">Twitter</a>
+                    <a href="#" class="text-green-400 hover:text-green-600">LinkedIn</a>
+                    <a href="#" class="text-green-400 hover:text-green-600">Facebook</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4 text-sm text-gray-400">
+            © 2025 Supply Chain Portal. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Store template variables in JavaScript
+        const supplierData = {
+            companyName: "{{ supplier.company_name|escapejs }}",
+            city: "{{ supplier.city|escapejs }}",
+            state: "{{ supplier.state|escapejs }}"
+        };
+        
+        const manufacturerData = {
+            companyName: "{{ quote.manufacturer.company_name|escapejs }}",
+            city: "{{ quote.manufacturer.city|escapejs }}",
+            state: "{{ quote.manufacturer.state|escapejs }}"
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const transportMode = document.getElementById("transport_mode");
+            const transportOptions = document.querySelectorAll(".transport-option");
+            const roadDetails = document.getElementById("road-details");
+            const airDetails = document.getElementById("air-details");
+            const leadTime = document.getElementById("lead_time");
+            const calculateBtn = document.getElementById("calculate-btn");
+            const routeResults = document.getElementById("route-results");
+            const routeLoading = document.getElementById("route-loading");
+            const deliveryTimeResult = document.getElementById("delivery-time-result");
+            const deliveryTimeInput = document.getElementById("id_delivery_time");
+            const submitBtn = document.getElementById("submit-btn");
+
+            // Transport mode selector functionality
+            transportOptions.forEach(option => {
+                option.addEventListener("click", function() {
+                    // Remove selected class from all options
+                    transportOptions.forEach(opt => opt.classList.remove("selected"));
+                    
+                    // Add selected class to clicked option
+                    this.classList.add("selected");
+                    
+                    // Update hidden select field
+                    const mode = this.getAttribute("data-mode");
+                    transportMode.value = mode;
+                    
+                    // Trigger change event
+                    const event = new Event("change");
+                    transportMode.dispatchEvent(event);
+                });
+            });
+
+            // Show/hide transport details based on selection
+            transportMode.addEventListener("change", function () {
+                roadDetails.style.display = "none";
+                airDetails.style.display = "none";
+
+                if (this.value === "road") {
+                    roadDetails.style.display = "block";
+                } else if (this.value === "air") {
+                    airDetails.style.display = "block";
+                }
+            });
+
+            // Validate form before submission
+            document.getElementById("bid-form").addEventListener("submit", function (e) {
+                if (!deliveryTimeInput.value || deliveryTimeInput.value === "0") {
+                    e.preventDefault();
+                    alert("Please calculate delivery time before submitting your bid");
+                    calculateBtn.focus();
+                    calculateBtn.classList.add("pulse-animation");
+                    setTimeout(() => {
+                        calculateBtn.classList.remove("pulse-animation");
+                    }, 2000);
+                }
+            });
+
+            // Calculate route and delivery time
+            calculateBtn.addEventListener("click", function () {
+                if (!transportMode.value) {
+                    alert("Please select transportation mode");
+                    transportOptions[0].classList.add("pulse-animation");
+                    setTimeout(() => {
+                        transportOptions[0].classList.remove("pulse-animation");
+                    }, 2000);
+                    return;
+                }
+
+                if (!leadTime.value || leadTime.value < 0) {
+                    alert("Please enter a valid lead time (0 or more days)");
+                    leadTime.focus();
+                    return;
+                }
+
+                routeLoading.style.display = "block";
+                routeResults.innerHTML = "";
+                deliveryTimeResult.innerHTML = "";
+
+                // Prepare data for API call using the stored variables
+                const data = {
+                    supplier_city: supplierData.city,
+                    supplier_state: supplierData.state,
+                    manufacturer_city: manufacturerData.city,
+                    manufacturer_state: manufacturerData.state,
+                    transport_mode: transportMode.value,
+                    lead_time: leadTime.value
+                };
+
+                // Make API call to backend
+                fetch('{% url "calculate_route" %}', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    routeLoading.style.display = "none";
+
+                    if (!data.success) {
+                        routeResults.innerHTML = `<div class="error">${data.error || "Error calculating route"}</div>`;
+                        return;
+                    }
+
+                    if (data.mode === "road") {
+                        routeResults.innerHTML = `
+                        <div class="route-details">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                <i class="fas fa-truck-moving mr-2 text-green-600"></i> Road Transport Details
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-route mr-2 text-blue-500"></i>
+                                    <span><strong>Distance:</strong> ${data.distance} km</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-clock mr-2 text-blue-500"></i>
+                                    <span><strong>Transit Time:</strong> ${data.transit_time}</span>
+                                </div>
+                            </div>
+                            <div class="route-stats">${data.route_summary}</div>
+                            <h5 class="text-md font-semibold text-gray-700 mt-4 mb-2 flex items-center">
+                                <i class="fas fa-directions mr-2 text-blue-500"></i> Directions
+                            </h5>
+                            <div class="directions-container">
+                                ${data.detailed_directions.split("\n").map(
+                                    (step) => `<div class="direction-step">${step}</div>`
+                                ).join("")}
+                            </div>
+                        </div>
+                        `;
+                    } else if (data.mode === "air") {
+                        routeResults.innerHTML = `
+                        <div class="route-details">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                <i class="fas fa-plane-departure mr-2 text-blue-600"></i> Air Transport Details
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-route mr-2 text-blue-500"></i>
+                                    <span><strong>Distance:</strong> ${data.distance} km</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-clock mr-2 text-blue-500"></i>
+                                    <span><strong>Transit Time:</strong> ${data.transit_time}</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center mt-3">
+                                <i class="fas fa-map-marked-alt mr-2 text-blue-500"></i>
+                                <span><strong>Route:</strong> ${data.route_description}</span>
+                            </div>
+                        </div>
+                        `;
+                    }
+
+                    deliveryTimeResult.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="fas fa-hourglass-half mr-2"></i>
+                        <span>Total Delivery Time: <strong>${data.total_days} days</strong> (${leadTime.value} days production + ${(data.total_days - parseFloat(leadTime.value)).toFixed(1)} days transit)</span>
+                    </div>`;
+                    
+                    deliveryTimeInput.value = data.delivery_days;
+                    submitBtn.disabled = false;
+                    
+                    // Add success effects
+                    deliveryTimeResult.classList.add("pulse-animation");
+                    setTimeout(() => {
+                        deliveryTimeResult.classList.remove("pulse-animation");
+                    }, 2000);
+                })
+                .catch((error) => {
+                    routeLoading.style.display = "none";
+                    routeResults.innerHTML = `<div class="error">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        Error calculating route: ${error.message}
+                    </div>`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufacturer Login | Supply Chain Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+        }
+        .hamburger-menu {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+            .nav-menu.active {
+                display: block;
+            }
+            .hamburger-menu {
+                display: block;
+            }
+        }
+        .form-input {
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+    </style>
+</head>
+<body class="flex flex-col">
+    <!-- Navigation -->
+    <nav class="relative bg-white shadow-md">
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo and Brand -->
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-blue-700">Supply Chain Portal</h1>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6 nav-menu">
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Hamburger Menu -->
+                <div class="md:hidden hamburger-menu">
+                    <button id="mobile-menu-toggle" class="text-gray-500 hover:text-gray-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-nav" class="md:hidden nav-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">Home</a>
+                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">About</a>
+                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">Services</a>
+                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <!-- Header Section -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-extrabold text-blue-800 mb-2">Manufacturer Login</h1>
+            <p class="text-xl text-gray-600">Access your account to manage your supply chain operations</p>
+        </div>
+        
+        <div class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-8 card-hover">
+            <h2 class="text-2xl font-bold text-blue-700 mb-6">Login to Your Account</h2>
+            
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                    <div class="mb-4">
+                        <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ field.label }}
+                        </label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+
+                <div>
+                    <button type="submit" class="w-full bg-blue-500 text-white py-3 px-4 rounded-lg hover:bg-blue-600 transition text-lg">
+                        Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-8">
+        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-lg font-bold mb-2">Quick Links</h3>
+                <ul class="space-y-1">
+                    <li><a href="#" class="hover:text-blue-400">Home</a></li>
+                    <li><a href="#" class="hover:text-blue-400">About Us</a></li>
+                    <li><a href="#" class="hover:text-blue-400">Services</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-2">Support</h3>
+                <ul class="space-y-1">
+                    <li><a href="#" class="hover:text-blue-400">Help Center</a></li>
+                    <li><a href="#" class="hover:text-blue-400">Contact Support</a></li>
+                    <li><a href="#" class="hover:text-blue-400">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-2">Connect With Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-blue-400 hover:text-blue-600">Twitter</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-600">LinkedIn</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-600">Facebook</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4 text-sm text-gray-400">
+            © 2025 Supply Chain Portal. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideMenu = mobileNav.contains(event.target);
+            const isClickOnToggle = mobileMenuToggle.contains(event.target);
+            
+            if (!isClickInsideMenu && !isClickOnToggle) {
+                mobileNav.classList.remove('active');
+            }
+        });
+
+        // Form input styling
+        document.addEventListener('DOMContentLoaded', function() {
+            const formInputs = document.querySelectorAll('input, textarea, select');
+            formInputs.forEach(input => {
+                input.classList.add('w-full', 'px-3', 'py-2', 'border', 'border-gray-300', 'rounded-md', 'form-input');
+            });
+            
+            // Style form paragraphs for better appearance
+            const formParagraphs = document.querySelectorAll('form p');
+            formParagraphs.forEach(p => {
+                p.classList.add('mb-4');
+                const label = p.querySelector('label');
+                if (label) {
+                    label.classList.add('block', 'text-sm', 'font-medium', 'text-gray-700', 'mb-2');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

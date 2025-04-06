@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufacturer Registration | Supply Chain Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: scale(1.01);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+        }
+        .hamburger-menu {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+            .nav-menu.active {
+                display: block;
+            }
+            .hamburger-menu {
+                display: block;
+            }
+        }
+        .form-input {
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        .info-panel {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        }
+    </style>
+</head>
+<body class="flex flex-col">
+    <!-- Navigation -->
+    <nav class="relative bg-white shadow-md">
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo and Brand -->
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-blue-700">Supply Chain Portal</h1>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6 nav-menu">
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Hamburger Menu -->
+                <div class="md:hidden hamburger-menu">
+                    <button id="mobile-menu-toggle" class="text-gray-500 hover:text-gray-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-nav" class="md:hidden nav-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">Home</a>
+                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">About</a>
+                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">Services</a>
+                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content - Two Column Layout -->
+    <main class="flex-grow flex flex-col md:flex-row">
+        <!-- Left Column - Manufacturer Info -->
+        <div class="info-panel text-white w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center">
+            <h2 class="text-4xl font-bold mb-6">Join Our Manufacturer Network</h2>
+            <p class="text-xl mb-8">Connect with global buyers and expand your business reach through our comprehensive supply chain portal.</p>
+            
+            <div class="space-y-6">
+                <div class="flex items-start space-x-4">
+                    <div class="bg-white bg-opacity-20 p-3 rounded-full">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold">Expand Your Network</h3>
+                        <p class="mt-1 text-white text-opacity-80">Connect with thousands of qualified buyers looking for your products.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <div class="bg-white bg-opacity-20 p-3 rounded-full">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold">Secure Platform</h3>
+                        <p class="mt-1 text-white text-opacity-80">Your data is protected with industry-leading security protocols.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <div class="bg-white bg-opacity-20 p-3 rounded-full">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold">Global Visibility</h3>
+                        <p class="mt-1 text-white text-opacity-80">Showcase your products to a worldwide audience of buyers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column - Registration Form -->
+        <div class="w-full md:w-1/2 bg-white p-8 md:p-16 flex flex-col justify-center">
+            <h1 class="text-3xl font-extrabold text-blue-700 mb-8">Manufacturer Registration</h1>
+            
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div>
+                        <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                        {{ form.last_name }}
+                    </div>
+                </div>
+
+                <div>
+                    <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    {{ form.email }}
+                </div>
+
+                <div>
+                    <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                    {{ form.phone_number }}
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="{{ form.company_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+                        {{ form.company_name }}
+                    </div>
+                    <div>
+                        <label for="{{ form.business_type.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Business Type</label>
+                        {{ form.business_type }}
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="{{ form.city.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">City</label>
+                        {{ form.city }}
+                    </div>
+                    <div>
+                        <label for="{{ form.state.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">State</label>
+                        {{ form.state }}
+                    </div>
+                </div>
+
+                <div>
+                    <label for="{{ form.website.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Website (Optional)</label>
+                    {{ form.website }}
+                </div>
+
+                <div>
+                    <label for="{{ form.key_products.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Key Products</label>
+                    {{ form.key_products }}
+                </div>
+
+                <div>
+                    <button type="submit" class="w-full bg-blue-500 text-white py-3 px-4 rounded-lg hover:bg-blue-600 transition text-lg">
+                        Register
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-lg font-bold mb-2">Quick Links</h3>
+                <ul class="space-y-1">
+                    <li><a href="#" class="hover:text-blue-400">Home</a></li>
+                    <li><a href="#" class="hover:text-blue-400">About Us</a></li>
+                    <li><a href="#" class="hover:text-blue-400">Services</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-2">Support</h3>
+                <ul class="space-y-1">
+                    <li><a href="#" class="hover:text-blue-400">Help Center</a></li>
+                    <li><a href="#" class="hover:text-blue-400">Contact Support</a></li>
+                    <li><a href="#" class="hover:text-blue-400">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-2">Connect With Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-blue-400 hover:text-blue-600">Twitter</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-600">LinkedIn</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-600">Facebook</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4 text-sm text-gray-400">
+            © 2025 Supply Chain Portal. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideMenu = mobileNav.contains(event.target);
+            const isClickOnToggle = mobileMenuToggle.contains(event.target);
+            
+            if (!isClickInsideMenu && !isClickOnToggle) {
+                mobileNav.classList.remove('active');
+            }
+        });
+
+        // Form input styling
+        document.addEventListener('DOMContentLoaded', function() {
+            const formInputs = document.querySelectorAll('input, textarea, select');
+            formInputs.forEach(input => {
+                input.classList.add('w-full', 'px-3', 'py-2', 'border', 'border-gray-300', 'rounded-md', 'form-input');
+            });
+            
+            // Style form paragraphs for better appearance
+            const formParagraphs = document.querySelectorAll('form p');
+            formParagraphs.forEach(p => {
+                p.classList.add('mb-4');
+                const label = p.querySelector('label');
+                if (label) {
+                    label.classList.add('block', 'text-sm', 'font-medium', 'text-gray-700', 'mb-2');
+                }
+            });
+            
+            // Remove username and password fields if they exist
+            const usernameField = document.querySelector('[id*="username"]');
+            if (usernameField) {
+                const usernameContainer = usernameField.closest('div, p');
+                if (usernameContainer) usernameContainer.remove();
+            }
+            
+            const passwordFields = document.querySelectorAll('[id*="password"]');
+            passwordFields.forEach(field => {
+                const passwordContainer = field.closest('div, p');
+                if (passwordContainer) passwordContainer.remove();
+            });
+        });
+    </script>
+</body>
+</html>

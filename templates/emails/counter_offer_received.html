@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Counter Offer Received</title>
+</head>
+<body>
+    <h2>Counter Offer Received</h2>
+    <p>Dear {{ manufacturer.first_name }},</p>
+    <p>{{ supplier.company_name }} has submitted a counter offer for {{ quote.product }}:</p>
+    
+    <h3>Counter Offer Details</h3>
+    <ul>
+        <li>Price: {{ quote.currency }} {{ message.counter_amount }}</li>
+        <li>Delivery Time: {{ message.counter_delivery_time }} days</li>
+    </ul>
+    
+    {% if message.message %}
+    <p>Additional Comments:</p>
+    <blockquote>{{ message.message }}</blockquote>
+    {% endif %}
+    
+    <p>You can respond to this offer by visiting your negotiation page.</p>
+    <p>This negotiation will expire on {{ negotiation.expiry_date }}.</p>
+    
+    <p>Best regards,<br>Supply Chain Team</p>
+</body>
+</html>

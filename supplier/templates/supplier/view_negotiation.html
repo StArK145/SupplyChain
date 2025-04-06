@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Negotiation Details</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .message { margin-bottom: 20px; padding: 15px; border-radius: 5px; }
+        .manufacturer-message { background-color: #e3f2fd; }
+        .supplier-message { background-color: #e8f5e9; }
+        .counter-offer { border-left: 4px solid #ff9800; padding-left: 10px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { padding: 10px 15px; background: #007bff; color: white; border: none; }
+        .expiry-info { color: #f44336; font-weight: bold; }
+        .back-link { display: inline-block; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Negotiation for {{ bid.quote.product }}</h1>
+        <p>With {{ bid.quote.manufacturer.company_name }}</p>
+        <p>Original Bid: {{ bid.quote.currency }} {{ bid.bid_amount }}</p>
+        <p>Status: {{ negotiation.get_status_display }}</p>
+        
+        {% if negotiation.status == 'active' %}
+            {% if negotiation.expiry_date < now %}
+                <p class="expiry-info">This negotiation expired on {{ negotiation.expiry_date }}</p>
+            {% else %}
+                <p>Expires on: {{ negotiation.expiry_date }}</p>
+            {% endif %}
+        {% endif %}
+        
+        <h2>Negotiation History</h2>
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {% if message.sender == bid.supplier.user %}supplier-message{% else %}manufacturer-message{% endif %}">
+                    <p><strong>{{ message.sender.username }}</strong> - {{ message.created_at }}</p>
+                    {% if message.counter_amount %}
+                        <div class="counter-offer">
+                            <p><strong>Counter Offer:</strong></p>
+                            <p>Amount: {{ bid.quote.currency }} {{ message.counter_amount }}</p>
+                            <p>Delivery Time: {{ message.counter_delivery_time }} days</p>
+                        </div>
+                    {% endif %}
+                    <p>{{ message.message }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        
+        {% if negotiation.status == 'active' and negotiation.expiry_date > now %}
+            <h2>Submit Counter Offer</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_counter_amount">Your Counter Price ({{ bid.quote.currency }})</label>
+                    {{ form.counter_amount }}
+                </div>
+                <div class="form-group">
+                    <label for="id_counter_delivery_time">Counter Delivery Time (days)</label>
+                    {{ form.counter_delivery_time }}
+                </div>
+                <div class="form-group">
+                    <label for="id_message">Message (Optional)</label>
+                    {{ form.message }}
+                </div>
+                <button type="submit">Submit Counter Offer</button>
+            </form>
+        {% endif %}
+        
+        <a href="{% url 'supplier_negotiations' %}" class="back-link">Back to Negotiations</a>
+    </div>
+</body>
+</html>

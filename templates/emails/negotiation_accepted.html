@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Negotiation Accepted</title>
+</head>
+<body>
+    <h2>Negotiation Accepted</h2>
+    <p>Dear {{ supplier.first_name }},</p>
+    <p>{{ manufacturer.company_name }} has accepted the negotiated terms for {{ quote.product }}.</p>
+    <p>Final Agreement:</p>
+    <ul>
+        <li>Amount: {{ quote.currency }} {{ bid.bid_amount }}</li>
+        <li>Delivery Time: {{ bid.delivery_time }} days</li>
+    </ul>
+    <p>Please proceed with fulfilling the order according to the agreed terms.</p>
+    <p>Best regards,<br>Supply Chain Team</p>
+</body>
+</html>

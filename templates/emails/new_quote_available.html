@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Quote Available</title>
+</head>
+<body>
+    <h2>New Quote Available</h2>
+    <p>Dear {{ supplier.first_name }},</p>
+    <p>A new quote request matching your services has been posted by {{ manufacturer.company_name }}.</p>
+    <p>Details:</p>
+    <ul>
+        <li>Product: {{ quote.product }}</li>
+        <li>Quantity: {{ quote.quantity }} {{ quote.unit }}</li>
+        <li>Deadline: {{ quote.deadline }}</li>
+    </ul>
+    <p>You can submit your bid through your dashboard.</p>
+    <p>Best regards,<br>Supply Chain Team</p>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote History | Supply Chain Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', sans-serif;
+        }
+        .dashboard-card {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        .dashboard-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+        }
+        .action-link {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .action-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .action-link:hover::after {
+            width: 100%;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-open { background-color: #d1fae5; color: #047857; }
+        .status-closed { background-color: #f3f4f6; color: #6b7280; }
+        .status-awarded { background-color: #e0f2fe; color: #0369a1; }
+        .status-expired { background-color: #fee2e2; color: #b91c1c; }
+        .feedback-btn {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #ffc107;
+            color: #212529;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+        .feedback-complete {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #28a745;
+            color: white;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gray-50">
+    <!-- Navigation -->
+    <nav class="relative bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-blue-700">Supply Chain Portal</h1>
+                </div>
+                <div class="hidden md:flex space-x-6 nav-menu">
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Profile Section -->
+            <div class="md:col-span-1 space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold text-blue-600">
+                                {{ manufacturer.first_name.0 }}{{ manufacturer.last_name.0 }}
+                            </span>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-800">
+                                {{ manufacturer.company_name }}
+                            </h2>
+                            <p class="text-gray-500">{{ manufacturer.business_type }}</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 space-y-3">
+                        <a href="{% url 'manufacturer_profile' %}" class="block text-blue-600 hover:text-blue-800 action-link">
+                            View/Edit Profile
+                        </a>
+                        <a href="{% url 'logout' %}" class="block text-red-600 hover:text-red-800 action-link">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Actions Card -->
+                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Links</h3>
+                    <div class="space-y-2">
+                        <a href="{% url 'manufacturer_dashboard' %}" class="block text-blue-600 hover:text-blue-800 action-link">
+                            Back to Dashboard
+                        </a>
+                        <a href="{% url 'manufacturer_request_quote' %}" class="block text-green-600 hover:text-green-800 action-link">
+                            Request New Quote
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quote History Section -->
+            <div class="md:col-span-2 space-y-6">
+                <div class="bg-white p-8 rounded-xl shadow-lg dashboard-card">
+                    <h1 class="text-3xl font-extrabold text-blue-700 mb-4">
+                        Quote History for {{ manufacturer.company_name }}
+                    </h1>
+                    <p class="text-gray-600 mb-6">
+                        Track and manage your quote requests. Filter by status to find specific quotes.
+                    </p>
+                </div>
+
+                <!-- Filters -->
+                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
+                    <form method="get" class="flex items-center space-x-4">
+                        <label class="text-gray-700">Filter by status:</label>
+                        <select name="status" onchange="this.form.submit()" class="border rounded px-3 py-2">
+                            <option value="">All</option>
+                            <option value="open" {% if request.GET.status == 'open' %}selected{% endif %}>Open</option>
+                            <option value="closed" {% if request.GET.status == 'closed' %}selected{% endif %}>Closed</option>
+                            <option value="awarded" {% if request.GET.status == 'awarded' %}selected{% endif %}>Awarded</option>
+                            <option value="expired" {% if request.GET.status == 'expired' %}selected{% endif %}>Expired</option>
+                        </select>
+                    </form>
+                </div>
+
+                <!-- Quote List -->
+                <div class="space-y-4">
+                    {% for quote in quotes %}
+                    <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ quote.product }}</h3>
+                                <p class="text-gray-600 mb-4">{{ quote.description }}</p>
+                            </div>
+                            <span class="status-badge status-{{ quote.status }}">
+                                {{ quote.get_status_display }}
+                            </span>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4 mt-4 text-gray-700">
+                            <div>
+                                <p><strong>Category:</strong> {{ quote.get_category_display }}</p>
+                                <p><strong>Deadline:</strong> {{ quote.deadline }}</p>
+                                <p><strong>Quantity:</strong> {{ quote.quantity }} {{ quote.unit }}</p>
+                            </div>
+                            
+                        </div>
+
+                        {% if quote.status == 'awarded' and quote.accepted_bid %}
+                            <div class="mt-2">
+                                <p><strong>Supplier:</strong> {{ quote.accepted_bid.supplier.company_name }}
+                                {% if not quote.accepted_bid.feedback_given %}
+                                    <a href="{% url 'submit_review' quote.accepted_bid.id %}" class="feedback-btn">Submit Feedback</a>
+                                {% else %}
+                                    <span class="feedback-complete">Feedback Submitted</span>
+                                {% endif %}
+                                </p>
+                            </div>
+                        {% endif %}
+
+                        <div class="mt-4 flex space-x-4">
+                            <a href="#" class="toggle-price-btn text-blue-600 hover:text-blue-800 action-link" 
+                               data-commodity="{{ quote.product }}">
+                                Show Live Price
+                            </a>
+                            
+                            {% if quote.status == 'open' or quote.status == 'awarded' %}
+                            <a href="{% url 'view_quote_bids' quote.id %}" class="text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded">
+                                View Bids
+                            </a>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="price-display mt-2 p-2 bg-gray-50 rounded hidden" 
+                             style="display: none;"></div>
+                    </div>
+                    {% empty %}
+                    <div class="bg-white p-6 rounded-xl text-center text-gray-600">
+                        You have not submitted any quote requests yet.
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="mt-6">
+                    <a href="{% url 'manufacturer_dashboard' %}" class="text-blue-600 hover:text-blue-800 action-link">
+                        ← Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-blue-400">Home</a></li>
+                    <li><a href="#" class="hover:text-blue-400">About Us</a></li>
+                    <li><a href="#" class="hover:text-blue-400">Services</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Support</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-blue-400">Help Center</a></li>
+                    <li><a href="#" class="hover:text-blue-400">Contact Support</a></li>
+                    <li><a href="#" class="hover:text-blue-400">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-blue-400 hover:text-blue-600">Twitter</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-600">LinkedIn</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-600">Facebook</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-8 text-sm text-gray-400">
+            © 2024 Supply Chain Portal. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toggle-price-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const displayDiv = this.closest('.dashboard-card').querySelector('.price-display');
+                    const commodity = this.dataset.commodity;
+                    
+                    if (displayDiv.style.display === 'none' || displayDiv.style.display === '') {
+                        displayDiv.textContent = 'Loading price...';
+                        displayDiv.style.display = 'block';
+                        this.textContent = 'Hide Price';
+                        
+                        fetch(`/manufacturer/commodity-price/?commodity=${encodeURIComponent(commodity)}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.price) {
+                                    displayDiv.textContent = `Current Price: ${data.price}`;
+                                    displayDiv.classList.remove('hidden');
+                                } else if (data.error) {
+                                    displayDiv.textContent = `Error: ${data.error}`;
+                                    displayDiv.classList.remove('hidden');
+                                } else {
+                                    displayDiv.textContent = 'Price not available';
+                                    displayDiv.classList.remove('hidden');
+                                }
+                            })
+                            .catch(() => {
+                                displayDiv.textContent = 'Failed to fetch price';
+                                displayDiv.classList.remove('hidden');
+                            });
+                    } else {
+                        displayDiv.style.display = 'none';
+                        this.textContent = 'Show Live Price';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

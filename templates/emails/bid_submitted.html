@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bid Submitted Successfully</title>
+</head>
+<body>
+    <h2>Your Bid Has Been Submitted</h2>
+    <p>Dear {{ supplier.first_name }},</p>
+    <p>Your bid for <strong>{{ quote.product }}</strong> from {{ quote.manufacturer.company_name }} has been successfully submitted.</p>
+    <p>Bid Details:</p>
+    <ul>
+        <li>Amount: {{ quote.currency }} {{ bid.bid_amount }}</li>
+        <li>Delivery Time: {{ bid.delivery_time }} days</li>
+        <li>Comments: {{ bid.comments|default:"None" }}</li>
+    </ul>
+    <p>You will be notified when the manufacturer makes a decision on your bid.</p>
+    <p>Best regards,<br>Supply Chain Team</p>
+</body>
+</html>

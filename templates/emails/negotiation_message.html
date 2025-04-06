@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Negotiation Message</title>
+</head>
+<body>
+    <h2>New Message in Negotiation</h2>
+    <p>Dear {{ manufacturer.first_name }},</p>
+    <p>{{ supplier.company_name }} has sent a new message in the negotiation for {{ quote.product }}.</p>
+    <p>Message:</p>
+    <blockquote>{{ message.message }}</blockquote>
+    <p>You can respond by visiting your dashboard.</p>
+    <p>This negotiation will expire on {{ negotiation.expiry_date }}.</p>
+    <p>Best regards,<br>Supply Chain Team</p>
+</body>
+</html>

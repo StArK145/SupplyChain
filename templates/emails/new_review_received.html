@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Review Received</title>
+</head>
+<body>
+    <h2>New Review Received</h2>
+    <p>Dear {{ supplier.first_name }},</p>
+    <p>{{ manufacturer.company_name }} has left you a new review:</p>
+    
+    <h3>Review Details</h3>
+    <p><strong>Rating:</strong> {{ review.get_rating_display }} ({{ review.rating }}/5)</p>
+    {% if review.comment %}
+    <p><strong>Comment:</strong></p>
+    <blockquote>{{ review.comment }}</blockquote>
+    {% endif %}
+    
+    <p>For bid on: {{ bid.quote.product }}</p>
+    
+    <p>Thank you for using our platform.</p>
+    <p>Best regards,<br>Supply Chain Team</p>
+</body>
+</html>

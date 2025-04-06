@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bid Status Update</title>
+</head>
+<body>
+    <h2>Your Bid Status Has Been Updated</h2>
+    <p>Dear {{ supplier.first_name }},</p>
+    <p>Your bid for <strong>{{ quote.product }}</strong> has been <strong>{{ bid.get_status_display }}</strong> by {{ manufacturer.company_name }}.</p>
+    <p>Bid Details:</p>
+    <ul>
+        <li>Amount: {{ quote.currency }} {{ bid.bid_amount }}</li>
+        <li>Delivery Time: {{ bid.delivery_time }} days</li>
+        <li>Status: {{ bid.get_status_display }}</li>
+    </ul>
+    <p>Thank you for using our platform.</p>
+    <p>Best regards,<br>Supply Chain Team</p>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complete Profile</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, textarea, select { width: 100%; padding: 8px; }
+        button { padding: 10px 15px; background: #007bff; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Complete Your Company Profile</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Company Logo (URL):</label>
+                <input type="url" name="logo_url">
+            </div>
+            <div class="form-group">
+                <label>Detailed Description:</label>
+                <textarea name="description" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Certifications:</label>
+                <input type="text" name="certifications">
+            </div>
+            <button type="submit">Save Profile</button>
+        </form>
+        <a href="{% url 'manufacturer_dashboard' %}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

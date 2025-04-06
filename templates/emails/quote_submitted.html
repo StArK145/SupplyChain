@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quote Submitted</title>
+</head>
+<body>
+    <h2>Your Quote Has Been Submitted</h2>
+    <p>Dear {{ manufacturer.first_name }},</p>
+    <p>Your quote request for <strong>{{ quote.product }}</strong> has been successfully submitted.</p>
+    <p>Details:</p>
+    <ul>
+        <li>Quantity: {{ quote.quantity }} {{ quote.unit }}</li>
+        <li>Deadline: {{ quote.deadline }}</li>
+        <li>Status: {{ quote.get_status_display }}</li>
+    </ul>
+    <p>You will be notified when suppliers submit bids.</p>
+    <p>Best regards,<br>Supply Chain Team</p>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Review</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', sans-serif;
+        }
+        .dashboard-card {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        .dashboard-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+        }
+        .action-link {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .action-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .action-link:hover::after {
+            width: 100%;
+        }
+        .rating-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .star-rating-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem 0;
+        }
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .star-rating input {
+            display: none;
+        }
+        .star-rating label {
+            font-size: 2.5rem;
+            color: #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label {
+            color: #fbbf24;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+        .rating-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 0;
+        }
+        .rating-btn {
+            position: relative;
+            overflow: hidden;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 2rem;
+            font-weight: 500;
+            color: #1f2937;
+            background-color: #f3f4f6;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            z-index: 1;
+        }
+        .rating-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        .rating-btn:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+        .rating-btn:hover::before {
+            width: 100%;
+        }
+        .rating-btn.selected {
+            color: white;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        .rating-descriptor {
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #3b82f6;
+            height: 2rem;
+            transition: all 0.3s ease;
+        }
+        .comment-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            font-size: 1rem;
+            min-height: 12rem;
+            transition: all 0.3s ease;
+            resize: vertical;
+            outline: none;
+            display: block;
+        }
+        .comment-textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+        .rating-star {
+            color: #f59e0b;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .rating-star:hover {
+            transform: scale(1.2);
+        }
+        .submit-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .back-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            color: #2563eb;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gray-50">
+    <!-- Navigation -->
+    <nav class="relative bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-blue-700">Supply Chain Portal</h1>
+                </div>
+                <div class="hidden md:flex space-x-6 nav-menu">
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="bg-white p-8 rounded-xl shadow-lg dashboard-card mb-6">
+            <h1 class="text-3xl font-extrabold text-blue-700">Review Supplier: {{ supplier.company_name }}</h1>
+            <p class="text-gray-600 mt-2">For bid on: {{ bid.quote.product }}</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-lg dashboard-card">
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label class="block text-lg font-semibold text-gray-800 mb-3">Rating</label>
+                    
+                    <div class="rating-container">
+                        <!-- Star rating visualization -->
+                        <div class="star-rating-container">
+                            <div class="star-rating">
+                                {% for value, label in form.rating.field.choices reversed %}
+                                <input type="radio" id="star_{{ value }}" name="rating" value="{{ value }}" 
+                                       {% if form.rating.value == value %}checked{% endif %}>
+                                <label for="star_{{ value }}" class="fas fa-star"></label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <!-- Rating descriptor text -->
+                        <div class="rating-descriptor" id="ratingDescription">Select your rating</div>
+                        
+                        <!-- Button-style rating selector -->
+                        <div class="rating-buttons">
+                            {% for value, label in form.rating.field.choices %}
+                            <button type="button" class="rating-btn {% if form.rating.value == value %}selected{% endif %}" 
+                                    data-value="{{ value }}" data-label="{{ label }}" 
+                                    onclick="selectRating('{{ value }}', '{{ label|escapejs }}')">
+                                {{ label }}
+                            </button>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- Hidden actual form input -->
+                        {% for value, label in form.rating.field.choices %}
+                        <input type="radio" id="rating_{{ value }}" name="rating" value="{{ value }}" 
+                               style="display: none;" {% if form.rating.value == value %}checked{% endif %}>
+                        {% endfor %}
+                    </div>
+                    
+                    {% if form.rating.errors %}
+                        <p class="text-red-600 text-sm">{{ form.rating.errors }}</p>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label class="block text-lg font-semibold text-gray-800 mb-3">Comments (Optional)</label>
+                    <textarea name="comment" class="comment-textarea" placeholder="Please share your experience with this supplier...">{{ form.comment.value|default:'' }}</textarea>
+                    {% if form.comment.errors %}
+                        <p class="text-red-600 text-sm">{{ form.comment.errors }}</p>
+                    {% endif %}
+                </div>
+                
+                <div class="flex items-center justify-between mt-8">
+                    <a href="{% url 'manufacturer_dashboard' %}" class="back-link">← Back to Dashboard</a>
+                    <button type="submit" class="submit-btn">Submit Review</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-8">
+        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-blue-400">Home</a></li>
+                    <li><a href="#" class="hover:text-blue-400">About Us</a></li>
+                    <li><a href="#" class="hover:text-blue-400">Services</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Support</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-blue-400">Help Center</a></li>
+                    <li><a href="#" class="hover:text-blue-400">Contact Support</a></li>
+                    <li><a href="#" class="hover:text-blue-400">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-blue-400 hover:text-blue-600">Twitter</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-600">LinkedIn</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-600">Facebook</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-8 text-sm text-gray-400">
+            © 2025 Supply Chain Portal. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        function selectRating(value, label) {
+            // Update the hidden radio buttons
+            console.log("Selected:", value, label);  // Debug
+            document.getElementById('rating_' + value).checked = true;
+            document.getElementById('star_' + value).checked = true;
+            
+            // Update button styles
+            const buttons = document.querySelectorAll('.rating-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('selected');
+                if (btn.getAttribute('data-value') == value) {
+                    btn.classList.add('selected');
+                }
+            });
+            
+            // Update descriptor text
+            document.getElementById('ratingDescription').textContent = label;
+        }
+        
+        // Initialize with selected rating if exists
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectedBtn = document.querySelector('.rating-btn.selected');
+            if (selectedBtn) {
+                const value = selectedBtn.getAttribute('data-value');
+                const label = selectedBtn.getAttribute('data-label');
+                document.getElementById('ratingDescription').textContent = label;
+            }
+        });
+    </script>
+</body>
+</html>

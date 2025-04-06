@@ -1,0 +1,45 @@
+<!-- supplier/templates/supplier/manufacturer_profile.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ manufacturer.company_name }} Profile</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .profile-container { max-width: 800px; margin: 0 auto; }
+        .profile-header { margin-bottom: 30px; }
+        .profile-info { margin-bottom: 20px; }
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>{{ manufacturer.company_name }}</h1>
+            <p>{{ manufacturer.first_name }} {{ manufacturer.last_name }}</p>
+            <a href="{% url 'submit_bid' quote_id %}" class="back-btn">Back to Quote</a>
+        </div>
+        
+        <div class="profile-info">
+            <h2>Company Information</h2>
+            <p><strong>Location:</strong> {{ manufacturer.city }}, {{ manufacturer.state }}</p>
+            <p><strong>Business Type:</strong> {{ manufacturer.business_type }}</p>
+            <p><strong>Phone:</strong> {{ manufacturer.phone_number }}</p>
+            {% if manufacturer.website %}
+                <p><strong>Website:</strong> <a href="{{ manufacturer.website }}" target="_blank">{{ manufacturer.website }}</a></p>
+            {% endif %}
+        </div>
+        
+        <div class="profile-info">
+            <h2>Key Products</h2>
+            <p>{{ manufacturer.key_products }}</p>
+        </div>
+    </div>
+</body>
+</html>

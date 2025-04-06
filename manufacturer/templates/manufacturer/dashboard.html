@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufacturer Dashboard | Supply Chain Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', sans-serif;
+        }
+        .dashboard-card {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        .dashboard-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+        }
+        .action-link {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .action-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .action-link:hover::after {
+            width: 100%;
+        }
+        .animate-pulse-slow {
+            animation: pulse 3s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        /* Improved responsiveness */
+        @media (max-width: 640px) {
+            .action-cards {
+                grid-template-columns: 1fr;
+            }
+            .profile-section {
+                order: 2;
+            }
+            .actions-section {
+                order: 1;
+            }
+        }
+        /* Mobile menu improvements */
+        .mobile-menu-button {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-button {
+                display: block;
+            }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 1rem;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                flex-direction: column;
+                z-index: 50;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gray-50">
+    <!-- Navigation -->
+    <nav class="relative bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-blue-700">Supply Chain Portal</h1>
+                </div>
+                <button id="mobile-menu-toggle" class="mobile-menu-button p-2 rounded-md text-gray-600 hover:text-blue-600 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <div id="mobile-nav" class="nav-menu hidden md:flex space-x-6">
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="grid md:grid-cols-3 gap-6 flex-wrap-reverse">
+            <!-- Profile Section -->
+            <div class="md:col-span-1 space-y-6 profile-section">
+                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold text-blue-600">
+                                {{ manufacturer.first_name.0 }}{{ manufacturer.last_name.0 }}
+                            </span>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-800">
+                                {{ manufacturer.first_name }} {{ manufacturer.last_name }}
+                            </h2>
+                            <p class="text-gray-500">{{ manufacturer.business_type }}</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 space-y-3">
+                        <a href="{% url 'manufacturer_profile' %}" class="block text-blue-600 hover:text-blue-800 action-link">
+                            View/Edit Profile
+                        </a>
+                        <a href="{% url 'logout' %}" class="block text-red-600 hover:text-red-800 action-link">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Company Info Card -->
+                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Company Details</h3>
+                    <div class="space-y-2 text-gray-600">
+                        <p><strong>Location:</strong> {{ manufacturer.city }}, {{ manufacturer.state }}</p>
+                        <p><strong>Business Type:</strong> {{ manufacturer.business_type }}</p>
+                        <p><strong>Key Products:</strong> {{ manufacturer.key_products }}</p>
+                        <p><strong>Phone:</strong> {{ manufacturer.phone_number }}</p>
+                        {% if manufacturer.website %}
+                        <p>
+                            <strong>Website:</strong>
+                            <a href="{{ manufacturer.website }}" target="_blank" class="text-blue-600 hover:underline">
+                                {{ manufacturer.website }}
+                            </a>
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions and Welcome Section -->
+            <div class="md:col-span-2 space-y-6 actions-section">
+                <div class="bg-white p-8 rounded-xl shadow-lg dashboard-card animate-pulse-slow">
+                    <h1 class="text-3xl font-extrabold text-blue-700 mb-4">
+                        Welcome, {{ manufacturer.company_name }}
+                    </h1>
+                    <p class="text-gray-600 mb-6">
+                        Thank you for registering with us. Your gateway to streamlined supply chain management starts here.
+                    </p>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
+                    <h2 class="text-2xl font-semibold text-blue-700 mb-6">Quick Actions</h2>
+                    <div class="grid sm:grid-cols-2 gap-4 action-cards">
+                        <a href="{% url 'manufacturer_request_quote' %}" 
+                           class="bg-blue-50 p-4 rounded-lg hover:bg-blue-100 transition flex items-center space-x-4 action-link">
+                            <div class="bg-blue-100 p-3 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <span class="text-blue-800">Post a request for quotation</span>
+                        </a>
+                        <a href="{% url 'manufacturer_quote_history' %}" 
+                           class="bg-green-50 p-4 rounded-lg hover:bg-green-100 transition flex items-center space-x-4 action-link">
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <span class="text-green-800">View your quote history</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Other Options
+                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Additional Options</h2>
+                    <div class="space-y-3">
+                        <a href="{% url 'manufacturer_list_products' %}" class="block text-blue-600 hover:text-blue-800 action-link">
+                            List your products (requires paid membership)
+                        </a>
+                        <a href="{% url 'manufacturer_complete_profile' %}" class="block text-blue-600 hover:text-blue-800 action-link">
+                            Complete your company profile
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-blue-400">Home</a></li>
+                    <li><a href="#" class="hover:text-blue-400">About Us</a></li>
+                    <li><a href="#" class="hover:text-blue-400">Services</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Support</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-blue-400">Help Center</a></li>
+                    <li><a href="#" class="hover:text-blue-400">Contact Support</a></li>
+                    <li><a href="#" class="hover:text-blue-400">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-blue-400 hover:text-blue-600">Twitter</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-600">LinkedIn</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-600">Facebook</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-8 text-sm text-gray-400">
+            © 2024 Supply Chain Portal. All Rights Reserved.
+        </div>
+    </footer>
+    <script>
+      // Mobile menu toggle
+      const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+
+      if (mobileMenuToggle && mobileNav) {
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideMenu = mobileNav.contains(event.target);
+            const isClickOnToggle = mobileMenuToggle.contains(event.target);
+            
+            if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
+                mobileNav.classList.remove('active');
+            }
+        });
+      }
+  </script>
+</body>
+</html>

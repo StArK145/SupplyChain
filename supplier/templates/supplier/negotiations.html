@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Negotiations</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .negotiation-card { 
+            border: 1px solid #ddd; 
+            padding: 15px; 
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .status-active { color: #28a745; font-weight: bold; }
+        .status-expired { color: #dc3545; }
+        .status-accepted { color: #17a2b8; }
+        .status-rejected { color: #6c757d; }
+        .view-btn {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+        .expiry-warning { color: #ff9800; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Negotiations</h1>
+        
+        {% if negotiations %}
+            {% for negotiation in negotiations %}
+                <div class="negotiation-card">
+                    <h3>
+                        {{ negotiation.bid.quote.product }} - 
+                        {{ negotiation.bid.quote.manufacturer.company_name }}
+                    </h3>
+                    <p>Original Bid: {{ negotiation.bid.quote.currency }} {{ negotiation.bid.bid_amount }}</p>
+                    <p>Status: <span class="status-{{ negotiation.status }}">{{ negotiation.get_status_display }}</span></p>
+                    <p>Last Updated: {{ negotiation.updated_at }}</p>
+                    
+                    {% if negotiation.status == 'active' %}
+                        {% if negotiation.expiry_date < now %}
+                            <p class="expiry-warning">Negotiation expired on {{ negotiation.expiry_date }}</p>
+                        {% else %}
+                            <p>Expires on: {{ negotiation.expiry_date }}</p>
+                        {% endif %}
+                    {% endif %}
+                    
+                    <a href="{% url 'supplier_view_negotiation' negotiation.id %}" class="view-btn">View Details</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>You have no active negotiations.</p>
+        {% endif %}
+        
+        <a href="{% url 'supplier_dashboard' %}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

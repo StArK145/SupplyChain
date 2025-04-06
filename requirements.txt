@@ -1,0 +1,5 @@
+phidata==2.7.10
+google-generativeai==0.8.4
+tavily-python==0.5.1
+Django==5.1.7
+gunicorn==20.1.0

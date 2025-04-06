@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List Products</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; text-align: center; }
+        .upgrade-box { 
+            border: 1px solid #ddd; 
+            padding: 20px; 
+            margin-top: 30px;
+            background: #f9f9f9;
+        }
+        .upgrade-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>List Your Products</h1>
+        <div class="upgrade-box">
+            <h3>Premium Membership Required</h3>
+            <p>To list your products, you need to upgrade to a paid membership.</p>
+            <a href="#" class="upgrade-btn">Upgrade Now</a>
+        </div>
+        <a href="{% url 'manufacturer_dashboard' %}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

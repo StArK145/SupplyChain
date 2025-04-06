@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Profile | Supply Chain Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', sans-serif;
+        }
+        .dashboard-card {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        .dashboard-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+        }
+        .action-link {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .action-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #10b981;
+            transition: width 0.3s ease;
+        }
+        .action-link:hover::after {
+            width: 100%;
+        }
+        .wallet-address {
+            font-family: monospace;
+            font-size: 0.9em;
+            background-color: #f0f0f0;
+            padding: 8px;
+            border-radius: 4px;
+            word-break: break-all;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        .copy-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 0.8em;
+        }
+        .copy-btn:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gray-50">
+    <!-- Navigation -->
+    <nav class="relative bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-green-700">Supply Chain Portal</h1>
+                </div>
+                <div class="hidden md:flex space-x-6 nav-menu">
+                    <a href="#" class="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="#" class="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="#" class="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Profile Section -->
+            <div class="md:col-span-1 space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold text-green-600">
+                                {{ supplier.company_name.0 }}
+                            </span>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-800">
+                                {{ supplier.company_name }}
+                            </h2>
+                            <p class="text-gray-500">Supplier Profile</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 space-y-3">
+                        <a href="{% url 'supplier_edit_profile' %}" class="block text-green-600 hover:text-green-800 action-link">
+                            Edit Profile
+                        </a>
+                        <a href="{% url 'supplier_dashboard' %}" class="block text-blue-600 hover:text-blue-800 action-link">
+                            Back to Dashboard
+                        </a>
+                        <a href="{% url 'logout' %}" class="block text-red-600 hover:text-red-800 action-link">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Details Section -->
+            <div class="md:col-span-2 space-y-6">
+                <div class="bg-white p-8 rounded-xl shadow-lg dashboard-card">
+                    <h1 class="text-3xl font-extrabold text-green-700 mb-4">
+                        Profile Details
+                    </h1>
+                    <p class="text-gray-600 mb-6">
+                        Review and manage your company information and key details.
+                    </p>
+                </div>
+
+                <!-- Company Information Card -->
+                <!-- Company Information Card -->
+<div class="bg-white p-8 rounded-2xl shadow-md border border-gray-100">
+  <div class="flex items-center mb-6">
+      <div class="bg-green-100 p-3 rounded-lg mr-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+      </div>
+      <h2 class="text-2xl font-bold text-gray-800">Company Information</h2>
+  </div>
+  
+  <div class="space-y-5">
+      <div class="flex items-start">
+          <div class="w-1/3">
+              <p class="text-gray-500 font-medium">Full Name:</p>
+          </div>
+          <div class="w-2/3">
+              <p class="text-gray-800 font-semibold">{{ supplier.first_name }} {{ supplier.last_name }}</p>
+          </div>
+      </div>
+      
+      <div class="flex items-start">
+          <div class="w-1/3">
+              <p class="text-gray-500 font-medium">Company Name:</p>
+          </div>
+          <div class="w-2/3">
+              <p class="text-gray-800 font-semibold">{{ supplier.company_name }}</p>
+          </div>
+      </div>
+      
+      <div class="flex items-start">
+          <div class="w-1/3">
+              <p class="text-gray-500 font-medium">Location:</p>
+          </div>
+          <div class="w-2/3">
+              <p class="text-gray-800 font-semibold">{{ supplier.city }}, {{ supplier.state }}</p>
+          </div>
+      </div>
+      
+      <div class="flex items-start">
+          <div class="w-1/3">
+              <p class="text-gray-500 font-medium">Business Type:</p>
+          </div>
+          <div class="w-2/3">
+              <p class="text-gray-800 font-semibold">{{ supplier.business_type }}</p>
+          </div>
+      </div>
+      
+      <div class="flex items-start">
+          <div class="w-1/3">
+              <p class="text-gray-500 font-medium">Phone Number:</p>
+          </div>
+          <div class="w-2/3">
+              <p class="text-gray-800 font-semibold">{{ supplier.phone_number }}</p>
+          </div>
+      </div>
+      
+      {% if supplier.website %}
+      <div class="flex items-start">
+          <div class="w-1/3">
+              <p class="text-gray-500 font-medium">Website:</p>
+          </div>
+          <div class="w-2/3">
+              <a href="{{ supplier.website }}" target="_blank" class="text-green-600 hover:text-green-800 font-medium hover:underline flex items-center">
+                  {{ supplier.website }}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+              </a>
+          </div>
+      </div>
+      {% endif %}
+  </div>
+  
+  <div class="mt-8 pt-6 border-t border-gray-100 flex justify-end">
+      <button class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition duration-200">
+          Edit Information
+      </button>
+  </div>
+</div>
+                <!-- Payment Information Card -->
+                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
+                    <h2 class="text-2xl font-semibold text-green-700 mb-6">Payment Information</h2>
+                    {% if supplier.wallet_address %}
+                    <div>
+                        <p class="text-gray-600 mb-2"><strong>Ethereum Wallet Address:</strong></p>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <span id="wallet-address" class="wallet-address">{{ supplier.wallet_address }}</span>
+                            <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">This is the address where you'll receive payments</p>
+                    </div>
+                    {% else %}
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <p class="text-gray-800">No wallet address registered</p>
+                        <a href="{% url 'supplier_edit_profile' %}" class="text-green-600 hover:text-green-800 mt-2 inline-block">
+                            Add Wallet Address
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Key Products Card -->
+                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
+                    <h2 class="text-2xl font-semibold text-green-700 mb-6">Key Products & Services</h2>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <p class="text-gray-800">{{ supplier.key_services }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-green-400">Home</a></li>
+                    <li><a href="#" class="hover:text-green-400">About Us</a></li>
+                    <li><a href="#" class="hover:text-green-400">Services</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Support</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-green-400">Help Center</a></li>
+                    <li><a href="#" class="hover:text-green-400">Contact Support</a></li>
+                    <li><a href="#" class="hover:text-green-400">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-green-400 hover:text-green-600">Twitter</a>
+                    <a href="#" class="text-green-400 hover:text-green-600">LinkedIn</a>
+                    <a href="#" class="text-green-400 hover:text-green-600">Facebook</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-8 text-sm text-gray-400">
+            © 2024 Supply Chain Portal. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+      function copyToClipboard() {
+        const walletAddress = document.getElementById("wallet-address").textContent;
+        navigator.clipboard
+          .writeText(walletAddress)
+          .then(() => {
+            alert("Wallet address copied to clipboard!");
+          })
+          .catch((err) => {
+            console.error("Failed to copy: ", err);
+          });
+      }
+    </script>
+</body>
+</html>
