@@ -2631,3 +2631,6 @@ django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '
 2025-04-06 13:36:30,997 - DEBUG - https://nominatim.openstreetmap.org:443 "GET /search?q=Mumbai%2C+Maharashtra&format=json&limit=1 HTTP/11" 200 441
 2025-04-06 13:36:30,998 - DEBUG - Starting new HTTPS connection (1): api.openrouteservice.org:443
 2025-04-06 13:36:31,692 - DEBUG - https://api.openrouteservice.org:443 "POST /v2/directions/driving-car HTTP/11" 200 None
+2025-04-06 21:16:14,914 - WARNING - Not Found: /favicon.ico
+2025-04-06 21:16:14,969 - WARNING - Not Found: /favicon.ico
+2025-04-06 21:16:18,103 - WARNING - Not Found: /api/placeholder/300/300
