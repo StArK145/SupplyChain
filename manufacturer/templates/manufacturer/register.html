@@ -372,6 +372,19 @@
         </form>
       </div>
 
+      {% if form.errors %}
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          {% for field in form %}
+              {% for error in field.errors %}
+                  <p>{{ error }}</p>
+              {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+              <p>{{ error }}</p>
+          {% endfor %}
+      </div>
+      {% endif %}
+
       <!-- Additional Features Card -->
       <div class="bg-gray-50 rounded-xl shadow-lg p-8 mt-8 card-hover">
         <h2 class="text-2xl font-bold text-blue-700 mb-6">
