@@ -3,38 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ supplier.company_name }} Profile</title>
+    <title>{{ supplier.company_name }} Profile | Supply Chain Portal</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb;
         }
         .dashboard-card {
-            transition: all 0.3s ease;
-            transform-origin: center;
+            transition: all 0.2s ease;
         }
         .dashboard-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
-        }
-        .action-link {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .action-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #3b82f6;
-            transition: width 0.3s ease;
-        }
-        .action-link:hover::after {
-            width: 100%;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
         .stars {
             color: #ffc107;
@@ -47,157 +29,209 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 15px rgba(0,0,0,0.1);
         }
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                z-index: 50;
+            }
+            .nav-menu.active {
+                display: block;
+            }
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col bg-gray-50">
+<body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="relative bg-white shadow-md">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-blue-700">Supply Chain Portal</h1>
+                <!-- Logo and Brand -->
+                <div class="flex items-center space-x-2">
+                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                        <i class="fas fa-link text-lg"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
                 </div>
-                <div class="hidden md:flex space-x-6 nav-menu">
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 nav-menu">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Hamburger Menu -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-nav" class="md:hidden nav-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-4 py-8">
-        <div class="grid md:grid-cols-3 gap-6">
-            <!-- Profile Section -->
-            <div class="md:col-span-1 space-y-6">
-                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span class="text-2xl font-bold text-blue-600">
-                                {{ supplier.company_name.0 }}
-                            </span>
+    <main class="flex-grow py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Left Column - Profile Information -->
+                <div class="md:col-span-1 space-y-8">
+                    <!-- Profile Card -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 dashboard-card">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center">
+                                <span class="text-2xl font-bold text-blue-600">
+                                    {{ supplier.company_name.0 }}
+                                </span>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-semibold text-gray-800">
+                                    {{ supplier.company_name }}
+                                </h2>
+                                <p class="text-gray-500">{{ supplier.first_name }} {{ supplier.last_name }}</p>
+                            </div>
                         </div>
-                        <div>
-                            <h2 class="text-xl font-semibold text-gray-800">
-                                {{ supplier.company_name }}
-                            </h2>
-                            <p class="text-gray-500">{{ supplier.first_name }} {{ supplier.last_name }}</p>
+                        
+                        <div class="border-t border-gray-100 pt-4 mt-4">
+                            <a href="{% url 'view_quote_bids' quote_id %}" class="block py-2 text-blue-600 hover:text-blue-700 font-medium">
+                                <i class="fas fa-arrow-left mr-2"></i> Back to Bids
+                            </a>
                         </div>
                     </div>
-                    <div class="mt-6 space-y-3">
-                        <a href="{% url 'view_quote_bids' quote_id %}" class="block text-blue-600 hover:text-blue-800 action-link">
-                            Back to Bids
-                        </a>
-                    </div>
-                </div>
 
-                <!-- Contact Information Card -->
-                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Contact Details</h3>
-                    <div class="space-y-3 text-sm">
-                        <p><strong class="text-gray-600">Location:</strong> {{ supplier.city }}, {{ supplier.state }}</p>
-                        <p><strong class="text-gray-600">Business Type:</strong> {{ supplier.business_type }}</p>
-                        <p><strong class="text-gray-600">Phone:</strong> {{ supplier.phone_number }}</p>
-                        {% if supplier.website %}
+                    <!-- Company Details Card -->
+                    <div class="bg-white rounded-xl shadow-md p-8 dashboard-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-6">Contact Details</h3>
+                        <div class="space-y-4 text-gray-600">
+                            <p><strong>Location:</strong> {{ supplier.city }}, {{ supplier.state }}</p>
+                            <p><strong>Business Type:</strong> {{ supplier.business_type }}</p>
+                            <p><strong>Phone:</strong> {{ supplier.phone_number }}</p>
+                            {% if supplier.website %}
                             <p>
-                                <strong class="text-gray-600">Website:</strong> 
+                                <strong>Website:</strong>
                                 <a href="{{ supplier.website }}" target="_blank" class="text-blue-600 hover:text-blue-800">
                                     {{ supplier.website }}
                                 </a>
                             </p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-
-            <!-- Supplier Details Section -->
-            <div class="md:col-span-2 space-y-6">
-                <div class="bg-white p-8 rounded-xl shadow-lg dashboard-card">
-                    <h1 class="text-3xl font-extrabold text-blue-700 mb-4">
-                        {{ supplier.company_name }}
-                    </h1>
-                    <p class="text-gray-600 mb-6">
-                        Detailed profile of the supplier, providing insights into their capabilities and key offerings.
-                    </p>
-                </div>
-
-                <!-- Key Services -->
-                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
-                    <h2 class="text-2xl font-semibold text-blue-700 mb-6">Key Services</h2>
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <p class="text-gray-700">
-                            {{ supplier.key_services }}
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Customer Reviews Section -->
-                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
-                    <h2 class="text-2xl font-semibold text-blue-700 mb-6">Customer Reviews</h2>
-                    
-                    {% if average_rating %}
-                        <div class="bg-blue-50 p-4 rounded-lg mb-6">
-                            <div class="flex items-center">
-                                <div class="text-lg font-medium text-gray-800 mr-3">Average Rating:</div>
-                                <div class="stars">
-                                    {% for i in "12345" %}
-                                        {% if forloop.counter <= average_rating|floatformat:0 %}
-                                            ★
-                                        {% else %}
-                                            ☆
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <div class="ml-3 text-gray-600">({{ average_rating|floatformat:1 }} from {{ review_count }} reviews)</div>
-                            </div>
+                            {% endif %}
                         </div>
-                    {% else %}
-                        <p class="text-gray-600 italic">No reviews yet</p>
-                    {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Right Column - Supplier Details -->
+                <div class="md:col-span-2 space-y-8">
+                    <!-- Supplier Header -->
+                    <div class="bg-white rounded-xl shadow-md p-8 dashboard-card">
+                        <h1 class="text-3xl font-bold text-blue-700 mb-2">{{ supplier.company_name }}</h1>
+                        <p class="text-lg text-gray-600">Detailed profile of the supplier, providing insights into their capabilities and key offerings.</p>
+                    </div>
                     
-                    <div class="space-y-4">
-                        {% for review in reviews %}
-                            <div class="border border-gray-200 rounded-lg p-4 shadow-sm review-card">
-                                <div class="flex justify-between items-start">
-                                    <h3 class="font-semibold text-gray-800">{{ review.manufacturer.company_name }}</h3>
-                                    <p class="text-sm text-gray-500">{{ review.created_at|date:"F j, Y" }}</p>
-                                </div>
-                                <div class="mt-2">
-                                    <span class="stars">
+                    <!-- Key Services -->
+                    <div class="bg-white rounded-xl shadow-md p-8 dashboard-card">
+                        <h2 class="text-2xl font-semibold text-blue-700 mb-6">Key Services</h2>
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <p class="text-gray-700">
+                                {{ supplier.key_services }}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Customer Reviews Section -->
+                    <div class="bg-white rounded-xl shadow-md p-8 dashboard-card">
+                        <h2 class="text-2xl font-semibold text-blue-700 mb-6">Customer Reviews</h2>
+                        
+                        {% if average_rating %}
+                            <div class="bg-blue-50 p-6 rounded-lg mb-6">
+                                <div class="flex items-center">
+                                    <div class="text-lg font-medium text-gray-800 mr-3">Average Rating:</div>
+                                    <div class="stars">
                                         {% for i in "12345" %}
-                                            {% if forloop.counter <= review.rating %}
+                                            {% if forloop.counter <= average_rating|floatformat:0 %}
                                                 ★
                                             {% else %}
                                                 ☆
                                             {% endif %}
                                         {% endfor %}
-                                    </span>
-                                    <span class="text-gray-600 ml-2">({{ review.get_rating_display }})</span>
+                                    </div>
+                                    <div class="ml-3 text-gray-600">({{ average_rating|floatformat:1 }} from {{ review_count }} reviews)</div>
                                 </div>
-                                {% if review.comment %}
-                                    <p class="mt-3 text-gray-700">{{ review.comment }}</p>
-                                {% endif %}
                             </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                
-                <!-- Additional Information (if any) -->
-                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
-                    <h2 class="text-2xl font-semibold text-blue-700 mb-6">Company Overview</h2>
-                    <div class="space-y-4 text-gray-600">
-                        <div>
-                            <h3 class="font-semibold text-blue-800 mb-2">Business Profile</h3>
-                            <p>{{ supplier.business_description|default:"No additional description available." }}</p>
-                        </div>
-                        {% if supplier.certifications %}
-                        <div>
-                            <h3 class="font-semibold text-blue-800 mb-2">Certifications</h3>
-                            <p>{{ supplier.certifications }}</p>
-                        </div>
+                        {% else %}
+                            <p class="text-gray-600 italic">No reviews yet</p>
                         {% endif %}
+                        
+                        <div class="space-y-4">
+                            {% for review in reviews %}
+                                <div class="border border-gray-200 rounded-lg p-4 shadow-sm review-card">
+                                    <div class="flex justify-between items-start">
+                                        <h3 class="font-semibold text-gray-800">{{ review.manufacturer.company_name }}</h3>
+                                        <p class="text-sm text-gray-500">{{ review.created_at|date:"F j, Y" }}</p>
+                                    </div>
+                                    <div class="mt-2">
+                                        <span class="stars">
+                                            {% for i in "12345" %}
+                                                {% if forloop.counter <= review.rating %}
+                                                    ★
+                                                {% else %}
+                                                    ☆
+                                                {% endif %}
+                                            {% endfor %}
+                                        </span>
+                                        <span class="text-gray-600 ml-2">({{ review.get_rating_display }})</span>
+                                    </div>
+                                    {% if review.comment %}
+                                        <p class="mt-3 text-gray-700">{{ review.comment }}</p>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Company Overview -->
+                    <div class="bg-white rounded-xl shadow-md p-8 dashboard-card">
+                        <h2 class="text-2xl font-semibold text-blue-700 mb-6">Company Overview</h2>
+                        <div class="space-y-6 text-gray-600">
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-blue-100 p-3 rounded-full">
+                                    <i class="fas fa-building text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-lg mb-1">Business Profile</h3>
+                                    <p>{{ supplier.business_description|default:"No additional description available." }}</p>
+                                </div>
+                            </div>
+                            
+                            {% if supplier.certifications %}
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-blue-100 p-3 rounded-full">
+                                    <i class="fas fa-certificate text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-lg mb-1">Certifications</h3>
+                                    <p>{{ supplier.certifications }}</p>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -205,36 +239,95 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
-                <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-blue-400">Home</a></li>
-                    <li><a href="#" class="hover:text-blue-400">About Us</a></li>
-                    <li><a href="#" class="hover:text-blue-400">Services</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4">Support</h3>
-                <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-blue-400">Help Center</a></li>
-                    <li><a href="#" class="hover:text-blue-400">Contact Support</a></li>
-                    <li><a href="#" class="hover:text-blue-400">FAQ</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-blue-400 hover:text-blue-600">Twitter</a>
-                    <a href="#" class="text-blue-400 hover:text-blue-600">LinkedIn</a>
-                    <a href="#" class="text-blue-400 hover:text-blue-600">Facebook</a>
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                            <i class="fas fa-link text-lg"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
+                    </div>
+                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
+                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
+                        <li><a href="{% url 'terms' %}" class="text-gray-400 hover:text-blue-400 transition">Terms & Conditions</a></li>
+                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
+                            <span>123 Supply Chain Blvd, Business District, 10001</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
+                            <span>info@supplychain.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-blue-400"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-        <div class="text-center mt-8 text-sm text-gray-400">
-            © 2024 Supply Chain Portal. All Rights Reserved.
+            
+            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
+                <p>© 2024 Supply Chain Portal. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        if (mobileMenuToggle && mobileNav) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (event) => {
+                const isClickInsideMenu = mobileNav.contains(event.target);
+                const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                
+                if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
+                    mobileNav.classList.remove('active');
+                }
+            });
+        }
+    </script>
 </body>
 </html>

@@ -3,44 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Review</title>
+    <title>Submit Review | Supply Chain Portal</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb;
         }
         .dashboard-card {
-            transition: all 0.3s ease;
-            transform-origin: center;
+            transition: all 0.2s ease;
         }
         .dashboard-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-        .action-link {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .action-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #3b82f6;
-            transition: width 0.3s ease;
-        }
-        .action-link:hover::after {
-            width: 100%;
-        }
-        .rating-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                z-index: 50;
+            }
+            .nav-menu.active {
+                display: block;
+            }
         }
         .star-rating-container {
             display: flex;
@@ -68,6 +59,14 @@
         .star-rating input:checked ~ label {
             color: #fbbf24;
             text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+        .rating-descriptor {
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #3b82f6;
+            height: 2rem;
+            transition: all 0.3s ease;
         }
         .rating-buttons {
             display: flex;
@@ -114,14 +113,6 @@
             background: linear-gradient(90deg, #2563eb, #3b82f6);
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
-        .rating-descriptor {
-            text-align: center;
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #3b82f6;
-            height: 2rem;
-            transition: all 0.3s ease;
-        }
         .comment-textarea {
             width: 100%;
             padding: 1rem;
@@ -139,15 +130,6 @@
             border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
         }
-        .rating-star {
-            color: #f59e0b;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .rating-star:hover {
-            transform: scale(1.2);
-        }
         .submit-btn {
             background: #10b981;
             color: white;
@@ -163,142 +145,222 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-        .back-link {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            color: #3b82f6;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        .back-link:hover {
-            color: #2563eb;
-        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col bg-gray-50">
+<body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="relative bg-white shadow-md">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-blue-700">Supply Chain Portal</h1>
+                <!-- Logo and Brand -->
+                <div class="flex items-center space-x-2">
+                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                        <i class="fas fa-link text-lg"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
                 </div>
-                <div class="hidden md:flex space-x-6 nav-menu">
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 nav-menu">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Hamburger Menu -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-nav" class="md:hidden nav-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-4 py-8">
-        <div class="bg-white p-8 rounded-xl shadow-lg dashboard-card mb-6">
-            <h1 class="text-3xl font-extrabold text-blue-700">Review Supplier: {{ supplier.company_name }}</h1>
-            <p class="text-gray-600 mt-2">For bid on: {{ bid.quote.product }}</p>
-        </div>
+    <main class="flex-grow py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Banner -->
+            <div class="mb-10 bg-blue-600 rounded-xl shadow-md p-8 text-white">
+                <h1 class="text-3xl font-bold mb-2">Review Supplier: {{ supplier.company_name }}</h1>
+                <p class="text-lg text-blue-100">For bid on: {{ bid.quote.product }}</p>
+            </div>
 
-        <div class="bg-white p-8 rounded-xl shadow-lg dashboard-card">
-            <form method="post" class="space-y-6">
-                {% csrf_token %}
-                
-                <div class="form-group">
-                    <label class="block text-lg font-semibold text-gray-800 mb-3">Rating</label>
+            <!-- Review Form Card -->
+            <div class="bg-white rounded-xl shadow-md p-8 dashboard-card">
+                <form method="post" class="space-y-6">
+                    {% csrf_token %}
                     
-                    <div class="rating-container">
-                        <!-- Star rating visualization -->
-                        <div class="star-rating-container">
-                            <div class="star-rating">
-                                {% for value, label in form.rating.field.choices reversed %}
-                                <input type="radio" id="star_{{ value }}" name="rating" value="{{ value }}" 
-                                       {% if form.rating.value == value %}checked{% endif %}>
-                                <label for="star_{{ value }}" class="fas fa-star"></label>
+                    <div class="form-group">
+                        <h2 class="text-2xl font-semibold text-blue-700 mb-6">Rating</h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Star rating visualization -->
+                            <div class="star-rating-container">
+                                <div class="star-rating">
+                                    {% for value, label in form.rating.field.choices reversed %}
+                                    <input type="radio" id="star_{{ value }}" name="rating" value="{{ value }}" 
+                                           {% if form.rating.value == value %}checked{% endif %}>
+                                    <label for="star_{{ value }}" class="fas fa-star"></label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            <!-- Rating descriptor text -->
+                            <div class="rating-descriptor" id="ratingDescription">Select your rating</div>
+                            
+                            <!-- Button-style rating selector -->
+                            <div class="rating-buttons">
+                                {% for value, label in form.rating.field.choices %}
+                                <button type="button" class="rating-btn {% if form.rating.value == value %}selected{% endif %}" 
+                                        data-value="{{ value }}" data-label="{{ label }}" 
+                                        onclick="selectRating('{{ value }}', '{{ label|escapejs }}')">
+                                    {{ label }}
+                                </button>
                                 {% endfor %}
                             </div>
-                        </div>
-                        
-                        <!-- Rating descriptor text -->
-                        <div class="rating-descriptor" id="ratingDescription">Select your rating</div>
-                        
-                        <!-- Button-style rating selector -->
-                        <div class="rating-buttons">
+                            
+                            <!-- Hidden actual form input -->
                             {% for value, label in form.rating.field.choices %}
-                            <button type="button" class="rating-btn {% if form.rating.value == value %}selected{% endif %}" 
-                                    data-value="{{ value }}" data-label="{{ label }}" 
-                                    onclick="selectRating('{{ value }}', '{{ label|escapejs }}')">
-                                {{ label }}
-                            </button>
+                            <input type="radio" id="rating_{{ value }}" name="rating" value="{{ value }}" 
+                                   style="display: none;" {% if form.rating.value == value %}checked{% endif %}>
                             {% endfor %}
                         </div>
                         
-                        <!-- Hidden actual form input -->
-                        {% for value, label in form.rating.field.choices %}
-                        <input type="radio" id="rating_{{ value }}" name="rating" value="{{ value }}" 
-                               style="display: none;" {% if form.rating.value == value %}checked{% endif %}>
-                        {% endfor %}
+                        {% if form.rating.errors %}
+                            <p class="text-red-600 text-sm mt-2">{{ form.rating.errors }}</p>
+                        {% endif %}
                     </div>
                     
-                    {% if form.rating.errors %}
-                        <p class="text-red-600 text-sm">{{ form.rating.errors }}</p>
-                    {% endif %}
-                </div>
-                
-                <div class="form-group">
-                    <label class="block text-lg font-semibold text-gray-800 mb-3">Comments (Optional)</label>
-                    <textarea name="comment" class="comment-textarea" placeholder="Please share your experience with this supplier...">{{ form.comment.value|default:'' }}</textarea>
-                    {% if form.comment.errors %}
-                        <p class="text-red-600 text-sm">{{ form.comment.errors }}</p>
-                    {% endif %}
-                </div>
-                
-                <div class="flex items-center justify-between mt-8">
-                    <a href="{% url 'manufacturer_dashboard' %}" class="back-link">← Back to Dashboard</a>
-                    <button type="submit" class="submit-btn">Submit Review</button>
-                </div>
-            </form>
+                    <div class="form-group mt-8">
+                        <h2 class="text-2xl font-semibold text-blue-700 mb-6">Comments</h2>
+                        <textarea name="comment" class="comment-textarea" placeholder="Please share your experience with this supplier...">{{ form.comment.value|default:'' }}</textarea>
+                        <p class="text-gray-500 mt-2">Optional: Add any additional feedback about your experience with this supplier.</p>
+                        {% if form.comment.errors %}
+                            <p class="text-red-600 text-sm">{{ form.comment.errors }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="flex items-center justify-between mt-10 pt-6 border-t border-gray-100">
+                        <a href="{% url 'manufacturer_dashboard' %}" class="text-blue-600 hover:text-blue-800 font-medium">
+                            <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+                        </a>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane mr-2"></i> Submit Review
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8 mt-8">
-        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
-                <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-blue-400">Home</a></li>
-                    <li><a href="#" class="hover:text-blue-400">About Us</a></li>
-                    <li><a href="#" class="hover:text-blue-400">Services</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4">Support</h3>
-                <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-blue-400">Help Center</a></li>
-                    <li><a href="#" class="hover:text-blue-400">Contact Support</a></li>
-                    <li><a href="#" class="hover:text-blue-400">FAQ</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-blue-400 hover:text-blue-600">Twitter</a>
-                    <a href="#" class="text-blue-400 hover:text-blue-600">LinkedIn</a>
-                    <a href="#" class="text-blue-400 hover:text-blue-600">Facebook</a>
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                            <i class="fas fa-link text-lg"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
+                    </div>
+                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
+                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
+                        <li><a href="{% url 'terms' %}" class="text-gray-400 hover:text-blue-400 transition">Terms & Conditions</a></li>
+                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
+                            <span>123 Supply Chain Blvd, Business District, 10001</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
+                            <span>info@supplychain.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-blue-400"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-        <div class="text-center mt-8 text-sm text-gray-400">
-            © 2025 Supply Chain Portal. All Rights Reserved.
+            
+            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
+                <p>© 2025 Supply Chain Portal. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
 
     <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        if (mobileMenuToggle && mobileNav) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (event) => {
+                const isClickInsideMenu = mobileNav.contains(event.target);
+                const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                
+                if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
+                    mobileNav.classList.remove('active');
+                }
+            });
+        }
+        
+        // Rating functionality
         function selectRating(value, label) {
             // Update the hidden radio buttons
-            console.log("Selected:", value, label);  // Debug
             document.getElementById('rating_' + value).checked = true;
             document.getElementById('star_' + value).checked = true;
             

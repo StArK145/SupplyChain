@@ -1,3 +1,4 @@
+import re
 from manufacturer.models import QuoteRequest
 from .models import Supplier, Bid
 from .forms import BidForm
@@ -56,7 +57,8 @@ def supplier_register(request):
                 website=form.cleaned_data['website'],
                 phone_number=form.cleaned_data['phone_number'],
                 key_services=form.cleaned_data['key_services'],
-                wallet_address=form.cleaned_data['wallet_address']
+                wallet_address=form.cleaned_data['wallet_address'],
+                commodity_categories=form.cleaned_data['commodity_categories']
             )
 
             # Send welcome email
@@ -146,6 +148,12 @@ def supplier_dashboard(request):
         })
     except Supplier.DoesNotExist:
         return redirect('supplier_login')
+    
+from .forms import InventoryItemForm
+from .models import SupplierInventory 
+
+    
+
 
 
 # supplier/views.py
@@ -555,3 +563,153 @@ def calculate_route(request):
             'success': False,
             'error': str(e)
         }, status=400)
+    
+# supplier/views.py
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import Supplier, SupplierInventory
+from .forms import InventoryItemForm
+
+@login_required
+def inventory_management(request):
+    supplier = get_object_or_404(Supplier, user=request.user)
+    
+    if request.method == 'POST':
+        form = InventoryItemForm(request.POST)  # Use the form, not the model directly
+        if form.is_valid():
+            inventory_item = form.save(commit=False)
+            inventory_item.supplier = supplier
+            inventory_item.save()
+            messages.success(request, 'Inventory item added successfully!')
+            return redirect('supplier_inventory')
+    else:
+        form = InventoryItemForm()
+    
+    inventory_items = supplier.inventory_items.all()
+    return render(request, 'supplier/inventory_management.html', {
+        'supplier': supplier,
+        'form': form,
+        'inventory_items': inventory_items
+    })
+
+@login_required
+def delete_inventory_item(request, item_id):
+    supplier = get_object_or_404(Supplier, user=request.user)
+    item = get_object_or_404(SupplierInventory, id=item_id, supplier=supplier)
+    
+    if request.method == 'POST':
+        item.delete()
+        messages.success(request, 'Inventory item deleted successfully!')
+    
+    return redirect('supplier_inventory')
+
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
+import logging
+from phi.agent import Agent
+from phi.tools.sql import SQLTools
+from phi.model.google import Gemini
+
+# Set up logging
+logger = logging.getLogger(__name__)
+
+@login_required
+def ai_suggestions(request):
+    if not request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({'error': 'Invalid request'}, status=400)
+
+    try:
+        db_url = "sqlite:///db.sqlite3"
+        agent = Agent(tools=[SQLTools(db_url=db_url)], model=Gemini(id="gemini-2.0-flash-exp", temperature=0.4))
+
+        analysis_prompt = """Analyze the 'manufacturer_quoterequest' table to:
+        1. Extract product details (name, category, specifications) and request patterns
+        2. Identify high-demand products/categories based on:
+           - Frequency of requests
+           - Quantity requested (if available)
+           - Recent request trends
+        3. Generate an ordered list (high to low demand) with:
+           - Top categories (with justification)
+           - Top products in each category
+           - Ranked by quantity asked
+        4. Format output as:
+        
+        **Category Analysis:**
+            1. Category Name
+               - Request Count: [number]
+               - Total Quantity: [number] [unit]
+               - Top Products: [comma separated list]
+            2. Category Name
+               - Request Count: [number]
+               - Total Quantity: [number] [unit]
+               - Top Products: [comma separated list]
+           
+        5. After the category analysis, provide:
+        **Supplier Recommendations:**
+            1. [Product Name] - [Detailed reason for increasing production]
+            2. [Product Name] - [Detailed reason]
+            3. [Product Name] - [Detailed reason]"""
+
+        response = agent.run(analysis_prompt, stream=False)
+        response_text = str(response.content) if hasattr(response, 'content') else str(response)
+        
+        # Parse the response to extract structured data
+        top_categories = []
+        supplier_recommendations = []
+        
+        # Parse categories
+        category_pattern = re.compile(
+            r"(\d+)\.\s(.+?)\s*\n\s*-\s*Request Count:\s*(\d+)\s*\n\s*-\s*Total Quantity:\s*([\d,]+)\s*(\w+)\s*\n\s*-\s*Top Products:\s*(.+)",
+            re.MULTILINE
+        )
+        
+        for match in category_pattern.finditer(response_text):
+            category = {
+                "name": match.group(2).strip(),
+                "request_count": int(match.group(3).replace(',', '')),
+                "total_quantity": {
+                    "value": int(match.group(4).replace(',', '')),
+                    "unit": match.group(5).strip()
+                },
+                "top_products": [p.strip() for p in match.group(6).split(",")]
+            }
+            top_categories.append(category)
+        
+        # Parse supplier recommendations
+        recommendation_pattern = re.compile(
+            r"\d+\.\s(.+?)\s*-\s*(.+)",
+            re.MULTILINE
+        )
+        
+        recommendations_section = re.search(r"\*\*Supplier Recommendations:\*\*(.*?)(?=\n\*\*|\Z)", response_text, re.DOTALL)
+        if recommendations_section:
+            for match in recommendation_pattern.finditer(recommendations_section.group(1)):
+                supplier_recommendations.append({
+                    "product": match.group(1).strip(),
+                    "reason": match.group(2).strip()
+                })
+        
+        if not top_categories:
+            raise ValueError(
+                "Could not parse categories from response. "
+                f"Response format was not as expected. Full response: {response_text[:500]}"
+            )
+        
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Market analysis completed successfully',
+            'top_categories': top_categories,
+            'supplier_recommendations': supplier_recommendations[:3]  # Return top 3 recommendations
+        })
+    
+    except Exception as e:
+        return JsonResponse({
+            'status': 'error',
+            'error': str(e),
+            'message': 'Failed to analyze market trends',
+            'debug_info': {
+                'response_content': str(getattr(response, 'content', 'No content attribute'))[:500] if 'response' in locals() else 'No response'
+            }
+        }, status=500)

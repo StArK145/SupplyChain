@@ -3,6 +3,19 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from manufacturer.models import QuoteRequest
 
+
+# Add this at the top of supplier/forms.py
+from .models import SupplierInventory  # Add this import
+
+# Then add the form class
+class InventoryItemForm(forms.ModelForm):
+    class Meta:
+        model = SupplierInventory
+        fields = ['product_name', 'quantity', 'unit', 'price_per_unit', 'notes']
+        widgets = {
+            'notes': forms.Textarea(attrs={'rows': 3}),
+        }
+
 class SupplierRegistrationForm(UserCreationForm):
     first_name = forms.CharField(max_length=100, required=True)
     last_name = forms.CharField(max_length=100, required=True)
@@ -16,17 +29,69 @@ class SupplierRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     wallet_address = forms.CharField(max_length=42, required=True, 
                                    label="Ethereum Wallet Address (0x...)")
+    
+    COMMODITY_GROUP_CHOICES = [
+        ('Agricultural Raw Materials', [
+            ('copra', 'Copra'),
+            ('cotton', 'Cotton'),
+            ('hides', 'Hides'),
+            ('rubber', 'Rubber'),
+            ('wool', 'Wool'),
+        ]),
+        ('Agriculture', [
+            ('coffee', 'Coffee'),
+            ('other_agriculture', 'Other Agriculture'),
+            ('peanuts', 'Peanuts'),
+            ('soybeans', 'Soybeans'),
+            ('sugar', 'Sugar'),
+            ('tea', 'Tea'),
+            ('tobacco', 'Tobacco'),
+        ]),
+        ('Energy', [
+            ('coal', 'Coal'),
+            ('crude_oil', 'Crude Oil'),
+            ('diesel', 'Diesel'),
+            ('gasoline', 'Gasoline'),
+            ('natural_gas', 'Natural Gas'),
+        ]),
+        ('Metals', [
+            ('aluminum', 'Aluminum'),
+            ('antimony', 'Antimony'),
+            ('copper', 'Copper'),
+            ('gold', 'Gold'),
+            ('iron', 'Iron'),
+            ('lead', 'Lead'),
+            ('manganese', 'Manganese'),
+            ('nickel', 'Nickel'),
+            ('other_metals', 'Other Metals'),
+            ('silver', 'Silver'),
+            ('steel', 'Steel'),
+            ('tin', 'Tin'),
+            ('titanium', 'Titanium'),
+            ('tungsten', 'Tungsten'),
+            ('zinc', 'Zinc'),
+        ]),
+    ]
+    commodity_categories = forms.MultipleChoiceField(
+        choices=COMMODITY_GROUP_CHOICES,
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'}),
+        required=False,
+        label="Commodity Categories (Select all that apply)"
+    )
 
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2',
                   'first_name', 'last_name', 'company_name', 'city', 
                   'state', 'business_type', 'website', 'phone_number', 
-                  'key_services', 'wallet_address')
+                  'key_services', 'wallet_address', 'commodity_categories')
 
 class SupplierLoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+
 
 
 # class BidForm(forms.Form):

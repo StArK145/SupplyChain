@@ -4,73 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supplier Registration | Supply Chain Portal</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Add Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
+        .action-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #0d9488;
+            transition: width 0.3s ease;
         }
-        .card-hover {
-            transition: all 0.3s ease;
+        .action-link:hover::after {
+            width: 100%;
         }
-        .card-hover:hover {
+        .dashboard-card {
+            transition: all 0.2s ease;
+        }
+        .dashboard-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 25px rgba(0,0,0,0.1);
         }
-        .hamburger-menu {
-            display: none;
+        /* Select2 customization */
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid #d1d5db !important;
+            border-radius: 0.375rem !important;
+            min-height: 42px !important;
+            padding: 0.25rem !important;
         }
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            }
-            .nav-menu.active {
-                display: block;
-            }
-            .hamburger-menu {
-                display: block;
-            }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: #0d9488 !important;
+            border-color: #0f766e !important;
+            color: white !important;
         }
-        .form-input {
-            transition: all 0.3s ease;
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #99f6e4 !important;
+            color: #134e4a !important;
+        }
+        .select2-container--default .select2-search--inline .select2-search__field {
+            margin-top: 0 !important;
         }
         .form-input:focus {
-            border-color: #10b981;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-        }
-        .info-card {
-            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+            border-color: #0d9488;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
         }
     </style>
 </head>
-<body class="flex flex-col">
+<body class="min-h-screen flex flex-col bg-gray-50">
     <!-- Navigation -->
-    <nav class="relative bg-white shadow-md">
-        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo and Brand -->
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-green-700">Supply Chain Portal</h1>
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="h-10 w-10 rounded-md bg-teal-600 flex items-center justify-center">
+                        <i class="fas fa-link text-lg text-white"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-teal-600">Supply<span class="text-gray-700">Chain</span></h1>
                 </div>
 
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-6 nav-menu">
-                    <a href="#" class="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Home</a>
-                    <a href="#" class="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">About</a>
-                    <a href="#" class="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Services</a>
-                    <a href="#" class="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Contact</a>
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Contact</a>
                 </div>
 
-                <!-- Mobile Hamburger Menu -->
-                <div class="md:hidden hamburger-menu">
-                    <button id="mobile-menu-toggle" class="text-gray-500 hover:text-gray-600 focus:outline-none">
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-toggle" class="text-teal-600 hover:text-gray-900 focus:outline-none">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
@@ -78,308 +85,354 @@
                 </div>
             </div>
 
-            <!-- Mobile Navigation Menu -->
-            <div id="mobile-nav" class="md:hidden nav-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1">
-                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">Home</a>
-                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">About</a>
-                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">Services</a>
-                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">Contact</a>
+            <!-- Mobile Navigation -->
+            <div id="mobile-nav" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content - Cards Layout -->
-    <main class="flex-grow container mx-auto px-4 py-8">
-        <!-- Header Section -->
-        <div class="text-center mb-10">
-            <h1 class="text-4xl font-extrabold text-green-800 mb-2">Supplier Registration</h1>
-            <p class="text-xl text-gray-600">Join our global network of trusted suppliers</p>
-        </div>
-        
-        <!-- Information Card -->
-        <div class="info-card text-white rounded-xl shadow-lg p-8 mb-8 card-hover">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="w-full md:w-2/3">
-                    <h2 class="text-3xl font-bold mb-4">Join Our Supplier Network</h2>
-                    <p class="text-lg mb-6">Connect with manufacturers around the world and grow your business through our blockchain-enabled supply chain portal.</p>
-                    
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-white bg-opacity-20 p-2 rounded-full">
-                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
-                                </svg>
+    <!-- Main Content -->
+    <main class="flex-grow py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header Banner -->
+            <div class="mb-10 bg-teal-600 rounded-xl shadow-md p-8 text-white">
+                <h1 class="text-3xl font-bold mb-2">Supplier Registration</h1>
+                <p class="text-lg text-teal-100">Join our global network of trusted suppliers</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Left Column - Benefits -->
+                <div class="md:col-span-1 space-y-8">
+                    <!-- Join Network Card -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 dashboard-card">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Join Our Network</h3>
+                        <p class="text-gray-600 mb-6">Connect with manufacturers around the world and grow your business through our blockchain-enabled supply chain portal.</p>
+                        <div class="border-t border-gray-100 pt-4 mt-4 space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-teal-100 p-2 rounded-full text-teal-600">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Verified Opportunities</h4>
+                                    <p class="text-sm text-gray-600">Connect with verified manufacturers globally.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="font-semibold">Verified Opportunities</h3>
-                                <p class="text-sm text-white text-opacity-80">Connect with verified manufacturers globally.</p>
+                            
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-teal-100 p-2 rounded-full text-teal-600">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Blockchain Payments</h4>
+                                    <p class="text-sm text-gray-600">Secure transactions with smart contracts.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-teal-100 p-2 rounded-full text-teal-600">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Transparent Bidding</h4>
+                                    <p class="text-sm text-gray-600">Fair and open bidding process for all.</p>
+                                </div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Features Card -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 dashboard-card">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Features & Benefits</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-teal-100 p-2 rounded-full text-teal-600">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Smart Payments</h4>
+                                    <p class="text-sm text-gray-600">Secure blockchain-powered payments with automatic escrow release.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-teal-100 p-2 rounded-full text-teal-600">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Verified Reviews</h4>
+                                    <p class="text-sm text-gray-600">Build trust with authentic feedback from verified manufacturers.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-teal-100 p-2 rounded-full text-teal-600">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Growth Analytics</h4>
+                                    <p class="text-sm text-gray-600">Access detailed performance metrics and identify growth opportunities.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Registration Form -->
+                <div class="md:col-span-2">
+                    <div class="bg-white rounded-xl shadow-md p-8 dashboard-card">
+                        <h2 class="text-2xl font-semibold text-teal-600 mb-6">Complete Your Registration</h2>
                         
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-white bg-opacity-20 p-2 rounded-full">
-                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z"></path>
-                                </svg>
+                        <form method="post" class="space-y-6">
+                            {% csrf_token %}
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="first_name" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                    <input type="text" id="first_name" name="first_name" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input" placeholder="Enter your first name">
+                                </div>
+                                <div>
+                                    <label for="last_name" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                    <input type="text" id="last_name" name="last_name" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input" placeholder="Enter your last name">
+                                </div>
                             </div>
+
                             <div>
-                                <h3 class="font-semibold">Blockchain Payments</h3>
-                                <p class="text-sm text-white text-opacity-80">Secure transactions with smart contracts.</p>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input" placeholder="Enter your email address">
                             </div>
-                        </div>
-                        
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-white bg-opacity-20 p-2 rounded-full">
-                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z"></path>
-                                </svg>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="username" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                                    <input type="text" id="username" name="username" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input" placeholder="Choose a username">
+                                </div>
+                                <div>
+                                    <label for="phone_number" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                    <input type="tel" id="phone_number" name="phone_number" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input" placeholder="Enter your phone number">
+                                </div>
                             </div>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="password1" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                                    <input type="password" id="password1" name="password1" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input" placeholder="Create a password">
+                                </div>
+                                <div>
+                                    <label for="password2" class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+                                    <input type="password" id="password2" name="password2" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input" placeholder="Confirm your password">
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="company_name" class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+                                    <input type="text" id="company_name" name="company_name" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input" placeholder="Enter your company name">
+                                </div>
+                                <div>
+                                    <label for="business_type" class="block text-sm font-medium text-gray-700 mb-2">Business Type</label>
+                                    <select id="business_type" name="business_type" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input">
+                                        <option value="">Select business type</option>
+                                        <option value="manufacturer">Manufacturer</option>
+                                        <option value="distributor">Distributor</option>
+                                        <option value="retailer">Retailer</option>
+                                        <option value="wholesaler">Wholesaler</option>
+                                        <option value="service_provider">Service Provider</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="city" class="block text-sm font-medium text-gray-700 mb-2">City</label>
+                                    <input type="text" id="city" name="city" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input" placeholder="Enter your city">
+                                </div>
+                                <div>
+                                    <label for="state" class="block text-sm font-medium text-gray-700 mb-2">State</label>
+                                    <input type="text" id="state" name="state" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input" placeholder="Enter your state/province">
+                                </div>
+                            </div>
+
                             <div>
-                                <h3 class="font-semibold">Transparent Bidding</h3>
-                                <p class="text-sm text-white text-opacity-80">Fair and open bidding process for all.</p>
+                                <label for="website" class="block text-sm font-medium text-gray-700 mb-2">Website (Optional)</label>
+                                <input type="url" id="website" name="website" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input" placeholder="https://www.example.com">
                             </div>
-                        </div>
+
+                            <!-- Commodity Categories Field with Select2 -->
+                            <div>
+                                <label for="commodity_categories" class="block text-sm font-medium text-gray-700 mb-2">Commodity Categories</label>
+                                <select id="commodity_categories" 
+                                        name="commodity_categories" 
+                                        multiple="multiple"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md form-input h-auto select2">
+                                    <option value="">Choose</option>
+                                    <optgroup label="Agricultural Raw Materials">
+                                        <option value="copra">Copra</option>
+                                        <option value="cotton">Cotton</option>
+                                        <option value="hides">Hides</option>
+                                        <option value="rubber">Rubber</option>
+                                        <option value="wool">Wool</option>
+                                    </optgroup>
+                                    <optgroup label="Agriculture">
+                                        <option value="coffee">Coffee</option>
+                                        <option value="other_agriculture">Other Agriculture</option>
+                                        <option value="peanuts">Peanuts</option>
+                                        <option value="soybeans">Soybeans</option>
+                                        <option value="sugar">Sugar</option>
+                                        <option value="tea">Tea</option>
+                                        <option value="tobacco">Tobacco</option>
+                                    </optgroup>
+                                    <optgroup label="Energy">
+                                        <option value="coal">Coal</option>
+                                        <option value="crude_oil">Crude Oil</option>
+                                        <option value="diesel">Diesel</option>
+                                        <option value="gasoline">Gasoline</option>
+                                        <option value="natural_gas">Natural Gas</option>
+                                    </optgroup>
+                                    <optgroup label="Metals">
+                                        <option value="aluminum">Aluminum</option>
+                                        <option value="antimony">Antimony</option>
+                                        <option value="copper">Copper</option>
+                                        <option value="gold">Gold</option>
+                                        <option value="iron">Iron</option>
+                                        <option value="lead">Lead</option>
+                                        <option value="manganese">Manganese</option>
+                                        <option value="nickel">Nickel</option>
+                                        <option value="other_metals">Other Metals</option>
+                                        <option value="silver">Silver</option>
+                                        <option value="steel">Steel</option>
+                                        <option value="tin">Tin</option>
+                                        <option value="titanium">Titanium</option>
+                                        <option value="tungsten">Tungsten</option>
+                                        <option value="zinc">Zinc</option>
+                                    </optgroup>
+                                </select>
+                                <p class="text-xs text-gray-500 mt-1">Start typing to search or click to select multiple categories</p>
+                            </div>
+
+                            <div>
+                                <label for="key_services" class="block text-sm font-medium text-gray-700 mb-2">Key Services</label>
+                                <textarea id="key_services" name="key_services" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input" placeholder="Describe your key services or products"></textarea>
+                            </div>
+
+                            <div>
+                                <label for="wallet_address" class="block text-sm font-medium text-gray-700 mb-2">Ethereum Wallet Address</label>
+                                <input type="text" id="wallet_address" name="wallet_address" class="w-full px-3 py-2 border border-gray-300 rounded-md form-input" placeholder="0x...">
+                                <p class="text-xs text-gray-500 mt-1">Please enter a valid Ethereum wallet address (0x...)</p>
+                            </div>
+
+                            <div>
+                                <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white py-3 px-4 rounded-md transition text-lg">
+                                    Register
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                </div>
-                <div class="w-full md:w-1/3 flex justify-center mt-8 md:mt-0">
-                    <img src="/api/placeholder/300/300" alt="Supplier network" class="rounded-lg shadow-xl" />
                 </div>
             </div>
         </div>
-        
-        <!-- Registration Form Card -->
-        <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
-            <h2 class="text-2xl font-bold text-green-700 mb-6">Complete Your Registration</h2>
-            
-            <form method="post" class="space-y-6">
-                {% csrf_token %}
-                
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                        {{ form.first_name }}
-                    </div>
-                    <div>
-                        <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                        {{ form.last_name }}
-                    </div>
-                </div>
-
-                <div>
-                    <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                    {{ form.email }}
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
-                        {{ form.username }}
-                    </div>
-                    <div>
-                        <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                        {{ form.phone_number }}
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                        {{ form.password1 }}
-                    </div>
-                    <div>
-                        <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
-                        {{ form.password2 }}
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label for="{{ form.company_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
-                        {{ form.company_name }}
-                    </div>
-                    <div>
-                        <label for="{{ form.business_type.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Business Type</label>
-                        {{ form.business_type }}
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label for="{{ form.city.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">City</label>
-                        {{ form.city }}
-                    </div>
-                    <div>
-                        <label for="{{ form.state.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">State</label>
-                        {{ form.state }}
-                    </div>
-                </div>
-
-                <div>
-                    <label for="{{ form.website.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Website (Optional)</label>
-                    {{ form.website }}
-                </div>
-
-                <div>
-                    <label for="{{ form.key_services.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Key Services</label>
-                    {{ form.key_services }}
-                </div>
-
-                <div>
-                    <label for="{{ form.wallet_address.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Ethereum Wallet Address</label>
-                    {{ form.wallet_address }}
-                    <p class="text-xs text-gray-500 mt-1">Please enter a valid Ethereum wallet address (0x...)</p>
-                </div>
-
-                <div>
-                    <button type="submit" class="w-full bg-green-500 text-white py-3 px-4 rounded-lg hover:bg-green-600 transition text-lg">
-                        Register
-                    </button>
-                </div>
-            </form>
-        </div>
-        
-        <!-- Additional Features Card -->
-        <div class="bg-gray-50 rounded-xl shadow-lg p-8 mt-8 card-hover">
-            <h2 class="text-2xl font-bold text-green-700 mb-6">Features & Benefits</h2>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white mb-4">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-medium text-gray-900 mb-2">Smart Payments</h3>
-                    <p class="text-gray-600">Secure blockchain-powered payments with automatic escrow release upon delivery confirmation.</p>
-                </div>
-                
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white mb-4">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-medium text-gray-900 mb-2">Verified Reviews</h3>
-                    <p class="text-gray-600">Build trust with authentic feedback from verified manufacturers who've worked with you.</p>
-                </div>
-                
-                <div class="bg-white p-6 rounded-lg shadow">
-                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white mb-4">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-medium text-gray-900 mb-2">Growth Analytics</h3>
-                    <p class="text-gray-600">Access detailed performance metrics and identify business growth opportunities.</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- FAQ Section -->
-        <!-- <div class="bg-white rounded-xl shadow-lg p-8 mt-8 card-hover">
-            <h2 class="text-2xl font-bold text-green-700 mb-6">Frequently Asked Questions</h2>
-            
-            <div class="space-y-6">
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-900">How does the bidding process work?</h3>
-                    <p class="text-gray-600 mt-2">Once registered, you'll gain access to open RFQs from manufacturers. You can submit competitive bids, specifying price, delivery time, and transport details. Manufacturers review all bids and select the most suitable supplier.</p>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-900">Why do I need an Ethereum wallet?</h3>
-                    <p class="text-gray-600 mt-2">Our platform uses blockchain technology for secure, transparent transactions. Your Ethereum wallet allows you to receive payments directly when your bid is accepted and goods are delivered.</p>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-900">How are supplier ratings calculated?</h3>
-                    <p class="text-gray-600 mt-2">After each completed transaction, manufacturers can rate suppliers on a 5-star scale based on delivery speed, communication, product quality, and overall satisfaction. These ratings help build your reputation on the platform.</p>
-                </div>
-            </div>
-        </div> -->
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6 mt-8">
-        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-lg font-bold mb-2">Quick Links</h3>
-                <ul class="space-y-1">
-                    <li><a href="#" class="hover:text-green-400">Home</a></li>
-                    <li><a href="#" class="hover:text-green-400">About Us</a></li>
-                    <li><a href="#" class="hover:text-green-400">Services</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-2">Support</h3>
-                <ul class="space-y-1">
-                    <li><a href="#" class="hover:text-green-400">Help Center</a></li>
-                    <li><a href="#" class="hover:text-green-400">Contact Support</a></li>
-                    <li><a href="#" class="hover:text-green-400">FAQ</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-2">Connect With Us</h3>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-green-400 hover:text-green-600">Twitter</a>
-                    <a href="#" class="text-green-400 hover:text-green-600">LinkedIn</a>
-                    <a href="#" class="text-green-400 hover:text-green-600">Facebook</a>
+    <footer class="bg-gray-800 text-gray-300 py-12 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="h-10 w-10 rounded-md bg-teal-600 flex items-center justify-center">
+                            <i class="fas fa-link text-lg text-white"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-teal-400">Chain</span></h1>
+                    </div>
+                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-teal-400">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-teal-400">About</a></li>
+                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-teal-400">Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-teal-400">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-teal-400">Help Center</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-teal-400">Contact</a></li>
+                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-teal-400">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Contact</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-teal-400"></i>
+                            123 Supply Chain Blvd, Business District, 10001
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-teal-400"></i>
+                            info@supplychain.com
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-teal-400"></i>
+                            +1 (555) 123-4567
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-        <div class="text-center mt-4 text-sm text-gray-400">
-            © 2025 Supply Chain Portal. All Rights Reserved.
+            
+            <div class="pt-8 mt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-400">© 2025 Supply Chain Portal. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
+    <!-- Add jQuery and Select2 JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
+        // Initialize Select2
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: "Select categories",
+                allowClear: true,
+                width: '100%'
+            });
 
-        mobileMenuToggle.addEventListener('click', () => {
-            mobileNav.classList.toggle('active');
-        });
+            // Mobile menu toggle
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (event) => {
-            const isClickInsideMenu = mobileNav.contains(event.target);
-            const isClickOnToggle = mobileMenuToggle.contains(event.target);
-            
-            if (!isClickInsideMenu && !isClickOnToggle) {
-                mobileNav.classList.remove('active');
+            if (mobileMenuToggle && mobileNav) {
+                mobileMenuToggle.addEventListener('click', () => {
+                    mobileNav.classList.toggle('hidden');
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', (event) => {
+                    const isClickInsideMenu = mobileNav.contains(event.target);
+                    const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                    
+                    if (!isClickInsideMenu && !isClickOnToggle && !mobileNav.classList.contains('hidden')) {
+                        mobileNav.classList.add('hidden');
+                    }
+                });
             }
-        });
 
-        // Form input styling
-        document.addEventListener('DOMContentLoaded', function() {
-            const formInputs = document.querySelectorAll('input, textarea, select');
-            formInputs.forEach(input => {
-                input.classList.add('w-full', 'px-3', 'py-2', 'border', 'border-gray-300', 'rounded-md', 'form-input');
-            });
-            
-            // Style form paragraphs for better appearance
-            const formParagraphs = document.querySelectorAll('form p');
-            formParagraphs.forEach(p => {
-                p.classList.add('mb-4');
-                const label = p.querySelector('label');
-                if (label) {
-                    label.classList.add('block', 'text-sm', 'font-medium', 'text-gray-700', 'mb-2');
-                }
-            });
-            
-            // Add animation effects to cards
-            const cards = document.querySelectorAll('.card-hover');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    card.style.transform = 'translateY(-5px)';
-                });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'translateY(0)';
-                });
-            });
-            
             // Validate Ethereum wallet address format
             const walletInput = document.querySelector('[id*="wallet_address"]');
             if (walletInput) {

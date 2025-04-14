@@ -5,20 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supply Chain Portal | Connect. Optimize. Grow</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
         }
         .card-hover {
             transition: all 0.3s ease;
         }
         .card-hover:hover {
-            transform: scale(1.03);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        .hamburger-menu {
-            display: none;
+        .feature-icon {
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
         }
         @media (max-width: 768px) {
             .nav-menu {
@@ -28,12 +36,10 @@
                 left: 0;
                 width: 100%;
                 background-color: white;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                z-index: 50;
             }
             .nav-menu.active {
-                display: block;
-            }
-            .hamburger-menu {
                 display: block;
             }
         }
@@ -41,25 +47,34 @@
 </head>
 <body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="relative bg-white shadow-md">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
+            <div class="flex justify-between items-center h-20">
                 <!-- Logo and Brand -->
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-blue-700">Supply Chain Portal</h1>
+                <div class="flex items-center space-x-2">
+                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                        <i class="fas fa-link text-lg"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
                 </div>
 
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-6 nav-menu">
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                <div class="hidden md:flex space-x-8 nav-menu">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
                 </div>
 
+                <!-- Login/Register Button -->
+                <!-- <div class="hidden md:flex items-center space-x-4">
+                    <a href="#" class="text-gray-600 hover:text-blue-600 font-medium">Login</a>
+                    <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">Get Started</a>
+                </div> -->
+
                 <!-- Mobile Hamburger Menu -->
-                <div class="md:hidden hamburger-menu">
-                    <button id="mobile-menu-toggle" class="text-gray-500 hover:text-gray-600 focus:outline-none">
+                <div class="md:hidden">
+                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
@@ -69,93 +84,322 @@
 
             <!-- Mobile Navigation Menu -->
             <div id="mobile-nav" class="md:hidden nav-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1">
-                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">Home</a>
-                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">About</a>
-                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">Services</a>
-                    <a href="#" class="text-gray-700 hover:bg-gray-200 block px-3 py-2 rounded-md">Contact</a>
+                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
+                    <div class="flex flex-col pt-4 pb-2 space-y-2">
+                        <a href="#" class="text-blue-600 block px-3 py-2 font-medium">Login</a>
+                        <a href="#" class="bg-blue-600 text-white px-3 py-2 rounded-lg text-center font-medium">Get Started</a>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-4 py-8">
-        <div class="text-center mb-12">
-            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
-                Streamline Your Supply Chain Management
-            </h1>
-            <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                Connect manufacturers and suppliers seamlessly with our innovative portal
-            </p>
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-20">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">Streamline Your Supply Chain Management</h1>
+                <p class="text-lg md:text-xl mb-8 text-blue-100">Connect manufacturers and suppliers seamlessly with our innovative portal. Optimize operations and grow your business.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#portals" class="bg-white text-blue-700 py-3 px-6 rounded-lg font-semibold hover:bg-blue-50 transition text-center">Get Started</a>
+                    <a href="#features" class="bg-transparent border-2 border-white text-white py-3 px-6 rounded-lg font-semibold hover:bg-white hover:bg-opacity-10 transition text-center">Learn More</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="/api/placeholder/600/400" alt="Supply Chain Management" class="rounded-lg shadow-xl max-w-full h-auto">
+            </div>
         </div>
+    </section>
 
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg card-hover">
-                <h2 class="text-xl md:text-2xl font-bold mb-4 text-blue-700">Manufacturer Portal</h2>
-                <p class="text-gray-600 mb-6">
-                    Manage your production, track inventory, and connect with reliable suppliers.
+    
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Why Choose Our Platform?</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Our comprehensive solution addresses all your supply chain management needs</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-md p-6 feature-card card-hover">
+                    <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-blue-600 text-xl feature-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Real-time Analytics</h3>
+                    <p class="text-gray-600">Track performance metrics and make data-driven decisions to optimize your supply chain operations.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 feature-card card-hover">
+                    <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-6">
+                        <i class="fas fa-handshake text-blue-600 text-xl feature-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Supplier Matching</h3>
+                    <p class="text-gray-600">Find reliable suppliers that meet your specific requirements and build valuable partnerships.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 feature-card card-hover">
+                    <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-6">
+                        <i class="fas fa-truck text-blue-600 text-xl feature-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Logistics Integration</h3>
+                    <p class="text-gray-600">Seamlessly integrate with shipping providers to streamline your logistics operations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portal Section -->
+    <section id="portals" class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Choose Your Portal</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Whether you're a manufacturer or a supplier, we have the perfect solution for you
                 </p>
-                <div class="space-y-4">
-                    <a href="{% url 'manufacturer_login' %}" class="block bg-blue-500 text-white py-2 px-4 rounded-lg text-center hover:bg-blue-600 transition">
-                        Manufacturer Login
-                    </a>
-                    <a href="{% url 'manufacturer_register' %}" class="block bg-blue-100 text-blue-700 py-2 px-4 rounded-lg text-center hover:bg-blue-200 transition">
-                        Manufacturer Register
-                    </a>
-                </div>
             </div>
 
-            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg card-hover">
-                <h2 class="text-xl md:text-2xl font-bold mb-4 text-green-700">Supplier Portal</h2>
-                <p class="text-gray-600 mb-6">
-                    Expand your market reach, manage orders, and build long-term business relationships.
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover border-t-4 border-blue-600">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 mb-6 mx-auto">
+                        <i class="fas fa-industry text-blue-600 text-2xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4 text-blue-700 text-center">Manufacturer Portal</h2>
+                    <p class="text-gray-600 mb-6 text-center">
+                        Manage your production, track inventory, and connect with reliable suppliers to optimize your supply chain.
+                    </p>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Inventory management
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Supplier discovery and vetting
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Order tracking and management
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Performance analytics
+                        </li>
+                    </ul>
+                    <div class="space-y-4">
+                        <a href="{% url 'manufacturer_login' %}" class="block bg-blue-600 text-white py-3 px-6 rounded-lg text-center hover:bg-blue-700 transition font-medium">
+                            Manufacturer Login
+                        </a>
+                        <a href="{% url 'manufacturer_register' %}" class="block bg-blue-100 text-blue-700 py-3 px-6 rounded-lg text-center hover:bg-blue-200 transition font-medium">
+                            Manufacturer Register
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover border-t-4 border-green-600">
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6 mx-auto">
+                        <i class="fas fa-boxes text-green-600 text-2xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4 text-green-700 text-center">Supplier Portal</h2>
+                    <p class="text-gray-600 mb-6 text-center">
+                        Expand your market reach, manage orders efficiently, and build long-term business relationships.
+                    </p>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Showcase your products
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Reach new manufacturers
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Streamlined order processing
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Payment tracking and invoicing
+                        </li>
+                    </ul>
+                    <div class="space-y-4">
+                        <a href="{% url 'supplier_login' %}" class="block bg-green-600 text-white py-3 px-6 rounded-lg text-center hover:bg-green-700 transition font-medium">
+                            Supplier Login
+                        </a>
+                        <a href="{% url 'supplier_register' %}" class="block bg-green-100 text-green-700 py-3 px-6 rounded-lg text-center hover:bg-green-200 transition font-medium">
+                            Supplier Register
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">What Our Users Say</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Join thousands of satisfied businesses already using our platform
                 </p>
-                <div class="space-y-4">
-                    <a href="{% url 'supplier_login' %}" class="block bg-green-500 text-white py-2 px-4 rounded-lg text-center hover:bg-green-600 transition">
-                        Supplier Login
-                    </a>
-                    <a href="{% url 'supplier_register' %}" class="block bg-green-100 text-green-700 py-2 px-4 rounded-lg text-center hover:bg-green-200 transition">
-                        Supplier Register
-                    </a>
-                </div>
             </div>
-        </div>
-    </main>
 
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
-                <ul class="space-y-2">
-                    <li><a href="{% url 'home' %}" class="hover:text-blue-400">Home</a></li>
-                    <li><a href="{% url 'about' %}" class="hover:text-blue-400">About Us</a></li>
-                    <li><a href="{% url 'services' %}" class="hover:text-blue-400">Services</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4">Support</h3>
-                <ul class="space-y-2">
-                    <li><a href="{% url 'faq' %}" class="hover:text-blue-400">FAQ</a></li>
-                    <li><a href="{% url 'contact' %}" class="hover:text-blue-400">Contact Support</a></li>
-                    <li><a href="{% url 'terms' %}" class="hover:text-blue-400">Terms & Conditions</a></li>
-                    <li><a href="{% url 'privacy' %}" class="hover:text-blue-400">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-blue-400 hover:text-blue-600">Twitter</a>
-                    <a href="#" class="text-blue-400 hover:text-blue-600">LinkedIn</a>
-                    <a href="#" class="text-blue-400 hover:text-blue-600">Facebook</a>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"This platform revolutionized our supply chain operations. We've reduced costs by 25% and improved delivery times significantly."</p>
+                    <div class="flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                            <span class="text-blue-600 font-bold">JD</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">John Doe</h4>
+                            <p class="text-sm text-gray-500">Operations Manager, TechMfg</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"As a supplier, we've been able to connect with major manufacturers and increase our business volume by over 40%."</p>
+                    <div class="flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                            <span class="text-blue-600 font-bold">SS</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">Sarah Smith</h4>
+                            <p class="text-sm text-gray-500">CEO, Global Parts Inc.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"The analytics tools helped us identify inefficiencies in our supply chain that we never knew existed. Game-changer!"</p>
+                    <div class="flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                            <span class="text-blue-600 font-bold">RJ</span>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">Robert Johnson</h4>
+                            <p class="text-sm text-gray-500">Supply Chain Director, ElectroCorp</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="text-center mt-8 text-sm text-gray-400">
-            © 2024 Supply Chain Portal. All Rights Reserved.
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 hero-gradient text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Supply Chain?</h2>
+            <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">Join thousands of businesses already optimizing their operations with our platform</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#portals" class="bg-white text-blue-700 py-3 px-8 rounded-lg font-semibold hover:bg-blue-50 transition">Get Started Now</a>
+                <a href="#" class="bg-transparent border-2 border-white py-3 px-8 rounded-lg font-semibold hover:bg-white hover:bg-opacity-10 transition">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                            <i class="fas fa-link text-lg"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
+                    </div>
+                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
+                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
+                        <li><a href="{% url 'terms' %}" class="text-gray-400 hover:text-blue-400 transition">Terms & Conditions</a></li>
+                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
+                            <span>123 Supply Chain Blvd, Business District, 10001</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
+                            <span>info@supplychain.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-blue-400"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
+                <p>© 2024 Supply Chain Portal. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
-    
 
     <script>
         // Mobile menu toggle
@@ -171,9 +415,20 @@
             const isClickInsideMenu = mobileNav.contains(event.target);
             const isClickOnToggle = mobileMenuToggle.contains(event.target);
             
-            if (!isClickInsideMenu && !isClickOnToggle) {
+            if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
                 mobileNav.classList.remove('active');
             }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
     </script>
 </body>

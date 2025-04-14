@@ -26,3 +26,7 @@ def faq(request):
 
 def services(request):
     return render(request, 'home/services.html')
+
+def help(request):
+    return render(request, 'home/help.html')
+

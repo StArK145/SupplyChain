@@ -1,138 +1,431 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Escrow Payment System</title>
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escrow Payment System | Supply Chain Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
       body {
-        font-family: Arial, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-      button {
-        padding: 8px 16px;
-        margin: 5px;
-        cursor: pointer;
-      }
-      input {
-        padding: 8px;
-        margin: 5px;
-        width: 300px;
-      }
-      .status {
-        color: green;
-        font-weight: bold;
-      }
-      .error {
-        color: red;
-        white-space: pre-line;
-      }
-      .hidden {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9fafb;
+}
+
+.dashboard-card {
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.dashboard-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.button-primary {
+    transition: all 0.3s ease;
+    background-color: #3b82f6;
+    color: white;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-primary:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px rgba(37, 99, 235, 0.3);
+}
+
+.button-primary:disabled {
+    background-color: #93c5fd;
+    cursor: not-allowed;
+}
+
+.status-success {
+    color: #10b981;
+    font-weight: 500;
+}
+
+.status-error {
+    color: #ef4444;
+    font-weight: 500;
+    white-space: pre-line;
+}
+
+.debug-console {
+    background-color: #1f2937;
+    color: #e5e7eb;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+    font-family: Consolas, Monaco, "Andale Mono", monospace;
+    font-size: 0.875rem;
+}
+
+.debug-timestamp {
+    color: #9ca3af;
+    font-size: 0.75rem;
+}
+
+.debug-message {
+    margin-left: 0.5rem;
+}
+
+.debug-error {
+    color: #f87171;
+}
+
+.step-container {
+    position: relative;
+}
+
+.step-container::before {
+    content: "";
+    position: absolute;
+    left: 2.5rem;
+    top: 3rem;
+    bottom: 0;
+    width: 1px;
+    background-color: #d1d5db;
+    z-index: 0;
+}
+
+.step-container:last-child::before {
+    display: none;
+}
+
+.step-number {
+    background-color: #3b82f6;
+    color: white;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    z-index: 10;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
         display: none;
-      }
-      .success {
-        color: green;
-      }
-      #debugConsole {
-        background: #f5f5f5;
-        padding: 15px;
-        border-radius: 5px;
-        margin-top: 20px;
-        max-height: 300px;
-        overflow-y: auto;
-        font-family: monospace;
-      }
-      .debug-timestamp {
-        color: #666;
-        font-size: 0.9em;
-      }
-      .debug-message {
-        margin-left: 5px;
-      }
-      .debug-error {
-        color: #d32f2f;
-      }
-      .supplier-info {
-        background-color: #f0f0f0;
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-      }
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        z-index: 50;
+    }
+    
+    .nav-menu.active {
+        display: block;
+    }
+}
     </style>
-  </head>
-  <body>
-    <h1>Smart Contract Escrow System</h1>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo and Brand -->
+                <div class="flex items-center space-x-2">
+                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                        <i class="fas fa-link text-lg"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
+                </div>
 
-    <div class="supplier-info">
-      <h3>Payment to: {{ supplier_name }}</h3>
-      <p>Wallet address: <span id="supplierAddressDisplay"></span></p>
-      <p>Negotiation Amount: {{ amount }} ETH</p>
-    </div>
-    <!-- <input type="text" id="supplierAddress" placeholder="Enter supplier address" value="{{ supplier_address }}" /> -->
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 nav-menu">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
 
-    <button id="connectWallet">Connect Wallet</button>
-    <span id="walletStatus">Not connected</span>
-    <br /><br />
+                <!-- Mobile Hamburger Menu -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
 
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-nav" class="md:hidden nav-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
+    <!-- Main Content -->
+    <main class="flex-grow py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Welcome Banner -->
+            <div class="mb-10 bg-blue-600 rounded-xl shadow-md p-8 text-white">
+                <h1 class="text-3xl font-bold mb-2">Smart Contract Escrow System</h1>
+                <p class="text-lg text-blue-100">Secure blockchain-based payment processing for supply chain transactions.</p>
+            </div>
 
-    <h2>Step 1: Deploy Escrow Contract</h2>
-    <input
-      type="text"
-      id="supplierAddress"
-      placeholder="Enter supplier address (0x...)"
-      value="{{ supplier_address }}"
-      size="50"
-    />
-    <input
-      type="number"
-      id="totalAmount"
-      placeholder="Total Payment Amount in ETH"
-      value="{{ amount }}"
-      step="0.01"
-      min="0.01"
-    />
-    <button id="deployEscrow">Deploy Escrow</button>
-    <p id="escrowAddress" class="hidden"></p>
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Left Column - Supplier Information -->
+                <div class="md:col-span-1 space-y-8">
+                    <!-- Payment Details Card -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 dashboard-card">
+                        <h2 class="text-2xl font-semibold text-blue-700 mb-4">Payment Details</h2>
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h3 class="font-medium text-blue-800">Supplier Information</h3>
+                                <p class="text-gray-700 mt-2">
+                                    Payment to:
+                                    <span class="font-medium">{{ supplier_name }}</span>
+                                </p>
+                                <p class="text-gray-700 mt-1">
+                                    Wallet address:
+                                    <span id="supplierAddressDisplay" class="text-sm font-mono text-gray-600 break-all"></span>
+                                </p>
+                                <p class="text-gray-700 mt-1">
+                                    Negotiation Amount:
+                                    <span class="font-medium">{{ amount }} ETH</span>
+                                </p>
+                            </div>
+                            <div>
+                                <button id="connectWallet" class="w-full button-primary flex items-center justify-center space-x-2">
+                                    <i class="fas fa-wallet mr-2"></i>
+                                    <span>Connect Wallet</span>
+                                </button>
+                                <p id="walletStatus" class="mt-2 text-center text-gray-600">
+                                    Not connected
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
-    <h2>Step 2: Deposit Funds</h2>
-    <button id="depositFunds" class="hidden">Deposit ETH to Escrow</button>
-    <p id="depositStatus" class="hidden"></p>
+                    <!-- Debug Console Card -->
+                    <div class="bg-white rounded-xl shadow-md p-6 dashboard-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-terminal mr-2 text-blue-600"></i>
+                            Debug Console
+                        </h3>
+                        <div id="debugConsole" class="debug-console"></div>
+                    </div>
+                </div>
+                
+                <!-- Right Column - Payment Process -->
+                <div class="md:col-span-2 space-y-8">
+                    <div class="bg-white rounded-xl shadow-md p-8 dashboard-card">
+                        <h2 class="text-2xl font-semibold text-blue-700 mb-6">Escrow Payment Process</h2>
+                        <p id="statusMessage" class="mb-6 text-gray-600">
+                            Complete the following steps to process your payment securely.
+                        </p>
 
-    <h2>Step 3: Release Advance (50%)</h2>
-    <button id="releaseAdvance" class="hidden">Release Advance</button>
-    <p id="advanceStatus" class="hidden"></p>
+                        <!-- Step 1 -->
+                        <div class="step-container mb-8 pl-12 relative">
+                            <div class="step-number absolute left-0 top-0">1</div>
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">Deploy Escrow Contract</h2>
+                            <div class="space-y-4">
+                                <div class="flex flex-col md:flex-row gap-4">
+                                    <input type="text" id="supplierAddress" placeholder="Enter supplier address (0x...)" 
+                                           value="{{ supplier_address }}" 
+                                           class="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
+                                    <input type="number" id="totalAmount" placeholder="Total Payment Amount in ETH" 
+                                           value="{{ amount }}" step="0.01" min="0.01" 
+                                           class="w-full md:w-48 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
+                                </div>
+                                <button id="deployEscrow" class="button-primary">
+                                    <i class="fas fa-file-contract mr-2"></i> Deploy Escrow
+                                </button>
+                                <p id="escrowAddress" class="hidden mt-2 p-2 bg-green-50 text-green-700 rounded-md"></p>
+                            </div>
+                        </div>
 
-    <h2>Step 4: Release Final Payment (50%)</h2>
-    <button id="releaseFullPayment" class="hidden">
-      Release Final Payment
-    </button>
-    <p id="fullPaymentStatus" class="hidden"></p>
+                        <!-- Step 2 -->
+                        <div class="step-container mb-8 pl-12 relative">
+                            <div class="step-number absolute left-0 top-0">2</div>
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">Deposit Funds</h2>
+                            <button id="depositFunds" class="hidden button-primary">
+                                <i class="fas fa-coins mr-2"></i> Deposit ETH to Escrow
+                            </button>
+                            <p id="depositStatus" class="hidden mt-2 p-2 bg-blue-50 text-blue-700 rounded-md"></p>
+                        </div>
 
-    <h2>Step 5: Deduct Penalty</h2>
-    <button id="deductPenalty" class="hidden">Deduct Penalty</button>
-    <p id="penaltyStatus" class="hidden"></p>
+                        <!-- Step 3 -->
+                        <div class="step-container mb-8 pl-12 relative">
+                            <div class="step-number absolute left-0 top-0">3</div>
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">Release Advance (50%)</h2>
+                            <button id="releaseAdvance" class="hidden button-primary">
+                                <i class="fas fa-paper-plane mr-2"></i> Release Advance
+                            </button>
+                            <p id="advanceStatus" class="hidden mt-2 p-2 bg-blue-50 text-blue-700 rounded-md"></p>
+                        </div>
 
-    <p id="statusMessage"></p>
+                        <!-- Step 4 -->
+                        <div class="step-container mb-8 pl-12 relative">
+                            <div class="step-number absolute left-0 top-0">4</div>
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">Release Final Payment (50%)</h2>
+                            <button id="releaseFullPayment" class="hidden button-primary">
+                                <i class="fas fa-check-circle mr-2"></i> Release Final Payment
+                            </button>
+                            <p id="fullPaymentStatus" class="hidden mt-2 p-2 bg-blue-50 text-blue-700 rounded-md"></p>
+                        </div>
 
-    <h3>Debug Console</h3>
-    <div id="debugConsole"></div>
+                        <!-- Step 5 -->
+                        <div class="step-container mb-8 pl-12 relative">
+                            <div class="step-number absolute left-0 top-0">5</div>
+                            <h2 class="text-xl font-semibold text-gray-800 mb-4">Deduct Penalty</h2>
+                            <div class="flex items-center">
+                                <button id="deductPenalty" class="hidden button-primary bg-yellow-500 hover:bg-yellow-600">
+                                    <i class="fas fa-exclamation-triangle mr-2"></i> Deduct Penalty
+                                </button>
+                                <span class="ml-3 text-gray-500 text-sm">(Alternative to Step 4 if supplier performance is unsatisfactory)</span>
+                            </div>
+                            <p id="penaltyStatus" class="hidden mt-2 p-2 bg-yellow-50 text-yellow-700 rounded-md"></p>
+                        </div>
+                    </div>
 
+                    <!-- Payment Information Section -->
+                    <div class="bg-white rounded-xl shadow-md p-8 dashboard-card">
+                        <h2 class="text-2xl font-semibold text-blue-700 mb-6">Payment Information</h2>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-blue-100 p-3 rounded-full">
+                                    <i class="fas fa-shield-alt text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-lg mb-1">Escrow Security</h3>
+                                    <p class="text-gray-600">Our smart contract escrow system guarantees secure transactions between manufacturers and suppliers.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-blue-100 p-3 rounded-full">
+                                    <i class="fas fa-hand-holding-usd text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-lg mb-1">Payment Structure</h3>
+                                    <p class="text-gray-600">The payment is split into two phases: 50% advance payment and 50% after completion.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-blue-100 p-3 rounded-full">
+                                    <i class="fas fa-exclamation-circle text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-lg mb-1">Important Notice</h3>
+                                    <p class="text-gray-600">Make sure to verify the supplier's wallet address before deploying the escrow contract.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                            <i class="fas fa-link text-lg"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
+                    </div>
+                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
+                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
+                        <li><a href="{% url 'terms' %}" class="text-gray-400 hover:text-blue-400 transition">Terms & Conditions</a></li>
+                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
+                            <span>123 Supply Chain Blvd, Business District, 10001</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
+                            <span>info@supplychain.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-blue-400"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
+                <p>© 2025 Supply Chain Portal. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const urlParams = new URLSearchParams(window.location.search);
 
         // Set values from URL
-
         const addressFromURL = urlParams.get("supplier_address");
 
         if (addressFromURL) {
           document.getElementById("supplierAddress").value = addressFromURL;
         }
 
-        const amountFromURL = urlParams.get("amount");document.getElementById("supplierAddressDisplay").textContent =
-        urlParams.get("supplier_address");        
+        const amountFromURL = urlParams.get("amount");
+        document.getElementById("supplierAddressDisplay").textContent =
+          urlParams.get("supplier_address");
       });
 
       let provider, signer, factoryContract, escrowContract;
@@ -303,57 +596,70 @@
 
       // Connect MetaMask
       // Wallet connection function
-document.getElementById("connectWallet").onclick = async () => {
-  try {
-    debugLog("Attempting to connect wallet...");
-    
-    // Check if MetaMask is installed
-    if (!window.ethereum) {
-      throw new Error("Please install MetaMask or another Web3 wallet");
-    }
-    
-    // Initialize Web3 provider
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    debugLog("Web3 provider initialized");
-    
-    // Request account access
-    const accounts = await provider.send("eth_requestAccounts", []);
-    userAddress = accounts[0];
-    debugLog(`Connected account: ${userAddress}`);
-    
-    // Get signer
-    signer = provider.getSigner();
-    
-    // Update UI
-    document.getElementById("walletStatus").textContent = 
-      `Connected: ${userAddress.substring(0, 6)}...${userAddress.substring(38)}`;
-    document.getElementById("walletStatus").className = "status";
-    
-    debugLog("Wallet connected successfully");
-    
-    // Initialize contract instances
-    factoryContract = new ethers.Contract(factoryAddress, factoryAbi, signer);
-    debugLog("Factory contract instance created");
-    
-  } catch (error) {
-    debugLog(`Wallet connection failed: ${error.message}`, true);
-    document.getElementById("walletStatus").textContent = `Error: ${error.message}`;
-    document.getElementById("walletStatus").className = "error";
-  }
-};
+      document.getElementById("connectWallet").onclick = async () => {
+        try {
+          debugLog("Attempting to connect wallet...");
+
+          // Check if MetaMask is installed
+          if (!window.ethereum) {
+            throw new Error("Please install MetaMask or another Web3 wallet");
+          }
+
+          // Initialize Web3 provider
+          provider = new ethers.providers.Web3Provider(window.ethereum);
+          debugLog("Web3 provider initialized");
+
+          // Request account access
+          const accounts = await provider.send("eth_requestAccounts", []);
+          userAddress = accounts[0];
+          debugLog(`Connected account: ${userAddress}`);
+
+          // Get signer
+          signer = provider.getSigner();
+
+          // Update UI
+          document.getElementById(
+            "walletStatus"
+          ).textContent = `Connected: ${userAddress.substring(
+            0,
+            6
+          )}...${userAddress.substring(38)}`;
+          document.getElementById("walletStatus").className = "status";
+
+          debugLog("Wallet connected successfully");
+
+          // Initialize contract instances
+          factoryContract = new ethers.Contract(
+            factoryAddress,
+            factoryAbi,
+            signer
+          );
+          debugLog("Factory contract instance created");
+        } catch (error) {
+          debugLog(`Wallet connection failed: ${error.message}`, true);
+          document.getElementById(
+            "walletStatus"
+          ).textContent = `Error: ${error.message}`;
+          document.getElementById("walletStatus").className = "error";
+        }
+      };
 
       // Deploy a new escrow contract
       document.getElementById("deployEscrow").onclick = async () => {
-              const btn = document.getElementById("deployEscrow");
-              const originalText = btn.textContent;
+        const btn = document.getElementById("deployEscrow");
+        const originalText = btn.textContent;
         try {
           // Check if wallet is connected
           if (!signer) throw new Error("Please connect your wallet first");
-          
+
           // Now safe to access inputs
-          const supplierAddress = document.getElementById("supplierAddress").value.trim();
-          const totalAmountInput = document.getElementById("totalAmount").value.trim();
-          
+          const supplierAddress = document
+            .getElementById("supplierAddress")
+            .value.trim();
+          const totalAmountInput = document
+            .getElementById("totalAmount")
+            .value.trim();
+
           if (!supplierAddress) throw new Error("Supplier address is required");
           if (!totalAmountInput) throw new Error("Total amount is required");
           if (!ethers.utils.isAddress(supplierAddress))
@@ -418,9 +724,9 @@ document.getElementById("connectWallet").onclick = async () => {
             escrowContract.totalAmount(),
           ]);
           debugLog(`Contract initialized with:
-            Manufacturer: ${manufacturer}
-            Supplier: ${supplier}
-            Amount: ${ethers.utils.formatEther(amount)} ETH`);
+              Manufacturer: ${manufacturer}
+              Supplier: ${supplier}
+              Amount: ${ethers.utils.formatEther(amount)} ETH`);
         } catch (error) {
           debugLog(`Escrow deployment failed: ${error.message}`, true);
           document.getElementById(
@@ -627,9 +933,9 @@ document.getElementById("connectWallet").onclick = async () => {
             escrowContract.getBalance(),
           ]);
           debugLog(`Final state:
-            Advance released: ${advanceReleased}
-            Full payment released: ${fullReleased}
-            Contract balance: ${ethers.utils.formatEther(balance)} ETH`);
+              Advance released: ${advanceReleased}
+              Full payment released: ${fullReleased}
+              Contract balance: ${ethers.utils.formatEther(balance)} ETH`);
         } catch (error) {
           debugLog(`Final payment failed: ${error.message}`, true);
           document.getElementById(
@@ -666,9 +972,9 @@ document.getElementById("connectWallet").onclick = async () => {
             escrowContract.getBalance(),
           ]);
           debugLog(`Pre-penalty check:
-            Advance released: ${advanceReleased}
-            Full payment released: ${fullReleased}
-            Balance: ${ethers.utils.formatEther(balance)} ETH`);
+              Advance released: ${advanceReleased}
+              Full payment released: ${fullReleased}
+              Balance: ${ethers.utils.formatEther(balance)} ETH`);
 
           if (!advanceReleased)
             throw new Error("Advance must be released first");
@@ -698,10 +1004,10 @@ document.getElementById("connectWallet").onclick = async () => {
               `Event: SupplierPartialPayment - ${supplierAmount} ETH to supplier`
             );
             statusElement.innerHTML = `
-              Penalty processed!<br>
-              • ${penaltyAmount} ETH sent to manufacturer<br>
-              • ${supplierAmount} ETH sent to supplier
-            `;
+                Penalty processed!<br>
+                • ${penaltyAmount} ETH sent to manufacturer<br>
+                • ${supplierAmount} ETH sent to supplier
+              `;
             statusElement.className = "success";
           });
 
@@ -757,5 +1063,5 @@ document.getElementById("connectWallet").onclick = async () => {
         debugLog("Application initialized");
       });
     </script>
-  </body>
+</body>
 </html>

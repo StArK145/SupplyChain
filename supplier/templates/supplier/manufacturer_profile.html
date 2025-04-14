@@ -1,45 +1,253 @@
 <!-- supplier/templates/supplier/manufacturer_profile.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{{ manufacturer.company_name }} Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ manufacturer.company_name }} Profile | Supply Chain Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: Arial; padding: 20px; }
-        .profile-container { max-width: 800px; margin: 0 auto; }
-        .profile-header { margin-bottom: 30px; }
-        .profile-info { margin-bottom: 20px; }
-        .back-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
+        .action-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #0d9488;
+            transition: width 0.3s ease;
+        }
+        .action-link:hover::after {
+            width: 100%;
+        }
+        .dashboard-card {
+            transition: all 0.2s ease;
         }
     </style>
 </head>
-<body>
-    <div class="profile-container">
-        <div class="profile-header">
-            <h1>{{ manufacturer.company_name }}</h1>
-            <p>{{ manufacturer.first_name }} {{ manufacturer.last_name }}</p>
-            <a href="{% url 'submit_bid' quote_id %}" class="back-btn">Back to Quote</a>
+<body class="min-h-screen flex flex-col bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="h-10 w-10 rounded-md bg-teal-600 flex items-center justify-center">
+                        <i class="fas fa-link text-lg text-white"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-teal-600">Supply<span class="text-gray-700">Chain</span></h1>
+                </div>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-toggle" class="text-teal-600 hover:text-gray-900 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobile-nav" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
+                </div>
+            </div>
         </div>
-        
-        <div class="profile-info">
-            <h2>Company Information</h2>
-            <p><strong>Location:</strong> {{ manufacturer.city }}, {{ manufacturer.state }}</p>
-            <p><strong>Business Type:</strong> {{ manufacturer.business_type }}</p>
-            <p><strong>Phone:</strong> {{ manufacturer.phone_number }}</p>
-            {% if manufacturer.website %}
-                <p><strong>Website:</strong> <a href="{{ manufacturer.website }}" target="_blank">{{ manufacturer.website }}</a></p>
-            {% endif %}
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Welcome Banner -->
+            <div class="mb-10 bg-teal-600 rounded-xl shadow-md p-8 text-white">
+                <h1 class="text-3xl font-bold mb-2">{{ manufacturer.company_name }}</h1>
+                <p class="text-lg text-teal-100">{{ manufacturer.first_name }} {{ manufacturer.last_name }}</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Left Column -->
+                <div class="md:col-span-1 space-y-8">
+                    <!-- Profile Card -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 dashboard-card hover:shadow-md">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="h-16 w-16 rounded-full bg-teal-100 flex items-center justify-center">
+                                <span class="text-2xl font-bold text-teal-600">{{ manufacturer.company_name.0 }}</span>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-semibold text-gray-800">{{ manufacturer.company_name }}</h2>
+                                <p class="text-gray-500">Manufacturer</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-100 pt-4 mt-4 space-y-2">
+                            <a href="{% url 'submit_bid' quote_id %}" class="block py-2 text-teal-600 hover:text-teal-800 font-medium relative action-link">
+                                <i class="fas fa-arrow-left mr-2"></i>Back to Quote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="md:col-span-2 space-y-8">
+                    <!-- Company Information Card -->
+                    <div class="bg-white rounded-xl shadow-md p-8 dashboard-card hover:shadow-md">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-teal-100 p-3 rounded-lg mr-4">
+                                <i class="fas fa-building text-teal-600 text-xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-800">Company Information</h2>
+                        </div>
+
+                        <div class="space-y-5">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-gray-500 font-medium">Location:</p>
+                                    <p class="text-gray-800 font-semibold">
+                                        {{ manufacturer.city }}, {{ manufacturer.state }}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p class="text-gray-500 font-medium">Business Type:</p>
+                                    <p class="text-gray-800 font-semibold">
+                                        {{ manufacturer.business_type }}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p class="text-gray-500 font-medium">Phone Number:</p>
+                                    <p class="text-gray-800 font-semibold">
+                                        {{ manufacturer.phone_number }}
+                                    </p>
+                                </div>
+
+                                {% if manufacturer.website %}
+                                <div>
+                                    <p class="text-gray-500 font-medium">Website:</p>
+                                    <a href="{{ manufacturer.website }}" target="_blank"
+                                       class="text-teal-600 hover:text-teal-800 font-medium hover:underline flex items-center">
+                                        {{ manufacturer.website }}
+                                        <i class="fas fa-external-link-alt ml-1 text-sm"></i>
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Products Card -->
+                    <div class="bg-white rounded-xl shadow-md p-8 dashboard-card hover:shadow-md">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-teal-100 p-3 rounded-lg mr-4">
+                                <i class="fas fa-boxes text-teal-600 text-xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-800">Key Products</h2>
+                        </div>
+                        <div class="bg-teal-50 p-4 rounded-lg">
+                            <p class="text-gray-800">{{ manufacturer.key_products }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="profile-info">
-            <h2>Key Products</h2>
-            <p>{{ manufacturer.key_products }}</p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="h-10 w-10 rounded-md bg-teal-600 flex items-center justify-center">
+                            <i class="fas fa-link text-lg text-white"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-teal-400">Chain</span></h1>
+                    </div>
+                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-teal-400">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-teal-400">About</a></li>
+                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-teal-400">Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-teal-400">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-teal-400">Help Center</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-teal-400">Contact</a></li>
+                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-teal-400">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Contact</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-teal-400"></i>
+                            123 Supply Chain Blvd, Business District, 10001
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-teal-400"></i>
+                            info@supplychain.com
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-teal-400"></i>
+                            +1 (555) 123-4567
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 mt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-400">© 2025 Supply Chain Portal. All rights reserved.</p>
+            </div>
         </div>
-    </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        if (mobileMenuToggle && mobileNav) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (event) => {
+                const isClickInsideMenu = mobileNav.contains(event.target);
+                const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                
+                if (!isClickInsideMenu && !isClickOnToggle && !mobileNav.classList.contains('hidden')) {
+                    mobileNav.classList.add('hidden');
+                }
+            });
+        }
+    </script>
 </body>
 </html>

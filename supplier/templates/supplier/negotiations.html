@@ -1,63 +1,232 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Your Negotiations</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Negotiations | Supply Chain Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: Arial; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        .negotiation-card { 
-            border: 1px solid #ddd; 
-            padding: 15px; 
-            margin-bottom: 15px;
-            border-radius: 5px;
+        .action-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #0d9488;
+            transition: width 0.3s ease;
+        }
+        .action-link:hover::after {
+            width: 100%;
+        }
+        .negotiation-card {
+            transition: all 0.2s ease;
         }
         .status-active { color: #28a745; font-weight: bold; }
         .status-expired { color: #dc3545; }
         .status-accepted { color: #17a2b8; }
         .status-rejected { color: #6c757d; }
-        .view-btn {
-            display: inline-block;
-            padding: 5px 10px;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 3px;
-            margin-top: 10px;
-        }
-        .expiry-warning { color: #ff9800; font-weight: bold; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Your Negotiations</h1>
-        
-        {% if negotiations %}
-            {% for negotiation in negotiations %}
-                <div class="negotiation-card">
-                    <h3>
-                        {{ negotiation.bid.quote.product }} - 
-                        {{ negotiation.bid.quote.manufacturer.company_name }}
-                    </h3>
-                    <p>Original Bid: {{ negotiation.bid.quote.currency }} {{ negotiation.bid.bid_amount }}</p>
-                    <p>Status: <span class="status-{{ negotiation.status }}">{{ negotiation.get_status_display }}</span></p>
-                    <p>Last Updated: {{ negotiation.updated_at }}</p>
-                    
-                    {% if negotiation.status == 'active' %}
-                        {% if negotiation.expiry_date < now %}
-                            <p class="expiry-warning">Negotiation expired on {{ negotiation.expiry_date }}</p>
-                        {% else %}
-                            <p>Expires on: {{ negotiation.expiry_date }}</p>
-                        {% endif %}
-                    {% endif %}
-                    
-                    <a href="{% url 'supplier_view_negotiation' negotiation.id %}" class="view-btn">View Details</a>
+<body class="min-h-screen flex flex-col bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="h-10 w-10 rounded-md bg-teal-600 flex items-center justify-center">
+                        <i class="fas fa-link text-lg text-white"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-teal-600">Supply<span class="text-gray-700">Chain</span></h1>
                 </div>
-            {% endfor %}
-        {% else %}
-            <p>You have no active negotiations.</p>
-        {% endif %}
-        
-        <a href="{% url 'supplier_dashboard' %}">Back to Dashboard</a>
-    </div>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-toggle" class="text-teal-600 hover:text-gray-900 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobile-nav" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Page Header -->
+            <div class="mb-10 bg-teal-600 rounded-xl shadow-md p-8 text-white">
+                <h1 class="text-3xl font-bold mb-2">Your Negotiations</h1>
+                <p class="text-lg text-teal-100">Track and manage all your active and past negotiations with manufacturers.</p>
+            </div>
+
+            <!-- Negotiations Container -->
+            <div class="bg-white rounded-xl shadow-md p-8 hover:shadow-md transition">
+                {% if negotiations %}
+                    <div class="space-y-6">
+                        {% for negotiation in negotiations %}
+                            <div class="negotiation-card bg-teal-50 p-6 rounded-lg hover:bg-teal-100 transition">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-teal-800 mb-2">
+                                            {{ negotiation.bid.quote.product }} - 
+                                            {{ negotiation.bid.quote.manufacturer.company_name }}
+                                        </h3>
+                                        <div class="text-sm text-gray-600 space-y-2">
+                                            <p><strong>Original Bid:</strong> {{ negotiation.bid.quote.currency }} {{ negotiation.bid.bid_amount }}</p>
+                                            <p><strong>Status:</strong> 
+                                                <span class="px-2 py-1 rounded-full text-xs 
+                                                    {% if negotiation.status == 'active' %}bg-green-200 text-green-800
+                                                    {% elif negotiation.status == 'expired' %}bg-red-200 text-red-800
+                                                    {% elif negotiation.status == 'accepted' %}bg-blue-200 text-blue-800
+                                                    {% elif negotiation.status == 'rejected' %}bg-gray-200 text-gray-800
+                                                    {% endif %}">
+                                                    {{ negotiation.get_status_display }}
+                                                </span>
+                                            </p>
+                                            <p><strong>Last Updated:</strong> {{ negotiation.updated_at }}</p>
+                                            
+                                            {% if negotiation.status == 'active' %}
+                                                {% if negotiation.expiry_date < now %}
+                                                    <p class="text-red-600 font-medium"><i class="fas fa-exclamation-circle mr-1"></i> Negotiation expired on {{ negotiation.expiry_date }}</p>
+                                                {% else %}
+                                                    <p><strong>Expires on:</strong> {{ negotiation.expiry_date }}</p>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'supplier_view_negotiation' negotiation.id %}" class="bg-teal-600 text-white px-4 py-2 rounded-md text-sm hover:bg-teal-700 transition">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-10">
+                        <div class="text-teal-600 text-5xl mb-4">
+                            <i class="fas fa-comments-dollar"></i>
+                        </div>
+                        <h3 class="text-xl font-medium text-gray-700 mb-2">You have no active negotiations</h3>
+                        <p class="text-gray-500 mb-6">When a manufacturer wants to discuss your bid, negotiations will appear here.</p>
+                    </div>
+                {% endif %}
+                
+                <div class="mt-8 pt-6 border-t border-gray-100">
+                    <a href="{% url 'supplier_dashboard' %}" class="inline-flex items-center text-teal-600 hover:text-teal-800 font-medium">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="h-10 w-10 rounded-md bg-teal-600 flex items-center justify-center">
+                            <i class="fas fa-link text-lg text-white"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-teal-400">Chain</span></h1>
+                    </div>
+                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-teal-400">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-teal-400">About</a></li>
+                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-teal-400">Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-teal-400">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-teal-400">Help Center</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-teal-400">Contact</a></li>
+                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-teal-400">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Contact</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-teal-400"></i>
+                            123 Supply Chain Blvd, Business District, 10001
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-teal-400"></i>
+                            info@supplychain.com
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-teal-400"></i>
+                            +1 (555) 123-4567
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 mt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-400">© 2025 Supply Chain Portal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        if (mobileMenuToggle && mobileNav) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (event) => {
+                const isClickInsideMenu = mobileNav.contains(event.target);
+                const isClickOnToggle = mobileMenuToggle.contains(event.target);
+                
+                if (!isClickInsideMenu && !isClickOnToggle && !mobileNav.classList.contains('hidden')) {
+                    mobileNav.classList.add('hidden');
+                }
+            });
+        }
+    </script>
 </body>
 </html>

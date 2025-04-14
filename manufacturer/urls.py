@@ -23,4 +23,5 @@ urlpatterns = [
     path('commodity-price/', views.get_commodity_price, name='commodity_price'),
     path('analyze-supplier/<int:supplier_id>/', views.analyze_supplier, name='analyze_supplier'),
     path('calculate-carbon-footprint/', calculate_carbon_footprint, name='calculate_carbon_footprint'),
+    path('commodity-analytics/', views.commodity_analytics, name='commodity_analytics'),
 ]

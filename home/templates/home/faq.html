@@ -3,27 +3,363 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>FAQ - Supply Chain Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb;
+        }
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                z-index: 50;
+            }
+            .nav-menu.active {
+                display: block;
+            }
+        }
+        .faq-item {
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .faq-question {
+            transition: all 0.3s ease;
+        }
+        .faq-question:hover {
+            color: #3b82f6;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
-    <div class="max-w-4xl mx-auto p-6">
-        <h2 class="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
-        
-        <div class="mb-4">
-            <p class="text-lg font-semibold">Q: How can I contact support?</p>
-            <p class="text-lg">A: You can reach us via email at support@example.com.</p>
-        </div>
+<body class="min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo and Brand -->
+                <div class="flex items-center space-x-2">
+                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                        <i class="fas fa-link text-lg"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
+                </div>
 
-        <div class="mb-4">
-            <p class="text-lg font-semibold">Q: Do you store my personal information?</p>
-            <p class="text-lg">A: We value your privacy and only store necessary data securely.</p>
-        </div>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 nav-menu">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Contact</a>
+                </div>
 
-        <div class="mb-4">
-            <p class="text-lg font-semibold">Q: How can I change my account details?</p>
-            <p class="text-lg">A: You can update your profile information from the account settings page.</p>
+                <!-- Login/Register Button -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="{% url 'manufacturer_login' %}" class="text-gray-600 hover:text-blue-600 font-medium">Login</a>
+                    <a href="#portals" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">Get Started</a>
+                </div>
+
+                <!-- Mobile Hamburger Menu -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-nav" class="md:hidden nav-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
+                    <div class="flex flex-col pt-4 pb-2 space-y-2">
+                        <a href="{% url 'manufacturer_login' %}" class="text-blue-600 block px-3 py-2 font-medium">Login</a>
+                        <a href="#portals" class="bg-blue-600 text-white px-3 py-2 rounded-lg text-center font-medium">Get Started</a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <section class="py-16 bg-white">
+            <div class="max-w-4xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h1>
+                    <p class="text-xl text-gray-600">Find answers to common questions about our platform and services.</p>
+                </div>
+
+                <div class="max-w-3xl mx-auto">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        <!-- Getting Started Section -->
+                        <div class="p-6 border-b border-gray-200">
+                            <h2 class="text-2xl font-semibold text-blue-600 mb-6">Getting Started</h2>
+                            
+                            <div class="faq-item mb-6">
+                                <div class="faq-question flex justify-between items-center cursor-pointer py-3">
+                                    <h3 class="text-lg font-medium">How do I create an account?</h3>
+                                    <i class="fas fa-chevron-down text-blue-500 transition-transform"></i>
+                                </div>
+                                <div class="faq-answer px-2">
+                                    <p class="text-gray-600 pb-4">
+                                        Click on either "Manufacturer Register" or "Supplier Register" on the homepage, depending on your role. 
+                                        Fill out the registration form with your details and follow the instructions to complete your account setup.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item mb-6">
+                                <div class="faq-question flex justify-between items-center cursor-pointer py-3">
+                                    <h3 class="text-lg font-medium">What's the difference between manufacturer and supplier accounts?</h3>
+                                    <i class="fas fa-chevron-down text-blue-500 transition-transform"></i>
+                                </div>
+                                <div class="faq-answer px-2">
+                                    <p class="text-gray-600 pb-4">
+                                        Manufacturers are companies looking for suppliers to provide materials or components. 
+                                        Suppliers are companies offering materials, components, or services to manufacturers.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <div class="faq-question flex justify-between items-center cursor-pointer py-3">
+                                    <h3 class="text-lg font-medium">Is there a free trial available?</h3>
+                                    <i class="fas fa-chevron-down text-blue-500 transition-transform"></i>
+                                </div>
+                                <div class="faq-answer px-2">
+                                    <p class="text-gray-600 pb-4">
+                                        Yes, we offer a 14-day free trial for all new users. You can explore all platform features during this period 
+                                        without any commitment. No credit card is required to start your free trial.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Account Management Section -->
+                        <div class="p-6 border-b border-gray-200">
+                            <h2 class="text-2xl font-semibold text-blue-600 mb-6">Account Management</h2>
+                            
+                            <div class="faq-item mb-6">
+                                <div class="faq-question flex justify-between items-center cursor-pointer py-3">
+                                    <h3 class="text-lg font-medium">How do I reset my password?</h3>
+                                    <i class="fas fa-chevron-down text-blue-500 transition-transform"></i>
+                                </div>
+                                <div class="faq-answer px-2">
+                                    <p class="text-gray-600 pb-4">
+                                        On the login page, click "Forgot Password" and enter your registered email address. 
+                                        You'll receive instructions to reset your password via email.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item mb-6">
+                                <div class="faq-question flex justify-between items-center cursor-pointer py-3">
+                                    <h3 class="text-lg font-medium">Can I change my account type after registration?</h3>
+                                    <i class="fas fa-chevron-down text-blue-500 transition-transform"></i>
+                                </div>
+                                <div class="faq-answer px-2">
+                                    <p class="text-gray-600 pb-4">
+                                        No, account types cannot be changed after registration. You'll need to create a new account with the correct type. 
+                                        However, you can use the same email address for both account types if needed.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <div class="faq-question flex justify-between items-center cursor-pointer py-3">
+                                    <h3 class="text-lg font-medium">How do I update my company information?</h3>
+                                    <i class="fas fa-chevron-down text-blue-500 transition-transform"></i>
+                                </div>
+                                <div class="faq-answer px-2">
+                                    <p class="text-gray-600 pb-4">
+                                        You can update your company information by navigating to the "Account Settings" section in your dashboard. 
+                                        Click on "Company Profile" to make changes to your business details, contact information, and other relevant data.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Platform Features Section -->
+                        <div class="p-6">
+                            <h2 class="text-2xl font-semibold text-blue-600 mb-6">Platform Features</h2>
+                            
+                            <div class="faq-item mb-6">
+                                <div class="faq-question flex justify-between items-center cursor-pointer py-3">
+                                    <h3 class="text-lg font-medium">How do I find suppliers/manufacturers?</h3>
+                                    <i class="fas fa-chevron-down text-blue-500 transition-transform"></i>
+                                </div>
+                                <div class="faq-answer px-2">
+                                    <p class="text-gray-600 pb-4">
+                                        After logging in, use the search functionality in your dashboard to find potential partners. 
+                                        You can filter by industry, location, certifications, and other criteria to find the best matches for your business needs.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item mb-6">
+                                <div class="faq-question flex justify-between items-center cursor-pointer py-3">
+                                    <h3 class="text-lg font-medium">Is there a messaging system?</h3>
+                                    <i class="fas fa-chevron-down text-blue-500 transition-transform"></i>
+                                </div>
+                                <div class="faq-answer px-2">
+                                    <p class="text-gray-600 pb-4">
+                                        Yes, once you've connected with a partner through the platform, you can use our built-in messaging system to communicate securely. 
+                                        The messaging system allows you to exchange files, track conversations, and manage all your communications in one place.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <div class="faq-question flex justify-between items-center cursor-pointer py-3">
+                                    <h3 class="text-lg font-medium">Can I integrate this with my existing ERP system?</h3>
+                                    <i class="fas fa-chevron-down text-blue-500 transition-transform"></i>
+                                </div>
+                                <div class="faq-answer px-2">
+                                    <p class="text-gray-600 pb-4">
+                                        Yes, our platform offers API integration with most major ERP systems. We support integration with SAP, Oracle, 
+                                        Microsoft Dynamics, and other popular ERP solutions. Contact our support team for specific integration assistance.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12 text-center">
+                        <h3 class="text-xl font-medium text-gray-800 mb-4">Still have questions?</h3>
+                        <p class="text-gray-600 mb-6">Our support team is ready to help you with any additional questions you may have.</p>
+                        <a href="{% url 'contact' %}" class="inline-block bg-blue-600 text-white py-3 px-8 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                            Contact Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                            <i class="fas fa-link text-lg"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
+                    </div>
+                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
+                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact</a></li>
+                        <li><a href="{% url 'manufacturer_login' %}" class="text-gray-400 hover:text-blue-400 transition">Manufacturer Login</a></li>
+                        <li><a href="{% url 'supplier_login' %}" class="text-gray-400 hover:text-blue-400 transition">Supplier Login</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
+                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-blue-400 transition">Help Center</a></li>
+                        <li><a href="{% url 'terms' %}" class="text-gray-400 hover:text-blue-400 transition">Terms & Conditions</a></li>
+                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
+                            <span>123 Supply Chain Blvd, Business District, 10001</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
+                            <span>info@supplychain.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-blue-400"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
+                <p>© 2024 Supply Chain Portal. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideMenu = mobileNav.contains(event.target);
+            const isClickOnToggle = mobileMenuToggle.contains(event.target);
+            
+            if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
+                mobileNav.classList.remove('active');
+            }
+        });
+
+        // FAQ accordion functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+                
+                // Close other open items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem && item.classList.contains('active')) {
+                        item.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

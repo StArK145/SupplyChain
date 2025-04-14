@@ -47,10 +47,10 @@
                     <h1 class="text-2xl font-bold text-blue-700">Supply Chain Portal</h1>
                 </div>
                 <div class="hidden md:flex space-x-6 nav-menu">
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
                 </div>
             </div>
         </div>
@@ -132,17 +132,17 @@
             <div>
                 <h3 class="text-lg font-bold mb-4">Quick Links</h3>
                 <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-blue-400">Home</a></li>
-                    <li><a href="#" class="hover:text-blue-400">About Us</a></li>
-                    <li><a href="#" class="hover:text-blue-400">Services</a></li>
+                    <li><a href="{% url 'home' %}" class="hover:text-blue-400">Home</a></li>
+                    <li><a href="{% url 'about' %}" class="hover:text-blue-400">About Us</a></li>
+                    <li><a href="{% url 'services' %}" class="hover:text-blue-400">Services</a></li>
                 </ul>
             </div>
             <div>
                 <h3 class="text-lg font-bold mb-4">Support</h3>
                 <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-blue-400">Help Center</a></li>
-                    <li><a href="#" class="hover:text-blue-400">Contact Support</a></li>
-                    <li><a href="#" class="hover:text-blue-400">FAQ</a></li>
+                    <li><a href="{% url 'help' %}" class="hover:text-blue-400">Help Center</a></li>
+                    <li><a href="{% url 'contact' %}" class="hover:text-blue-400">Contact Support</a></li>
+                    <li><a href="{% url 'faq' %}" class="hover:text-blue-400">FAQ</a></li>
                 </ul>
             </div>
             <div>

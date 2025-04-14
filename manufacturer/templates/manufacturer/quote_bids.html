@@ -5,36 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bids for {{ quote.product }} | Supply Chain Portal</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb;
         }
         .dashboard-card {
-            transition: all 0.3s ease;
-            transform-origin: center;
+            transition: all 0.2s ease;
         }
         .dashboard-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-        .action-link {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .action-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #3b82f6;
-            transition: width 0.3s ease;
-        }
-        .action-link:hover::after {
-            width: 100%;
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                z-index: 50;
+            }
+            .nav-menu.active {
+                display: block;
+            }
         }
         .status-badge {
             display: inline-block;
@@ -43,263 +40,231 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
+        .status-open { background-color: #d1fae5; color: #047857; }
+        .status-closed { background-color: #f3f4f6; color: #6b7280; }
+        .status-awarded { background-color: #e0f2fe; color: #0369a1; }
+        .status-expired { background-color: #fee2e2; color: #b91c1c; }
         .status-submitted { background-color: #fef3c7; color: #92400e; }
-        .status-accepted { background-color: #d1fae5; color: #047857; }
-        .status-rejected { background-color: #fee2e2; color: #b91c1c; }
+        .status-accepted { background-color: #dcfce7; color: #16a34a; }
         
-        .btn {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        .carbon-result-box {
+            background-color: #f0f9ff;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid #bae6fd;
         }
-        .btn::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            transition: width 0.3s ease;
+        .carbon-result-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid #e0f2fe;
         }
-        .btn:hover::after {
-            width: 100%;
+        .carbon-result-item:last-child {
+            border-bottom: none;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-        }
-        
-        .analyze-btn {
-            background-color: #1e40af;
-            color: white;
-        }
-        .analyze-btn:hover {
-            background-color: #1e3a8a;
-        }
-        .analyze-btn::after {
-            background-color: #1e3a8a;
-        }
-        
-        .carbon-btn {
-            background-color: #059669;
-            color: white;
-        }
-        .carbon-btn:hover {
-            background-color: #047857;
-        }
-        .carbon-btn::after {
-            background-color: #047857;
-        }
-        
-        .carbon-btn:disabled {
-            background-color: #d1d5db;
-            cursor: not-allowed;
-        }
-        .carbon-btn:disabled:hover {
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .accept-btn {
-            background-color: #047857;
-            color: white;
-        }
-        .accept-btn:hover {
-            background-color: #065f46;
-        }
-        .accept-btn::after {
-            background-color: #065f46;
-        }
-        
-        .negotiate-btn {
-            background-color: #f59e0b;
-            color: white;
-        }
-        .negotiate-btn:hover {
-            background-color: #d97706;
-        }
-        .negotiate-btn::after {
-            background-color: #d97706;
-        }
-        
-        .feedback-btn {
-            background-color: #3b82f6;
-            color: white;
-        }
-        .feedback-btn:hover {
-            background-color: #2563eb;
-        }
-        .feedback-btn::after {
-            background-color: #2563eb;
-        }
-        
-        .supplier-rating {
-            color: #f59e0b;
-        }
-        
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-        .modal-content {
-            background-color: #ffffff;
-            margin: 10% auto;
-            padding: 30px;
-            border: 1px solid #e5e7eb;
-            width: 60%;
-            max-height: 70vh;
-            overflow-y: auto;
-            border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            transform: scale(0.9);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-        .modal.active .modal-content {
-            transform: scale(1);
-            opacity: 1;
-        }
-        .close-btn {
-            color: #9ca3af;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .close-btn:hover {
-            color: #1f2937;
-            transform: rotate(90deg);
+        .carbon-icon {
+            margin-right: 0.75rem;
+            color: #0284c7;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col bg-gray-50">
+<body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="relative bg-white shadow-md">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-blue-700">Supply Chain Portal</h1>
+                <!-- Logo and Brand -->
+                <div class="flex items-center space-x-2">
+                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                        <i class="fas fa-link text-lg"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
                 </div>
-                <div class="hidden md:flex space-x-6 nav-menu">
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 nav-menu">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+
+                <!-- Mobile Hamburger Menu -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-nav" class="md:hidden nav-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
+                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
+                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-4 py-8">
-        <div class="grid md:grid-cols-4 gap-6">
-            <!-- Sidebar Section -->
-            <div class="md:col-span-1 space-y-6">
-                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
-                    <h2 class="text-2xl font-bold text-blue-700 mb-4">Quote Details</h2>
-                    <div class="space-y-3">
-                        <p><span class="font-semibold text-gray-700">Product:</span> {{ quote.product }}</p>
-                        <p><span class="font-semibold text-gray-700">Status:</span> 
-                            <span class="status-badge status-{{ quote.status }}">{{ quote.get_status_display }}</span>
-                        </p>
-                        <a href="{% url 'manufacturer_quote_history' %}" class="mt-4 inline-block text-blue-600 hover:text-blue-800 action-link">
-                            ← Back to Quote History
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Quick Actions Card -->
-                <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Links</h3>
-                    <div class="space-y-2">
-                        <a href="{% url 'manufacturer_dashboard' %}" class="block text-blue-600 hover:text-blue-800 action-link">
-                            Dashboard
-                        </a>
-                        <a href="{% url 'manufacturer_request_quote' %}" class="block text-green-600 hover:text-green-800 action-link">
-                            Request New Quote
-                        </a>
-                    </div>
-                </div>
+    <main class="flex-grow py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Page Title Banner -->
+            <div class="mb-10 bg-blue-600 rounded-xl shadow-md p-8 text-white">
+                <h1 class="text-3xl font-bold mb-2">Bids for {{ quote.product }}</h1>
+                <p class="text-lg text-blue-100">Compare and evaluate supplier bids for your quote request.</p>
             </div>
 
-            <!-- Bids Section -->
-            <div class="md:col-span-3 space-y-6">
-                <div class="bg-white p-8 rounded-xl shadow-lg dashboard-card">
-                    <h1 class="text-3xl font-extrabold text-blue-700 mb-4">
-                        Bids for {{ quote.product }}
-                    </h1>
-                    <p class="text-gray-600 mb-6">
-                        Compare and evaluate supplier bids for your quote request.
-                    </p>
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Left Sidebar -->
+                <div class="md:col-span-1 space-y-6">
+                    <!-- Quote Details Card -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 dashboard-card">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-info-circle mr-2 text-blue-600"></i> Quote Details
+                        </h2>
+                        <div class="space-y-3 text-gray-700">
+                            <p class="flex justify-between">
+                                <span class="font-medium text-gray-600">Product:</span> 
+                                <span class="text-gray-800">{{ quote.product }}</span>
+                            </p>
+                            <p class="flex justify-between">
+                                <span class="font-medium text-gray-600">Status:</span> 
+                                <span class="status-badge status-{{ quote.status }}">{{ quote.get_status_display }}</span>
+                            </p>
+                            <div class="pt-4 mt-2 border-t border-gray-100">
+                                <a href="{% url 'manufacturer_quote_history' %}" class="flex items-center text-blue-600 hover:text-blue-800 font-medium">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back to Quote History
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links Card -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 dashboard-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-bolt mr-2 text-yellow-500"></i> Quick Links
+                        </h3>
+                        <div class="space-y-3">
+                            <a href="{% url 'manufacturer_dashboard' %}" class="block py-2 px-4 bg-gray-50 hover:bg-gray-100 rounded-md text-gray-700 hover:text-gray-900 transition-all font-medium">
+                                <i class="fas fa-tachometer-alt mr-2 text-blue-500"></i> Dashboard
+                            </a>
+                            <a href="{% url 'manufacturer_request_quote' %}" class="block py-2 px-4 bg-gray-50 hover:bg-gray-100 rounded-md text-gray-700 hover:text-gray-900 transition-all font-medium">
+                                <i class="fas fa-file-invoice mr-2 text-green-500"></i> Request New Quote
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Bids List -->
-                <div class="space-y-6">
+                <!-- Bids Content -->
+                <div class="md:col-span-3 space-y-6">
                     {% if bids %}
                         {% for bid in bids %}
-                        <div class="bg-white p-6 rounded-xl shadow-lg dashboard-card">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h3 class="text-xl font-semibold text-gray-800 mb-1">
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden dashboard-card">
+                            <!-- Bid Header -->
+                            <div class="bg-gray-50 px-6 py-4 flex justify-between items-center border-b border-gray-100">
+                                <div class="flex items-center space-x-2">
+                                    <h3 class="text-lg font-semibold text-gray-800">
                                         <a href="{% url 'view_supplier_profile' bid.supplier.id %}?quote_id={{ quote.id }}" class="text-blue-600 hover:text-blue-800">
                                             {{ bid.supplier.company_name }}
                                         </a>
-                                        {% if bid.supplier.reviews.count > 0 %}
-                                            <span class="supplier-rating ml-2">
-                                                {% for i in "12345" %}
-                                                    {% if forloop.counter <= bid.supplier_avg_rating|floatformat:0 %}
-                                                        ★
-                                                    {% else %}
-                                                        ☆
-                                                    {% endif %}
-                                                {% endfor %}
-                                                <span class="text-gray-600">({{ bid.supplier_avg_rating|floatformat:1 }})</span>
-                                            </span>
-                                        {% endif %}
                                     </h3>
-                                </div>
-                                <span class="status-badge status-{{ bid.status }}">{{ bid.get_status_display }}</span>
-                            </div>
-                            
-                            <div class="grid md:grid-cols-2 gap-4 mt-4">
-                                <div class="space-y-2">
-                                    <p class="text-gray-700"><span class="font-semibold">Bid Amount:</span> {{ quote.currency }} {{ bid.bid_amount }}</p>
-                                    <p class="text-gray-700"><span class="font-semibold">Delivery Time:</span> {{ bid.delivery_time }} days</p>
-                                    {% if bid.comments %}
-                                    <p class="text-gray-700"><span class="font-semibold">Comments:</span> {{ bid.comments }}</p>
+                                    
+                                    {% if bid.supplier.reviews.count > 0 %}
+                                    <div class="text-yellow-500 flex items-center text-sm">
+                                        {% for i in "12345" %}
+                                            {% if forloop.counter <= bid.supplier_avg_rating|floatformat:0 %}
+                                                <i class="fas fa-star"></i>
+                                            {% else %}
+                                                <i class="far fa-star"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <span class="ml-1 text-gray-600">({{ bid.supplier_avg_rating|floatformat:1 }})</span>
+                                    </div>
                                     {% endif %}
                                 </div>
+                                <span class="status-badge status-{{ bid.status }}">
+                                    {{ bid.get_status_display }}
+                                </span>
+                            </div>
+                            
+                            <!-- Bid Content -->
+                            <div class="p-6">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <!-- Bid Details -->
+                                    <div class="space-y-3">
+                                        <h4 class="font-semibold text-gray-700 mb-2 border-b border-gray-100 pb-2">Bid Details</h4>
+                                        <p class="flex justify-between">
+                                            <span class="font-medium text-gray-600">Bid Amount:</span>
+                                            <span class="font-semibold text-green-600">{{ quote.currency }} {{ bid.bid_amount }}</span>
+                                        </p>
+                                        <p class="flex justify-between">
+                                            <span class="font-medium text-gray-600">Delivery Time:</span>
+                                            <span>{{ bid.delivery_time }} days</span>
+                                        </p>
+                                        {% if bid.comments %}
+                                        <div class="mt-3 pt-2 border-t border-gray-100">
+                                            <p class="font-medium text-gray-600 mb-1">Comments:</p>
+                                            <p class="text-gray-700 bg-gray-50 p-3 rounded-md">{{ bid.comments }}</p>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <!-- Transport Details -->
+                                    <div class="space-y-3">
+                                        <h4 class="font-semibold text-gray-700 mb-2 flex items-center border-b border-gray-100 pb-2">
+                                            <i class="fas fa-truck mr-2 text-blue-500"></i> Transport Details
+                                        </h4>
+                                        <p class="flex justify-between">
+                                            <span class="font-medium text-gray-600">Transport Mode:</span>
+                                            <span>{{ bid.get_transport_mode_display }}</span>
+                                        </p>
+                                        
+                                        {% if bid.transport_mode == 'road' %}
+                                            <p class="flex justify-between">
+                                                <span class="font-medium text-gray-600">Vehicle Type:</span>
+                                                <span>{{ bid.get_vehicle_type_display|default:"Not specified" }}</span>
+                                            </p>
+                                            <p class="flex justify-between">
+                                                <span class="font-medium text-gray-600">Vehicle Count:</span>
+                                                <span>{{ bid.vehicle_count|default:"Not specified" }}</span>
+                                            </p>
+                                            <p class="flex justify-between">
+                                                <span class="font-medium text-gray-600">Load Percentage:</span>
+                                                <span>{{ bid.load_percentage|default:"Not specified" }}%</span>
+                                            </p>
+                                            <p class="flex justify-between">
+                                                <span class="font-medium text-gray-600">Empty Return:</span>
+                                                <span>{{ bid.empty_return|yesno:"Yes,No" }}</span>
+                                            </p>
+                                        {% else %}
+                                            <p class="flex justify-between">
+                                                <span class="font-medium text-gray-600">Aircraft Type:</span>
+                                                <span>{{ bid.get_aircraft_type_display|default:"Not specified" }}</span>
+                                            </p>
+                                            <p class="flex justify-between">
+                                                <span class="font-medium text-gray-600">Flight Count:</span>
+                                                <span>{{ bid.flight_count|default:"Not specified" }}</span>
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
                                 
-                                <div class="bg-blue-50 p-4 rounded-lg">
-                                    <h4 class="font-medium text-blue-800 mb-2">Transport Details</h4>
-                                    <p class="text-gray-700"><span class="font-semibold">Transport Mode:</span> {{ bid.get_transport_mode_display }}</p>
+                                <!-- Action Buttons -->
+                                <div class="mt-6 flex flex-wrap gap-3">
+                                    <button class="flex items-center px-4 py-2 bg-blue-50 text-blue-700 rounded-md hover:bg-blue-100 transition-colors" data-supplier-id="{{ bid.supplier.id }}">
+                                        <i class="fas fa-chart-pie mr-2"></i> Analyze Supplier
+                                    </button>
+                                    
                                     {% if bid.transport_mode == 'road' %}
-                                        <p class="text-gray-700"><span class="font-semibold">Vehicle Type:</span> {{ bid.get_vehicle_type_display|default:"Not specified" }}</p>
-                                        <p class="text-gray-700"><span class="font-semibold">Vehicle Count:</span> {{ bid.vehicle_count|default:"Not specified" }}</p>
-                                        <p class="text-gray-700"><span class="font-semibold">Load Percentage:</span> {{ bid.load_percentage|default:"Not specified" }}%</p>
-                                        <p class="text-gray-700"><span class="font-semibold">Empty Return:</span> {{ bid.empty_return|yesno:"Yes,No" }}</p>
-                                    {% else %}
-                                        <p class="text-gray-700"><span class="font-semibold">Aircraft Type:</span> {{ bid.get_aircraft_type_display|default:"Not specified" }}</p>
-                                        <p class="text-gray-700"><span class="font-semibold">Flight Count:</span> {{ bid.flight_count|default:"Not specified" }}</p>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            
-                            <div class="mt-6 flex flex-wrap gap-3">
-                                <button class="analyze-btn btn px-4 py-2 rounded-md text-sm font-medium" data-supplier-id="{{ bid.supplier.id }}">
-                                    Analyze Supplier
-                                </button>
-                                
-                                {% if bid.transport_mode == 'road' %}
-                                <button class="carbon-btn btn px-4 py-2 rounded-md text-sm font-medium" 
+                                    <button 
+                                        class="flex items-center px-4 py-2 bg-green-50 text-green-700 rounded-md hover:bg-green-100 transition-colors"
                                         data-bid-id="{{ bid.id }}"
                                         data-start-addr="{{ bid.supplier.city }}, {{ bid.supplier.state }}"
                                         data-end-addr="{{ quote.manufacturer.city }}, {{ quote.manufacturer.state }}"
@@ -307,49 +272,84 @@
                                         data-vehicle-count="{{ bid.vehicle_count|default:0 }}"
                                         data-load-percentage="{{ bid.load_percentage|default:100 }}"
                                         data-empty-return="{{ bid.empty_return|yesno:'true,false'|default:'false' }}"
-                                        {% if not bid.vehicle_type or not bid.vehicle_count or not bid.load_percentage %}disabled title="Cannot calculate - transport details missing"{% endif %}>
-                                    Carbon Footprint
-                                </button>
-                                {% endif %}
-                                
-                                {% if bid.status == 'submitted' and quote.status == 'open' %}
-                                <form method="post" action="{% url 'direct_accept_bid' bid.id %}" style="display: inline;">
-                                    {% csrf_token %}
-                                    <button type="submit" class="accept-btn btn px-4 py-2 rounded-md text-sm font-medium">Accept Bid</button>
-                                </form>
-                                <a href="{% url 'start_negotiation' bid.id %}" class="negotiate-btn btn px-4 py-2 rounded-md text-sm font-medium">Negotiate</a>
-                                {% endif %}
-                                
-                                {% if bid.status == 'accepted' and not bid.feedback_given %}
-                                <a href="{% url 'submit_review' bid.id %}" class="feedback-btn btn px-4 py-2 rounded-md text-sm font-medium">Submit Feedback</a>
-                                {% endif %}
-                            </div>
-                            {% csrf_token %}
-                            
-                            {% if bid.transport_mode == 'road' %}
-                            <div class="carbon-results mt-4 p-4 bg-green-50 rounded-lg hidden" id="carbonResults-{{ bid.id }}">
-                                <h4 class="font-medium text-green-800 mb-2">Carbon Footprint Assessment</h4>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <div class="carbon-metric"><span class="font-medium">Distance:</span> <span class="distance">Click button to calculate</span></div>
-                                    <div class="carbon-metric"><span class="font-medium">Total Emissions:</span> <span class="total-emissions">-</span></div>
-                                    <div class="carbon-metric"><span class="font-medium">Per Vehicle:</span> <span class="per-vehicle">-</span></div>
-                                    <div class="carbon-metric"><span class="font-medium">Trees to Offset:</span> <span class="trees">-</span></div>
+                                        {% if not bid.vehicle_type or not bid.vehicle_count or not bid.load_percentage %}disabled title="Cannot calculate - transport details missing" class="opacity-50 cursor-not-allowed"{% endif %}>
+                                        <i class="fas fa-leaf mr-2"></i> Carbon Footprint
+                                    </button>
+                                    {% endif %}
+                                    
+                                    {% if bid.status == 'submitted' and quote.status == 'open' %}
+                                    <!-- <form method="post" action="{% url 'direct_accept_bid' bid.id %}" class="inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                                            <i class="fas fa-check mr-2"></i> Accept Bid
+                                        </button>
+                                    </form> -->
+                                    <a href="{% url 'start_negotiation' bid.id %}" class="flex items-center px-4 py-2 bg-yellow-100 text-yellow-700 rounded-md hover:bg-yellow-200 transition-colors">
+                                        <i class="fas fa-comments mr-2"></i> Negotiate
+                                    </a>
+                                    {% endif %}
+                                    
+                                    {% if bid.status == 'accepted' and not bid.feedback_given %}
+                                    <a href="{% url 'submit_review' bid.id %}" class="flex items-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-md hover:bg-indigo-100 transition-colors">
+                                        <i class="fas fa-star mr-2"></i> Submit Feedback
+                                    </a>
+                                    {% endif %}
                                 </div>
-                            </div>
-                            {% endif %}
-                            
-                            <div class="mt-4 text-sm text-gray-500">
-                                Submitted on {{ bid.submitted_at|date:"M d, Y" }}
+                                {% csrf_token %}
+                                
+                                <!-- Carbon Footprint Results -->
+                                {% if bid.transport_mode == 'road' %}
+                                <div id="carbonResults-{{ bid.id }}" class="carbon-result-box" style="display: none;">
+                                    <h4 class="font-semibold text-blue-700 mb-3 flex items-center">
+                                        <i class="fas fa-leaf mr-2"></i> Carbon Footprint Assessment
+                                    </h4>
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                        <div class="carbon-result-item">
+                                            <i class="fas fa-route carbon-icon"></i>
+                                            <div>
+                                                <div class="text-xs text-gray-500">Distance</div>
+                                                <div class="font-medium distance">Click button to calculate</div>
+                                            </div>
+                                        </div>
+                                        <div class="carbon-result-item">
+                                            <i class="fas fa-cloud carbon-icon"></i>
+                                            <div>
+                                                <div class="text-xs text-gray-500">Total Emissions</div>
+                                                <div class="font-medium total-emissions">-</div>
+                                            </div>
+                                        </div>
+                                        <div class="carbon-result-item">
+                                            <i class="fas fa-truck carbon-icon"></i>
+                                            <div>
+                                                <div class="text-xs text-gray-500">Per Vehicle</div>
+                                                <div class="font-medium per-vehicle">-</div>
+                                            </div>
+                                        </div>
+                                        <div class="carbon-result-item">
+                                            <i class="fas fa-tree carbon-icon"></i>
+                                            <div>
+                                                <div class="text-xs text-gray-500">Tree Equivalent</div>
+                                                <div class="font-medium trees">-</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                
+                                <!-- Bid Footer -->
+                                <div class="mt-4 pt-3 border-t border-gray-100 text-sm text-gray-500 flex items-center">
+                                    <i class="far fa-clock mr-2"></i> Submitted on {{ bid.submitted_at|date:"M d, Y" }}
+                                </div>
                             </div>
                         </div>
                         {% endfor %}
                     {% else %}
-                        <div class="bg-white p-6 rounded-xl shadow-lg text-center py-12">
-                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <h3 class="mt-4 text-lg font-medium text-gray-900">No bids available</h3>
-                            <p class="mt-2 text-gray-500">There are currently no bids for this quote request.</p>
+                        <div class="bg-white rounded-xl shadow-md p-10 text-center dashboard-card">
+                            <div class="flex justify-center mb-4 text-gray-400">
+                                <i class="fas fa-file-invoice text-5xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-700 mb-2">No bids available</h3>
+                            <p class="text-gray-600">There are currently no bids for this quote request.</p>
                         </div>
                     {% endif %}
                 </div>
@@ -358,46 +358,83 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8 mt-12">
-        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-lg font-bold mb-4">Quick Links</h3>
-                <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-blue-400">Home</a></li>
-                    <li><a href="#" class="hover:text-blue-400">About Us</a></li>
-                    <li><a href="#" class="hover:text-blue-400">Services</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4">Support</h3>
-                <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-blue-400">Help Center</a></li>
-                    <li><a href="#" class="hover:text-blue-400">Contact Support</a></li>
-                    <li><a href="#" class="hover:text-blue-400">FAQ</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-blue-400 hover:text-blue-600">Twitter</a>
-                    <a href="#" class="text-blue-400 hover:text-blue-600">LinkedIn</a>
-                    <a href="#" class="text-blue-400 hover:text-blue-600">Facebook</a>
+    <footer class="bg-gray-800 text-gray-300 py-12 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
+                            <i class="fas fa-link text-lg"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
+                    </div>
+                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
+                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-blue-400 transition">Help Center</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
+                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-white">Connect With Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
+                            <span>123 Supply Chain Blvd, Business District, 10001</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
+                            <span>info@supplychain.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-blue-400"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-        <div class="text-center mt-8 text-sm text-gray-400">
-            © 2024 Supply Chain Portal. All Rights Reserved.
+            
+            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
+                <p>© 2024 Supply Chain Portal. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
 
     <!-- Analysis Modal -->
-    <div id="analysisModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h3 class="text-2xl font-bold text-blue-700 mb-6">Supplier Analysis</h3>
-            <div id="analysisResults" class="bg-blue-50 p-6 rounded-lg">
-                <div class="flex items-center justify-center space-x-2">
-                    <svg class="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <div id="analysisModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" style="display: none;">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4">
+            <div class="flex justify-between items-center border-b border-gray-200 px-6 py-4">
+                <h3 class="text-xl font-semibold text-gray-800">Supplier Analysis</h3>
+                <span class="text-gray-500 text-2xl cursor-pointer hover:text-gray-700">&times;</span>
+            </div>
+            <div id="analysisResults" class="p-6">
+                <div class="flex items-center justify-center space-x-3 text-gray-500">
+                    <svg class="animate-spin h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
@@ -409,138 +446,45 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Modal functionality
-            const modal = document.getElementById('analysisModal');
-            const closeBtn = document.querySelector('.close-btn');
-            
-            document.querySelectorAll('.analyze-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const supplierId = this.dataset.supplierId;
-                    modal.style.display = 'block';
-                    setTimeout(() => {
-                        modal.classList.add('active');
-                    }, 10);
-                    
-                    // Clear previous results
-                    document.getElementById('analysisResults').innerHTML = `
-                        <div class="flex items-center justify-center space-x-2">
-                            <svg class="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            <span>Analyzing supplier feedback... This may take a moment.</span>
-                        </div>
-                    `;
-                    
-                    // Fetch analysis
-                    fetch(`/manufacturer/analyze-supplier/${supplierId}/`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.analysis) {
-                                document.getElementById('analysisResults').innerHTML = `
-                                    <h4 class="text-xl font-semibold text-blue-800 mb-3">Analysis for ${data.supplier_name}</h4>
-                                    <p class="text-gray-700">${data.analysis}</p>
-                                `;
-                            } else {
-                                document.getElementById('analysisResults').innerHTML = `
-                                    <div class="text-center py-4">
-                                        <svg class="mx-auto h-12 w-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
-                                        <p class="mt-2 text-red-600">${data.error || 'Unable to analyze supplier'}</p>
-                                    </div>
-                                `;
-                            }
-                        })
-                        .catch(error => {
-                            document.getElementById('analysisResults').innerHTML = `
-                                <div class="text-center py-4">
-                                    <svg class="mx-auto h-12 w-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <p class="mt-2 text-red-600">Error: ${error.message}</p>
-                                </div>
-                            `;
-                        });
-                });
-            });
-            
-            closeBtn.addEventListener('click', function() {
-                modal.classList.remove('active');
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                }, 300);
-            });
-            
-            window.addEventListener('click', function(event) {
-                if (event.target === modal) {
-                    modal.classList.remove('active');
-                    setTimeout(() => {
-                        modal.style.display = 'none';
-                    }, 300);
-                }
-            });
+    // Mobile menu toggle functionality
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    
+    if (mobileMenuToggle && mobileNav) {
+        mobileMenuToggle.addEventListener('click', function() {
+            if (mobileNav.classList.contains('active')) {
+                mobileNav.classList.remove('active');
+            } else {
+                mobileNav.classList.add('active');
+            }
+        });
+    }
 
-            // Carbon footprint calculation
-            document.querySelectorAll('.carbon-btn:not(:disabled)').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const resultsDiv = document.getElementById(`carbonResults-${this.dataset.bidId}`);
-                    
-                    // Toggle display with animation
-                    if (resultsDiv.classList.contains('hidden')) {
-                        resultsDiv.classList.remove('hidden');
-                        setTimeout(() => {
-                            resultsDiv.style.opacity = '1';
-                        }, 10);
-                        this.textContent = 'Hide Carbon Footprint';
-                    } else {
-                        resultsDiv.style.opacity = '0';
-                        setTimeout(() => {
-                            resultsDiv.classList.add('hidden');
-                            this.textContent = 'Carbon Footprint';
-                        }, 300);
-                        return;
-                    }
-                    
-                    // Skip calculation if already done
-                    if (resultsDiv.querySelector('.distance').textContent.includes('km')) {
-                        return;
-                    }
-                    
-                    // Show loading state
-                    resultsDiv.querySelectorAll('span:not(.font-medium)').forEach(span => {
-                        if (span.classList.contains('distance')) {
-                            span.innerHTML = `
-                                <svg class="inline-block animate-spin h-4 w-4 text-green-500 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                Calculating...
-                            `;
-                        } else {
-                            span.textContent = '-';
-                        }
-                    });
-                    
-                    // Prepare data
-                    const data = {
-                        start_addr: this.dataset.startAddr,
-                        end_addr: this.dataset.endAddr,
-                        vehicle_type: this.dataset.vehicleType,
-                        vehicle_count: this.dataset.vehicleCount,
-                        load_percentage: this.dataset.loadPercentage,
-                        empty_return: this.dataset.emptyReturn
-                    };
-                    
-                    // Make API call
-                    fetch('{% url "calculate_carbon_footprint" %}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                        },
-                        body: JSON.stringify(data)
-                    })
+    // Modal functionality
+    const modal = document.getElementById('analysisModal');
+    const closeBtn = modal ? modal.querySelector('span') : null;
+    
+    // Supplier analysis button click handlers
+    document.querySelectorAll('button[data-supplier-id]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const supplierId = this.dataset.supplierId;
+            
+            if (modal) {
+                modal.style.display = 'flex';
+                
+                // Clear previous results and show loading state
+                document.getElementById('analysisResults').innerHTML = `
+                    <div class="flex items-center justify-center space-x-3 text-gray-500">
+                        <svg class="animate-spin h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Analyzing supplier feedback... This may take a moment.</span>
+                    </div>
+                `;
+                
+                // Fetch supplier analysis data
+                fetch(`/manufacturer/analyze-supplier/${supplierId}/`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
@@ -548,48 +492,168 @@
                         return response.json();
                     })
                     .then(data => {
-                        if (data.success) {
-                            resultsDiv.querySelector('.distance').textContent = `${data.distance_km} km`;
-                            resultsDiv.querySelector('.total-emissions').textContent = `${data.total_emissions_kg} kg CO₂`;
-                            resultsDiv.querySelector('.per-vehicle').textContent = `${data.emissions_per_vehicle_kg} kg CO₂`;
-                            resultsDiv.querySelector('.trees').textContent = `${data.equivalent_trees} trees`;
-                            
-                            // Update the bid card with calculated values
-                            const bidCard = btn.closest('.dashboard-card');
-                            if (bidCard) {
-                                const transportDetails = bidCard.querySelector('.bg-blue-50');
-                                if (transportDetails) {
-                                    // Add with animation
-                                    const distanceElement = document.createElement('p');
-                                    distanceElement.className = 'text-gray-700 opacity-0';
-                                    distanceElement.innerHTML = `<span class="font-semibold">Calculated Distance:</span> ${data.distance_km} km`;
-                                    transportDetails.appendChild(distanceElement);
-                                    
-                                    const emissionsElement = document.createElement('p');
-                                    emissionsElement.className = 'text-gray-700 opacity-0';
-                                    emissionsElement.innerHTML = `<span class="font-semibold">Calculated Emissions:</span> ${data.total_emissions_kg} kg CO₂`;
-                                    transportDetails.appendChild(emissionsElement);
-                                    
-                                    // Fade in elements
-                                    setTimeout(() => {
-                                        distanceElement.style.transition = 'opacity 0.5s ease';
-                                        emissionsElement.style.transition = 'opacity 0.5s ease';
-                                        distanceElement.style.opacity = '1';
-                                        emissionsElement.style.opacity = '1';
-                                    }, 10);
-                                }
-                            }
+                        if (data.analysis) {
+                            document.getElementById('analysisResults').innerHTML = `
+                                <h4 class="text-lg font-semibold text-gray-800 mb-3">Analysis for ${data.supplier_name}</h4>
+                                <p class="text-gray-700">${data.analysis}</p>
+                            `;
                         } else {
-                            resultsDiv.querySelector('.distance').textContent = `Error: ${data.error || 'Calculation failed'}`;
+                            document.getElementById('analysisResults').innerHTML = `
+                                <div class="flex items-center justify-center text-red-500 space-x-2">
+                                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <p>${data.error || 'Unable to analyze supplier'}</p>
+                                </div>
+                            `;
                         }
                     })
                     .catch(error => {
-                        resultsDiv.querySelector('.distance').textContent = `Error: ${error.message}`;
-                        console.error('Error:', error);
+                        document.getElementById('analysisResults').innerHTML = `
+                            <div class="flex items-center justify-center text-red-500 space-x-2">
+                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p>Error: ${error.message}</p>
+                            </div>
+                        `;
                     });
-                });
+            }
+        });
+    });
+    
+    // Modal close button
+    if (closeBtn && modal) {
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+
+    // Carbon footprint calculation
+    document.querySelectorAll('button[data-bid-id]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (this.hasAttribute('disabled')) {
+                return;
+            }
+            
+            const bidId = this.dataset.bidId;
+            const resultsDiv = document.getElementById(`carbonResults-${bidId}`);
+            
+            // Toggle display of results
+            if (resultsDiv.style.display === 'none' || resultsDiv.style.display === '') {
+                resultsDiv.style.display = 'block';
+                this.innerHTML = '<i class="fas fa-times mr-2"></i> Hide Carbon Footprint';
+                this.classList.remove('bg-green-50', 'text-green-700');
+                this.classList.add('bg-gray-100', 'text-gray-700');
+            } else {
+                resultsDiv.style.display = 'none';
+                this.innerHTML = '<i class="fas fa-leaf mr-2"></i> Carbon Footprint';
+                this.classList.remove('bg-gray-100', 'text-gray-700');
+                this.classList.add('bg-green-50', 'text-green-700');
+                return;
+            }
+            
+            // Skip calculation if already done
+            if (resultsDiv.querySelector('.distance').textContent.includes('km')) {
+                return;
+            }
+            
+            // Show loading state
+            resultsDiv.querySelectorAll('.carbon-result-item div div.font-medium').forEach(span => {
+                if (span.classList.contains('distance')) {
+                    span.innerHTML = `
+                        <div class="flex items-center">
+                            <svg class="animate-spin h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Calculating...
+                        </div>
+                    `;
+                } else {
+                    span.textContent = '-';
+                }
+            });
+            
+            // Prepare data
+            const data = {
+                start_addr: this.dataset.startAddr,
+                end_addr: this.dataset.endAddr,
+                vehicle_type: this.dataset.vehicleType,
+                vehicle_count: this.dataset.vehicleCount,
+                load_percentage: this.dataset.loadPercentage,
+                empty_return: this.dataset.emptyReturn
+            };
+            
+            // Get the CSRF token from the form
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            
+            // Make API call to calculate carbon footprint using the URL from the first template
+            fetch('{% url "calculate_carbon_footprint" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    // Update result fields
+                    resultsDiv.querySelector('.distance').textContent = `${data.distance_km} km`;
+                    resultsDiv.querySelector('.total-emissions').textContent = `${data.total_emissions_kg} kg CO₂`;
+                    resultsDiv.querySelector('.per-vehicle').textContent = `${data.emissions_per_vehicle_kg} kg CO₂`;
+                    resultsDiv.querySelector('.trees').textContent = `${data.equivalent_trees} trees`;
+                    
+                    // Add calculated data to transport details section
+                    const bidCard = btn.closest('.dashboard-card');
+                    if (bidCard) {
+                        const transportDetails = bidCard.querySelector('.space-y-3:nth-child(2)');
+                        if (transportDetails) {
+                            // Check if calculated data is already added
+                            if (!transportDetails.querySelector('.calculated-distance')) {
+                                const distanceElement = document.createElement('p');
+                                distanceElement.className = 'flex justify-between calculated-distance';
+                                distanceElement.innerHTML = `
+                                    <span class="font-medium text-gray-600">Calculated Distance:</span>
+                                    <span>${data.distance_km} km</span>
+                                `;
+                                transportDetails.appendChild(distanceElement);
+                                
+                                const emissionsElement = document.createElement('p');
+                                emissionsElement.className = 'flex justify-between calculated-emissions';
+                                emissionsElement.innerHTML = `
+                                    <span class="font-medium text-gray-600">Calculated Emissions:</span>
+                                    <span>${data.total_emissions_kg} kg CO₂</span>
+                                `;
+                                transportDetails.appendChild(emissionsElement);
+                            }
+                        }
+                    }
+                } else {
+                    resultsDiv.querySelector('.distance').textContent = `Error: ${data.error || 'Calculation failed'}`;
+                }
+            })
+            .catch(error => {
+                resultsDiv.querySelector('.distance').textContent = `Error: ${error.message}`;
+                console.error('Error calculating carbon footprint:', error);
             });
         });
+    });
+});
     </script>
 </body>
 </html>

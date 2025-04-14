@@ -16,9 +16,6 @@ class Manufacturer(models.Model):
     
     def __str__(self):
         return self.company_name
-    
-
-
 
 class QuoteRequest(models.Model):
     STATUS_CHOICES = [
