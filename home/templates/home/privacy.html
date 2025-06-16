@@ -1,219 +1,814 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Privacy Policy - Supply Chain Portal</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9fafb;
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #c9dff6 0%,
+          #9cbde5 50%,
+          #6a9ed3 100%
+        );
+        min-height: 100vh;
+      }
+      .policy-section {
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 255, 255, 0.9) 100%
+        );
+        border-radius: 20px;
+        padding: 40px;
+        margin-bottom: 30px;
+        box-shadow: 0 20px 40px rgba(10, 47, 86, 0.1),
+          0 8px 20px rgba(10, 47, 86, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+      .policy-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #2e75b7, #1b5a9b, #4684c3);
+      }
+      .policy-section h2 {
+        color: #0a2f56;
+        margin-top: 0;
+        border-bottom: 2px solid #c9dff6;
+        padding-bottom: 15px;
+        position: relative;
+      }
+      .policy-section h2::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(90deg, #2e75b7, #1b5a9b);
+      }
+      .hero-section {
+        background: linear-gradient(
+          135deg,
+          #0a2f56 0%,
+          #244a73 50%,
+          #0e447c 100%
+        );
+        padding: 80px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" fill-opacity="0.1"><polygon points="0,0 1000,100 1000,0"/></svg>');
+        background-size: cover;
+        background-position: bottom;
+      }
+      .privacy-icon {
+        background: linear-gradient(135deg, #2e75b7, #1b5a9b);
+        color: white;
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 20px;
+        box-shadow: 0 10px 30px rgba(46, 117, 183, 0.3);
+      }
+      .section-number {
+        background: linear-gradient(135deg, #4684c3, #6a9ed3);
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+      .contact-card {
+        background: linear-gradient(135deg, #0a2f56, #244a73);
+        color: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 15px 35px rgba(10, 47, 86, 0.2);
+      }
+      .list-item {
+        background: rgba(201, 223, 246, 0.3);
+        border-left: 4px solid #2e75b7;
+        padding: 15px 20px;
+        margin: 10px 0;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+      .list-item:hover {
+        background: rgba(201, 223, 246, 0.5);
+        transform: translateX(5px);
+      }
+      .breadcrumb {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border-radius: 50px;
+        padding: 10px 20px;
+        margin-bottom: 30px;
+      }
+      .scroll-indicator {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #2e75b7, #1b5a9b, #4684c3);
+        transform-origin: 0%;
+        z-index: 9999;
+      }
+       .pulse-glow {
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(46, 117, 183, 0.5);
         }
-        .policy-section {
-            background: white;
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        50% {
+          box-shadow: 0 0 20px rgba(46, 117, 183, 0.8),
+            0 0 30px rgba(46, 117, 183, 0.4);
         }
-        .policy-section h2 {
-            color: #007bff;
-            margin-top: 0;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
+      }
     </style>
-</head>
-<body class="min-h-screen flex flex-col">
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <div class="scroll-indicator"></div>
+
     <!-- Navigation (same as home.html) -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo and Brand -->
-                <div class="flex items-center space-x-2">
-                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                        <i class="fas fa-link text-lg"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8 nav-menu">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Contact</a>
-                </div>
-
-                <!-- Login/Register Button -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <a href="{% url 'manufacturer_login' %}" class="text-gray-600 hover:text-blue-600 font-medium">Login</a>
-                    <a href="#portals" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">Get Started</a>
-                </div>
-
-                <!-- Mobile Hamburger Menu -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <nav style=" background: linear-gradient(
+          135deg,
+          #2e75b7,
+          #4684c3,
+          #6a9ed3,
+          #c9dff6,
+          #3b699e,
+          #1b5a9b
+        );" class="backdrop-blur-lg shadow-md sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="flex items-center justify-center h-12 w-12 rounded-xl pulse-glow"
+              style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+            >
+              <i class="fas fa-link text-white text-2xl"></i>
             </div>
+            <h1 class="text-2xl font-bold" style="color: #0a2f56">
+              Supply<span style="color: #2e75b7">Chain</span>
+            </h1>
+          </div>
 
-            <!-- Mobile Navigation Menu -->
-            <div id="mobile-nav" class="md:hidden nav-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                    <div class="flex flex-col pt-4 pb-2 space-y-2">
-                        <a href="{% url 'manufacturer_login' %}" class="text-blue-600 block px-3 py-2 font-medium">Login</a>
-                        <a href="#portals" class="bg-blue-600 text-white px-3 py-2 rounded-lg text-center font-medium">Get Started</a>
-                    </div>
-                </div>
-            </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="{% url 'home' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-dark hover:bg-brand-dark/10"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-blue hover:bg-brand-blue/10"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-mid hover:bg-brand-mid/10"
+              >Services</a
+            >
+            <a
+              href="{% url 'contact' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-slate hover:bg-brand-slate/10"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Login/Register Button -->
+          <div class="hidden md:flex items-center space-x-4">
+            <a
+              href="{% url 'home' %}#portals"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-light hover:bg-brand-light/10"
+              >Login</a
+            >
+            <a
+              href="{% url 'home' %}#portals"
+              class="px-6 py-3 rounded-xl text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+              style="background: linear-gradient(135deg, #2e75b7, #4684c3)"
+              >Get Started</a
+            >
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="p-2 rounded-lg text-brand-dark hover:bg-brand-dark/10 transition-colors duration-200"
+            >
+              <svg
+                id="menu-icon"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div
+          id="mobile-nav"
+          class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out md:hidden"
+        >
+          <div class="px-2 pt-2 pb-3 space-y-1 border-t border-blue-200/30">
+            <a
+              href="{% url 'home' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-dark hover:bg-brand-dark/10"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-blue hover:bg-brand-blue/10"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-mid hover:bg-brand-mid/10"
+              >Services</a
+            >
+            <a
+              href="{% url 'contact' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-slate hover:bg-brand-slate/10"
+              >Contact</a
+            >
+            <div class="flex flex-col pt-4 pb-2 space-y-2">
+              <a
+                href="{% url 'home' %}#portals"
+                class="block px-4 py-2 font-medium transition-all duration-300 hover:scale-105 text-brand-light hover:bg-brand-light/10"
+                >Login</a
+              >
+              <a
+                href="{% url 'home' %}#portals"
+                class="px-4 py-3 rounded-lg text-center font-medium text-white shadow-lg transition-all duration-200 transform hover:scale-105 bg-btn-gradient"
+                >Get Started</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container mx-auto px-4 text-center relative z-10">
+        <div class="privacy-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+          Privacy Policy
+        </h1>
+        <p class="text-xl text-gray-200 max-w-3xl mx-auto mb-8">
+          Your privacy is our priority. Learn how we protect and handle your
+          data.
+        </p>
+        <div class="breadcrumb inline-flex items-center text-white">
+          <a
+            href="{% url 'home' %}"
+            class="hover:text-gray-200 transition-colors"
+            >Home</a
+          >
+          <i class="fas fa-chevron-right mx-3 text-sm"></i>
+          <span class="text-gray-200">Privacy Policy</span>
+        </div>
+      </div>
+    </section>
 
     <!-- Main Content -->
     <main class="flex-grow py-16">
-        <div class="container mx-auto px-4">
-            <div class="policy-section">
-                <h1 class="text-3xl font-bold mb-6">Privacy Policy</h1>
-                <p class="mb-6">Last updated: January 1, 2024</p>
-                
-                <div class="mb-8">
-                    <h2 class="text-2xl font-semibold mb-4">1. Introduction</h2>
-                    <p class="mb-4">Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.</p>
-                </div>
-                
-                <div class="mb-8">
-                    <h2 class="text-2xl font-semibold mb-4">2. Information We Collect</h2>
-                    <p class="mb-4">We may collect personal information that you voluntarily provide to us when you register on the site, including:</p>
-                    <ul class="list-disc pl-6 mb-4 space-y-2">
-                        <li>Name and contact information</li>
-                        <li>Business information</li>
-                        <li>Payment details</li>
-                        <li>Other information relevant to customer surveys and offers</li>
-                    </ul>
-                </div>
-                
-                <div class="mb-8">
-                    <h2 class="text-2xl font-semibold mb-4">3. How We Use Your Information</h2>
-                    <p class="mb-4">We use the information we collect in various ways, including to:</p>
-                    <ul class="list-disc pl-6 mb-4 space-y-2">
-                        <li>Provide, operate, and maintain our website</li>
-                        <li>Improve, personalize, and expand our website</li>
-                        <li>Understand and analyze how you use our website</li>
-                        <li>Develop new products, services, features, and functionality</li>
-                        <li>Communicate with you for customer service and updates</li>
-                    </ul>
-                </div>
-                
-                <div class="mb-8">
-                    <h2 class="text-2xl font-semibold mb-4">4. Data Security</h2>
-                    <p class="mb-4">We implement appropriate technical and organizational measures to protect the security of your personal information. However, please remember that no method of transmission over the Internet or method of electronic storage is 100% secure.</p>
-                </div>
-                
-                <div class="mb-8">
-                    <h2 class="text-2xl font-semibold mb-4">5. Changes to This Privacy Policy</h2>
-                    <p class="mb-4">We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
-                </div>
-                
-                <div>
-                    <h2 class="text-2xl font-semibold mb-4">6. Contact Us</h2>
-                    <p>If you have any questions about this Privacy Policy, please contact us at:</p>
-                    <p class="mt-2"><strong>Email:</strong> privacy@supplychainportal.com</p>
-                </div>
+      <div class="container mx-auto px-4 max-w-4xl">
+        <!-- Last Updated -->
+        <div class="policy-section">
+          <div class="flex items-center mb-6">
+            <div class="section-number">
+              <i class="fas fa-calendar-alt text-sm"></i>
             </div>
+            <div>
+              <h2 class="text-2xl font-semibold mb-2">Last Updated</h2>
+              <p class="text-lg font-medium" style="color: #0e447c">
+                January 1, 2024
+              </p>
+            </div>
+          </div>
         </div>
+
+        <!-- Introduction -->
+        <div class="policy-section">
+          <div class="flex items-start mb-6">
+            <div class="section-number">1</div>
+            <div class="flex-1">
+              <h2 class="text-2xl font-semibold mb-4">Introduction</h2>
+              <div class="text-lg leading-relaxed" style="color: #244a73">
+                <p class="mb-4">
+                  Your privacy is important to us. This Privacy Policy explains
+                  how we collect, use, disclose, and safeguard your information
+                  when you visit our website.
+                </p>
+                <p>
+                  We are committed to protecting your personal data and
+                  maintaining transparency about our data practices.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Information We Collect -->
+        <div class="policy-section">
+          <div class="flex items-start mb-6">
+            <div class="section-number">2</div>
+            <div class="flex-1">
+              <h2 class="text-2xl font-semibold mb-4">
+                Information We Collect
+              </h2>
+              <p class="mb-6 text-lg leading-relaxed" style="color: #244a73">
+                We may collect personal information that you voluntarily provide
+                to us when you register on the site, including:
+              </p>
+              <div class="space-y-3">
+                <div class="list-item">
+                  <div class="flex items-center">
+                    <i class="fas fa-user mr-3" style="color: #0e447c"></i>
+                    <span class="font-medium"
+                      >Name and contact information</span
+                    >
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="flex items-center">
+                    <i class="fas fa-building mr-3" style="color: #0e447c"></i>
+                    <span class="font-medium">Business information</span>
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="flex items-center">
+                    <i
+                      class="fas fa-credit-card 0 mr-3"
+                      style="color: #0e447c"
+                    ></i>
+                    <span class="font-medium">Payment details</span>
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="flex items-center">
+                    <i
+                      class="fas fa-chart-line mr-3"
+                      style="color: #0e447c"
+                    ></i>
+                    <span class="font-medium"
+                      >Other information relevant to customer surveys and
+                      offers</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- How We Use Your Information -->
+        <div class="policy-section">
+          <div class="flex items-start mb-6">
+            <div class="section-number">3</div>
+            <div class="flex-1">
+              <h2 class="text-2xl font-semibold mb-4">
+                How We Use Your Information
+              </h2>
+              <p class="mb-6 text-lg leading-relaxed" style="color: #244a73">
+                We use the information we collect in various ways, including to:
+              </p>
+              <div class="space-y-3">
+                <div class="list-item">
+                  <div class="flex items-center">
+                    <i class="fas fa-globe mr-3" style="color: #0e447c"></i>
+                    <span class="font-medium"
+                      >Provide, operate, and maintain our website</span
+                    >
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="flex items-center">
+                    <i class="fas fa-cogs mr-3" style="color: #0e447c"></i>
+                    <span class="font-medium"
+                      >Improve, personalize, and expand our website</span
+                    >
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="flex items-center">
+                    <i class="fas fa-analytics mr-3" style="color: #0e447c"></i>
+                    <span class="font-medium"
+                      >Understand and analyze how you use our website</span
+                    >
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="flex items-center">
+                    <i class="fas fa-lightbulb mr-3" style="color: #0e447c"></i>
+                    <span class="font-medium"
+                      >Develop new products, services, features, and
+                      functionality</span
+                    >
+                  </div>
+                </div>
+                <div class="list-item">
+                  <div class="flex items-center">
+                    <i class="fas fa-comments mr-3" style="color: #0e447c"></i>
+                    <span class="font-medium"
+                      >Communicate with you for customer service and
+                      updates</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Security -->
+        <div class="policy-section">
+          <div class="flex items-start mb-6">
+            <div class="section-number">4</div>
+            <div class="flex-1">
+              <h2 class="text-2xl font-semibold mb-4">Data Security</h2>
+              <div class="flex items-start space-x-4 mb-6">
+                <div
+                  class="bg-gradient-to-br from-red-100 to-orange-100 p-4 rounded-lg"
+                >
+                  <i
+                    class="fas fa-shield-alt text-3xl"
+                    style="color: #0e447c"
+                  ></i>
+                </div>
+                <div class="flex-1">
+                  <p
+                    class="text-lg leading-relaxed mb-4"
+                    style="color: #244a73"
+                  >
+                    We implement appropriate technical and organizational
+                    measures to protect the security of your personal
+                    information.
+                  </p>
+                  <p class="text-lg leading-relaxed" style="color: #244a73">
+                    However, please remember that no method of transmission over
+                    the Internet or method of electronic storage is 100% secure.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Changes to Privacy Policy -->
+        <div class="policy-section">
+          <div class="flex items-start mb-6">
+            <div class="section-number">5</div>
+            <div class="flex-1">
+              <h2 class="text-2xl font-semibold mb-4">
+                Changes to This Privacy Policy
+              </h2>
+              <div class="flex items-start space-x-4">
+                <div
+                  class="bg-gradient-to-br from-blue-100 to-purple-100 p-4 rounded-lg"
+                >
+                  <i class="fas fa-edit text-3xl" style="color: #0e447c"></i>
+                </div>
+                <div class="flex-1">
+                  <p class="text-lg leading-relaxed" style="color: #244a73">
+                    We may update our Privacy Policy from time to time. We will
+                    notify you of any changes by posting the new Privacy Policy
+                    on this page and updating the "Last updated" date.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="policy-section">
+          <div class="flex items-start mb-6">
+            <div class="section-number">6</div>
+            <div class="flex-1">
+              <h2 class="text-2xl font-semibold mb-6">Contact Us</h2>
+              <div class="contact-card">
+                <div class="flex items-center mb-4">
+                  <i class="fas fa-envelope text-2xl mr-4"></i>
+                  <h3 class="text-xl font-semibold">Get in Touch</h3>
+                </div>
+                <p class="mb-4 text-gray-200">
+                  If you have any questions about this Privacy Policy, please
+                  contact us at:
+                </p>
+                <div class="flex items-center">
+                  <i class="fas fa-paper-plane mr-3"></i>
+                  <a
+                    href="mailto:privacy@supplychainportal.com"
+                    class="text-white font-medium hover:text-gray-200 transition-colors"
+                    >privacy@supplychainportal.com</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- Footer (same as home.html) -->
-    <footer class="bg-gray-800 text-gray-300 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                            <i class="fas fa-link text-lg"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
-                    </div>
-                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
-                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact</a></li>
-                        <li><a href="{% url 'manufacturer_login' %}" class="text-gray-400 hover:text-blue-400 transition">Manufacturer Login</a></li>
-                        <li><a href="{% url 'supplier_login' %}" class="text-gray-400 hover:text-blue-400 transition">Supplier Login</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-blue-400 transition">Help Center</a></li>
-                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Legal</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'terms' %}" class="text-gray-400 hover:text-blue-400 transition">Terms & Conditions</a></li>
-                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Cookie Policy</a></li>
-                    </ul>
-                </div>
+    <footer
+      class="text-white py-16 relative"
+      style="background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%)"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-lg"
+                style="
+                  background: linear-gradient(135deg, #2e75b7 0%, #4684c3 100%);
+                "
+              >
+                <i class="fas fa-link text-xl"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">
+                Supply<span style="color: #9cbde5">Chain</span>
+              </h1>
             </div>
-            
-            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
-                <p>© 2024 Supply Chain Portal. All Rights Reserved.</p>
+            <p class="text-blue-200 mb-6 leading-relaxed">
+              Connecting manufacturers and suppliers through innovative
+              technology and intelligent solutions.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-facebook"></i>
+              </a>
             </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'home' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'about' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'services' %}"
+                  class="text-white flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'manufacturer_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Manufacturer
+                  Login</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'supplier_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Supplier
+                  Login</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'faq' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'help' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Help
+                  Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact
+                  Support</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Live Chat</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Legal</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'terms' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Terms &
+                  Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'privacy' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Privacy
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Cookie
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>GDPR
+                  Compliance</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="section-divider opacity-30"></div>
+
+        <div class="pt-8 text-center">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-blue-200 mb-4 md:mb-0">
+              © 2024 Supply Chain Portal. All Rights Reserved.
+            </p>
+            <div class="flex items-center space-x-6 text-sm text-blue-200">
+              <span class="flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>
+                SSL Secured
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-award mr-2"></i>
+                ISO Certified
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-clock mr-2"></i>
+                24/7 Support
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background decoration -->
+      <div class="absolute top-0 right-0 w-64 h-64 opacity-5">
+        <i class="fas fa-cogs text-9xl"></i>
+      </div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 opacity-5">
+        <i class="fas fa-shipping-fast text-8xl"></i>
+      </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
+      const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+      const mobileNav = document.getElementById("mobile-nav");
 
-        mobileMenuToggle.addEventListener('click', () => {
-            mobileNav.classList.toggle('active');
-        });
+      mobileMenuToggle.addEventListener("click", () => {
+        if (mobileNav.classList.contains("max-h-0")) {
+          mobileNav.classList.remove("max-h-0");
+          mobileNav.classList.add("max-h-[500px]");
+        } else {
+          mobileNav.classList.remove("max-h-[500px]");
+          mobileNav.classList.add("max-h-0");
+        }
+      });
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (event) => {
-            const isClickInsideMenu = mobileNav.contains(event.target);
-            const isClickOnToggle = mobileMenuToggle.contains(event.target);
-            
-            if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
-                mobileNav.classList.remove('active');
-            }
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth" });
+          }
         });
+      });
     </script>
-</body>
+  </body>
 </html>

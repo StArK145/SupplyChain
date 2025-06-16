@@ -80,6 +80,8 @@ def manufacturer_register(request):
     return render(request, 'manufacturer/register.html', {'form': form})
 
 
+
+
 def manufacturer_login(request):
     if request.method == 'POST':
         form = ManufacturerLoginForm(request.POST)

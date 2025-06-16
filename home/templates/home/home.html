@@ -1,435 +1,982 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supply Chain Portal | Connect. Optimize. Grow</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supply Chain Portal</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9fafb;
+      :root {
+        --light-steel-blue: #9cbde5;
+        --dark-navy-blue: #0a2f56;
+        --strong-sky-blue: #2e75b7;
+        --rich-medium-blue: #0e447c;
+        --muted-azure: #4684c3;
+        --soft-denim: #6a9ed3;
+        --very-pale-blue: #c9dff6;
+        --deep-slate-blue: #244a73;
+        --cool-blue: #3b699e;
+        --medium-ocean-blue: #1b5a9b;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 100%);
+        min-height: 100vh;
+        scroll-behavior: smooth;
+      }
+
+      .hero-gradient {
+        background: linear-gradient(
+          135deg,
+          #0a2f56 0%,
+          #244a73 25%,
+          #0e447c 50%,
+          #1b5a9b 75%,
+          #2e75b7 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-gradient::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+      }
+
+      .card-hover {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(156, 189, 229, 0.3);
+      }
+
+      .card-hover:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 25px 50px -12px rgba(10, 47, 86, 0.25);
+        background: rgba(255, 255, 255, 1);
+        border-color: rgba(46, 117, 183, 0.5);
+      }
+
+      .feature-icon {
+        transition: all 0.4s ease;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.2) rotate(5deg);
+      }
+
+      .floating-animation {
+        animation: float 6s ease-in-out infinite;
+      }
+      .gradient-icon {
+        font-size: 25vw; /* Increase size */
+        background: linear-gradient(
+          135deg,
+          #0a2f56,
+          #2e75b7,
+          #4684c3,
+          #6a9ed3,
+          #c9dff6,
+          #3b699e,
+          #1b5a9b
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
         }
-        .hero-gradient {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        50% {
+          transform: translateY(-20px);
         }
-        .card-hover {
-            transition: all 0.3s ease;
+      }
+
+      .glow-effect {
+        box-shadow: 0 0 20px rgba(46, 117, 183, 0.3);
+      }
+
+      .glass-morphism {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .nav-glass {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(156, 189, 229, 0.2);
+      }
+
+      .pulse-glow {
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(46, 117, 183, 0.5);
         }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        50% {
+          box-shadow: 0 0 20px rgba(46, 117, 183, 0.8),
+            0 0 30px rgba(46, 117, 183, 0.4);
         }
-        .feature-icon {
-            transition: all 0.3s ease;
+      }
+
+      .testimonial-card {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.9) 0%,
+          rgba(201, 223, 246, 0.8) 100%
+        );
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(156, 189, 229, 0.3);
+      }
+
+      @media (max-width: 768px) {
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(20px);
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+          z-index: 50;
+          border-top: 1px solid rgba(156, 189, 229, 0.3);
         }
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1);
+        .nav-menu.active {
+          display: block;
         }
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-                z-index: 50;
-            }
-            .nav-menu.active {
-                display: block;
-            }
-        }
+      }
     </style>
-</head>
-<body class="min-h-screen flex flex-col">
+  </head>
+  <body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo and Brand -->
-                <div class="flex items-center space-x-2">
-                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                        <i class="fas fa-link text-lg"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8 nav-menu">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                </div>
-
-                <!-- Login/Register Button -->
-                <!-- <div class="hidden md:flex items-center space-x-4">
-                    <a href="#" class="text-gray-600 hover:text-blue-600 font-medium">Login</a>
-                    <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">Get Started</a>
-                </div> -->
-
-                <!-- Mobile Hamburger Menu -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <nav style=" background: linear-gradient(
+          135deg,
+          #2e75b7,
+          #4684c3,
+          #6a9ed3,
+          #c9dff6,
+          #3b699e,
+          #1b5a9b
+        );" class=" backdrop-blur-lg shadow-md sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="flex items-center justify-center h-12 w-12 rounded-xl pulse-glow"
+              style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+            >
+              <i class="fas fa-link text-white text-2xl"></i>
             </div>
+            <h1 class="text-2xl font-bold" style="color: #0a2f56">
+              Supply<span style="color: #2e75b7">Chain</span>
+            </h1>
+          </div>
 
-            <!-- Mobile Navigation Menu -->
-            <div id="mobile-nav" class="md:hidden nav-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                    <div class="flex flex-col pt-4 pb-2 space-y-2">
-                        <a href="#" class="text-blue-600 block px-3 py-2 font-medium">Login</a>
-                        <a href="#" class="bg-blue-600 text-white px-3 py-2 rounded-lg text-center font-medium">Get Started</a>
-                    </div>
-                </div>
-            </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#4caf50]"
+              onmouseover="this.style.background='rgba(76,175,80,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#e91e63]"
+              onmouseover="this.style.background='rgba(233,30,99,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#9c27b0]"
+              onmouseover="this.style.background='rgba(156,39,176,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Services</a
+            >
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#00c853]"
+              onmouseover="this.style.background='rgba(0,200,83,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Mobile Menu Toggle Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="p-2 rounded-lg text-[#ff5722]"
+              onmouseover="this.style.background='rgba(255,87,34,0.1)'"
+              onmouseout="this.style.background='transparent'"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div
+        id="mobile-nav"
+        class="md:hidden max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+      >
+        <div class="px-4 py-4 space-y-2">
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium text-[#4caf50] hover:bg-green-100"
+            >Home</a
+          >
+          <a
+            href="{% url 'about' %}"
+            class="block px-4 py-2 rounded-lg font-medium text-[#e91e63] hover:bg-pink-100"
+            >About</a
+          >
+          <a
+            href="{% url 'services' %}"
+            class="block px-4 py-2 rounded-lg font-medium text-[#9c27b0] hover:bg-purple-100"
+            >Services</a
+          >
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium text-[#00c853] hover:bg-green-50"
+            >Contact</a
+          >
+        </div>
+      </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-gradient text-white py-20">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">Streamline Your Supply Chain Management</h1>
-                <p class="text-lg md:text-xl mb-8 text-blue-100">Connect manufacturers and suppliers seamlessly with our innovative portal. Optimize operations and grow your business.</p>
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#portals" class="bg-white text-blue-700 py-3 px-6 rounded-lg font-semibold hover:bg-blue-50 transition text-center">Get Started</a>
-                    <a href="#features" class="bg-transparent border-2 border-white text-white py-3 px-6 rounded-lg font-semibold hover:bg-white hover:bg-opacity-10 transition text-center">Learn More</a>
-                </div>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-                <img src="/api/placeholder/600/400" alt="Supply Chain Management" class="rounded-lg shadow-xl max-w-full h-auto">
-            </div>
+    <section class="hero-gradient text-white py-24 relative">
+      <div
+        class="container mx-auto px-4 flex flex-col md:flex-row items-center relative z-10"
+      >
+        <div class="md:w-1/2 mb-12 md:mb-0">
+          <div class="floating-animation">
+            <h1 class="text-5xl md:text-6xl font-bold mb-8 leading-tight">
+              Streamline Your
+              <span
+                class="bg-gradient-to-r from-blue-200 to-blue-100 bg-clip-text text-transparent"
+              >
+                Supply Chain
+              </span>
+              <br />Management
+            </h1>
+          </div>
+          <p
+            class="text-xl md:text-2xl mb-10 leading-relaxed"
+            style="color: #c9dff6"
+          >
+            Connect manufacturers and suppliers seamlessly with our innovative
+            portal. Optimize operations and accelerate your business growth.
+          </p>
+          <div
+            class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6"
+          >
+            <a
+              href="#portals"
+              class="bg-white text-center py-4 px-8 rounded-xl font-bold text-lg hover:scale-105 transition-all duration-300 glow-effect"
+              style="color: #0a2f56"
+            >
+              Get Started
+            </a>
+            <a
+              href="#features"
+              class="glass-morphism text-white text-center py-4 px-8 rounded-xl font-bold text-lg hover:scale-105 transition-all duration-300"
+            >
+              Learn More
+            </a>
+          </div>
         </div>
+        <div class="md:w-1/2 flex justify-center">
+          <div class="floating-animation">
+            <div class="relative">
+              <div
+                class="absolute inset-0 rounded-2xl"
+                style="
+                  background: linear-gradient(135deg, #2e75b7, #1b5a9b);
+                  filter: blur(20px);
+                  opacity: 0.3;
+                "
+              ></div>
+              <i class="fas fa-link gradient-icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    
-
     <!-- Features Section -->
-    <section id="features" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Why Choose Our Platform?</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Our comprehensive solution addresses all your supply chain management needs</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-xl shadow-md p-6 feature-card card-hover">
-                    <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-6">
-                        <i class="fas fa-chart-line text-blue-600 text-xl feature-icon"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Real-time Analytics</h3>
-                    <p class="text-gray-600">Track performance metrics and make data-driven decisions to optimize your supply chain operations.</p>
-                </div>
-                
-                <div class="bg-white rounded-xl shadow-md p-6 feature-card card-hover">
-                    <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-6">
-                        <i class="fas fa-handshake text-blue-600 text-xl feature-icon"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Supplier Matching</h3>
-                    <p class="text-gray-600">Find reliable suppliers that meet your specific requirements and build valuable partnerships.</p>
-                </div>
-                
-                <div class="bg-white rounded-xl shadow-md p-6 feature-card card-hover">
-                    <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-6">
-                        <i class="fas fa-truck text-blue-600 text-xl feature-icon"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Logistics Integration</h3>
-                    <p class="text-gray-600">Seamlessly integrate with shipping providers to streamline your logistics operations.</p>
-                </div>
-            </div>
+    <section id="features" class="py-20 relative">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-20">
+          <h2
+            class="text-4xl md:text-5xl font-bold mb-6"
+            style="color: #0a2f56"
+          >
+            Why Choose Our Platform?
+          </h2>
+          <p
+            class="text-xl max-w-3xl mx-auto leading-relaxed"
+            style="color: #244a73"
+          >
+            Our comprehensive solution addresses all your supply chain
+            management needs with cutting-edge technology
+          </p>
         </div>
+
+        <div class="grid md:grid-cols-3 gap-10">
+          <div class="card-hover rounded-2xl p-8 feature-card text-center">
+            <div
+              class="h-16 w-16 rounded-2xl flex items-center justify-center mb-8 mx-auto glow-effect"
+              style="background: linear-gradient(135deg, #c9dff6, #9cbde5)"
+            >
+              <i
+                class="fas fa-chart-line text-3xl feature-icon"
+                style="color: #0e447c"
+              ></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-4" style="color: #0a2f56">
+              Real-time Analytics
+            </h3>
+            <p class="text-lg leading-relaxed" style="color: #244a73">
+              Track performance metrics and make data-driven decisions to
+              optimize your supply chain operations with advanced insights.
+            </p>
+          </div>
+
+          <div class="card-hover rounded-2xl p-8 feature-card text-center">
+            <div
+              class="h-16 w-16 rounded-2xl flex items-center justify-center mb-8 mx-auto glow-effect"
+              style="background: linear-gradient(135deg, #c9dff6, #9cbde5)"
+            >
+              <i
+                class="fas fa-handshake text-3xl feature-icon"
+                style="color: #0e447c"
+              ></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-4" style="color: #0a2f56">
+              Supplier Matching
+            </h3>
+            <p class="text-lg leading-relaxed" style="color: #244a73">
+              Find reliable suppliers that meet your specific requirements and
+              build valuable, long-lasting business partnerships.
+            </p>
+          </div>
+
+          <div class="card-hover rounded-2xl p-8 feature-card text-center">
+            <div
+              class="h-16 w-16 rounded-2xl flex items-center justify-center mb-8 mx-auto glow-effect"
+              style="background: linear-gradient(135deg, #c9dff6, #9cbde5)"
+            >
+              <i
+                class="fas fa-truck text-3xl feature-icon"
+                style="color: #0e447c"
+              ></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-4" style="color: #0a2f56">
+              Logistics Integration
+            </h3>
+            <p class="text-lg leading-relaxed" style="color: #244a73">
+              Seamlessly integrate with shipping providers to streamline your
+              logistics operations and reduce delivery times.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Portal Section -->
-    <section id="portals" class="py-16">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Choose Your Portal</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Whether you're a manufacturer or a supplier, we have the perfect solution for you
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <div class="bg-white p-8 rounded-xl shadow-lg card-hover border-t-4 border-blue-600">
-                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 mb-6 mx-auto">
-                        <i class="fas fa-industry text-blue-600 text-2xl"></i>
-                    </div>
-                    <h2 class="text-2xl font-bold mb-4 text-blue-700 text-center">Manufacturer Portal</h2>
-                    <p class="text-gray-600 mb-6 text-center">
-                        Manage your production, track inventory, and connect with reliable suppliers to optimize your supply chain.
-                    </p>
-                    <ul class="mb-8 space-y-3">
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Inventory management
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Supplier discovery and vetting
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Order tracking and management
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Performance analytics
-                        </li>
-                    </ul>
-                    <div class="space-y-4">
-                        <a href="{% url 'manufacturer_login' %}" class="block bg-blue-600 text-white py-3 px-6 rounded-lg text-center hover:bg-blue-700 transition font-medium">
-                            Manufacturer Login
-                        </a>
-                        <a href="{% url 'manufacturer_register' %}" class="block bg-blue-100 text-blue-700 py-3 px-6 rounded-lg text-center hover:bg-blue-200 transition font-medium">
-                            Manufacturer Register
-                        </a>
-                    </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-xl shadow-lg card-hover border-t-4 border-green-600">
-                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6 mx-auto">
-                        <i class="fas fa-boxes text-green-600 text-2xl"></i>
-                    </div>
-                    <h2 class="text-2xl font-bold mb-4 text-green-700 text-center">Supplier Portal</h2>
-                    <p class="text-gray-600 mb-6 text-center">
-                        Expand your market reach, manage orders efficiently, and build long-term business relationships.
-                    </p>
-                    <ul class="mb-8 space-y-3">
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Showcase your products
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Reach new manufacturers
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Streamlined order processing
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            Payment tracking and invoicing
-                        </li>
-                    </ul>
-                    <div class="space-y-4">
-                        <a href="{% url 'supplier_login' %}" class="block bg-green-600 text-white py-3 px-6 rounded-lg text-center hover:bg-green-700 transition font-medium">
-                            Supplier Login
-                        </a>
-                        <a href="{% url 'supplier_register' %}" class="block bg-green-100 text-green-700 py-3 px-6 rounded-lg text-center hover:bg-green-200 transition font-medium">
-                            Supplier Register
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <section id="portals" class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2
+            class="text-4xl md:text-5xl font-bold mb-6"
+            style="color: #0a2f56"
+          >
+            Choose Your Portal
+          </h2>
+          <p
+            class="text-xl max-w-3xl mx-auto leading-relaxed"
+            style="color: #244a73"
+          >
+            Whether you're a manufacturer or a supplier, we have the perfect
+            solution tailored for your business needs
+          </p>
         </div>
+
+        <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          <div
+            class="card-hover p-10 rounded-2xl border-t-4"
+            style="border-top-color: #2e75b7"
+          >
+            <div
+              class="flex items-center justify-center h-20 w-20 rounded-2xl mb-8 mx-auto glow-effect"
+              style="background: linear-gradient(135deg, #c9dff6, #9cbde5)"
+            >
+              <i class="fas fa-industry text-4xl" style="color: #0e447c"></i>
+            </div>
+            <h2
+              class="text-3xl font-bold mb-6 text-center"
+              style="color: #2e75b7"
+            >
+              Manufacturer Portal
+            </h2>
+            <p
+              class="text-lg mb-8 text-center leading-relaxed"
+              style="color: #244a73"
+            >
+              Manage your production, track inventory, and connect with reliable
+              suppliers to optimize your entire supply chain ecosystem.
+            </p>
+            <ul class="mb-10 space-y-4">
+              <li class="flex items-center text-lg" style="color: #244a73">
+                <i
+                  class="fas fa-check-circle mr-4 text-2xl"
+                  style="color: #2e75b7"
+                ></i>
+                Advanced inventory management system
+              </li>
+              <li class="flex items-center text-lg" style="color: #244a73">
+                <i
+                  class="fas fa-check-circle mr-4 text-2xl"
+                  style="color: #2e75b7"
+                ></i>
+                AI-powered supplier discovery and vetting
+              </li>
+              <li class="flex items-center text-lg" style="color: #244a73">
+                <i
+                  class="fas fa-check-circle mr-4 text-2xl"
+                  style="color: #2e75b7"
+                ></i>
+                Real-time order tracking and management
+              </li>
+              <li class="flex items-center text-lg" style="color: #244a73">
+                <i
+                  class="fas fa-check-circle mr-4 text-2xl"
+                  style="color: #2e75b7"
+                ></i>
+                Comprehensive performance analytics
+              </li>
+            </ul>
+            <div class="space-y-4">
+              <a
+                href="{% url 'manufacturer_login' %}"
+                class="block text-white py-4 px-8 rounded-xl text-center hover:scale-105 transition-all duration-300 font-bold text-lg glow-effect"
+                style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+              >
+                Manufacturer Login
+              </a>
+              <a
+                href="{% url 'manufacturer_register' %}"
+                class="block py-4 px-8 rounded-xl text-center hover:scale-105 transition-all duration-300 font-bold text-lg"
+                style="
+                  background: rgba(46, 117, 183, 0.1);
+                  color: #2e75b7;
+                  border: 2px solid #2e75b7;
+                "
+              >
+                Manufacturer Register
+              </a>
+            </div>
+          </div>
+
+          <div
+            class="card-hover p-10 rounded-2xl border-t-4"
+            style="border-top-color: #0e447c"
+          >
+            <div
+              class="flex items-center justify-center h-20 w-20 rounded-2xl mb-8 mx-auto glow-effect"
+              style="background: linear-gradient(135deg, #c9dff6, #9cbde5)"
+            >
+              <i class="fas fa-boxes text-4xl" style="color: #0e447c"></i>
+            </div>
+            <h2
+              class="text-3xl font-bold mb-6 text-center"
+              style="color: #0e447c"
+            >
+              Supplier Portal
+            </h2>
+            <p
+              class="text-lg mb-8 text-center leading-relaxed"
+              style="color: #244a73"
+            >
+              Expand your market reach, manage orders efficiently, and build
+              long-term business relationships with top manufacturers.
+            </p>
+            <ul class="mb-10 space-y-4">
+              <li class="flex items-center text-lg" style="color: #244a73">
+                <i
+                  class="fas fa-check-circle mr-4 text-2xl"
+                  style="color: #0e447c"
+                ></i>
+                Professional product showcase platform
+              </li>
+              <li class="flex items-center text-lg" style="color: #244a73">
+                <i
+                  class="fas fa-check-circle mr-4 text-2xl"
+                  style="color: #0e447c"
+                ></i>
+                Connect with verified manufacturers
+              </li>
+              <li class="flex items-center text-lg" style="color: #244a73">
+                <i
+                  class="fas fa-check-circle mr-4 text-2xl"
+                  style="color: #0e447c"
+                ></i>
+                Streamlined order processing system
+              </li>
+              <li class="flex items-center text-lg" style="color: #244a73">
+                <i
+                  class="fas fa-check-circle mr-4 text-2xl"
+                  style="color: #0e447c"
+                ></i>
+                Automated payment tracking and invoicing
+              </li>
+            </ul>
+            <div class="space-y-4">
+              <a
+                href="{% url 'supplier_login' %}"
+                class="block text-white py-4 px-8 rounded-xl text-center hover:scale-105 transition-all duration-300 font-bold text-lg glow-effect"
+                style="background: linear-gradient(135deg, #0e447c, #244a73)"
+              >
+                Supplier Login
+              </a>
+              <a
+                href="{% url 'supplier_register' %}"
+                class="block py-4 px-8 rounded-xl text-center hover:scale-105 transition-all duration-300 font-bold text-lg"
+                style="
+                  background: rgba(14, 68, 124, 0.1);
+                  color: #0e447c;
+                  border: 2px solid #0e447c;
+                "
+              >
+                Supplier Register
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Testimonials -->
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">What Our Users Say</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Join thousands of satisfied businesses already using our platform
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 flex">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 mb-6 italic">"This platform revolutionized our supply chain operations. We've reduced costs by 25% and improved delivery times significantly."</p>
-                    <div class="flex items-center">
-                        <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                            <span class="text-blue-600 font-bold">JD</span>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-800">John Doe</h4>
-                            <p class="text-sm text-gray-500">Operations Manager, TechMfg</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 flex">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 mb-6 italic">"As a supplier, we've been able to connect with major manufacturers and increase our business volume by over 40%."</p>
-                    <div class="flex items-center">
-                        <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                            <span class="text-blue-600 font-bold">SS</span>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-800">Sarah Smith</h4>
-                            <p class="text-sm text-gray-500">CEO, Global Parts Inc.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 flex">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 mb-6 italic">"The analytics tools helped us identify inefficiencies in our supply chain that we never knew existed. Game-changer!"</p>
-                    <div class="flex items-center">
-                        <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                            <span class="text-blue-600 font-bold">RJ</span>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-800">Robert Johnson</h4>
-                            <p class="text-sm text-gray-500">Supply Chain Director, ElectroCorp</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2
+            class="text-4xl md:text-5xl font-bold mb-6"
+            style="color: #0a2f56"
+          >
+            What Our Users Say
+          </h2>
+          <p
+            class="text-xl max-w-3xl mx-auto leading-relaxed"
+            style="color: #244a73"
+          >
+            Join thousands of satisfied businesses already transforming their
+            operations with our platform
+          </p>
         </div>
+
+        <div class="grid md:grid-cols-3 gap-10">
+          <div class="testimonial-card p-8 rounded-2xl card-hover">
+            <div class="flex items-center mb-6">
+              <div class="flex" style="color: #2e75b7">
+                <i class="fas fa-star text-xl"></i>
+                <i class="fas fa-star text-xl"></i>
+                <i class="fas fa-star text-xl"></i>
+                <i class="fas fa-star text-xl"></i>
+                <i class="fas fa-star text-xl"></i>
+              </div>
+            </div>
+            <p
+              class="text-lg mb-8 italic leading-relaxed"
+              style="color: #244a73"
+            >
+              "This platform revolutionized our supply chain operations. We've
+              reduced costs by 25% and improved delivery times significantly.
+              Absolutely game-changing!"
+            </p>
+            <div class="flex items-center">
+              <div
+                class="h-14 w-14 rounded-full flex items-center justify-center mr-4 glow-effect"
+                style="background: linear-gradient(135deg, #c9dff6, #9cbde5)"
+              >
+                <span class="font-bold text-lg" style="color: #0e447c">JD</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg" style="color: #0a2f56">
+                  John Doe
+                </h4>
+                <p class="text-sm" style="color: #6a9ed3">
+                  Operations Manager, TechMfg
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card p-8 rounded-2xl card-hover">
+            <div class="flex items-center mb-6">
+              <div class="flex" style="color: #2e75b7">
+                <i class="fas fa-star text-xl"></i>
+                <i class="fas fa-star text-xl"></i>
+                <i class="fas fa-star text-xl"></i>
+                <i class="fas fa-star text-xl"></i>
+                <i class="fas fa-star text-xl"></i>
+              </div>
+            </div>
+            <p
+              class="text-lg mb-8 italic leading-relaxed"
+              style="color: #244a73"
+            >
+              "As a supplier, we've been able to connect with major
+              manufacturers and increase our business volume by over 40%. The
+              ROI has been incredible."
+            </p>
+            <div class="flex items-center">
+              <div
+                class="h-14 w-14 rounded-full flex items-center justify-center mr-4 glow-effect"
+                style="background: linear-gradient(135deg, #c9dff6, #9cbde5)"
+              >
+                <span class="font-bold text-lg" style="color: #0e447c">SS</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg" style="color: #0a2f56">
+                  Sarah Smith
+                </h4>
+                <p class="text-sm" style="color: #6a9ed3">
+                  CEO, Global Parts Inc.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card p-8 rounded-2xl card-hover">
+            <div class="flex items-center mb-6">
+              <div class="flex" style="color: #2e75b7">
+                <i class="fas fa-star text-xl"></i>
+                <i class="fas fa-star text-xl"></i>
+                <i class="fas fa-star text-xl"></i>
+                <i class="fas fa-star text-xl"></i>
+                <i class="fas fa-star-half-alt text-xl"></i>
+              </div>
+            </div>
+            <p
+              class="text-lg mb-8 italic leading-relaxed"
+              style="color: #244a73"
+            >
+              "The analytics tools helped us identify inefficiencies in our
+              supply chain that we never knew existed. Complete game-changer for
+              our operations!"
+            </p>
+            <div class="flex items-center">
+              <div
+                class="h-14 w-14 rounded-full flex items-center justify-center mr-4 glow-effect"
+                style="background: linear-gradient(135deg, #c9dff6, #9cbde5)"
+              >
+                <span class="font-bold text-lg" style="color: #0e447c">RJ</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg" style="color: #0a2f56">
+                  Robert Johnson
+                </h4>
+                <p class="text-sm" style="color: #6a9ed3">
+                  Supply Chain Director, ElectroCorp
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="py-16 hero-gradient text-white">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Supply Chain?</h2>
-            <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">Join thousands of businesses already optimizing their operations with our platform</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <a href="#portals" class="bg-white text-blue-700 py-3 px-8 rounded-lg font-semibold hover:bg-blue-50 transition">Get Started Now</a>
-                <a href="#" class="bg-transparent border-2 border-white py-3 px-8 rounded-lg font-semibold hover:bg-white hover:bg-opacity-10 transition">Contact Sales</a>
-            </div>
+    <section class="py-20 hero-gradient text-white relative">
+      <div class="container mx-auto px-4 text-center relative z-10">
+        <div class="floating-animation">
+          <h2 class="text-4xl md:text-5xl font-bold mb-8">
+            Ready to Transform Your Supply Chain?
+          </h2>
+          <p
+            class="text-2xl mb-12 max-w-3xl mx-auto leading-relaxed"
+            style="color: #c9dff6"
+          >
+            Join thousands of businesses already optimizing their operations and
+            accelerating growth with our platform
+          </p>
+          <div
+            class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6"
+          >
+            <a
+              href="#portals"
+              class="bg-white py-4 px-10 rounded-xl font-bold text-xl hover:scale-105 transition-all duration-300 glow-effect"
+              style="color: #0a2f56"
+              >Get Started Now</a
+            >
+            <a
+              href="{% url 'contact' %}"
+              class="glass-morphism py-4 px-10 rounded-xl font-bold text-xl hover:scale-105 transition-all duration-300"
+              >Contact Sales</a
+            >
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                            <i class="fas fa-link text-lg"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
-                    </div>
-                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
-                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
-                        <li><a href="{% url 'terms' %}" class="text-gray-400 hover:text-blue-400 transition">Terms & Conditions</a></li>
-                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Contact Us</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
-                            <span>123 Supply Chain Blvd, Business District, 10001</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
-                            <span>info@supplychain.com</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone mr-3 text-blue-400"></i>
-                            <span>+1 (555) 123-4567</span>
-                        </li>
-                    </ul>
-                </div>
+    <footer
+      class="py-16 relative"
+      style="background: linear-gradient(135deg, #0a2f56, #244a73)"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-10 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-xl glow-effect"
+                style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+              >
+                <i class="fas fa-link text-white text-xl"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">
+                Supply<span style="color: #9cbde5">Chain</span>
+              </h1>
             </div>
-            
-            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
-                <p>© 2024 Supply Chain Portal. All Rights Reserved.</p>
+            <p class="text-lg mb-6 leading-relaxed" style="color: #c9dff6">
+              Connecting manufacturers and suppliers through innovative
+              technology and seamless integration.
+            </p>
+            <div class="flex space-x-6">
+              <a
+                href="#"
+                class="transition-all duration-300 hover:scale-110"
+                style="color: #c9dff6"
+                onmouseover="this.style.color='#9cbde5'"
+                onmouseout="this.style.color='#c9dff6'"
+              >
+                <i class="fab fa-twitter text-2xl"></i>
+              </a>
+              <a
+                href="#"
+                class="transition-all duration-300 hover:scale-110"
+                style="color: #c9dff6"
+                onmouseover="this.style.color='#9cbde5'"
+                onmouseout="this.style.color='#c9dff6'"
+              >
+                <i class="fab fa-linkedin text-2xl"></i>
+              </a>
+              <a
+                href="#"
+                class="transition-all duration-300 hover:scale-110"
+                style="color: #c9dff6"
+                onmouseover="this.style.color='#9cbde5'"
+                onmouseout="this.style.color='#c9dff6'"
+              >
+                <i class="fab fa-facebook text-2xl"></i>
+              </a>
             </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'home' %}"
+                  class="text-lg transition-all duration-300 hover:scale-105"
+                  style="color: #c9dff6"
+                  onmouseover="this.style.color='#9cbde5'"
+                  onmouseout="this.style.color='#c9dff6'"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'about' %}"
+                  class="text-lg transition-all duration-300 hover:scale-105"
+                  style="color: #c9dff6"
+                  onmouseover="this.style.color='#9cbde5'"
+                  onmouseout="this.style.color='#c9dff6'"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'services' %}"
+                  class="text-lg transition-all duration-300 hover:scale-105"
+                  style="color: #c9dff6"
+                  onmouseover="this.style.color='#9cbde5'"
+                  onmouseout="this.style.color='#c9dff6'"
+                  >Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-lg transition-all duration-300 hover:scale-105"
+                  style="color: #c9dff6"
+                  onmouseover="this.style.color='#9cbde5'"
+                  onmouseout="this.style.color='#c9dff6'"
+                  >Blog</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'faq' %}"
+                  class="text-lg transition-all duration-300 hover:scale-105"
+                  style="color: #c9dff6"
+                  onmouseover="this.style.color='#9cbde5'"
+                  onmouseout="this.style.color='#c9dff6'"
+                  >FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-lg transition-all duration-300 hover:scale-105"
+                  style="color: #c9dff6"
+                  onmouseover="this.style.color='#9cbde5'"
+                  onmouseout="this.style.color='#c9dff6'"
+                  >Contact Support</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'terms' %}"
+                  class="text-lg transition-all duration-300 hover:scale-105"
+                  style="color: #c9dff6"
+                  onmouseover="this.style.color='#9cbde5'"
+                  onmouseout="this.style.color='#c9dff6'"
+                  >Terms & Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'privacy' %}"
+                  class="text-lg transition-all duration-300 hover:scale-105"
+                  style="color: #c9dff6"
+                  onmouseover="this.style.color='#9cbde5'"
+                  onmouseout="this.style.color='#c9dff6'"
+                  >Privacy Policy</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Contact Us</h3>
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <i
+                  class="fas fa-map-marker-alt mt-1 mr-4 text-xl"
+                  style="color: #9cbde5"
+                ></i>
+                <span class="text-lg leading-relaxed" style="color: #c9dff6"
+                  >123 Supply Chain Blvd, Business District, 10001</span
+                >
+              </li>
+              <li class="flex items-center">
+                <i
+                  class="fas fa-envelope mr-4 text-xl"
+                  style="color: #9cbde5"
+                ></i>
+                <span class="text-lg" style="color: #c9dff6"
+                  >info@supplychain.com</span
+                >
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone mr-4 text-xl" style="color: #9cbde5"></i>
+                <span class="text-lg" style="color: #c9dff6"
+                  >+1 (555) 123-4567</span
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div
+          class="pt-8 mt-8 text-center border-t"
+          style="border-color: rgba(156, 189, 229, 0.3)"
+        >
+          <p class="text-lg" style="color: #c9dff6">
+            © 2024 Supply Chain Portal. All Rights Reserved.
+          </p>
+        </div>
+      </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
+      document.addEventListener("DOMContentLoaded", () => {
+        const toggleBtn = document.getElementById("mobile-menu-toggle");
+        const mobileNav = document.getElementById("mobile-nav");
 
-        mobileMenuToggle.addEventListener('click', () => {
-            mobileNav.classList.toggle('active');
+        toggleBtn.addEventListener("click", () => {
+          const isOpen = mobileNav.classList.contains("max-h-[500px]");
+
+          if (isOpen) {
+            mobileNav.classList.remove("max-h-[500px]");
+            mobileNav.classList.add("max-h-0");
+          } else {
+            mobileNav.classList.remove("max-h-0");
+            mobileNav.classList.add("max-h-[500px]");
+          }
         });
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (event) => {
-            const isClickInsideMenu = mobileNav.contains(event.target);
-            const isClickOnToggle = mobileMenuToggle.contains(event.target);
-            
-            if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
-                mobileNav.classList.remove('active');
-            }
+        // Optional: Close mobile nav when any link is clicked
+        document.querySelectorAll("#mobile-nav a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileNav.classList.remove("max-h-[500px]");
+            mobileNav.classList.add("max-h-0");
+          });
         });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+      });
     </script>
-</body>
+  </body>
 </html>

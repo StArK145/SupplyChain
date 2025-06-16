@@ -1,292 +1,704 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manufacturer Login | Supply Chain Portal</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9fafb;
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #c9dff6 0%,
+          #9cbde5 50%,
+          #6a9ed3 100%
+        );
+        min-height: 100vh;
+      }
+      .hero-gradient {
+        background: linear-gradient(
+          135deg,
+          #0e447c 0%,
+          #1b5a9b 50%,
+          #4684c3 100%
+        );
+      }
+      .card-hover {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+      .card-hover:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 25px 50px -12px rgba(14, 68, 124, 0.25),
+          0 0 0 1px rgba(70, 132, 195, 0.1);
+        background: rgba(255, 255, 255, 0.98);
+      }
+      .feature-icon {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .feature-card:hover .feature-icon {
+        transform: scale(1.15) rotate(5deg);
+      }
+      .form-input {
+        transition: all 0.3s ease;
+        border: 2px solid #9cbde5;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 16px;
+        width: 100%;
+      }
+      .form-input:focus {
+        border-color: #1b5a9b;
+        box-shadow: 0 0 0 4px rgba(27, 90, 155, 0.15);
+        background: rgba(255, 255, 255, 1);
+        outline: none;
+      }
+      .form-input:hover {
+        border-color: #4684c3;
+        background: rgba(255, 255, 255, 0.95);
+      }
+      .login-container {
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0.85)
+        );
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(70, 132, 195, 0.2);
+      }
+      .nav-glass {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(14, 68, 124, 0.1);
+      }
+      .floating-elements::before {
+        content: "";
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 200px;
+        height: 200px;
+        background: linear-gradient(
+          45deg,
+          rgba(70, 132, 195, 0.1),
+          rgba(156, 189, 229, 0.1)
+        );
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+      }
+      .floating-elements::after {
+        content: "";
+        position: absolute;
+        bottom: -30px;
+        left: -30px;
+        width: 150px;
+        height: 150px;
+        background: linear-gradient(
+          45deg,
+          rgba(27, 90, 155, 0.1),
+          rgba(106, 158, 211, 0.1)
+        );
+        border-radius: 50%;
+        animation: float 4s ease-in-out infinite reverse;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
         }
-        .hero-gradient {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        50% {
+          transform: translateY(-20px) rotate(5deg);
         }
-        .card-hover {
-            transition: all 0.3s ease;
+      }
+      .icon-glow {
+        background: linear-gradient(145deg, #1b5a9b, #4684c3);
+        box-shadow: 0 8px 32px rgba(27, 90, 155, 0.3);
+      }
+      .button-gradient {
+        background: linear-gradient(
+          135deg,
+          #0e447c 0%,
+          #1b5a9b 50%,
+          #4684c3 100%
+        );
+        box-shadow: 0 4px 15px rgba(14, 68, 124, 0.3);
+        transition: all 0.3s ease;
+      }
+      .button-gradient:hover {
+        background: linear-gradient(
+          135deg,
+          #244a73 0%,
+          #0e447c 50%,
+          #1b5a9b 100%
+        );
+        box-shadow: 0 8px 25px rgba(14, 68, 124, 0.4);
+        transform: translateY(-2px);
+      }
+      .glass-footer {
+        background: linear-gradient(
+          135deg,
+          rgba(36, 74, 115, 0.95),
+          rgba(14, 68, 124, 0.95)
+        );
+        backdrop-filter: blur(10px);
+      }
+      @media (max-width: 768px) {
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(10px);
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+          z-index: 50;
         }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        .nav-menu.active {
+          display: block;
         }
-        .feature-icon {
-            transition: all 0.3s ease;
+      }
+      .pulse-glow {
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(46, 117, 183, 0.5);
         }
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1);
+        50% {
+          box-shadow: 0 0 20px rgba(46, 117, 183, 0.8),
+            0 0 30px rgba(46, 117, 183, 0.4);
         }
-        .form-input {
-            transition: all 0.3s ease;
-        }
-        .form-input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-        }
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-                z-index: 50;
-            }
-            .nav-menu.active {
-                display: block;
-            }
-        }
+      }
     </style>
-</head>
-<body class="min-h-screen flex flex-col">
+  </head>
+  <body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo and Brand -->
-                <div class="flex items-center space-x-2">
-                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                        <i class="fas fa-link text-lg"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8 nav-menu">
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Home</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">About</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Services</a>
-                    <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Contact</a>
-                </div>
-
-                <!-- Login/Register Button -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <a href="#" class="text-gray-600 hover:text-blue-600 font-medium">Login</a>
-                    <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">Get Started</a>
-                </div>
-
-                <!-- Mobile Hamburger Menu -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <nav style=" background: linear-gradient(
+          135deg,
+          #2e75b7,
+          #4684c3,
+          #6a9ed3,
+          #c9dff6,
+          #3b699e,
+          #1b5a9b
+        );" class=" backdrop-blur-lg shadow-md sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="flex items-center justify-center h-12 w-12 rounded-xl pulse-glow"
+              style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+            >
+              <i class="fas fa-link text-white text-2xl"></i>
             </div>
+            <h1 class="text-2xl font-bold" style="color: #0a2f56">
+              Supply<span style="color: #2e75b7">Chain</span>
+            </h1>
+          </div>
 
-            <!-- Mobile Navigation Menu -->
-            <div id="mobile-nav" class="md:hidden nav-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-                    <a href="#" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="#" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="#" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="#" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                    <div class="flex flex-col pt-4 pb-2 space-y-2">
-                        <a href="#" class="text-blue-600 block px-3 py-2 font-medium">Login</a>
-                        <a href="#" class="bg-blue-600 text-white px-3 py-2 rounded-lg text-center font-medium">Get Started</a>
-                    </div>
-                </div>
-            </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="{% url 'home' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-dark hover:bg-brand-dark/10"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-blue hover:bg-brand-blue/10"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-mid hover:bg-brand-mid/10"
+              >Services</a
+            >
+            <a
+              href="{% url 'contact' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-slate hover:bg-brand-slate/10"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Login/Register Button -->
+          <div class="hidden md:flex items-center space-x-4">
+            <a
+              href="{% url 'home' %}#portals"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-light hover:bg-brand-light/10"
+              >Login</a
+            >
+            <a
+              href="{% url 'home' %}#portals"
+              class="px-6 py-3 rounded-xl text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+              style="background: linear-gradient(135deg, #2e75b7, #4684c3)"
+              >Get Started</a
+            >
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="p-2 rounded-lg text-brand-dark hover:bg-brand-dark/10 transition-colors duration-200"
+            >
+              <svg
+                id="menu-icon"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div
+          id="mobile-nav"
+          class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out md:hidden"
+        >
+          <div class="px-2 pt-2 pb-3 space-y-1 border-t border-blue-200/30">
+            <a
+              href="{% url 'home' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-dark hover:bg-brand-dark/10"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-blue hover:bg-brand-blue/10"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-mid hover:bg-brand-mid/10"
+              >Services</a
+            >
+            <a
+              href="{% url 'contact' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-slate hover:bg-brand-slate/10"
+              >Contact</a
+            >
+            <div class="flex flex-col pt-4 pb-2 space-y-2">
+              <a
+                href="{% url 'home' %}#portals"
+                class="block px-4 py-2 font-medium transition-all duration-300 hover:scale-105 text-brand-light hover:bg-brand-light/10"
+                >Login</a
+              >
+              <a
+                href="{% url 'home' %}#portals"
+                class="px-4 py-3 rounded-lg text-center font-medium text-white shadow-lg transition-all duration-200 transform hover:scale-105 bg-btn-gradient"
+                >Get Started</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <!-- Header Section -->
-            <div class="text-center mb-12">
-                <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Manufacturer Login</h1>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Access your account to manage your supply chain operations</p>
-            </div>
-            
-            <div class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-8 card-hover border-t-4 border-blue-600">
-                <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 mb-6 mx-auto">
-                    <i class="fas fa-industry text-blue-600 text-2xl"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-blue-700 mb-6 text-center">Login to Your Account</h2>
-                
-                <form method="post" class="space-y-6">
-                    {% csrf_token %}
-                    
-                    {% for field in form %}
-                        <div class="mb-4">
-                            <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
-                                {{ field.label }}
-                            </label>
-                            {{ field }}
-                        </div>
-                    {% endfor %}
-
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center">
-                            <input id="remember_me" name="remember_me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                            <label for="remember_me" class="ml-2 block text-sm text-gray-700">
-                                Remember me
-                            </label>
-                        </div>
-                        <div class="text-sm">
-                            <a href="#" class="font-medium text-blue-600 hover:text-blue-500">
-                                Forgot password?
-                            </a>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button type="submit" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition text-lg font-medium">
-                            Login
-                        </button>
-                    </div>
-                </form>
-
-                <div class="mt-6 text-center">
-                    <p class="text-gray-600">Don't have an account? 
-                        <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Register here</a>
-                    </p>
-                </div>
-            </div>
+    <main class="flex-grow py-20 relative overflow-hidden">
+      <div class="container mx-auto px-4 relative z-10">
+        <!-- Header Section -->
+        <div class="text-center mb-16">
+          <div
+            class="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 icon-glow"
+          >
+            <i class="fas fa-industry text-white text-3xl"></i>
+          </div>
+          <h1
+            class="text-4xl md:text-5xl font-bold mb-6"
+            style="color: #0e447c"
+          >
+            Manufacturer Login
+          </h1>
+          <p
+            class="text-xl font-medium max-w-2xl mx-auto"
+            style="color: #3b699e"
+          >
+            Access your account to manage your supply chain operations with
+            advanced tools and insights
+          </p>
         </div>
+
+        <div
+          class="max-w-lg mx-auto login-container rounded-3xl shadow-2xl p-10 card-hover relative floating-elements"
+          style="border-top: 4px solid #1b5a9b"
+        >
+          <div
+            class="flex items-center justify-center h-20 w-20 rounded-2xl mb-8 mx-auto icon-glow"
+          >
+            <i class="fas fa-user-tie text-white text-3xl"></i>
+          </div>
+          <h2
+            class="text-3xl font-bold mb-8 text-center"
+            style="color: #0e447c"
+          >
+            Welcome Back
+          </h2>
+
+          <form method="post" class="space-y-8">
+            {% csrf_token %} {% for field in form %}
+            <div class="space-y-2">
+              <label
+                for="{{ field.id_for_label }}"
+                class="block text-sm font-semibold"
+                style="color: #244a73"
+              >
+                {{ field.label }}
+              </label>
+              {{ field }}
+            </div>
+            {% endfor %}
+
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <input
+                  id="remember_me"
+                  name="remember_me"
+                  type="checkbox"
+                  class="h-5 w-5 rounded border-2 focus:ring-2 focus:ring-offset-0 transition-all"
+                  style="color: #1b5a9b; border-color: #9cbde5"
+                />
+                <label
+                  for="remember_me"
+                  class="text-sm font-medium"
+                  style="color: #244a73"
+                >
+                  Remember me
+                </label>
+              </div>
+              <div class="text-sm">
+                <a
+                  href="#"
+                  class="font-semibold hover:underline transition-all"
+                  style="color: #1b5a9b"
+                >
+                  Forgot password?
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                class="w-full button-gradient text-white py-4 px-6 rounded-xl text-lg font-semibold transition-all duration-300"
+              >
+                <i class="fas fa-sign-in-alt mr-2"></i>
+                Sign In to Dashboard
+              </button>
+            </div>
+          </form>
+
+          <div class="mt-8 text-center">
+            <div class="relative">
+              <div class="absolute inset-0 flex items-center">
+                <div
+                  class="w-full border-t"
+                  style="border-color: rgba(70, 132, 195, 0.3)"
+                ></div>
+              </div>
+              <div class="relative flex justify-center text-sm">
+                <span
+                  class="px-4 text-sm font-medium"
+                  style="background: rgba(255, 255, 255, 0.9); color: #3b699e"
+                >
+                  New to our platform?
+                </span>
+              </div>
+            </div>
+            <div class="mt-6">
+              <a
+                href="{% url 'home' %}#portals"
+                class="inline-flex items-center px-6 py-3 border-2 rounded-xl text-sm font-semibold transition-all hover:bg-opacity-5"
+                style="border-color: #4684c3; color: #1b5a9b"
+                onmouseover="this.style.backgroundColor='rgba(70, 132, 195, 0.05)'"
+                onmouseout="this.style.backgroundColor='transparent'"
+              >
+                <i class="fas fa-user-plus mr-2"></i>
+                Create New Account
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Decorative Elements -->
+      <div
+        class="absolute top-20 left-10 w-32 h-32 rounded-full opacity-20"
+        style="background: linear-gradient(45deg, #9cbde5, #6a9ed3)"
+      ></div>
+      <div
+        class="absolute bottom-20 right-10 w-24 h-24 rounded-full opacity-20"
+        style="background: linear-gradient(45deg, #4684c3, #1b5a9b)"
+      ></div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                            <i class="fas fa-link text-lg"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
-                    </div>
-                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
-                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
-                        <li><a href="{% url 'terms' %}" class="text-gray-400 hover:text-blue-400 transition">Terms & Conditions</a></li>
-                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Contact Us</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
-                            <span>123 Supply Chain Blvd, Business District, 10001</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
-                            <span>info@supplychain.com</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone mr-3 text-blue-400"></i>
-                            <span>+1 (555) 123-4567</span>
-                        </li>
-                    </ul>
-                </div>
+    <footer
+      class="text-white py-16 relative"
+      style="background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%)"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-lg"
+                style="
+                  background: linear-gradient(135deg, #2e75b7 0%, #4684c3 100%);
+                "
+              >
+                <i class="fas fa-link text-xl"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">
+                Supply<span style="color: #9cbde5">Chain</span>
+              </h1>
             </div>
-            
-            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
-                <p>© 2024 Supply Chain Portal. All Rights Reserved.</p>
+            <p class="text-blue-200 mb-6 leading-relaxed">
+              Connecting manufacturers and suppliers through innovative
+              technology and intelligent solutions.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-facebook"></i>
+              </a>
             </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'home' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'about' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'services' %}"
+                  class="text-white flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'manufacturer_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Manufacturer
+                  Login</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'supplier_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Supplier
+                  Login</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'faq' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'help' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Help
+                  Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact
+                  Support</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Live Chat</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Legal</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'terms' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Terms &
+                  Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'privacy' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Privacy
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Cookie
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>GDPR
+                  Compliance</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="section-divider opacity-30"></div>
+
+        <div class="pt-8 text-center">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-blue-200 mb-4 md:mb-0">
+              © 2024 Supply Chain Portal. All Rights Reserved.
+            </p>
+            <div class="flex items-center space-x-6 text-sm text-blue-200">
+              <span class="flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>
+                SSL Secured
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-award mr-2"></i>
+                ISO Certified
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-clock mr-2"></i>
+                24/7 Support
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background decoration -->
+      <div class="absolute top-0 right-0 w-64 h-64 opacity-5">
+        <i class="fas fa-cogs text-9xl"></i>
+      </div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 opacity-5">
+        <i class="fas fa-shipping-fast text-8xl"></i>
+      </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
+      const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+      const mobileNav = document.getElementById("mobile-nav");
 
-        mobileMenuToggle.addEventListener('click', () => {
-            mobileNav.classList.toggle('active');
-        });
+      mobileMenuToggle.addEventListener("click", () => {
+        if (mobileNav.classList.contains("max-h-0")) {
+          mobileNav.classList.remove("max-h-0");
+          mobileNav.classList.add("max-h-[500px]");
+        } else {
+          mobileNav.classList.remove("max-h-[500px]");
+          mobileNav.classList.add("max-h-0");
+        }
+      });
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (event) => {
-            const isClickInsideMenu = mobileNav.contains(event.target);
-            const isClickOnToggle = mobileMenuToggle.contains(event.target);
-            
-            if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
-                mobileNav.classList.remove('active');
-            }
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth" });
+          }
         });
-
-        // Form input styling
-        document.addEventListener('DOMContentLoaded', function() {
-            const formInputs = document.querySelectorAll('input, textarea, select');
-            formInputs.forEach(input => {
-                if (input.type !== 'checkbox') {
-                    input.classList.add('w-full', 'px-4', 'py-3', 'border', 'border-gray-300', 'rounded-lg', 'focus:ring-blue-500', 'focus:border-blue-500', 'form-input');
-                }
-            });
-            
-            // Style form paragraphs for better appearance
-            const formParagraphs = document.querySelectorAll('form p');
-            formParagraphs.forEach(p => {
-                p.classList.add('mb-4');
-                const label = p.querySelector('label');
-                if (label) {
-                    label.classList.add('block', 'text-sm', 'font-medium', 'text-gray-700', 'mb-2');
-                }
-            });
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const href = this.getAttribute('href');
-                if (href !== '#') {
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            });
-        });
+      });
     </script>
-</body>
+  </body>
 </html>

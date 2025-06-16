@@ -10,241 +10,673 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f9fafb;
+            background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 100%);
+            min-height: 100vh;
         }
         .help-section {
-            background: white;
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 32px;
+            box-shadow: 0 20px 25px -5px rgba(10, 47, 86, 0.1), 0 10px 10px -5px rgba(10, 47, 86, 0.04);
+            border: 1px solid rgba(156, 189, 229, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .help-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2e75b7, #4684c3, #6a9ed3);
+        }
+        .help-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(10, 47, 86, 0.15), 0 20px 25px -5px rgba(10, 47, 86, 0.1);
         }
         .help-section h2 {
-            color: #007bff;
+            color: #0a2f56;
             margin-top: 0;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
+            margin-bottom: 24px;
+            font-size: 28px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 16px;
+        }
+        .help-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #2e75b7, #4684c3);
+            border-radius: 2px;
         }
         .faq-item {
-            margin-bottom: 20px;
+            margin-bottom: 32px;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(201, 223, 246, 0.3) 0%, rgba(156, 189, 229, 0.2) 100%);
+            border-radius: 16px;
+            border-left: 4px solid #2e75b7;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .faq-item:hover {
+            transform: translateX(8px);
+            background: linear-gradient(135deg, rgba(201, 223, 246, 0.5) 0%, rgba(156, 189, 229, 0.3) 100%);
+            box-shadow: 0 8px 25px rgba(10, 47, 86, 0.1);
+        }
+        .faq-item::before {
+            content: '\f059';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            color: #4684c3;
+            font-size: 20px;
+            opacity: 0.7;
         }
         .faq-question {
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
+            font-weight: 600;
+            color: #0a2f56;
+            margin-bottom: 12px;
+            font-size: 18px;
+            line-height: 1.4;
+            padding-right: 40px;
         }
         .faq-answer {
-            color: #666;
+            color: #244a73;
+            line-height: 1.7;
+            font-size: 16px;
+            padding-right: 40px;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #0a2f56 0%, #244a73 50%, #2e75b7 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpcCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSkiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpcCkiLz48L3N2Zz4=');
+            opacity: 0.3;
+        }
+        .contact-section {
+            background: linear-gradient(135deg, #2e75b7 0%, #4684c3 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .pulse-glow {
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(46, 117, 183, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(46, 117, 183, 0.8),
+            0 0 30px rgba(46, 117, 183, 0.4);
+        }
+      }
+
+      .testimonial-card {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.9) 0%,
+          rgba(201, 223, 246, 0.8) 100%
+        );
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(156, 189, 229, 0.3);
+      }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        .section-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2e75b7, #4684c3);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 8px 16px rgba(46, 117, 183, 0.3);
+        }
+        .nav-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        }
+        .footer-gradient {
+            background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%);
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
-    <!-- Navigation (same as home.html) -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo and Brand -->
-                <div class="flex items-center space-x-2">
-                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                        <i class="fas fa-link text-lg"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8 nav-menu">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Contact</a>
-                </div>
-
-                <!-- Login/Register Button -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <a href="{% url 'manufacturer_login' %}" class="text-gray-600 hover:text-blue-600 font-medium">Login</a>
-                    <a href="#portals" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">Get Started</a>
-                </div>
-
-                <!-- Mobile Hamburger Menu -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <!-- Navigation -->
+    <nav style=" background: linear-gradient(
+          135deg,
+          #2e75b7,
+          #4684c3,
+          #6a9ed3,
+          #c9dff6,
+          #3b699e,
+          #1b5a9b
+        );" class=" backdrop-blur-lg shadow-md sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="flex items-center justify-center h-12 w-12 rounded-xl pulse-glow"
+              style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+            >
+              <i class="fas fa-link text-white text-2xl"></i>
             </div>
+            <h1 class="text-2xl font-bold" style="color: #0a2f56">
+              Supply<span style="color: #2e75b7">Chain</span>
+            </h1>
+          </div>
 
-            <!-- Mobile Navigation Menu -->
-            <div id="mobile-nav" class="md:hidden nav-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                    <div class="flex flex-col pt-4 pb-2 space-y-2">
-                        <a href="{% url 'manufacturer_login' %}" class="text-blue-600 block px-3 py-2 font-medium">Login</a>
-                        <a href="#portals" class="bg-blue-600 text-white px-3 py-2 rounded-lg text-center font-medium">Get Started</a>
-                    </div>
-                </div>
-            </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="{% url 'home' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-dark hover:bg-brand-dark/10"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-blue hover:bg-brand-blue/10"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-mid hover:bg-brand-mid/10"
+              >Services</a
+            >
+            <a
+              href="{% url 'contact' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-slate hover:bg-brand-slate/10"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Login/Register Button -->
+          <div class="hidden md:flex items-center space-x-4">
+            <a
+              href="{% url 'home' %}#portals"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-light hover:bg-brand-light/10"
+              >Login</a
+            >
+            <a
+              href="{% url 'home' %}#portals"
+              class="px-6 py-3 rounded-xl text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+              style="background: linear-gradient(135deg, #2e75b7, #4684c3)"
+              >Get Started</a
+            >
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="p-2 rounded-lg text-brand-dark hover:bg-brand-dark/10 transition-colors duration-200"
+            >
+              <svg
+                id="menu-icon"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div
+          id="mobile-nav"
+          class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out md:hidden"
+        >
+          <div class="px-2 pt-2 pb-3 space-y-1 border-t border-blue-200/30">
+            <a
+              href="{% url 'home' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-dark hover:bg-brand-dark/10"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-blue hover:bg-brand-blue/10"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-mid hover:bg-brand-mid/10"
+              >Services</a
+            >
+            <a
+              href="{% url 'contact' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-slate hover:bg-brand-slate/10"
+              >Contact</a
+            >
+            <div class="flex flex-col pt-4 pb-2 space-y-2">
+              <a
+                href="{% url 'home' %}#portals"
+                class="block px-4 py-2 font-medium transition-all duration-300 hover:scale-105 text-brand-light hover:bg-brand-light/10"
+                >Login</a
+              >
+              <a
+                href="{% url 'home' %}#portals"
+                class="px-4 py-3 rounded-lg text-center font-medium text-white shadow-lg transition-all duration-200 transform hover:scale-105 bg-btn-gradient"
+                >Get Started</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
     <main class="flex-grow">
-        <section class="py-16 bg-blue-600 text-white">
-            <div class="container mx-auto px-4 text-center">
-                <h1 class="text-4xl font-bold mb-4">Help Center</h1>
-                <p class="text-xl max-w-2xl mx-auto">Find answers to your questions about the Supply Chain Portal</p>
+        <!-- Hero Section -->
+        <section class="py-20 hero-section text-white relative">
+            <div class="container mx-auto px-4 text-center relative z-10">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-white bg-opacity-20 rounded-full mb-6 backdrop-blur-sm">
+                    <i class="fas fa-question-circle text-4xl"></i>
+                </div>
+                <h1 class="text-5xl font-bold mb-6 leading-tight">Help Center</h1>
+                <p class="text-xl max-w-3xl mx-auto leading-relaxed opacity-90">Find comprehensive answers to your questions about the Supply Chain Portal and get the support you need to succeed</p>
+                <div class="mt-8 flex justify-center">
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-full px-6 py-3 border border-white border-opacity-20">
+                        <span class="text-sm font-medium">24/7 Support Available</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="py-16">
-            <div class="container mx-auto px-4">
+        <!-- Help Content -->
+        <section class="py-20">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <!-- Getting Started Section -->
                 <div class="help-section">
+                    <div class="section-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
                     <h2>Getting Started</h2>
-                    <div class="faq-item">
-                        <div class="faq-question">How do I create an account?</div>
-                        <div class="faq-answer">
-                            Click on either "Manufacturer Register" or "Supplier Register" on the homepage, depending on your role. 
-                            Fill out the registration form with your details and follow the instructions to complete your account setup.
+                    <div class="grid md:grid-cols-1 gap-6">
+                        <div class="faq-item">
+                            <div class="faq-question">How do I create an account?</div>
+                            <div class="faq-answer">
+                                Click on either "Manufacturer Register" or "Supplier Register" on the homepage, depending on your role. 
+                                Fill out the registration form with your details and follow the instructions to complete your account setup. 
+                                You'll receive a confirmation email to verify your account before you can start using the platform.
+                            </div>
                         </div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">What's the difference between manufacturer and supplier accounts?</div>
-                        <div class="faq-answer">
-                            Manufacturers are companies looking for suppliers to provide materials or components. 
-                            Suppliers are companies offering materials, components, or services to manufacturers.
+                        <div class="faq-item">
+                            <div class="faq-question">What's the difference between manufacturer and supplier accounts?</div>
+                            <div class="faq-answer">
+                                Manufacturers are companies looking for suppliers to provide materials, components, or services for their production needs. 
+                                Suppliers are companies offering materials, components, or specialized services to manufacturers. Each account type has 
+                                tailored features and dashboards designed for their specific business requirements.
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Account Management Section -->
                 <div class="help-section">
+                    <div class="section-icon">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
                     <h2>Account Management</h2>
-                    <div class="faq-item">
-                        <div class="faq-question">How do I reset my password?</div>
-                        <div class="faq-answer">
-                            On the login page, click "Forgot Password" and enter your registered email address. 
-                            You'll receive instructions to reset your password.
+                    <div class="grid md:grid-cols-1 gap-6">
+                        <div class="faq-item">
+                            <div class="faq-question">How do I reset my password?</div>
+                            <div class="faq-answer">
+                                On the login page, click "Forgot Password" and enter your registered email address. 
+                                You'll receive instructions to reset your password within a few minutes. Check your spam folder 
+                                if you don't see the email in your inbox. The reset link expires after 24 hours for security.
+                            </div>
                         </div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">Can I change my account type after registration?</div>
-                        <div class="faq-answer">
-                            No, account types cannot be changed after registration. You'll need to create a new account with the correct type.
+                        <div class="faq-item">
+                            <div class="faq-question">Can I change my account type after registration?</div>
+                            <div class="faq-answer">
+                                Account types cannot be changed after registration due to security and data integrity reasons. 
+                                If you need a different account type, you'll need to create a new account with the correct type. 
+                                Contact our support team if you need assistance transferring important data from your old account.
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Platform Features Section -->
                 <div class="help-section">
-                    <h2>Platform Features</h2>
-                    <div class="faq-item">
-                        <div class="faq-question">How do I find suppliers/manufacturers?</div>
-                        <div class="faq-answer">
-                            After logging in, use the search functionality in your dashboard to find potential partners. 
-                            You can filter by industry, location, and other criteria.
-                        </div>
+                    <div class="section-icon">
+                        <i class="fas fa-tools"></i>
                     </div>
-                    <div class="faq-item">
-                        <div class="faq-question">Is there a messaging system?</div>
-                        <div class="faq-answer">
-                            Yes, once you've connected with a partner through the platform, you can use our built-in messaging system to communicate securely.
+                    <h2>Platform Features</h2>
+                    <div class="grid md:grid-cols-1 gap-6">
+                        <div class="faq-item">
+                            <div class="faq-question">How do I find suppliers/manufacturers?</div>
+                            <div class="faq-answer">
+                                After logging in, use the advanced search functionality in your dashboard to find potential partners. 
+                                You can filter by industry, location, company size, certifications, and other criteria. 
+                                Use our matching algorithm to find the most compatible partners based on your specific requirements.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Is there a messaging system?</div>
+                            <div class="faq-answer">
+                                Yes, we provide a comprehensive built-in messaging system for secure communication with your partners. 
+                                You can share documents, send quotes, track conversation history, and set up automated notifications. 
+                                All communications are encrypted and stored securely on our platform.
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="help-section text-center">
-                    <h2>Still Need Help?</h2>
-                    <p class="mb-4">Our support team is ready to assist you with any questions or issues.</p>
-                    <a href="mailto:support@supplychainportal.com" class="inline-block bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition font-medium">
-                        Contact Support
-                    </a>
+                <!-- Contact Support Section -->
+                <div class="help-section contact-section text-white relative">
+                    <div class="relative z-10">
+                        <div class="text-center">
+                            <div class="inline-flex items-center justify-center w-16 h-16 bg-white bg-opacity-20 rounded-full mb-6 backdrop-blur-sm">
+                                <i class="fas fa-headset text-2xl"></i>
+                            </div>
+                            <h2 class="text-white mb-4">Still Need Help?</h2>
+                            <p class="mb-8 text-lg opacity-90 max-w-2xl mx-auto">
+                                Our dedicated support team is ready to assist you with any questions or issues. 
+                                We're here 24/7 to ensure your supply chain operations run smoothly.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                                <a href="mailto:support@supplychainportal.com" style="color:#4684c3"class="inline-flex items-center bg-white  py-4 px-8 rounded-xl hover:bg-gray-50 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                                    <i class="fas fa-envelope mr-3" style="color:#4684c3"></i>
+                                    Contact Support
+                                </a>
+                                <div class="flex items-center text-white opacity-80">
+                                    <i class="fas fa-clock mr-2"></i>
+                                    <span class="text-sm">Average response time: 2 hours</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer (same as home.html) -->
-    <footer class="bg-gray-800 text-gray-300 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                            <i class="fas fa-link text-lg"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
-                    </div>
-                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
-                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact</a></li>
-                        <li><a href="{% url 'manufacturer_login' %}" class="text-gray-400 hover:text-blue-400 transition">Manufacturer Login</a></li>
-                        <li><a href="{% url 'supplier_login' %}" class="text-gray-400 hover:text-blue-400 transition">Supplier Login</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-blue-400 transition">Help Center</a></li>
-                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Legal</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'terms' %}" class="text-gray-400 hover:text-blue-400 transition">Terms & Conditions</a></li>
-                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Cookie Policy</a></li>
-                    </ul>
-                </div>
+    <!-- Footer -->
+   <footer
+      class="text-white py-16 relative"
+      style="background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%)"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-lg"
+                style="
+                  background: linear-gradient(135deg, #2e75b7 0%, #4684c3 100%);
+                "
+              >
+                <i class="fas fa-link text-xl"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">
+                Supply<span style="color: #9cbde5">Chain</span>
+              </h1>
             </div>
-            
-            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
-                <p>© 2024 Supply Chain Portal. All Rights Reserved.</p>
+            <p class="text-blue-200 mb-6 leading-relaxed">
+              Connecting manufacturers and suppliers through innovative
+              technology and intelligent solutions.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-facebook"></i>
+              </a>
             </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'home' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'about' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'services' %}"
+                  class="text-white flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'manufacturer_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Manufacturer
+                  Login</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'supplier_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Supplier
+                  Login</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'faq' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'help' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Help
+                  Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact
+                  Support</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Live Chat</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Legal</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'terms' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Terms &
+                  Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'privacy' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Privacy
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Cookie
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>GDPR
+                  Compliance</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="section-divider opacity-30"></div>
+
+        <div class="pt-8 text-center">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-blue-200 mb-4 md:mb-0">
+              © 2024 Supply Chain Portal. All Rights Reserved.
+            </p>
+            <div class="flex items-center space-x-6 text-sm text-blue-200">
+              <span class="flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>
+                SSL Secured
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-award mr-2"></i>
+                ISO Certified
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-clock mr-2"></i>
+                24/7 Support
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background decoration -->
+      <div class="absolute top-0 right-0 w-64 h-64 opacity-5">
+        <i class="fas fa-cogs text-9xl"></i>
+      </div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 opacity-5">
+        <i class="fas fa-shipping-fast text-8xl"></i>
+      </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
+          const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
 
-        mobileMenuToggle.addEventListener('click', () => {
-            mobileNav.classList.toggle('active');
-        });
+  mobileMenuToggle.addEventListener('click', () => {
+    if (mobileNav.classList.contains('max-h-0')) {
+      mobileNav.classList.remove('max-h-0');
+      mobileNav.classList.add('max-h-[500px]');
+    } else {
+      mobileNav.classList.remove('max-h-[500px]');
+      mobileNav.classList.add('max-h-0');
+    }
+  });
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (event) => {
-            const isClickInsideMenu = mobileNav.contains(event.target);
-            const isClickOnToggle = mobileMenuToggle.contains(event.target);
-            
-            if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
-                mobileNav.classList.remove('active');
-            }
-        });
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
     </script>
 </body>
 </html>

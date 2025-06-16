@@ -1,284 +1,786 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Terms and Conditions | Supply Chain Portal</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9fafb;
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 100%);
+        scroll-behavior: smooth;
+      }
+      .hero-gradient {
+        background: linear-gradient(
+          135deg,
+          #0a2f56 0%,
+          #2e75b7 50%,
+          #0e447c 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-gradient::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Im0zNiAxNCAzIDMgMyAzdjE4aDNWMTRoLTl6IiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9nPjwvc3ZnPg==")
+          repeat;
+        opacity: 0.1;
+      }
+      @media (max-width: 768px) {
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background-color: white;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+          z-index: 50;
         }
-        .hero-gradient {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        .nav-menu.active {
+          display: block;
         }
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-                z-index: 50;
-            }
-            .nav-menu.active {
-                display: block;
-            }
+      }
+      .terms-content {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(10, 47, 86, 0.1);
+        border: 1px solid rgba(156, 189, 229, 0.3);
+      }
+      .terms-content h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-top: 2.5rem;
+        margin-bottom: 1.25rem;
+        color: #0a2f56;
+        position: relative;
+        padding-left: 1.5rem;
+      }
+      .terms-content h2::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(135deg, #2e75b7, #4684c3);
+        border-radius: 2px;
+      }
+      .terms-content h2:first-of-type {
+        margin-top: 0;
+      }
+      .terms-content p {
+        margin-bottom: 1.25rem;
+        line-height: 1.7;
+        color: #244a73;
+        font-weight: 400;
+      }
+      .terms-content ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 1.25rem;
+      }
+      .terms-content li {
+        margin-bottom: 0.75rem;
+        position: relative;
+        padding-left: 2rem;
+        color: #244a73;
+        line-height: 1.6;
+      }
+      .terms-content li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #2e75b7;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+      .nav-brand {
+        background: linear-gradient(135deg, #2e75b7, #4684c3);
+        color: white;
+      }
+      .nav-brand i {
+        color: white;
+      }
+      .section-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        background: linear-gradient(135deg, #2e75b7, #4684c3);
+        color: white;
+        border-radius: 50%;
+        font-weight: 600;
+        font-size: 0.875rem;
+        margin-right: 0.75rem;
+      }
+      .highlight-box {
+        background: linear-gradient(135deg, #c9dff6, #9cbde5);
+        border: 1px solid #6a9ed3;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+      .contact-card {
+        background: linear-gradient(135deg, #0a2f56, #244a73);
+        color: white;
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        margin-top: 2rem;
+      }
+      .floating-icons {
+        position: absolute;
+        opacity: 0.1;
+        font-size: 2rem;
+        color: white;
+        animation: float 6s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
         }
-        .terms-content h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            color: #1e3a8a;
+        50% {
+          transform: translateY(-20px);
         }
-        .terms-content p {
-            margin-bottom: 1rem;
-            line-height: 1.6;
+      }
+      .floating-icons:nth-child(1) {
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .floating-icons:nth-child(2) {
+        top: 30%;
+        right: 15%;
+        animation-delay: 2s;
+      }
+      .floating-icons:nth-child(3) {
+        bottom: 40%;
+        left: 20%;
+        animation-delay: 4s;
+      }
+      .scroll-indicator {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        color: rgba(255, 255, 255, 0.7);
+        animation: bounce 2s infinite;
+      }
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateX(-50%) translateY(0);
         }
-        .terms-content ul {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-            margin-bottom: 1rem;
+        40% {
+          transform: translateX(-50%) translateY(-10px);
         }
-        .terms-content li {
-            margin-bottom: 0.5rem;
+        60% {
+          transform: translateX(-50%) translateY(-5px);
         }
+      }
+       .pulse-glow {
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(46, 117, 183, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(46, 117, 183, 0.8),
+            0 0 30px rgba(46, 117, 183, 0.4);
+        }
+      }
     </style>
-</head>
-<body class="min-h-screen flex flex-col">
+  </head>
+  <body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo and Brand -->
-                <div class="flex items-center space-x-2">
-                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                        <i class="fas fa-link text-lg"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8 nav-menu">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Contact</a>
-                </div>
-
-                <!-- Login/Register Button -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <a href="#" class="text-gray-600 hover:text-blue-600 font-medium">Login</a>
-                    <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">Get Started</a>
-                </div>
-
-                <!-- Mobile Hamburger Menu -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <nav style=" background: linear-gradient(
+          135deg,
+          #2e75b7,
+          #4684c3,
+          #6a9ed3,
+          #c9dff6,
+          #3b699e,
+          #1b5a9b
+        );" class="backdrop-blur-lg shadow-md sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="flex items-center justify-center h-12 w-12 rounded-xl pulse-glow"
+              style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+            >
+              <i class="fas fa-link text-white text-2xl"></i>
             </div>
+            <h1 class="text-2xl font-bold" style="color: #0a2f56">
+              Supply<span style="color: #2e75b7">Chain</span>
+            </h1>
+          </div>
 
-            <!-- Mobile Navigation Menu -->
-            <div id="mobile-nav" class="md:hidden nav-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                    <div class="flex flex-col pt-4 pb-2 space-y-2">
-                        <a href="#" class="text-blue-600 block px-3 py-2 font-medium">Login</a>
-                        <a href="#" class="bg-blue-600 text-white px-3 py-2 rounded-lg text-center font-medium">Get Started</a>
-                    </div>
-                </div>
-            </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="{% url 'home' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-dark hover:bg-brand-dark/10"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-blue hover:bg-brand-blue/10"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-mid hover:bg-brand-mid/10"
+              >Services</a
+            >
+            <a
+              href="{% url 'contact' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-slate hover:bg-brand-slate/10"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Login/Register Button -->
+          <div class="hidden md:flex items-center space-x-4">
+            <a
+              href="{% url 'home' %}#portals"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-light hover:bg-brand-light/10"
+              >Login</a
+            >
+            <a
+              href="{% url 'home' %}#portals"
+              class="px-6 py-3 rounded-xl text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+              style="background: linear-gradient(135deg, #2e75b7, #4684c3)"
+              >Get Started</a
+            >
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="p-2 rounded-lg text-brand-dark hover:bg-brand-dark/10 transition-colors duration-200"
+            >
+              <svg
+                id="menu-icon"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div
+          id="mobile-nav"
+          class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out md:hidden"
+        >
+          <div class="px-2 pt-2 pb-3 space-y-1 border-t border-blue-200/30">
+            <a
+              href="{% url 'home' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-dark hover:bg-brand-dark/10"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-blue hover:bg-brand-blue/10"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-mid hover:bg-brand-mid/10"
+              >Services</a
+            >
+            <a
+              href="{% url 'contact' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-slate hover:bg-brand-slate/10"
+              >Contact</a
+            >
+            <div class="flex flex-col pt-4 pb-2 space-y-2">
+              <a
+                href="{% url 'home' %}#portals"
+                class="block px-4 py-2 font-medium transition-all duration-300 hover:scale-105 text-brand-light hover:bg-brand-light/10"
+                >Login</a
+              >
+              <a
+                href="{% url 'home' %}#portals"
+                class="px-4 py-3 rounded-lg text-center font-medium text-white shadow-lg transition-all duration-200 transform hover:scale-105 bg-btn-gradient"
+                >Get Started</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
-
     <!-- Terms Hero Section -->
-    <section class="hero-gradient text-white py-20">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-6">Terms and Conditions</h1>
-            <p class="text-lg md:text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
-                Please read these terms carefully before using our platform
-            </p>
+    <section class="hero-gradient text-white py-24 relative">
+      <i class="fas fa-cog floating-icons"></i>
+      <i class="fas fa-shield-alt floating-icons"></i>
+      <i class="fas fa-handshake floating-icons"></i>
+
+      <div class="container mx-auto px-4 text-center relative z-10">
+        <div class="max-w-4xl mx-auto">
+          <div
+            class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white bg-opacity-20 backdrop-blur-sm mb-6 shadow-xl"
+          >
+            <i class="fas fa-file-contract text-3xl text-white"></i>
+          </div>
+          <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            Terms & Conditions
+          </h1>
+          <p
+            class="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed"
+          >
+            Your trust is our foundation. Please read these terms carefully to
+            understand our commitment to you.
+          </p>
+          <div class="inline-flex items-center space-x-2 text-lg opacity-80">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Last Updated: January 1, 2024</span>
+          </div>
         </div>
+      </div>
+
+      <div class="scroll-indicator">
+        <i class="fas fa-chevron-down text-2xl"></i>
+      </div>
     </section>
 
     <!-- Terms Content -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4 max-w-4xl terms-content">
-            <h2>1. Acceptance of Terms</h2>
-            <p>
-                By accessing or using the Supply Chain Portal ("the Platform"), you agree to be bound by these Terms and Conditions ("Terms"). 
-                If you do not agree to all of these Terms, you may not use the Platform.
+    <section class="py-20 relative">
+      <div class="container mx-auto px-4 max-w-5xl">
+        <div class="terms-content p-8 md:p-12">
+          <div class="mb-8 text-center">
+            <h2 class="text-3xl font-bold mb-4" style="color: #0a2f56">
+              Legal Framework
+            </h2>
+            <p class="text-lg opacity-80" style="color: #244a73">
+              These terms govern your use of our supply chain platform and
+              services
             </p>
+          </div>
 
-            <h2>2. Description of Service</h2>
-            <p>
-                The Platform provides a digital marketplace connecting manufacturers and suppliers in the supply chain industry. 
-                We offer various tools and services to facilitate business transactions between these parties.
-            </p>
+          <div class="space-y-8">
+            <div class="flex items-start">
+              <div class="section-number">1</div>
+              <div class="flex-1">
+                <h2>Acceptance of Terms</h2>
+                <p>
+                  By accessing or using the Supply Chain Portal ("the
+                  Platform"), you agree to be bound by these Terms and
+                  Conditions ("Terms"). If you do not agree to all of these
+                  Terms, you may not use the Platform.
+                </p>
+              </div>
+            </div>
 
-            <h2>3. User Accounts</h2>
-            <p>
-                To access certain features of the Platform, you must register for an account. You agree to:
-            </p>
-            <ul>
-                <li>Provide accurate, current, and complete information during registration</li>
-                <li>Maintain and promptly update your account information</li>
-                <li>Maintain the security of your password and accept all risks of unauthorized access</li>
-                <li>Notify us immediately if you discover or suspect any security breaches</li>
-            </ul>
+            <div class="flex items-start">
+              <div class="section-number">2</div>
+              <div class="flex-1">
+                <h2>Description of Service</h2>
+                <p>
+                  The Platform provides a digital marketplace connecting
+                  manufacturers and suppliers in the supply chain industry. We
+                  offer various tools and services to facilitate business
+                  transactions between these parties.
+                </p>
+                <div class="highlight-box">
+                  <div class="flex items-center mb-2">
+                    <i
+                      class="fas fa-info-circle text-xl mr-3"
+                      style="color: #2e75b7"
+                    ></i>
+                    <span class="font-semibold" style="color: #0a2f56"
+                      >Key Features</span
+                    >
+                  </div>
+                  <p class="mb-0" style="color: #244a73">
+                    Our platform facilitates secure connections, transaction
+                    management, and real-time communication between supply chain
+                    partners.
+                  </p>
+                </div>
+              </div>
+            </div>
 
-            <h2>4. User Responsibilities</h2>
-            <p>
-                As a user of the Platform, you agree to:
-            </p>
-            <ul>
-                <li>Use the Platform only for lawful purposes</li>
-                <li>Not engage in any fraudulent, deceptive, or harmful activities</li>
-                <li>Not interfere with or disrupt the Platform or servers/networks connected to the Platform</li>
-                <li>Comply with all applicable laws and regulations</li>
-            </ul>
+            <div class="flex items-start">
+              <div class="section-number">3</div>
+              <div class="flex-1">
+                <h2>User Accounts</h2>
+                <p>
+                  To access certain features of the Platform, you must register
+                  for an account. You agree to:
+                </p>
+                <ul>
+                  <li>
+                    Provide accurate, current, and complete information during
+                    registration
+                  </li>
+                  <li>Maintain and promptly update your account information</li>
+                  <li>
+                    Maintain the security of your password and accept all risks
+                    of unauthorized access
+                  </li>
+                  <li>
+                    Notify us immediately if you discover or suspect any
+                    security breaches
+                  </li>
+                </ul>
+              </div>
+            </div>
 
-            <h2>5. Intellectual Property</h2>
-            <p>
-                All content on the Platform, including text, graphics, logos, and software, is the property of Supply Chain Portal or its 
-                content suppliers and protected by intellectual property laws. You may not modify, copy, distribute, transmit, display, 
-                perform, reproduce, publish, license, create derivative works from, transfer, or sell any information obtained from the Platform.
-            </p>
+            <div class="flex items-start">
+              <div class="section-number">4</div>
+              <div class="flex-1">
+                <h2>User Responsibilities</h2>
+                <p>As a user of the Platform, you agree to:</p>
+                <ul>
+                  <li>Use the Platform only for lawful purposes</li>
+                  <li>
+                    Not engage in any fraudulent, deceptive, or harmful
+                    activities
+                  </li>
+                  <li>
+                    Not interfere with or disrupt the Platform or
+                    servers/networks connected to the Platform
+                  </li>
+                  <li>Comply with all applicable laws and regulations</li>
+                </ul>
+              </div>
+            </div>
 
-            <h2>6. Privacy Policy</h2>
-            <p>
-                Your use of the Platform is also governed by our Privacy Policy, which explains how we collect, use, and protect your 
-                personal information. By using the Platform, you consent to the terms of the Privacy Policy.
-            </p>
+            <div class="flex items-start">
+              <div class="section-number">5</div>
+              <div class="flex-1">
+                <h2>Intellectual Property</h2>
+                <p>
+                  All content on the Platform, including text, graphics, logos,
+                  and software, is the property of Supply Chain Portal or its
+                  content suppliers and protected by intellectual property laws.
+                  You may not modify, copy, distribute, transmit, display,
+                  perform, reproduce, publish, license, create derivative works
+                  from, transfer, or sell any information obtained from the
+                  Platform.
+                </p>
+              </div>
+            </div>
 
-            <h2>7. Limitation of Liability</h2>
-            <p>
-                Supply Chain Portal shall not be liable for any indirect, incidental, special, consequential, or punitive damages, 
-                including but not limited to loss of profits, data, use, goodwill, or other intangible losses, resulting from:
-            </p>
-            <ul>
-                <li>Your access to or use of or inability to access or use the Platform</li>
-                <li>Any conduct or content of any third party on the Platform</li>
-                <li>Any unauthorized access, use, or alteration of your transmissions or content</li>
-            </ul>
+            <div class="flex items-start">
+              <div class="section-number">6</div>
+              <div class="flex-1">
+                <h2>Privacy Policy</h2>
+                <p>
+                  Your use of the Platform is also governed by our Privacy
+                  Policy, which explains how we collect, use, and protect your
+                  personal information. By using the Platform, you consent to
+                  the terms of the Privacy Policy.
+                </p>
+              </div>
+            </div>
 
-            <h2>8. Changes to Terms</h2>
-            <p>
-                We reserve the right to modify these Terms at any time. We will provide notice of any changes by posting the updated Terms 
-                on the Platform and updating the "Last Updated" date. Your continued use of the Platform after such changes constitutes your 
-                acceptance of the new Terms.
-            </p>
+            <div class="flex items-start">
+              <div class="section-number">7</div>
+              <div class="flex-1">
+                <h2>Limitation of Liability</h2>
+                <p>
+                  Supply Chain Portal shall not be liable for any indirect,
+                  incidental, special, consequential, or punitive damages,
+                  including but not limited to loss of profits, data, use,
+                  goodwill, or other intangible losses, resulting from:
+                </p>
+                <ul>
+                  <li>
+                    Your access to or use of or inability to access or use the
+                    Platform
+                  </li>
+                  <li>
+                    Any conduct or content of any third party on the Platform
+                  </li>
+                  <li>
+                    Any unauthorized access, use, or alteration of your
+                    transmissions or content
+                  </li>
+                </ul>
+              </div>
+            </div>
 
-            <h2>9. Governing Law</h2>
-            <p>
-                These Terms shall be governed by and construed in accordance with the laws of the jurisdiction where Supply Chain Portal is 
-                established, without regard to its conflict of law provisions.
-            </p>
+            <div class="flex items-start">
+              <div class="section-number">8</div>
+              <div class="flex-1">
+                <h2>Changes to Terms</h2>
+                <p>
+                  We reserve the right to modify these Terms at any time. We
+                  will provide notice of any changes by posting the updated
+                  Terms on the Platform and updating the "Last Updated" date.
+                  Your continued use of the Platform after such changes
+                  constitutes your acceptance of the new Terms.
+                </p>
+              </div>
+            </div>
 
-            <h2>10. Contact Information</h2>
-            <p>
-                If you have any questions about these Terms, please contact us at legal@supplychainportal.com.
-            </p>
+            <div class="flex items-start">
+              <div class="section-number">9</div>
+              <div class="flex-1">
+                <h2>Governing Law</h2>
+                <p>
+                  These Terms shall be governed by and construed in accordance
+                  with the laws of the jurisdiction where Supply Chain Portal is
+                  established, without regard to its conflict of law provisions.
+                </p>
+              </div>
+            </div>
 
-            <p class="mt-8 text-gray-600">
-                <strong>Last Updated:</strong> January 1, 2024
+            <div class="flex items-start">
+              <div class="section-number">10</div>
+              <div class="flex-1">
+                <h2>Contact Information</h2>
+                <p>
+                  If you have any questions about these Terms, please contact us
+                  at legal@supplychainportal.com.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div
+              class="flex items-center justify-center w-16 h-16 rounded-full bg-white bg-opacity-20 mx-auto mb-4"
+            >
+              <i class="fas fa-envelope text-2xl text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-3">Need Help?</h3>
+            <p class="text-gray-300 opacity-90 mb-4">
+              Our legal team is here to assist you with any questions about
+              these terms.
             </p>
+            <a
+              href="mailto:legal@supplychainportal.com"
+              class="inline-flex items-center space-x-2 bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all"
+            >
+              <i class="fas fa-paper-plane"></i>
+              <span>Contact Legal Team</span>
+            </a>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                            <i class="fas fa-link text-lg"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
-                    </div>
-                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
-                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact</a></li>
-                        <li><a href="{% url 'manufacturer_login' %}" class="text-gray-400 hover:text-blue-400 transition">Manufacturer Login</a></li>
-                        <li><a href="{% url 'supplier_login' %}" class="text-gray-400 hover:text-blue-400 transition">Supplier Login</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
-                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-blue-400 transition">Help Center</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Legal</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'terms' %}" class="text-gray-400 hover:text-blue-400 transition">Terms & Conditions</a></li>
-                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Cookie Policy</a></li>
-                    </ul>
-                </div>
+    <footer
+      class="text-gray-300 py-16 relative"
+      style="background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%)"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-6">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-xl bg-white bg-opacity-20 backdrop-blur-sm"
+              >
+                <i class="fas fa-link text-xl text-white"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">
+                Supply<span style="color: #9cbde5">Chain</span>
+              </h1>
             </div>
-            
-            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
-                <p>© 2024 Supply Chain Portal. All Rights Reserved.</p>
+            <p class="mb-6 opacity-80 leading-relaxed">
+              Connecting manufacturers and suppliers through innovative
+              technology and trusted partnerships.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="flex items-center justify-center w-10 h-10 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition-all"
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="flex items-center justify-center w-10 h-10 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition-all"
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="flex items-center justify-center w-10 h-10 rounded-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition-all"
+              >
+                <i class="fab fa-facebook"></i>
+              </a>
             </div>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-bold mb-6 text-white">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'home' %}"
+                  class="opacity-80 hover:opacity-100 hover:text-white transition-all duration-200"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'about' %}"
+                  class="opacity-80 hover:opacity-100 hover:text-white transition-all duration-200"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'services' %}"
+                  class="opacity-80 hover:opacity-100 hover:text-white transition-all duration-200"
+                  >Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="opacity-80 hover:opacity-100 hover:text-white transition-all duration-200"
+                  >Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'manufacturer_login' %}"
+                  class="opacity-80 hover:opacity-100 hover:text-white transition-all duration-200"
+                  >Manufacturer Login</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'supplier_login' %}"
+                  class="opacity-80 hover:opacity-100 hover:text-white transition-all duration-200"
+                  >Supplier Login</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-bold mb-6 text-white">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'faq' %}"
+                  class="opacity-80 hover:opacity-100 hover:text-white transition-all duration-200"
+                  >FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'help' %}"
+                  class="opacity-80 hover:opacity-100 hover:text-white transition-all duration-200"
+                  >Help Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="opacity-80 hover:opacity-100 hover:text-white transition-all duration-200"
+                  >Contact Support</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-bold mb-6 text-white">Legal</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'terms' %}"
+                  class="opacity-80 hover:opacity-100 hover:text-white transition-all duration-200"
+                  >Terms & Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'privacy' %}"
+                  class="opacity-80 hover:opacity-100 hover:text-white transition-all duration-200"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="opacity-80 hover:opacity-100 hover:text-white transition-all duration-200"
+                  >Cookie Policy</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div
+          class="pt-8 mt-8 text-center opacity-60"
+          style="border-top: 1px solid rgba(156, 189, 229, 0.2)"
+        >
+          <p>© 2024 Supply Chain Portal. All Rights Reserved.</p>
+        </div>
+      </div>
     </footer>
-
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
+      const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+      const mobileNav = document.getElementById("mobile-nav");
 
-        mobileMenuToggle.addEventListener('click', () => {
-            mobileNav.classList.toggle('active');
-        });
+      mobileMenuToggle.addEventListener("click", () => {
+        if (mobileNav.classList.contains("max-h-0")) {
+          mobileNav.classList.remove("max-h-0");
+          mobileNav.classList.add("max-h-[500px]");
+        } else {
+          mobileNav.classList.remove("max-h-[500px]");
+          mobileNav.classList.add("max-h-0");
+        }
+      });
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (event) => {
-            const isClickInsideMenu = mobileNav.contains(event.target);
-            const isClickOnToggle = mobileMenuToggle.contains(event.target);
-            
-            if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
-                mobileNav.classList.remove('active');
-            }
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth" });
+          }
         });
+      });
     </script>
-</body>
+  </body>
 </html>

@@ -1,314 +1,951 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Our Services | Supply Chain Portal</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9fafb;
+      body {
+        font-family: "Poppins", sans-serif;
+        scroll-behavior: smooth;
+        background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 100%);
+      }
+      .hero-gradient {
+        background: linear-gradient(
+          135deg,
+          #0a2f56 0%,
+          #1b5a9b 50%,
+          #2e75b7 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-gradient::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
+          repeat;
+        animation: float 20s ease-in-out infinite;
+      }
+      .custom-hover {
+        color: #244a73;
+      }
+      .custom-hover:hover {
+        color: #0e447c;
+        border-color: #2e75b7;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
         }
-        .hero-gradient {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        50% {
+          transform: translateY(-10px);
         }
-        .card-hover {
-            transition: all 0.3s ease;
+      }
+      .card-hover {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        background: linear-gradient(145deg, #ffffff 0%, #c9dff6 100%);
+        border: 1px solid rgba(46, 117, 183, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+      .card-hover::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(46, 117, 183, 0.1),
+          transparent
+        );
+        transition: left 0.6s;
+      }
+      .card-hover:hover::before {
+        left: 100%;
+      }
+      .card-hover:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 25px 50px -12px rgba(10, 47, 86, 0.3);
+        border-color: #2e75b7;
+      }
+      .service-icon {
+        background: linear-gradient(135deg, #2e75b7 0%, #4684c3 100%);
+        box-shadow: 0 8px 16px rgba(46, 117, 183, 0.3);
+      }
+      .nav-link-active {
+        color: #0e447c !important;
+        border-bottom-color: #2e75b7 !important;
+      }
+      .cta-button {
+        background: linear-gradient(135deg, #2e75b7 0%, #1b5a9b 100%);
+        box-shadow: 0 8px 16px rgba(46, 117, 183, 0.4);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.6s;
+      }
+      .cta-button:hover::before {
+        left: 100%;
+      }
+      .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(46, 117, 183, 0.5);
+      }
+      .feature-list li {
+        transition: all 0.3s ease;
+      }
+      .feature-list li:hover {
+        transform: translateX(8px);
+        color: #0e447c;
+      }
+      .stats-counter {
+        background: linear-gradient(135deg, #6a9ed3 0%, #9cbde5 100%);
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .stats-counter::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        animation: pulse 3s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.5;
         }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        50% {
+          opacity: 1;
         }
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-                z-index: 50;
-            }
-            .nav-menu.active {
-                display: block;
-            }
+      }
+       .pulse-glow {
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(46, 117, 183, 0.5);
         }
+        50% {
+          box-shadow: 0 0 20px rgba(46, 117, 183, 0.8),
+            0 0 30px rgba(46, 117, 183, 0.4);
+        }
+      }
+      @media (max-width: 768px) {
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: linear-gradient(135deg, #ffffff 0%, #c9dff6 100%);
+          box-shadow: 0 8px 16px rgba(10, 47, 86, 0.2);
+          z-index: 50;
+          border-radius: 0 0 12px 12px;
+        }
+        .nav-menu.active {
+          display: block;
+        }
+      }
+      .section-divider {
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          #9cbde5 50%,
+          transparent 100%
+        );
+        height: 2px;
+        margin: 4rem 0;
+      }
     </style>
-</head>
-<body class="min-h-screen flex flex-col">
+  </head>
+  <body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo and Brand -->
-                <div class="flex items-center space-x-2">
-                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                        <i class="fas fa-link text-lg"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8 nav-menu">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-blue-600 transition-all">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Contact</a>
-                </div>
-
-                <!-- Login/Register Button -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <a href="#" class="text-gray-600 hover:text-blue-600 font-medium">Login</a>
-                    <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">Get Started</a>
-                </div>
-
-                <!-- Mobile Hamburger Menu -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <nav style=" background: linear-gradient(
+          135deg,
+          #2e75b7,
+          #4684c3,
+          #6a9ed3,
+          #c9dff6,
+          #3b699e,
+          #1b5a9b
+        );" class="backdrop-blur-lg shadow-md sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="flex items-center justify-center h-12 w-12 rounded-xl pulse-glow"
+              style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+            >
+              <i class="fas fa-link text-white text-2xl"></i>
             </div>
+            <h1 class="text-2xl font-bold" style="color: #0a2f56">
+              Supply<span style="color: #2e75b7">Chain</span>
+            </h1>
+          </div>
 
-            <!-- Mobile Navigation Menu -->
-            <div id="mobile-nav" class="md:hidden nav-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                    <div class="flex flex-col pt-4 pb-2 space-y-2">
-                        <a href="#" class="text-blue-600 block px-3 py-2 font-medium">Login</a>
-                        <a href="#" class="bg-blue-600 text-white px-3 py-2 rounded-lg text-center font-medium">Get Started</a>
-                    </div>
-                </div>
-            </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="{% url 'home' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-dark hover:bg-brand-dark/10"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-blue hover:bg-brand-blue/10"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-mid hover:bg-brand-mid/10"
+              >Services</a
+            >
+            <a
+              href="{% url 'contact' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-slate hover:bg-brand-slate/10"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Login/Register Button -->
+          <div class="hidden md:flex items-center space-x-4">
+            <a
+              href="{% url 'home' %}#portals"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-light hover:bg-brand-light/10"
+              >Login</a
+            >
+            <a
+              href="{% url 'home' %}#portals"
+              class="px-6 py-3 rounded-xl text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+              style="background: linear-gradient(135deg, #2e75b7, #4684c3)"
+              >Get Started</a
+            >
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="p-2 rounded-lg text-brand-dark hover:bg-brand-dark/10 transition-colors duration-200"
+            >
+              <svg
+                id="menu-icon"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div
+          id="mobile-nav"
+          class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out md:hidden"
+        >
+          <div class="px-2 pt-2 pb-3 space-y-1 border-t border-blue-200/30">
+            <a
+              href="{% url 'home' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-dark hover:bg-brand-dark/10"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-blue hover:bg-brand-blue/10"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-mid hover:bg-brand-mid/10"
+              >Services</a
+            >
+            <a
+              href="{% url 'contact' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-slate hover:bg-brand-slate/10"
+              >Contact</a
+            >
+            <div class="flex flex-col pt-4 pb-2 space-y-2">
+              <a
+                href="{% url 'home' %}#portals"
+                class="block px-4 py-2 font-medium transition-all duration-300 hover:scale-105 text-brand-light hover:bg-brand-light/10"
+                >Login</a
+              >
+              <a
+                href="{% url 'home' %}#portals"
+                class="px-4 py-3 rounded-lg text-center font-medium text-white shadow-lg transition-all duration-200 transform hover:scale-105 bg-btn-gradient"
+                >Get Started</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
 
     <!-- Services Hero Section -->
-    <section class="hero-gradient text-white py-20">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-6">Our Comprehensive Services</h1>
-            <p class="text-lg md:text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
-                Discover how our platform can transform your supply chain operations with our suite of powerful services
-            </p>
+    <section class="hero-gradient text-white py-24 relative">
+      <div class="container mx-auto px-4 text-center relative z-10">
+        <div class="animate-pulse mb-6">
+          <div
+            class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium"
+            style="
+              background-color: rgba(156, 189, 229, 0.2);
+              border: 1px solid rgba(156, 189, 229, 0.3);
+            "
+          >
+            <i class="fas fa-sparkles mr-2"></i>
+            Comprehensive Solutions
+          </div>
         </div>
+        <h1 class="text-5xl md:text-6xl font-bold mb-8 leading-tight">
+          Transform Your
+          <span
+            class="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent animate-pulse"
+          >
+            Supply Chain
+          </span>
+        </h1>
+        <p
+          class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed"
+        >
+          Discover how our platform can revolutionize your operations with our
+          suite of intelligent, data-driven services
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="#services-content"
+            class="cta-button text-white px-8 py-4 rounded-xl text-lg font-semibold inline-flex items-center justify-center"
+          >
+            <i class="fas fa-rocket mr-2"></i>
+            Explore Services
+          </a>
+          <a
+            href="#"
+            class="bg-white bg-opacity-20 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-opacity-30 transition-all backdrop-blur-sm border border-white border-opacity-30"
+          >
+            <i class="fas fa-play mr-2"></i>
+            Watch Demo
+          </a>
+        </div>
+      </div>
+
+      <!-- Floating Elements -->
+      <div
+        class="absolute top-20 left-10 w-20 h-20 rounded-full opacity-20 animate-bounce"
+        style="background-color: #9cbde5"
+      ></div>
+      <div
+        class="absolute bottom-20 right-10 w-16 h-16 rounded-full opacity-20 animate-pulse"
+        style="background-color: #6a9ed3"
+      ></div>
+      <div
+        class="absolute top-1/2 left-1/4 w-12 h-12 rounded-full opacity-20 animate-ping"
+        style="background-color: #4684c3"
+      ></div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 relative -mt-12">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <div class="stats-counter relative">
+            <div class="relative z-10">
+              <div class="text-3xl font-bold mb-2" style="color: #0a2f56">
+                500K+
+              </div>
+              <div class="text-sm font-medium" style="color: #244a73">
+                Shipments Tracked
+              </div>
+            </div>
+          </div>
+          <div class="stats-counter relative">
+            <div class="relative z-10">
+              <div class="text-3xl font-bold mb-2" style="color: #0a2f56">
+                10K+
+              </div>
+              <div class="text-sm font-medium" style="color: #244a73">
+                Active Suppliers
+              </div>
+            </div>
+          </div>
+          <div class="stats-counter relative">
+            <div class="relative z-10">
+              <div class="text-3xl font-bold mb-2" style="color: #0a2f56">
+                99.9%
+              </div>
+              <div class="text-sm font-medium" style="color: #244a73">
+                Uptime
+              </div>
+            </div>
+          </div>
+          <div class="stats-counter relative">
+            <div class="relative z-10">
+              <div class="text-3xl font-bold mb-2" style="color: #0a2f56">
+                24/7
+              </div>
+              <div class="text-sm font-medium" style="color: #244a73">
+                Support
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Services Content -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-2 gap-8 mb-16">
-                <div class="bg-gray-50 p-8 rounded-xl shadow-md card-hover">
-                    <div class="flex items-center mb-6">
-                        <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                            <i class="fas fa-truck text-blue-600 text-xl"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800">Logistics Management</h2>
-                    </div>
-                    <p class="text-gray-600 mb-4">
-                        Our advanced logistics solutions help you streamline your supply chain from end to end. 
-                        We provide real-time tracking, route optimization, and carrier management to ensure 
-                        your products reach their destination efficiently.
-                    </p>
-                    <ul class="space-y-2 text-gray-600">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <span>Real-time shipment tracking</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <span>Automated carrier selection</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <span>Route optimization algorithms</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-xl shadow-md card-hover">
-                    <div class="flex items-center mb-6">
-                        <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                            <i class="fas fa-boxes text-blue-600 text-xl"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800">Inventory Optimization</h2>
-                    </div>
-                    <p class="text-gray-600 mb-4">
-                        Never run out of stock or overstock again with our intelligent inventory management system. 
-                        Our predictive analytics help you maintain optimal inventory levels across your supply chain.
-                    </p>
-                    <ul class="space-y-2 text-gray-600">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <span>Demand forecasting</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <span>Automated reorder points</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <span>Multi-location inventory tracking</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-xl shadow-md card-hover">
-                    <div class="flex items-center mb-6">
-                        <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                            <i class="fas fa-network-wired text-blue-600 text-xl"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800">Supplier Network</h2>
-                    </div>
-                    <p class="text-gray-600 mb-4">
-                        Access our extensive network of vetted suppliers and manufacturers. 
-                        Our platform makes it easy to find reliable partners and manage all 
-                        your supplier relationships in one place.
-                    </p>
-                    <ul class="space-y-2 text-gray-600">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <span>Supplier discovery and vetting</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <span>Performance monitoring</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <span>Collaboration tools</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-gray-50 p-8 rounded-xl shadow-md card-hover">
-                    <div class="flex items-center mb-6">
-                        <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                            <i class="fas fa-chart-line text-blue-600 text-xl"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800">Analytics & Reporting</h2>
-                    </div>
-                    <p class="text-gray-600 mb-4">
-                        Gain valuable insights into your supply chain operations with our powerful analytics tools. 
-                        Identify bottlenecks, track KPIs, and make data-driven decisions to improve efficiency.
-                    </p>
-                    <ul class="space-y-2 text-gray-600">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <span>Customizable dashboards</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <span>Real-time performance metrics</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <span>Exportable reports</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="text-center">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Ready to Get Started?</h2>
-                <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                    Join thousands of businesses already optimizing their supply chains with our platform
-                </p>
-                <a href="#portals" class="bg-blue-600 text-white py-3 px-8 rounded-lg font-semibold hover:bg-blue-700 transition inline-block">
-                    Get Started Now
-                </a>
-            </div>
+    <section id="services-content" class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2
+            class="text-4xl md:text-5xl font-bold mb-6"
+            style="color: #0a2f56"
+          >
+            Our Core Services
+          </h2>
+          <p class="text-xl max-w-3xl mx-auto" style="color: #244a73">
+            Cutting-edge solutions designed to optimize every aspect of your
+            supply chain operations
+          </p>
         </div>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-20">
+          <div class="card-hover p-10 rounded-2xl shadow-lg relative">
+            <div class="flex items-center mb-8">
+              <div
+                class="h-16 w-16 rounded-2xl service-icon flex items-center justify-center mr-6 shadow-lg"
+              >
+                <i class="fas fa-truck text-white text-2xl"></i>
+              </div>
+              <h2 class="text-3xl font-bold" style="color: #0a2f56">
+                Logistics Management
+              </h2>
+            </div>
+            <p class="text-lg mb-6 leading-relaxed" style="color: #244a73">
+              Our advanced logistics solutions help you streamline your supply
+              chain from end to end. We provide real-time tracking, route
+              optimization, and carrier management to ensure your products reach
+              their destination efficiently and cost-effectively.
+            </p>
+            <ul class="space-y-4 feature-list" style="color: #244a73">
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1"
+                  style="background-color: #6a9ed3"
+                >
+                  <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span class="text-lg"
+                  >Real-time shipment tracking with GPS precision</span
+                >
+              </li>
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1"
+                  style="background-color: #6a9ed3"
+                >
+                  <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span class="text-lg"
+                  >AI-powered automated carrier selection</span
+                >
+              </li>
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1"
+                  style="background-color: #6a9ed3"
+                >
+                  <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span class="text-lg"
+                  >Advanced route optimization algorithms</span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="card-hover p-10 rounded-2xl shadow-lg relative">
+            <div class="flex items-center mb-8">
+              <div
+                class="h-16 w-16 rounded-2xl service-icon flex items-center justify-center mr-6 shadow-lg"
+              >
+                <i class="fas fa-boxes text-white text-2xl"></i>
+              </div>
+              <h2 class="text-3xl font-bold" style="color: #0a2f56">
+                Inventory Optimization
+              </h2>
+            </div>
+            <p class="text-lg mb-6 leading-relaxed" style="color: #244a73">
+              Never run out of stock or overstock again with our intelligent
+              inventory management system. Our predictive analytics and machine
+              learning algorithms help you maintain optimal inventory levels
+              across your entire supply chain network.
+            </p>
+            <ul class="space-y-4 feature-list" style="color: #244a73">
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1"
+                  style="background-color: #6a9ed3"
+                >
+                  <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span class="text-lg">Advanced demand forecasting with ML</span>
+              </li>
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1"
+                  style="background-color: #6a9ed3"
+                >
+                  <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span class="text-lg">Smart automated reorder points</span>
+              </li>
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1"
+                  style="background-color: #6a9ed3"
+                >
+                  <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span class="text-lg"
+                  >Multi-location inventory synchronization</span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="card-hover p-10 rounded-2xl shadow-lg relative">
+            <div class="flex items-center mb-8">
+              <div
+                class="h-16 w-16 rounded-2xl service-icon flex items-center justify-center mr-6 shadow-lg"
+              >
+                <i class="fas fa-network-wired text-white text-2xl"></i>
+              </div>
+              <h2 class="text-3xl font-bold" style="color: #0a2f56">
+                Supplier Network
+              </h2>
+            </div>
+            <p class="text-lg mb-6 leading-relaxed" style="color: #244a73">
+              Access our extensive network of vetted suppliers and manufacturers
+              worldwide. Our platform makes it easy to discover reliable
+              partners, manage relationships, and collaborate seamlessly across
+              your entire supply chain ecosystem.
+            </p>
+            <ul class="space-y-4 feature-list" style="color: #244a73">
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1"
+                  style="background-color: #6a9ed3"
+                >
+                  <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span class="text-lg"
+                  >Global supplier discovery and vetting</span
+                >
+              </li>
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1"
+                  style="background-color: #6a9ed3"
+                >
+                  <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span class="text-lg">Real-time performance monitoring</span>
+              </li>
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1"
+                  style="background-color: #6a9ed3"
+                >
+                  <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span class="text-lg">Integrated collaboration tools</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card-hover p-10 rounded-2xl shadow-lg relative">
+            <div class="flex items-center mb-8">
+              <div
+                class="h-16 w-16 rounded-2xl service-icon flex items-center justify-center mr-6 shadow-lg"
+              >
+                <i class="fas fa-chart-line text-white text-2xl"></i>
+              </div>
+              <h2 class="text-3xl font-bold" style="color: #0a2f56">
+                Analytics & Reporting
+              </h2>
+            </div>
+            <p class="text-lg mb-6 leading-relaxed" style="color: #244a73">
+              Gain valuable insights into your supply chain operations with our
+              powerful analytics tools. Identify bottlenecks, track KPIs, and
+              make data-driven decisions to improve efficiency and reduce costs
+              across your entire operation.
+            </p>
+            <ul class="space-y-4 feature-list" style="color: #244a73">
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1"
+                  style="background-color: #6a9ed3"
+                >
+                  <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span class="text-lg">Customizable interactive dashboards</span>
+              </li>
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1"
+                  style="background-color: #6a9ed3"
+                >
+                  <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span class="text-lg">Real-time performance metrics</span>
+              </li>
+              <li class="flex items-start">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1"
+                  style="background-color: #6a9ed3"
+                >
+                  <i class="fas fa-check text-white text-xs"></i>
+                </div>
+                <span class="text-lg">Advanced exportable reports</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- CTA Section -->
+        <div class="text-center py-16">
+          <div class="max-w-4xl mx-auto">
+            <h2
+              class="text-4xl md:text-5xl font-bold mb-8"
+              style="color: #0a2f56"
+            >
+              Ready to Transform Your Business?
+            </h2>
+            <p class="text-xl mb-12 leading-relaxed" style="color: #244a73">
+              Join thousands of businesses already optimizing their supply
+              chains with our cutting-edge platform. Experience the future of
+              supply chain management today.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+              <a
+                href="#portals"
+                class="cta-button text-white py-4 px-10 rounded-xl text-lg font-semibold inline-flex items-center justify-center"
+              >
+                <i class="fas fa-rocket mr-3"></i>
+                Start Your Journey
+              </a>
+              <a
+                href="#"
+                class="bg-white text-lg font-semibold py-4 px-10 rounded-xl border-2 hover:shadow-lg transition-all duration-300 custom-hover"
+              >
+                <i class="fas fa-calendar-alt mr-3"></i>
+                Schedule Demo
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                            <i class="fas fa-link text-lg"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
-                    </div>
-                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
-                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact</a></li>
-                        <li><a href="{% url 'manufacturer_login' %}" class="text-gray-400 hover:text-blue-400 transition">Manufacturer Login</a></li>
-                        <li><a href="{% url 'supplier_login' %}" class="text-gray-400 hover:text-blue-400 transition">Supplier Login</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
-                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-blue-400 transition">Help Center</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Legal</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'terms' %}" class="text-gray-400 hover:text-blue-400 transition">Terms & Conditions</a></li>
-                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Cookie Policy</a></li>
-                    </ul>
-                </div>
+    <footer
+      class="text-white py-16 relative"
+      style="background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%)"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-lg"
+                style="
+                  background: linear-gradient(135deg, #2e75b7 0%, #4684c3 100%);
+                "
+              >
+                <i class="fas fa-link text-xl"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">
+                Supply<span style="color: #9cbde5">Chain</span>
+              </h1>
             </div>
-            
-            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
-                <p>© 2024 Supply Chain Portal. All Rights Reserved.</p>
+            <p class="text-blue-200 mb-6 leading-relaxed">
+              Connecting manufacturers and suppliers through innovative
+              technology and intelligent solutions.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-facebook"></i>
+              </a>
             </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'home' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'about' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'services' %}"
+                  class="text-white flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'manufacturer_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Manufacturer
+                  Login</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'supplier_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Supplier
+                  Login</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'faq' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'help' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Help
+                  Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact
+                  Support</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Live Chat</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Legal</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'terms' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Terms &
+                  Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'privacy' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Privacy
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Cookie
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>GDPR
+                  Compliance</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="section-divider opacity-30"></div>
+
+        <div class="pt-8 text-center">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-blue-200 mb-4 md:mb-0">
+              © 2024 Supply Chain Portal. All Rights Reserved.
+            </p>
+            <div class="flex items-center space-x-6 text-sm text-blue-200">
+              <span class="flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>
+                SSL Secured
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-award mr-2"></i>
+                ISO Certified
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-clock mr-2"></i>
+                24/7 Support
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background decoration -->
+      <div class="absolute top-0 right-0 w-64 h-64 opacity-5">
+        <i class="fas fa-cogs text-9xl"></i>
+      </div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 opacity-5">
+        <i class="fas fa-shipping-fast text-8xl"></i>
+      </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
+      const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+      const mobileNav = document.getElementById("mobile-nav");
 
-        mobileMenuToggle.addEventListener('click', () => {
-            mobileNav.classList.toggle('active');
-        });
+      mobileMenuToggle.addEventListener("click", () => {
+        if (mobileNav.classList.contains("max-h-0")) {
+          mobileNav.classList.remove("max-h-0");
+          mobileNav.classList.add("max-h-[500px]");
+        } else {
+          mobileNav.classList.remove("max-h-[500px]");
+          mobileNav.classList.add("max-h-0");
+        }
+      });
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (event) => {
-            const isClickInsideMenu = mobileNav.contains(event.target);
-            const isClickOnToggle = mobileMenuToggle.contains(event.target);
-            
-            if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
-                mobileNav.classList.remove('active');
-            }
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth" });
+          }
         });
+      });
     </script>
-</body>
+  </body>
 </html>

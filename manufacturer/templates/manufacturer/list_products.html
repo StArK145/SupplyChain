@@ -1,35 +1,258 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>List Products</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Products | Supply Chain Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; text-align: center; }
-        .upgrade-box { 
-            border: 1px solid #ddd; 
-            padding: 20px; 
-            margin-top: 30px;
-            background: #f9f9f9;
+        :root {
+            --light-steel-blue: #9cbde5;
+            --rich-medium-blue: #0e447c;
+            --muted-azure: #4684c3;
+            --soft-denim: #6a9ed3;
+            --very-pale-blue: #c9dff6;
+            --deep-slate-blue: #244a73;
+            --cool-blue: #3b699e;
+            --medium-ocean-blue: #1b5a9b;
         }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 50%, #6a9ed3 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .main-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(201, 223, 246, 0.3);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(14, 68, 124, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .main-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 60px -12px rgba(14, 68, 124, 0.2);
+        }
+        
+        .upgrade-box {
+            background: linear-gradient(135deg, rgba(201, 223, 246, 0.8) 0%, rgba(156, 189, 229, 0.6) 100%);
+            border: 2px solid rgba(70, 132, 195, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .upgrade-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
         .upgrade-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #28a745;
-            color: white;
-            text-decoration: none;
-            margin-top: 15px;
+            background: linear-gradient(135deg, #1b5a9b 0%, #0e447c 50%, #244a73 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .upgrade-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(27, 90, 155, 0.4);
+        }
+        
+        .upgrade-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .upgrade-btn:hover::before {
+            left: 100%;
+        }
+        
+        .feature-icon {
+            background: linear-gradient(135deg, #4684c3, #6a9ed3);
+            box-shadow: 0 8px 25px rgba(70, 132, 195, 0.3);
+        }
+        
+        .back-btn {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(201, 223, 246, 0.8));
+            border: 2px solid rgba(70, 132, 195, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(201, 223, 246, 0.9));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(70, 132, 195, 0.2);
+        }
+        
+        .premium-badge {
+            background: linear-gradient(135deg, #6a9ed3, #4684c3);
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(106, 158, 211, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(106, 158, 211, 0.6); }
+        }
+        
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .feature-item {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateX(10px);
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex items-center justify-center">
     <div class="container">
-        <h1>List Your Products</h1>
-        <div class="upgrade-box">
-            <h3>Premium Membership Required</h3>
-            <p>To list your products, you need to upgrade to a paid membership.</p>
-            <a href="#" class="upgrade-btn">Upgrade Now</a>
+        <div class="main-card p-12 text-center">
+            <!-- Header Section -->
+            <div class="mb-12">
+                <div class="flex justify-center mb-6">
+                    <div class="w-20 h-20 rounded-full feature-icon flex items-center justify-center floating-element">
+                        <i class="fas fa-boxes text-3xl text-white"></i>
+                    </div>
+                </div>
+                <h1 class="text-5xl font-bold mb-4" style="color: #0e447c;">
+                    List Your Products
+                </h1>
+                <div class="w-32 h-1 mx-auto rounded-full" style="background: linear-gradient(90deg, #4684c3, #6a9ed3);"></div>
+            </div>
+
+            <!-- Premium Required Section -->
+            <div class="upgrade-box p-10 mb-10 relative">
+                <div class="relative z-10">
+                    <!-- Premium Badge -->
+                    <div class="inline-flex items-center px-6 py-3 rounded-full premium-badge text-white font-bold text-lg mb-6">
+                        <i class="fas fa-crown mr-3"></i>
+                        Premium Membership Required
+                    </div>
+                    
+                    <!-- Main Message -->
+                    <h3 class="text-3xl font-bold mb-6" style="color: #0e447c;">
+                        Unlock Product Listing
+                    </h3>
+                    
+                    <p class="text-xl mb-8 leading-relaxed" style="color: #244a73;">
+                        Showcase your products to thousands of potential buyers and expand your business reach with our premium membership.
+                    </p>
+                    
+                    <!-- Features List -->
+                    <div class="grid md:grid-cols-2 gap-6 mb-10 text-left">
+                        <div class="feature-item flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #4684c3, #6a9ed3);">
+                                <i class="fas fa-check text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg" style="color: #0e447c;">Unlimited Products</h4>
+                                <p class="text-sm" style="color: #244a73;">List as many products as you want</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #4684c3, #6a9ed3);">
+                                <i class="fas fa-chart-line text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg" style="color: #0e447c;">Analytics Dashboard</h4>
+                                <p class="text-sm" style="color: #244a73;">Track views and inquiries</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #4684c3, #6a9ed3);">
+                                <i class="fas fa-star text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg" style="color: #0e447c;">Priority Placement</h4>
+                                <p class="text-sm" style="color: #244a73;">Featured in search results</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #4684c3, #6a9ed3);">
+                                <i class="fas fa-headset text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg" style="color: #0e447c;">Premium Support</h4>
+                                <p class="text-sm" style="color: #244a73;">24/7 dedicated assistance</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Upgrade Button -->
+                    <a href="#" class="upgrade-btn inline-flex items-center justify-center px-10 py-4 text-white text-xl font-bold rounded-2xl shadow-2xl relative overflow-hidden transform transition duration-300 hover:scale-105">
+                        <i class="fas fa-rocket mr-3"></i>
+                        Upgrade to Premium Now
+                        <i class="fas fa-arrow-right ml-3"></i>
+                    </a>
+                    
+                    <!-- Pricing Hint -->
+                    <div class="mt-6">
+                        <p class="text-sm font-medium" style="color: #244a73;">
+                            Starting from <span class="text-2xl font-bold" style="color: #0e447c;">$29</span>/month
+                        </p>
+                        <p class="text-xs mt-1" style="color: #6a9ed3;">30-day money-back guarantee</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Back Button -->
+            <div class="flex justify-center">
+                <a href="{% url 'manufacturer_dashboard' %}" 
+                   class="back-btn inline-flex items-center px-8 py-4 rounded-xl font-semibold transition duration-300" 
+                   style="color: #244a73;">
+                    <i class="fas fa-arrow-left mr-3"></i>
+                    Back to Dashboard
+                </a>
+            </div>
         </div>
-        <a href="{% url 'manufacturer_dashboard' %}">Back to Dashboard</a>
+        
+        <!-- Decorative Elements -->
+        <div class="absolute top-10 left-10 w-20 h-20 rounded-full opacity-20" style="background: linear-gradient(135deg, #9cbde5, #c9dff6);"></div>
+        <div class="absolute bottom-10 right-10 w-32 h-32 rounded-full opacity-10" style="background: linear-gradient(135deg, #4684c3, #1b5a9b);"></div>
+        <div class="absolute top-1/2 left-5 w-16 h-16 rounded-full opacity-15" style="background: linear-gradient(135deg, #6a9ed3, #244a73);"></div>
     </div>
 </body>
 </html>

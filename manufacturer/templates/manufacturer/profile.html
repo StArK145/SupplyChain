@@ -8,16 +8,75 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --light-steel-blue: #9cbde5;
+            --rich-medium-blue: #0e447c;
+            --muted-azure: #4684c3;
+            --soft-denim: #6a9ed3;
+            --very-pale-blue: #c9dff6;
+            --deep-slate-blue: #244a73;
+            --cool-blue: #3b699e;
+            --medium-ocean-blue: #1b5a9b;
+        }
+        
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f9fafb;
+            background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 100%);
+            min-height: 100vh;
         }
+        
         .dashboard-card {
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(201, 223, 246, 0.3);
         }
+        
         .dashboard-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(14, 68, 124, 0.1), 0 10px 10px -5px rgba(14, 68, 124, 0.04);
+            background: rgba(255, 255, 255, 0.95);
         }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 50%, #244a73 100%);
+        }
+        
+        .profile-avatar {
+            background: linear-gradient(135deg, #4684c3 0%, #6a9ed3 100%);
+            box-shadow: 0 8px 32px rgba(70, 132, 195, 0.3);
+        }
+        
+        .action-card {
+            background: linear-gradient(135deg, rgba(201, 223, 246, 0.8) 0%, rgba(156, 189, 229, 0.6) 100%);
+            border: 1px solid rgba(70, 132, 195, 0.2);
+        }
+        
+        .action-card:hover {
+            background: linear-gradient(135deg, rgba(201, 223, 246, 0.9) 0%, rgba(156, 189, 229, 0.8) 100%);
+            transform: translateY(-2px);
+        }
+        
+        .nav-gradient {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(201, 223, 246, 0.9) 100%);
+            backdrop-filter: blur(20px);
+        }
+        
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .info-tag {
+            background: linear-gradient(45deg, #c9dff6, #9cbde5);
+            color: #0e447c;
+            font-weight: 500;
+        }
+        
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
@@ -25,86 +84,176 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background-color: white;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(201, 223, 246, 0.9) 100%);
+                backdrop-filter: blur(20px);
+                box-shadow: 0 10px 15px -3px rgba(14, 68, 124, 0.1);
                 z-index: 50;
             }
             .nav-menu.active {
                 display: block;
             }
         }
+           .pulse-glow {
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(46, 117, 183, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(46, 117, 183, 0.8),
+            0 0 30px rgba(46, 117, 183, 0.4);
+        }
+      }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo and Brand -->
-                <div class="flex items-center space-x-2">
-                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                        <i class="fas fa-link text-lg"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8 nav-menu">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
-                </div>
-
-                <!-- Mobile Hamburger Menu -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <nav style=" background: linear-gradient(
+          135deg,
+          #2e75b7,
+          #4684c3,
+          #6a9ed3,
+          #c9dff6,
+          #3b699e,
+          #1b5a9b
+        );" class=" backdrop-blur-lg shadow-md sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="flex items-center justify-center h-12 w-12 rounded-xl pulse-glow"
+              style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+            >
+              <i class="fas fa-link text-white text-2xl"></i>
             </div>
+            <h1 class="text-2xl font-bold" style="color: #0a2f56">
+              Supply<span style="color: #2e75b7">Chain</span>
+            </h1>
+          </div>
 
-            <!-- Mobile Navigation Menu -->
-            <div id="mobile-nav" class="md:hidden nav-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                </div>
-            </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#4caf50]"
+              onmouseover="this.style.background='rgba(76,175,80,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#e91e63]"
+              onmouseover="this.style.background='rgba(233,30,99,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#9c27b0]"
+              onmouseover="this.style.background='rgba(156,39,176,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Services</a
+            >
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#00c853]"
+              onmouseover="this.style.background='rgba(0,200,83,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Mobile Menu Toggle Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="p-2 rounded-lg text-[#ff5722]"
+              onmouseover="this.style.background='rgba(255,87,34,0.1)'"
+              onmouseout="this.style.background='transparent'"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div
+        id="mobile-nav"
+        class="md:hidden max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+      >
+        <div class="px-4 py-4 space-y-2">
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium text-[#4caf50] hover:bg-green-100"
+            >Home</a
+          >
+          <a
+            href="{% url 'about' %}"
+            class="block px-4 py-2 rounded-lg font-medium text-[#e91e63] hover:bg-pink-100"
+            >About</a
+          >
+          <a
+            href="{% url 'services' %}"
+            class="block px-4 py-2 rounded-lg font-medium text-[#9c27b0] hover:bg-purple-100"
+            >Services</a
+          >
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium text-[#00c853] hover:bg-green-50"
+            >Contact</a
+          >
+        </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow py-12 bg-gray-50">
+    <main class="flex-grow py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-3 gap-10">
+            <div class="grid md:grid-cols-3 gap-12">
                 <!-- Left Column - Profile Information -->
                 <div class="md:col-span-1 space-y-8">
-                    <div class="bg-white rounded-xl shadow-sm p-6 dashboard-card">
-                        <div class="flex items-center space-x-4 mb-6">
-                            <div class="h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center">
-                                <span class="text-2xl font-bold text-blue-600">
+                    <div class="dashboard-card rounded-2xl shadow-xl p-8 floating-element">
+                        <div class="flex flex-col items-center space-y-6 mb-8">
+                            <div class="h-24 w-24 rounded-full profile-avatar flex items-center justify-center">
+                                <span class="text-3xl font-bold text-white">
                                     {{ manufacturer.first_name.0 }}{{ manufacturer.last_name.0 }}
                                 </span>
                             </div>
-                            <div>
-                                <h2 class="text-xl font-semibold text-gray-800">
+                            <div class="text-center">
+                                <h2 class="text-2xl font-bold mb-2" style="color: #0e447c;">
                                     {{ manufacturer.first_name }} {{ manufacturer.last_name }}
                                 </h2>
-                                <p class="text-gray-500">{{ manufacturer.business_type }}</p>
+                                <span class="info-tag px-4 py-2 rounded-full text-sm">{{ manufacturer.business_type }}</span>
                             </div>
                         </div>
                         
-                        <div class="border-t border-gray-100 pt-4 mt-4">
-                            <a href="{% url 'manufacturer_dashboard' %}" class="block py-2 text-blue-600 hover:text-blue-700 font-medium">
-                                <i class="fas fa-th-large mr-2"></i> Back to Dashboard
+                        <div class="border-t border-opacity-20 pt-6 mt-6 space-y-4" style="border-color: #9cbde5;">
+                            <a href="{% url 'manufacturer_dashboard' %}" 
+                               class="flex items-center justify-center py-3 px-6 rounded-xl font-medium transition duration-300 transform hover:scale-105" 
+                               style="background: linear-gradient(135deg, #1b5a9b, #0e447c); color: white; box-shadow: 0 4px 15px rgba(27, 90, 155, 0.3);">
+                                <i class="fas fa-th-large mr-3"></i> Back to Dashboard
                             </a>
-                            <a href="{% url 'manufacturer_edit_profile' %}" class="block py-2 text-green-600 hover:text-green-700 font-medium">
-                                <i class="fas fa-user-edit mr-2"></i> Edit Profile
+                            <a href="{% url 'manufacturer_edit_profile' %}" 
+                               class="flex items-center justify-center py-3 px-6 rounded-xl font-medium transition duration-300 transform hover:scale-105" 
+                               style="background: linear-gradient(135deg, #4684c3, #6a9ed3); color: white; box-shadow: 0 4px 15px rgba(70, 132, 195, 0.3);">
+                                <i class="fas fa-user-edit mr-3"></i> Edit Profile
                             </a>
                         </div>
                     </div>
@@ -113,57 +262,116 @@
                 <!-- Right Column - Details -->
                 <div class="md:col-span-2 space-y-8">
                     <!-- Profile Details -->
-                    <div class="bg-white rounded-xl shadow-md p-8 dashboard-card">
-                        <h1 class="text-3xl font-extrabold text-blue-700 mb-4">
-                            {{ manufacturer.company_name }}
-                        </h1>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Company Information</h2>
-                                <div class="space-y-3 text-gray-600">
-                                    <p><strong>Location:</strong> {{ manufacturer.city }}, {{ manufacturer.state }}</p>
-                                    <p><strong>Business Type:</strong> {{ manufacturer.business_type }}</p>
-                                    <p><strong>Phone:</strong> {{ manufacturer.phone_number }}</p>
-                                    {% if manufacturer.website %}
-                                    <p>
-                                        <strong>Website:</strong>
-                                        <a href="{{ manufacturer.website }}" target="_blank" class="text-blue-600 hover:underline">
-                                            {{ manufacturer.website }}
-                                        </a>
-                                    </p>
-                                    {% endif %}
+                    <div class="dashboard-card rounded-2xl shadow-xl p-10">
+                        <div class="mb-8">
+                            <h1 class="text-4xl font-extrabold mb-4" style="color: #0e447c;">
+                                {{ manufacturer.company_name }}
+                            </h1>
+                            <div class="w-24 h-1 rounded-full" style="background: linear-gradient(90deg, #4684c3, #6a9ed3);"></div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-6">
+                                <div>
+                                    <h2 class="text-2xl font-bold mb-6 flex items-center" style="color: #244a73;">
+                                        <i class="fas fa-building mr-3 text-xl" style="color: #4684c3;"></i>
+                                        Company Information
+                                    </h2>
+                                    <div class="space-y-4">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(45deg, #c9dff6, #9cbde5);">
+                                                <i class="fas fa-map-marker-alt text-sm" style="color: #0e447c;"></i>
+                                            </div>
+                                            <div>
+                                                <span class="text-sm font-medium" style="color: #244a73;">Location</span>
+                                                <p class="font-semibold" style="color: #0e447c;">{{ manufacturer.city }}, {{ manufacturer.state }}</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(45deg, #c9dff6, #9cbde5);">
+                                                <i class="fas fa-industry text-sm" style="color: #0e447c;"></i>
+                                            </div>
+                                            <div>
+                                                <span class="text-sm font-medium" style="color: #244a73;">Business Type</span>
+                                                <p class="font-semibold" style="color: #0e447c;">{{ manufacturer.business_type }}</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(45deg, #c9dff6, #9cbde5);">
+                                                <i class="fas fa-phone text-sm" style="color: #0e447c;"></i>
+                                            </div>
+                                            <div>
+                                                <span class="text-sm font-medium" style="color: #244a73;">Phone</span>
+                                                <p class="font-semibold" style="color: #0e447c;">{{ manufacturer.phone_number }}</p>
+                                            </div>
+                                        </div>
+                                        
+                                        {% if manufacturer.website %}
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(45deg, #c9dff6, #9cbde5);">
+                                                <i class="fas fa-globe text-sm" style="color: #0e447c;"></i>
+                                            </div>
+                                            <div>
+                                                <span class="text-sm font-medium" style="color: #244a73;">Website</span>
+                                                <a href="{{ manufacturer.website }}" target="_blank" class="font-semibold hover:underline transition duration-300" style="color: #1b5a9b;">
+                                                    {{ manufacturer.website }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Key Products</h2>
-                                <div class="text-gray-600">
-                                    <p>{{ supplier.key_services }}</p>
+                            
+                            <div class="space-y-6">
+                                <div>
+                                    <h2 class="text-2xl font-bold mb-6 flex items-center" style="color: #244a73;">
+                                        <i class="fas fa-cogs mr-3 text-xl" style="color: #4684c3;"></i>
+                                        Key Products
+                                    </h2>
+                                    <div class="p-6 rounded-xl" style="background: linear-gradient(135deg, rgba(201, 223, 246, 0.4) 0%, rgba(156, 189, 229, 0.3) 100%); border: 1px solid rgba(70, 132, 195, 0.2);">
+                                        <p class="text-lg leading-relaxed" style="color: #244a73;">{{ supplier.key_services }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Quick Profile Actions -->
-                    <div class="bg-white rounded-xl shadow-md p-8 dashboard-card">
-                        <h2 class="text-2xl font-semibold text-blue-700 mb-6">Profile Actions</h2>
+                    <div class="dashboard-card rounded-2xl shadow-xl p-10">
+                        <h2 class="text-3xl font-bold mb-8 flex items-center" style="color: #0e447c;">
+                            <i class="fas fa-tools mr-4 text-2xl" style="color: #4684c3;"></i>
+                            Profile Actions
+                        </h2>
                         <div class="grid sm:grid-cols-2 gap-8">
                             <a href="{% url 'manufacturer_edit_profile' %}" 
-                               class="bg-blue-50 p-6 rounded-lg hover:bg-blue-100 transition flex items-center space-x-4">
-                                <div class="bg-blue-100 p-3 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                               class="action-card p-8 rounded-xl transition duration-300 transform hover:scale-105 flex flex-col items-center text-center space-y-4 group">
+                                <div class="w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition duration-300" style="background: linear-gradient(135deg, #4684c3, #6a9ed3);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
                                 </div>
-                                <span class="text-blue-800">Edit Profile</span>
+                                <div>
+                                    <h3 class="text-xl font-bold mb-2" style="color: #0e447c;">Edit Profile</h3>
+                                    <p class="text-sm" style="color: #244a73;">Update your company information and details</p>
+                                </div>
+                                <div class="w-full h-1 rounded-full group-hover:scale-x-100 scale-x-0 transition-transform duration-300" style="background: linear-gradient(90deg, #4684c3, #6a9ed3);"></div>
                             </a>
+                            
                             <a href="{% url 'manufacturer_dashboard' %}" 
-                               class="bg-green-50 p-6 rounded-lg hover:bg-green-100 transition flex items-center space-x-4">
-                                <div class="bg-green-100 p-3 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                               class="action-card p-8 rounded-xl transition duration-300 transform hover:scale-105 flex flex-col items-center text-center space-y-4 group">
+                                <div class="w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition duration-300" style="background: linear-gradient(135deg, #1b5a9b, #0e447c);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                                     </svg>
                                 </div>
-                                <span class="text-green-800">Back to Dashboard</span>
+                                <div>
+                                    <h3 class="text-xl font-bold mb-2" style="color: #0e447c;">Back to Dashboard</h3>
+                                    <p class="text-sm" style="color: #244a73;">Return to your main dashboard overview</p>
+                                </div>
+                                <div class="w-full h-1 rounded-full group-hover:scale-x-100 scale-x-0 transition-transform duration-300" style="background: linear-gradient(90deg, #1b5a9b, #0e447c);"></div>
                             </a>
                         </div>
                     </div>
@@ -173,95 +381,247 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                            <i class="fas fa-link text-lg"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
-                    </div>
-                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
-                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
-                        <li><a href="{% url 'terms' %}" class="text-gray-400 hover:text-blue-400 transition">Terms & Conditions</a></li>
-                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Contact Us</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
-                            <span>123 Supply Chain Blvd, Business District, 10001</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
-                            <span>info@supplychain.com</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone mr-3 text-blue-400"></i>
-                            <span>+1 (555) 123-4567</span>
-                        </li>
-                    </ul>
-                </div>
+     <footer
+      class="text-white py-16 relative"
+      style="background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%)"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-lg"
+                style="
+                  background: linear-gradient(135deg, #2e75b7 0%, #4684c3 100%);
+                "
+              >
+                <i class="fas fa-link text-xl"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">
+                Supply<span style="color: #9cbde5">Chain</span>
+              </h1>
             </div>
-            
-            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
-                <p>© 2025 Supply Chain Portal. All Rights Reserved.</p>
+            <p class="text-blue-200 mb-6 leading-relaxed">
+              Connecting manufacturers and suppliers through innovative
+              technology and intelligent solutions.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-facebook"></i>
+              </a>
             </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'home' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'about' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'services' %}"
+                  class="text-white flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'manufacturer_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Manufacturer
+                  Login</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'supplier_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Supplier
+                  Login</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'faq' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'help' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Help
+                  Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact
+                  Support</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Live Chat</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Legal</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'terms' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Terms &
+                  Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'privacy' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Privacy
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Cookie
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>GDPR
+                  Compliance</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="section-divider opacity-30"></div>
+
+        <div class="pt-8 text-center">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-blue-200 mb-4 md:mb-0">
+              © 2024 Supply Chain Portal. All Rights Reserved.
+            </p>
+            <div class="flex items-center space-x-6 text-sm text-blue-200">
+              <span class="flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>
+                SSL Secured
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-award mr-2"></i>
+                ISO Certified
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-clock mr-2"></i>
+                24/7 Support
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background decoration -->
+      <div class="absolute top-0 right-0 w-64 h-64 opacity-5">
+        <i class="fas fa-cogs text-9xl"></i>
+      </div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 opacity-5">
+        <i class="fas fa-shipping-fast text-8xl"></i>
+      </div>
     </footer>
+     <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const toggleBtn = document.getElementById("mobile-menu-toggle");
+        const mobileNav = document.getElementById("mobile-nav");
 
-    <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
+        toggleBtn.addEventListener("click", () => {
+          const isOpen = mobileNav.classList.contains("max-h-[500px]");
 
-        if (mobileMenuToggle && mobileNav) {
-            mobileMenuToggle.addEventListener('click', () => {
-                mobileNav.classList.toggle('active');
-            });
+          if (isOpen) {
+            mobileNav.classList.remove("max-h-[500px]");
+            mobileNav.classList.add("max-h-0");
+          } else {
+            mobileNav.classList.remove("max-h-0");
+            mobileNav.classList.add("max-h-[500px]");
+          }
+        });
 
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', (event) => {
-                const isClickInsideMenu = mobileNav.contains(event.target);
-                const isClickOnToggle = mobileMenuToggle.contains(event.target);
-                
-                if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
-                    mobileNav.classList.remove('active');
-                }
-            });
-        }
+        // Optional: Close mobile nav when any link is clicked
+        document.querySelectorAll("#mobile-nav a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileNav.classList.remove("max-h-[500px]");
+            mobileNav.classList.add("max-h-0");
+          });
+        });
+      });
     </script>
 </body>
 </html>

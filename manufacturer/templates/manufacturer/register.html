@@ -1,416 +1,1046 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manufacturer Registration | Supply Chain Portal</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9fafb;
-            min-height: 100vh;
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 100%);
+        min-height: 100vh;
+      }
+      .hero-gradient {
+        background: linear-gradient(
+          135deg,
+          #0e447c 0%,
+          #1b5a9b 50%,
+          #244a73 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-gradient::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="20" cy="80" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        opacity: 0.3;
+      }
+      .card-hover {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+      }
+      .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 50px -12px rgba(14, 68, 124, 0.25);
+      }
+      .feature-icon {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .feature-card:hover .feature-icon {
+        transform: scale(1.15) rotate(5deg);
+      }
+      .form-input {
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(5px);
+      }
+      .form-input:focus {
+        border-color: #4684c3;
+        box-shadow: 0 0 0 3px rgba(70, 132, 195, 0.2);
+        background: rgba(255, 255, 255, 1);
+      }
+      .info-card {
+        background: linear-gradient(
+          135deg,
+          #244a73 0%,
+          #0e447c 50%,
+          #3b699e 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+      .info-card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle,
+          rgba(201, 223, 246, 0.1) 0%,
+          transparent 70%
+        );
+        animation: float 6s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
         }
-        .hero-gradient {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        50% {
+          transform: translateY(-20px) rotate(180deg);
         }
-        .card-hover {
-            transition: all 0.3s ease;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .nav-link {
+        position: relative;
+        overflow: hidden;
+      }
+      .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, #4684c3, #6a9ed3);
+        transition: left 0.3s ease;
+      }
+      .nav-link:hover::before {
+        left: 0;
+      }
+      .pulse-animation {
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
         }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        50% {
+          opacity: 0.7;
         }
-        .feature-icon {
-            transition: all 0.3s ease;
+      }
+      .floating-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .floating-shapes::before,
+      .floating-shapes::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(201, 223, 246, 0.1);
+        animation: float 8s ease-in-out infinite;
+      }
+      .floating-shapes::before {
+        width: 200px;
+        height: 200px;
+        top: 20%;
+        left: 10%;
+        animation-delay: -2s;
+      }
+      .floating-shapes::after {
+        width: 300px;
+        height: 300px;
+        bottom: 20%;
+        right: 10%;
+        animation-delay: -4s;
+      }
+      @media (max-width: 768px) {
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(20px);
+          box-shadow: 0 10px 25px -5px rgba(14, 68, 124, 0.2);
+          z-index: 50;
         }
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1);
+        .nav-menu.active {
+          display: block;
         }
-        .form-input {
-            transition: all 0.3s ease;
+      }
+      .pulse-glow {
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(46, 117, 183, 0.5);
         }
-        .form-input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        50% {
+          box-shadow: 0 0 20px rgba(46, 117, 183, 0.8),
+            0 0 30px rgba(46, 117, 183, 0.4);
         }
-        .info-card {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-        }
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-                z-index: 50;
-            }
-            .nav-menu.active {
-                display: block;
-            }
-        }
+      }
     </style>
-</head>
-<body class="flex flex-col">
+  </head>
+  <body class="flex flex-col">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo and Brand -->
-                <div class="flex items-center space-x-2">
-                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                        <i class="fas fa-link text-lg"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8 nav-menu">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium border-b-2 border-transparent hover:border-blue-600 transition-all">Contact</a>
-                </div>
-
-                <!-- Mobile Hamburger Menu -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <nav style=" background: linear-gradient(
+          135deg,
+          #2e75b7,
+          #4684c3,
+          #6a9ed3,
+          #c9dff6,
+          #3b699e,
+          #1b5a9b
+        );" class="backdrop-blur-lg shadow-md sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="flex items-center justify-center h-12 w-12 rounded-xl pulse-glow"
+              style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+            >
+              <i class="fas fa-link text-white text-2xl"></i>
             </div>
+            <h1 class="text-2xl font-bold" style="color: #0a2f56">
+              Supply<span style="color: #2e75b7">Chain</span>
+            </h1>
+          </div>
 
-            <!-- Mobile Navigation Menu -->
-            <div id="mobile-nav" class="md:hidden nav-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                </div>
-            </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="{% url 'home' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-dark hover:bg-brand-dark/10"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-blue hover:bg-brand-blue/10"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-mid hover:bg-brand-mid/10"
+              >Services</a
+            >
+            <a
+              href="{% url 'contact' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-slate hover:bg-brand-slate/10"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Login/Register Button -->
+          <div class="hidden md:flex items-center space-x-4">
+            <a
+              href="{% url 'home' %}#portals"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-brand-light hover:bg-brand-light/10"
+              >Login</a
+            >
+            <a
+              href="{% url 'home' %}#portals"
+              class="px-6 py-3 rounded-xl text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+              style="background: linear-gradient(135deg, #2e75b7, #4684c3)"
+              >Get Started</a
+            >
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="p-2 rounded-lg text-brand-dark hover:bg-brand-dark/10 transition-colors duration-200"
+            >
+              <svg
+                id="menu-icon"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div
+          id="mobile-nav"
+          class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out md:hidden"
+        >
+          <div class="px-2 pt-2 pb-3 space-y-1 border-t border-blue-200/30">
+            <a
+              href="{% url 'home' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-dark hover:bg-brand-dark/10"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-blue hover:bg-brand-blue/10"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-mid hover:bg-brand-mid/10"
+              >Services</a
+            >
+            <a
+              href="{% url 'contact' %}"
+              class="block px-4 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 text-brand-slate hover:bg-brand-slate/10"
+              >Contact</a
+            >
+            <div class="flex flex-col pt-4 pb-2 space-y-2">
+              <a
+                href="{% url 'home' %}#portals"
+                class="block px-4 py-2 font-medium transition-all duration-300 hover:scale-105 text-brand-light hover:bg-brand-light/10"
+                >Login</a
+              >
+              <a
+                href="{% url 'home' %}#portals"
+                class="px-4 py-3 rounded-lg text-center font-medium text-white shadow-lg transition-all duration-200 transform hover:scale-105 bg-btn-gradient"
+                >Get Started</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
     <main class="flex-grow">
-        <!-- Header Section -->
-        <div class="hero-gradient text-white py-12">
-            <div class="container mx-auto px-4 text-center">
-                <h1 class="text-4xl font-bold mb-2">Manufacturer Registration</h1>
-                <p class="text-xl text-blue-100">Join our global network of manufacturers and suppliers</p>
+      <!-- Header Section -->
+      <div class="hero-gradient text-white py-16 relative">
+        <div class="floating-shapes"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+          <div class="max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-6xl font-bold mb-4 leading-tight">
+              Manufacturer Registration
+            </h1>
+            <p class="text-xl md:text-2xl text-blue-100 mb-8">
+              Join our global network of manufacturers and suppliers
+            </p>
+            <div class="flex justify-center space-x-4 text-sm">
+              <div
+                class="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-full"
+              >
+                <i class="fas fa-globe text-blue-200"></i>
+                <span>Global Reach</span>
+              </div>
+              <div
+                class="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-full"
+              >
+                <i class="fas fa-lock text-blue-200"></i>
+                <span>Secure Platform</span>
+              </div>
+              <div
+                class="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-full"
+              >
+                <i class="fas fa-chart-line text-blue-200"></i>
+                <span>Business Growth</span>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content - Cards Layout -->
+      <div class="container mx-auto px-4 py-12 -mt-8 relative z-20">
+        <!-- Information Card -->
+        <div
+          class="info-card text-white rounded-2xl shadow-2xl p-8 mb-12 card-hover relative"
+        >
+          <div class="flex flex-col lg:flex-row items-center relative z-10">
+            <div class="w-full lg:w-2/3 pr-0 lg:pr-8">
+              <div class="flex items-center space-x-3 mb-6">
+                <div
+                  class="h-1 w-12 bg-gradient-to-r from-blue-200 to-blue-300 rounded-full"
+                ></div>
+                <span class="text-blue-200 font-medium">Why Choose Us</span>
+              </div>
+              <h2 class="text-4xl font-bold mb-6 leading-tight">
+                Join Our Manufacturer Network
+              </h2>
+              <p class="text-xl mb-8 text-blue-100 leading-relaxed">
+                Connect with global buyers and expand your business reach
+                through our comprehensive supply chain portal. Experience growth
+                like never before.
+              </p>
+
+              <div class="grid md:grid-cols-3 gap-6">
+                <div class="flex items-start space-x-4 group">
+                  <div
+                    class="bg-white bg-opacity-20 p-3 rounded-xl group-hover:bg-opacity-30 transition-all duration-300"
+                  >
+                    <i class="fas fa-users text-xl text-blue-200"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-lg mb-2">
+                      Expand Your Network
+                    </h3>
+                    <p class="text-sm text-blue-100 leading-relaxed">
+                      Connect with thousands of qualified buyers worldwide.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-4 group">
+                  <div
+                    class="bg-white bg-opacity-20 p-3 rounded-xl group-hover:bg-opacity-30 transition-all duration-300"
+                  >
+                    <i class="fas fa-shield-alt text-xl text-blue-200"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-lg mb-2">Secure Platform</h3>
+                    <p class="text-sm text-blue-100 leading-relaxed">
+                      Your data is protected with enterprise-grade security.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-4 group">
+                  <div
+                    class="bg-white bg-opacity-20 p-3 rounded-xl group-hover:bg-opacity-30 transition-all duration-300"
+                  >
+                    <i class="fas fa-rocket text-xl text-blue-200"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-lg mb-2">
+                      Global Visibility
+                    </h3>
+                    <p class="text-sm text-blue-100 leading-relaxed">
+                      Showcase products to worldwide buyers instantly.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w-full lg:w-1/3 flex justify-center mt-8 lg:mt-0">
+              <div class="relative">
+                <div
+                  class="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-400 rounded-2xl transform rotate-6 opacity-20"
+                ></div>
+                <div
+                  class="text-9xl bg-gradient-to-r from-blue-300 to-blue-400 text-transparent bg-clip-text drop-shadow-lg"
+                >
+                  <i  class="fa-solid fa-industry"></i>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Main Content - Cards Layout -->
-        <div class="container mx-auto px-4 py-8">
-            <!-- Information Card -->
-            <div class="info-card text-white rounded-xl shadow-lg p-8 mb-8 card-hover">
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="w-full md:w-2/3">
-                        <h2 class="text-3xl font-bold mb-4">Join Our Manufacturer Network</h2>
-                        <p class="text-lg mb-6">Connect with global buyers and expand your business reach through our comprehensive supply chain portal.</p>
+        <!-- Registration Form Card -->
+        <div class="glass-card rounded-2xl shadow-2xl p-8 lg:p-12 card-hover">
+          <div class="text-center mb-8">
+            <div class="inline-flex items-center space-x-3 mb-4">
+              <div
+                style="background-color: #05509f"
+                class="h-1 w-8 rounded-full"
+              ></div>
+              <span class="font-medium" style="color: #05509f"
+                >Registration Form</span
+              >
+              <div
+                style="background-color: #05509f"
+                class="h-1 w-8 rounded-full"
+              ></div>
+            </div>
+            <h2
+              class="text-3xl font-bold bg-gradient-to-r from-blue-800 to-blue-600 bg-clip-text mb-2"
+              style="color: #05509f"
+            >
+              Complete Your Registration
+            </h2>
+            <p class="text-gray-600">
+              Fill in your details to join our manufacturer network
+            </p>
+          </div>
 
-                        <div class="grid md:grid-cols-3 gap-6">
-                            <div class="flex items-start space-x-3">
-                                <div class="bg-white bg-opacity-20 p-2 rounded-full">
-                                    <i class="fas fa-users text-lg"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-semibold">Expand Your Network</h3>
-                                    <p class="text-sm text-white text-opacity-80">Connect with thousands of qualified buyers.</p>
-                                </div>
-                            </div>
+          <form method="post" class="space-y-8">
+            {% csrf_token %}
 
-                            <div class="flex items-start space-x-3">
-                                <div class="bg-white bg-opacity-20 p-2 rounded-full">
-                                    <i class="fas fa-lock text-lg"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-semibold">Secure Platform</h3>
-                                    <p class="text-sm text-white text-opacity-80">Your data is protected with high security.</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start space-x-3">
-                                <div class="bg-white bg-opacity-20 p-2 rounded-full">
-                                    <i class="fas fa-globe text-lg"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-semibold">Global Visibility</h3>
-                                    <p class="text-sm text-white text-opacity-80">Showcase products to worldwide buyers.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full md:w-1/3 flex justify-center mt-8 md:mt-0">
-                        <img src="/api/placeholder/300/300" alt="Manufacturing network" class="rounded-lg shadow-xl">
-                    </div>
+            <!-- Account Information Section -->
+            <div
+              class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl"
+            >
+              <h3
+                style="color: #05509f"
+                class="text-lg font-semibold mb-4 flex items-center"
+              >
+                <i class="fas fa-user-circle mr-2"></i>
+                Account Information
+              </h3>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label
+                    for="{{ form.username.id_for_label }}"
+                    class="block text-sm font-medium text-gray-700"
+                    >Username</label
+                  >
+                  {{ form.username }}
                 </div>
-            </div>
-
-            <!-- Registration Form Card -->
-            <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
-                <h2 class="text-2xl font-bold text-blue-700 mb-6">Complete Your Registration</h2>
-
-                <form method="post" class="space-y-6">
-                    {% csrf_token %}
-
-                    <!-- Username and Email -->
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
-                            {{ form.username }}
-                        </div>
-                        <div>
-                            <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                            {{ form.email }}
-                        </div>
-                    </div>
-
-                    <!-- Password Fields -->
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                            {{ form.password1 }}
-                        </div>
-                        <div>
-                            <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
-                            {{ form.password2 }}
-                        </div>
-                    </div>
-
-                    <!-- Personal Information -->
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                            {{ form.first_name }}
-                        </div>
-                        <div>
-                            <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                            {{ form.last_name }}
-                        </div>
-                    </div>
-
-                    <div>
-                        <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                        {{ form.phone_number }}
-                    </div>
-
-                    <!-- Company Information -->
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="{{ form.company_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
-                            {{ form.company_name }}
-                        </div>
-                        <div>
-                            <label for="{{ form.business_type.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Business Type</label>
-                            {{ form.business_type }}
-                        </div>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="{{ form.city.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">City</label>
-                            {{ form.city }}
-                        </div>
-                        <div>
-                            <label for="{{ form.state.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">State</label>
-                            {{ form.state }}
-                        </div>
-                    </div>
-
-                    <div>
-                        <label for="{{ form.website.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Website (Optional)</label>
-                        {{ form.website }}
-                    </div>
-
-                    <div>
-                        <label for="{{ form.key_products.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">Key Products</label>
-                        {{ form.key_products }}
-                    </div>
-
-                    <div>
-                        <button type="submit" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition text-lg font-medium">
-                            Register
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            {% if form.errors %}
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 mt-4">
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <p>{{ error }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
-
-            <!-- Additional Features Card -->
-            <div class="bg-gray-50 rounded-xl shadow-lg p-8 mt-8 card-hover">
-                <h2 class="text-2xl font-bold text-blue-700 mb-6">Features & Benefits</h2>
-
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="bg-white p-6 rounded-lg shadow feature-card">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 mb-4">
-                            <i class="fas fa-chart-line text-blue-600 text-xl feature-icon"></i>
-                        </div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-2">Business Growth</h3>
-                        <p class="text-gray-600">Access new markets and grow your business with our global platform.</p>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-lg shadow feature-card">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 mb-4">
-                            <i class="fas fa-cogs text-blue-600 text-xl feature-icon"></i>
-                        </div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-2">Efficient Process</h3>
-                        <p class="text-gray-600">Streamline your supply chain operations and reduce overhead costs.</p>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-lg shadow feature-card">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 mb-4">
-                            <i class="fas fa-handshake text-blue-600 text-xl feature-icon"></i>
-                        </div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-2">Customer Connection</h3>
-                        <p class="text-gray-600">Build long-lasting relationships with quality buyers around the world.</p>
-                    </div>
+                <div class="space-y-2">
+                  <label
+                    for="{{ form.email.id_for_label }}"
+                    class="block text-sm font-medium text-gray-700"
+                    >Email Address</label
+                  >
+                  {{ form.email }}
                 </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="space-y-2">
+                  <label
+                    for="{{ form.password1.id_for_label }}"
+                    class="block text-sm font-medium text-gray-700"
+                    >Password</label
+                  >
+                  {{ form.password1 }}
+                </div>
+                <div class="space-y-2">
+                  <label
+                    for="{{ form.password2.id_for_label }}"
+                    class="block text-sm font-medium text-gray-700"
+                    >Confirm Password</label
+                  >
+                  {{ form.password2 }}
+                </div>
+              </div>
             </div>
+
+            <!-- Personal Information Section -->
+            <div
+              class="bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-xl"
+            >
+              <h3
+                style="color: #05509f"
+                class="text-lg font-semibold text-blue-800 mb-4 flex items-center"
+              >
+                <i class="fas fa-id-card mr-2"></i>
+                Personal Information
+              </h3>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label
+                    for="{{ form.first_name.id_for_label }}"
+                    class="block text-sm font-medium text-gray-700"
+                    >First Name</label
+                  >
+                  {{ form.first_name }}
+                </div>
+                <div class="space-y-2">
+                  <label
+                    for="{{ form.last_name.id_for_label }}"
+                    class="block text-sm font-medium text-gray-700"
+                    >Last Name</label
+                  >
+                  {{ form.last_name }}
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <label
+                  for="{{ form.phone_number.id_for_label }}"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Phone Number</label
+                >
+                {{ form.phone_number }}
+              </div>
+            </div>
+
+            <!-- Company Information Section -->
+            <div
+              class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl"
+            >
+              <h3
+                style="color: #05509f"
+                class="text-lg font-semibold text-blue-800 mb-4 flex items-center"
+              >
+                <i class="fas fa-building mr-2"></i>
+                Company Information
+              </h3>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label
+                    for="{{ form.company_name.id_for_label }}"
+                    class="block text-sm font-medium text-gray-700"
+                    >Company Name</label
+                  >
+                  {{ form.company_name }}
+                </div>
+                <div class="space-y-2">
+                  <label
+                    for="{{ form.business_type.id_for_label }}"
+                    class="block text-sm font-medium text-gray-700"
+                    >Business Type</label
+                  >
+                  {{ form.business_type }}
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="space-y-2">
+                  <label
+                    for="{{ form.city.id_for_label }}"
+                    class="block text-sm font-medium text-gray-700"
+                    >City</label
+                  >
+                  {{ form.city }}
+                </div>
+                <div class="space-y-2">
+                  <label
+                    for="{{ form.state.id_for_label }}"
+                    class="block text-sm font-medium text-gray-700"
+                    >State</label
+                  >
+                  {{ form.state }}
+                </div>
+              </div>
+
+              <div class="mt-6">
+                <label
+                  for="{{ form.website.id_for_label }}"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Website (Optional)</label
+                >
+                {{ form.website }}
+              </div>
+
+              <div class="mt-6">
+                <label
+                  for="{{ form.key_products.id_for_label }}"
+                  class="block text-sm font-medium text-gray-700 mb-2"
+                  >Key Products</label
+                >
+                {{ form.key_products }}
+              </div>
+            </div>
+
+            <div class="text-center">
+              <button
+                type="submit"
+                style="background-color: #05509f; color: #05509f"
+                class="bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 px-12 rounded-xl hover:from-blue-700 hover:to-blue-900 transition-all duration-300 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 pulse-animation"
+              >
+                <i class="fas fa-rocket mr-2"></i>
+                Register Now
+              </button>
+              <p class="mt-4 text-sm text-gray-600">
+                Already have an account?
+                <a
+                  href="#"
+                  class="text-blue-600 hover:text-blue-800 font-medium"
+                  >Sign in here</a
+                >
+              </p>
+            </div>
+          </form>
         </div>
+
+        {% if form.errors %}
+        <div
+          class="bg-red-50 border-l-4 border-red-400 text-red-800 px-6 py-4 rounded-lg mb-4 mt-6 shadow-md"
+        >
+          <div class="flex items-center">
+            <i class="fas fa-exclamation-triangle mr-3 text-red-500"></i>
+            <div>
+              <h3 class="font-semibold mb-2">
+                Please correct the following errors:
+              </h3>
+              {% for field in form %} {% for error in field.errors %}
+              <p class="text-sm">• {{ error }}</p>
+              {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+              <p class="text-sm">• {{ error }}</p>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Additional Features Card -->
+        <div
+          class="glass-card rounded-2xl shadow-2xl p-8 lg:p-12 mt-12 card-hover"
+        >
+          <div class="text-center mb-10">
+            <div class="inline-flex items-center space-x-3 mb-4">
+              <div
+                class="h-1 w-8 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full"
+              ></div>
+              <span style="color: #05509f" class="font-medium"
+                >Why Manufacturers Love Us</span
+              >
+              <div
+                class="h-1 w-8 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full"
+              ></div>
+            </div>
+            <h2
+              style="color: #05509f"
+              class="text-3xl font-bold bg-gradient-to-r from-blue-800 to-blue-600 bg-clip-text mb-2"
+            >
+              Features & Benefits
+            </h2>
+            <p class="text-gray-600">
+              Discover what makes our platform the best choice for manufacturers
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8">
+            <div
+              class="glass-card p-8 rounded-xl shadow-lg feature-card hover:shadow-2xl transition-all duration-300 group"
+            >
+              <div
+                class="flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-100 to-blue-200 mb-6 mx-auto group-hover:from-blue-200 group-hover:to-blue-300 transition-all duration-300"
+              >
+                <i
+                  class="fas fa-chart-line text-blue-600 text-2xl feature-icon"
+                ></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">
+                Business Growth
+              </h3>
+              <p class="text-gray-600 text-center leading-relaxed">
+                Access new markets and accelerate your business growth with our
+                comprehensive global platform and advanced analytics.
+              </p>
+            </div>
+
+            <div
+              class="glass-card p-8 rounded-xl shadow-lg feature-card hover:shadow-2xl transition-all duration-300 group"
+            >
+              <div
+                class="flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-green-100 to-green-200 mb-6 mx-auto group-hover:from-green-200 group-hover:to-green-300 transition-all duration-300"
+              >
+                <i class="fas fa-cogs text-green-600 text-2xl feature-icon"></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">
+                Efficient Process
+              </h3>
+              <p class="text-gray-600 text-center leading-relaxed">
+                Streamline your supply chain operations and reduce overhead
+                costs with our automated workflow management system.
+              </p>
+            </div>
+
+            <div
+              class="glass-card p-8 rounded-xl shadow-lg feature-card hover:shadow-2xl transition-all duration-300 group"
+            >
+              <div
+                class="flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-purple-100 to-purple-200 mb-6 mx-auto group-hover:from-purple-200 group-hover:to-purple-300 transition-all duration-300"
+              >
+                <i
+                  class="fas fa-handshake text-purple-600 text-2xl feature-icon"
+                ></i>
+              </div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">
+                Customer Connection
+              </h3>
+              <p class="text-gray-600 text-center leading-relaxed">
+                Build long-lasting relationships with quality buyers around the
+                world through our advanced matching algorithms.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                            <i class="fas fa-link text-lg"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
-                    </div>
-                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
-                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
-                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-blue-400 transition">Help Center</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-blue-400 transition">Help Center</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
-                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
-                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Contact Us</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
-                            <span>123 Supply Chain Blvd, Business District, 10001</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
-                            <span>info@supplychain.com</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone mr-3 text-blue-400"></i>
-                            <span>+1 (555) 123-4567</span>
-                        </li>
-                    </ul>
-                </div>
+    <footer
+      class="text-white py-16 relative"
+      style="background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%)"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-lg"
+                style="
+                  background: linear-gradient(135deg, #2e75b7 0%, #4684c3 100%);
+                "
+              >
+                <i class="fas fa-link text-xl"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">
+                Supply<span style="color: #9cbde5">Chain</span>
+              </h1>
             </div>
-            
-            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
-                <p>© 2025 Supply Chain Portal. All Rights Reserved.</p>
+            <p class="text-blue-200 mb-6 leading-relaxed">
+              Connecting manufacturers and suppliers through innovative
+              technology and intelligent solutions.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-facebook"></i>
+              </a>
             </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'home' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'about' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'services' %}"
+                  class="text-white flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'manufacturer_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Manufacturer
+                  Login</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'supplier_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Supplier
+                  Login</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'faq' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'help' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Help
+                  Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact
+                  Support</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Live Chat</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Legal</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'terms' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Terms &
+                  Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'privacy' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Privacy
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Cookie
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>GDPR
+                  Compliance</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="section-divider opacity-30"></div>
+
+        <div class="pt-8 text-center">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-blue-200 mb-4 md:mb-0">
+              © 2024 Supply Chain Portal. All Rights Reserved.
+            </p>
+            <div class="flex items-center space-x-6 text-sm text-blue-200">
+              <span class="flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>
+                SSL Secured
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-award mr-2"></i>
+                ISO Certified
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-clock mr-2"></i>
+                24/7 Support
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background decoration -->
+      <div class="absolute top-0 right-0 w-64 h-64 opacity-5">
+        <i class="fas fa-cogs text-9xl"></i>
+      </div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 opacity-5">
+        <i class="fas fa-shipping-fast text-8xl"></i>
+      </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
+      const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+      const mobileNav = document.getElementById("mobile-nav");
 
-        mobileMenuToggle.addEventListener('click', () => {
-            mobileNav.classList.toggle('active');
+      mobileMenuToggle.addEventListener("click", () => {
+        if (mobileNav.classList.contains("max-h-0")) {
+          mobileNav.classList.remove("max-h-0");
+          mobileNav.classList.add("max-h-[500px]");
+        } else {
+          mobileNav.classList.remove("max-h-[500px]");
+          mobileNav.classList.add("max-h-0");
+        }
+      });
+
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+
+      // Form input styling
+      document.addEventListener("DOMContentLoaded", function () {
+        const formInputs = document.querySelectorAll("input, textarea, select");
+        formInputs.forEach((input) => {
+          input.classList.add(
+            "w-full",
+            "px-4",
+            "py-3",
+            "border",
+            "border-gray-300",
+            "rounded-lg",
+            "form-input",
+            "focus:ring-2",
+            "focus:ring-blue-500",
+            "focus:border-transparent"
+          );
         });
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (event) => {
-            const isClickInsideMenu = mobileNav.contains(event.target);
-            const isClickOnToggle = mobileMenuToggle.contains(event.target);
-            
-            if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
-                mobileNav.classList.remove('active');
-            }
+        // Style form paragraphs for better appearance
+        const formParagraphs = document.querySelectorAll("form p");
+        formParagraphs.forEach((p) => {
+          p.classList.add("mb-4");
+          const label = p.querySelector("label");
+          if (label) {
+            label.classList.add(
+              "block",
+              "text-sm",
+              "font-medium",
+              "text-gray-700",
+              "mb-2"
+            );
+          }
         });
-
-        // Form input styling
-        document.addEventListener("DOMContentLoaded", function () {
-            const formInputs = document.querySelectorAll("input, textarea, select");
-            formInputs.forEach((input) => {
-                input.classList.add(
-                    "w-full",
-                    "px-3",
-                    "py-2",
-                    "border",
-                    "border-gray-300",
-                    "rounded-md",
-                    "form-input"
-                );
-            });
-
-            // Style form paragraphs for better appearance
-            const formParagraphs = document.querySelectorAll("form p");
-            formParagraphs.forEach((p) => {
-                p.classList.add("mb-4");
-                const label = p.querySelector("label");
-                if (label) {
-                    label.classList.add(
-                        "block",
-                        "text-sm",
-                        "font-medium",
-                        "text-gray-700",
-                        "mb-2"
-                    );
-                }
-            });
-        });
+      });
     </script>
-</body>
+  </body>
 </html>
