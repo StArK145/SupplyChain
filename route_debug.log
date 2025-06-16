@@ -10189,3 +10189,16 @@ django.urls.exceptions.NoReverseMatch: 'manufacturer' is not a registered namesp
 2025-06-16 11:06:18,916 - DEBUG - close.complete
 2025-06-16 11:18:11,929 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
 2025-06-16 11:18:20,141 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-06-16 11:31:34,562 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-06-16 11:34:05,467 - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-06-16 11:34:05,468 - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-06-16 11:34:05,468 - INFO - Geocoder initialized successfully
+2025-06-16 11:34:05,470 - DEBUG - Nominatim.geocode: https://nominatim.openstreetmap.org/search?q=Nashik%2C+Maharashtra&format=json&limit=1
+2025-06-16 11:34:05,471 - DEBUG - Starting new HTTPS connection (1): nominatim.openstreetmap.org:443
+2025-06-16 11:34:06,279 - DEBUG - https://nominatim.openstreetmap.org:443 "GET /search?q=Nashik%2C+Maharashtra&format=json&limit=1 HTTP/1.1" 200 440
+2025-06-16 11:34:06,280 - DEBUG - RateLimiter sleep(0.19013370003085583)
+2025-06-16 11:34:06,471 - DEBUG - Nominatim.geocode: https://nominatim.openstreetmap.org/search?q=Pune%2C+Maharastra&format=json&limit=1
+2025-06-16 11:34:07,391 - DEBUG - https://nominatim.openstreetmap.org:443 "GET /search?q=Pune%2C+Maharastra&format=json&limit=1 HTTP/1.1" 200 436
+2025-06-16 11:34:07,428 - DEBUG - Starting new HTTPS connection (1): api.openrouteservice.org:443
+2025-06-16 11:34:08,758 - DEBUG - https://api.openrouteservice.org:443 "POST /v2/directions/driving-car HTTP/1.1" 200 None
+2025-06-16 11:36:20,934 - WARNING - Forbidden (CSRF token from POST incorrect.): /supplier/login/
