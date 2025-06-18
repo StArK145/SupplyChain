@@ -15,353 +15,806 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: #0d9488;
+            background: linear-gradient(90deg, #1b5a9b, #4684c3);
             transition: width 0.3s ease;
         }
         .action-link:hover::after {
             width: 100%;
         }
         .dashboard-card {
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 100%);
+        }
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(36, 74, 115, 0.15);
         }
         .transport-option {
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ffffff 0%, #c9dff6 100%);
+            border: 2px solid #9cbde5;
+        }
+        .transport-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(107, 158, 211, 0.2);
+            border-color: #4684c3;
         }
         .transport-option.selected {
-            background-color: #e6fffa;
-            border-color: #0d9488;
+            background: linear-gradient(135deg, #9cbde5 0%, #6a9ed3 100%);
+            border-color: #0e447c;
+            color: white;
         }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 50%, #3b699e 100%);
+        }
+        .section-card {
+            background: linear-gradient(135deg, #ffffff 0%, #c9dff6 5%);
+            border: 1px solid #9cbde5;
+        }
+        .input-focus {
+            transition: all 0.3s ease;
+        }
+        .input-focus:focus {
+            border-color: #4684c3;
+            box-shadow: 0 0 0 3px rgba(70, 132, 195, 0.1);
+            background: linear-gradient(135deg, #ffffff 0%, #c9dff6 2%);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #244a73 0%, #0e447c 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(14, 68, 124, 0.3);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #6a9ed3 0%, #4684c3 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #4684c3 0%, #3b699e 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(70, 132, 195, 0.3);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .route-card {
+            background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 50%, #6a9ed3 100%);
+            border: 2px solid #4684c3;
+        }
+        .info-badge {
+            background: linear-gradient(135deg, #9cbde5 0%, #6a9ed3 100%);
+            color: #0e447c;
+            font-weight: 600;
+        }
+        .pulse-glow {
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(46, 117, 183, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(46, 117, 183, 0.8),
+            0 0 30px rgba(46, 117, 183, 0.4);
+        }
+      }
     </style>
 </head>
-<body class="min-h-screen flex flex-col bg-gray-50">
+<body class="min-h-screen flex flex-col" style="background: linear-gradient(135deg, #c9dff6 0%, #ffffff 50%, #c9dff6 100%);">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center space-x-2">
-                    <div class="h-10 w-10 rounded-md bg-teal-600 flex items-center justify-center">
-                        <i class="fas fa-link text-lg text-white"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-teal-600">Supply<span class="text-gray-700">Chain</span></h1>
-                </div>
-
-                <!-- Desktop Nav -->
-                <div class="hidden md:flex space-x-8">
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Contact</a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-teal-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+     <nav
+      style="
+        background: linear-gradient(
+          135deg,
+          #2e75b7,
+          #4684c3,
+          #afd5ff,
+          #6a9ed3,
+          #3b699e,
+          #1b5a9b
+        );
+      "
+      class="backdrop-blur-lg shadow-md sticky top-0 z-50"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="flex items-center justify-center h-12 w-12 rounded-xl pulse-glow"
+              style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+            >
+              <i class="fas fa-link text-white text-2xl"></i>
             </div>
+            <h1 class="text-2xl font-bold" style="color: #0a2f56">
+              Supply<span style="color: #2e75b7">Chain</span>
+            </h1>
+          </div>
 
-            <!-- Mobile Navigation -->
-            <div id="mobile-nav" class="md:hidden hidden">
-                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                </div>
-            </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(76,175,80,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(233,30,99,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(156,39,176,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Services</a
+            >
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(0,200,83,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Mobile Menu Toggle Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="p-2 rounded-lg "
+              onmouseover="this.style.background='rgba(255,87,34,0.1)'"
+              onmouseout="this.style.background='transparent'"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div
+        id="mobile-nav"
+        class="md:hidden max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+      >
+        <div class="px-4 py-4 space-y-2">
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-green-100"
+            >Home</a
+          >
+          <a
+            href="{% url 'about' %}"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-pink-100"
+            >About</a
+          >
+          <a
+            href="{% url 'services' %}"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-purple-100"
+            >Services</a
+          >
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-green-50"
+            >Contact</a
+          >
+        </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow py-12">
+    <main class="flex-grow py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Breadcrumbs -->
-            <div class="flex items-center text-sm text-gray-500 mb-6">
-                <a href="{% url 'supplier_dashboard' %}" class="hover:text-teal-600">Dashboard</a>
-                <span class="mx-2">></span>
-                <span class="text-gray-700 font-medium">Submit Bid</span>
+            <div class="flex items-center text-sm mb-8">
+                <a href="{% url 'supplier_dashboard' %}" class="text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                    <i class="fas fa-home mr-1"></i>Dashboard
+                </a>
+                <span class="mx-3 text-gray-400">
+                    <i class="fas fa-chevron-right"></i>
+                </span>
+                <span class="font-semibold" style="color: #0e447c;">Submit Bid</span>
             </div>
 
             <!-- Page Header -->
-            <div class="mb-8 bg-teal-600 rounded-xl shadow-md p-8 text-white">
-                <h1 class="text-3xl font-bold mb-2">Submit Bid for {{ quote.product }}</h1>
+            <div class="mb-8 gradient-bg rounded-2xl shadow-xl p-8 text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full -ml-12 -mb-12"></div>
+                <div class="relative">
+                    <h1 class="text-4xl font-bold mb-3">
+                        <i class="fas fa-file-contract mr-3"></i>Submit Bid for {{ quote.product }}
+                    </h1>
+                    <p class="text-blue-100 text-lg">Create your competitive bid with detailed specifications</p>
+                </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-md p-8 mb-8">
-                <!-- Quote Details -->
-                <div class="mb-8">
-                    <div class="mb-4">
-                        <span class="text-lg font-medium text-gray-800">Manufacturer: {{ quote.manufacturer.company_name }} ({{ quote.manufacturer.city }}, {{ quote.manufacturer.state }})</span>
+            <!-- Quote Overview Card -->
+            <div class="section-card rounded-2xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mr-4">
+                        <i class="fas fa-industry text-white text-lg"></i>
                     </div>
-                    <div class="flex flex-wrap gap-6 mb-4">
-                        <div class="bg-teal-50 px-4 py-2 rounded-md">
-                            <span class="text-teal-800">Quantity: {{ quote.quantity }} {{ quote.unit }}</span>
-                        </div>
-                        <div class="bg-teal-50 px-4 py-2 rounded-md">
-                            <span class="text-teal-800">Deadline: {{ quote.deadline|date:"M d, Y" }}</span>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <span class="text-gray-700">Special Requirements: {{ quote.special_requirements|default:"None" }}</span>
+                    <div>
+                        <h2 class="text-2xl font-bold" style="color: #0e447c;">Quote Details</h2>
+                        <p class="text-gray-600">Review the requirements before submitting your bid</p>
                     </div>
                 </div>
 
-                <!-- Bid Form -->
-                <form method="post" id="bid-form" class="space-y-8">
-                    {% csrf_token %}
-
-                    <!-- Pricing Section -->
-                    <div class="border-b border-gray-200 pb-6">
-                        <h2 class="text-xl font-semibold text-teal-600 mb-4">Pricing Information</h2>
-                        <div class="max-w-md">
-                            <label for="id_bid_amount" class="block text-sm font-medium text-gray-700 mb-2">Your Price ({{ quote.currency }})</label>
-                            <div class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
-                                {{ form.bid_amount }}
-                                {% if form.bid_amount.errors %}
-                                <div class="text-red-600 text-sm mt-1">{{ form.bid_amount.errors }}</div>
-                                {% endif %}
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-xl border-l-4" style="border-color: #4684c3;">
+                        <div class="flex items-center">
+                            <i class="fas fa-building text-2xl mr-3" style="color: #0e447c;"></i>
+                            <div>
+                                <p class="text-sm text-gray-600">Manufacturer</p>
+                                <p class="font-bold text-lg" style="color: #0e447c;">{{ quote.manufacturer.company_name }}</p>
+                                <p class="text-gray-700">{{ quote.manufacturer.city }}, {{ quote.manufacturer.state }}</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Transportation Section -->
-                    <div class="border-b border-gray-200 pb-6">
-                        <h2 class="text-xl font-semibold text-teal-600 mb-4">Transportation Details</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="info-badge px-4 py-3 rounded-xl text-center">
+                            <i class="fas fa-boxes block text-xl mb-1"></i>
+                            <p class="text-sm">Quantity</p>
+                            <p class="font-bold">{{ quote.quantity }} {{ quote.unit }}</p>
+                        </div>
+                        <div class="info-badge px-4 py-3 rounded-xl text-center">
+                            <i class="fas fa-calendar-alt block text-xl mb-1"></i>
+                            <p class="text-sm">Deadline</p>
+                            <p class="font-bold">{{ quote.deadline|date:"M d, Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-xl">
+                    <h4 class="font-semibold mb-2" style="color: #0e447c;">
+                        <i class="fas fa-list-ul mr-2"></i>Special Requirements
+                    </h4>
+                    <p class="text-gray-700">{{ quote.special_requirements|default:"No special requirements specified" }}</p>
+                </div>
+            </div>
+
+            <!-- Bid Form -->
+            <form method="post" id="bid-form" class="space-y-8">
+                {% csrf_token %}
+
+                <!-- Pricing Section -->
+                <div class="section-card rounded-2xl shadow-lg p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mr-4">
+                            <i class="fas fa-dollar-sign text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold" style="color: #0e447c;">Pricing Information</h2>
+                            <p class="text-gray-600">Enter your competitive bid amount</p>
+                        </div>
+                    </div>
+
+                    <div class="max-w-md">
+                        <label for="id_bid_amount" class="block text-sm font-semibold mb-3" style="color: #244a73;">
+                            Your Price ({{ quote.currency }})
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <span class="text-gray-500 sm:text-sm">{{ quote.currency }}</span>
+                            </div>
+                            {{ form.bid_amount }}
+                            {% if form.bid_amount.errors %}
+                            <div class="text-red-600 text-sm mt-2 flex items-center">
+                                <i class="fas fa-exclamation-circle mr-1"></i>
+                                {{ form.bid_amount.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transportation Section -->
+                <div class="section-card rounded-2xl shadow-lg p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mr-4">
+                            <i class="fas fa-shipping-fast text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold" style="color: #0e447c;">Transportation Method</h2>
+                            <p class="text-gray-600">Choose your preferred shipping method</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="transport-option rounded-2xl p-6" data-mode="road">
+                            <div class="text-center">
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-truck text-white text-2xl"></i>
+                                </div>
+                                <h3 class="font-bold text-lg mb-2">Road Transport</h3>
+                                <p class="text-sm text-gray-600">Reliable ground shipping</p>
+                            </div>
+                        </div>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <div class="transport-option border border-gray-300 rounded-lg p-4 hover:border-teal-500 cursor-pointer" data-mode="road">
-                                <div class="flex items-center">
-                                    <i class="fas fa-truck text-teal-600 mr-3 text-xl"></i>
-                                    <span class="font-medium">By Road</span>
+                        <div class="transport-option rounded-2xl p-6" data-mode="air">
+                            <div class="text-center">
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-500 flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-plane text-white text-2xl"></i>
                                 </div>
-                            </div>
-                            <div class="transport-option border border-gray-300 rounded-lg p-4 hover:border-teal-500 cursor-pointer" data-mode="air">
-                                <div class="flex items-center">
-                                    <i class="fas fa-plane text-teal-600 mr-3 text-xl"></i>
-                                    <span class="font-medium">By Air</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="display: none;">
-                            <select id="transport_mode" name="transport_mode" required class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md">
-                                <option value="">Select transportation mode</option>
-                                <option value="road">By Road</option>
-                                <option value="air">By Air</option>
-                            </select>
-                        </div>
-
-                        <div id="road-details" style="display: none;" class="bg-gray-50 rounded-lg p-6 mt-4">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Road Transport Details</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-                                <div>
-                                    <label for="vehicle_type" class="block text-sm font-medium text-gray-700 mb-2">Vehicle Type</label>
-                                    <select id="vehicle_type" name="vehicle_type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md">
-                                        <option value="">Select vehicle type</option>
-                                        <option value="small_truck">Small Truck (3.5-7.5 tons)</option>
-                                        <option value="medium_truck">Medium Truck (7.5-16 tons)</option>
-                                        <option value="large_truck">Large Truck (16-32 tons)</option>
-                                        <option value="articulated_truck">Articulated Truck (>32 tons)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="vehicle_count" class="block text-sm font-medium text-gray-700 mb-2">Number of Vehicles</label>
-                                    <input type="number" id="vehicle_count" name="vehicle_count" min="1" value="1" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="load_percentage" class="block text-sm font-medium text-gray-700 mb-2">Load Percentage (%)</label>
-                                    <input type="number" id="load_percentage" name="load_percentage" min="1" max="100" value="100" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
-                                </div>
-                                <div class="flex items-center h-full pt-8">
-                                    <label class="inline-flex items-center">
-                                        <input type="checkbox" id="empty_return" name="empty_return" class="rounded border-gray-300 text-teal-600 shadow-sm focus:border-teal-300 focus:ring focus:ring-teal-200 focus:ring-opacity-50">
-                                        <span class="ml-2 text-gray-700">Empty Return Trip</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="air-details" style="display: none;" class="bg-gray-50 rounded-lg p-6 mt-4">
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Air Transport Details</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="aircraft_type" class="block text-sm font-medium text-gray-700 mb-2">Aircraft Type</label>
-                                    <select id="aircraft_type" name="aircraft_type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md">
-                                        <option value="">Select aircraft type</option>
-                                        <option value="cargo_plane">Cargo Plane</option>
-                                        <option value="passenger_plane">Passenger Plane (Cargo Hold)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="flight_count" class="block text-sm font-medium text-gray-700 mb-2">Number of Flights</label>
-                                    <input type="number" id="flight_count" name="flight_count" min="1" value="1" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
-                                </div>
+                                <h3 class="font-bold text-lg mb-2">Air Transport</h3>
+                                <p class="text-sm text-gray-600">Fast air shipping</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Timing Section -->
-                    <div class="border-b border-gray-200 pb-6">
-                        <h2 class="text-xl font-semibold text-teal-600 mb-4">Timing Information</h2>
+                    <div style="display: none;">
+                        <select id="transport_mode" name="transport_mode" required class="input-focus mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none sm:text-sm rounded-lg">
+                            <option value="">Select transportation mode</option>
+                            <option value="road">By Road</option>
+                            <option value="air">By Air</option>
+                        </select>
+                    </div>
+
+                    <!-- Road Transport Details -->
+                    <div id="road-details" style="display: none;" class="bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl p-6 mt-6 border-l-4 border-orange-400">
+                        <h3 class="text-xl font-bold mb-6 flex items-center" style="color: #0e447c;">
+                            <i class="fas fa-truck mr-3"></i>Road Transport Configuration
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="vehicle_type" class="block text-sm font-semibold mb-2" style="color: #244a73;">Vehicle Type</label>
+                                <select id="vehicle_type" name="vehicle_type" class="input-focus mt-1 block w-full pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none sm:text-sm rounded-lg">
+                                    <option value="">Select vehicle type</option>
+                                    <option value="small_truck">Small Truck (3.5-7.5 tons)</option>
+                                    <option value="medium_truck">Medium Truck (7.5-16 tons)</option>
+                                    <option value="large_truck">Large Truck (16-32 tons)</option>
+                                    <option value="articulated_truck">Articulated Truck (>32 tons)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="vehicle_count" class="block text-sm font-semibold mb-2" style="color: #244a73;">Number of Vehicles</label>
+                                <input type="number" id="vehicle_count" name="vehicle_count" min="1" value="1" class="input-focus mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-3 px-3 focus:outline-none sm:text-sm">
+                            </div>
+                        </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="lead_time" class="block text-sm font-medium text-gray-700 mb-2">Lead Time (days for production/processing)</label>
-                                <input type="number" id="lead_time" name="lead_time" min="0" step="1" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
-                                <div class="text-sm text-gray-500 mt-1">
-                                    Enter the number of days needed to prepare the goods for shipment
-                                </div>
+                                <label for="load_percentage" class="block text-sm font-semibold mb-2" style="color: #244a73;">Load Percentage (%)</label>
+                                <input type="number" id="load_percentage" name="load_percentage" min="1" max="100" value="100" class="input-focus mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-3 px-3 focus:outline-none sm:text-sm">
                             </div>
+                            <div class="flex items-center h-full pt-8">
+                                <label class="inline-flex items-center bg-white rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
+                                    <input type="checkbox" id="empty_return" name="empty_return" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                    <span class="ml-3 font-medium text-gray-700">Empty Return Trip</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- Air Transport Details -->
+                    <div id="air-details" style="display: none;" class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-6 mt-6 border-l-4 border-blue-400">
+                        <h3 class="text-xl font-bold mb-6 flex items-center" style="color: #0e447c;">
+                            <i class="fas fa-plane mr-3"></i>Air Transport Configuration
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="id_delivery_time" class="block text-sm font-medium text-gray-700 mb-2">Delivery Time (days)</label>
-                                {{ form.delivery_time }}
-                                {% if form.delivery_time.errors %}
-                                <div class="text-red-600 text-sm mt-1">{{ form.delivery_time.errors }}</div>
-                                {% endif %}
-                                <div class="text-sm text-gray-500 mt-1">
-                                    This will be calculated automatically
-                                </div>
+                                <label for="aircraft_type" class="block text-sm font-semibold mb-2" style="color: #244a73;">Aircraft Type</label>
+                                <select id="aircraft_type" name="aircraft_type" class="input-focus mt-1 block w-full pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none sm:text-sm rounded-lg">
+                                    <option value="">Select aircraft type</option>
+                                    <option value="cargo_plane">Cargo Plane</option>
+                                    <option value="passenger_plane">Passenger Plane (Cargo Hold)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="flight_count" class="block text-sm font-semibold mb-2" style="color: #244a73;">Number of Flights</label>
+                                <input type="number" id="flight_count" name="flight_count" min="1" value="1" class="input-focus mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-3 px-3 focus:outline-none sm:text-sm">
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Route Information -->
-                    <div class="border-b border-gray-200 pb-6">
-                        <h3 class="text-xl font-semibold text-teal-600 mb-4">Route Information</h3>
-                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <span class="block text-sm font-medium text-gray-700">From:</span>
-                                    <span class="text-gray-900">{{ supplier.company_name }} ({{ supplier.city }}, {{ supplier.state }})</span>
-                                </div>
-                                <div>
-                                    <span class="block text-sm font-medium text-gray-700">To:</span>
-                                    <span class="text-gray-900">{{ quote.manufacturer.company_name }} ({{ quote.manufacturer.city }}, {{ quote.manufacturer.state }})</span>
-                                </div>
-                            </div>
+                <!-- Timing Section -->
+                <div class="section-card rounded-2xl shadow-lg p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center mr-4">
+                            <i class="fas fa-clock text-white text-lg"></i>
                         </div>
-
-                        <div id="route-results" class="bg-gray-50 p-4 rounded-lg">
-                            <div class="text-center text-gray-500 py-4">
-                                <p>Select transportation mode and click "Calculate" to see route details.</p>
-                            </div>
-                        </div>
-
-                        <div id="route-loading" style="display: none;" class="bg-gray-50 p-4 rounded-lg text-center">
-                            <div class="flex items-center justify-center">
-                                <svg class="animate-spin h-5 w-5 mr-3 text-teal-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                <span>Calculating route information...</span>
-                            </div>
-                        </div>
-
-                        <div id="delivery-time-result" class="mt-4"></div>
-                    </div>
-
-                    <!-- Additional Information -->
-                    <div class="pb-6">
-                        <h2 class="text-xl font-semibold text-teal-600 mb-4">Additional Information</h2>
                         <div>
-                            <label for="id_comments" class="block text-sm font-medium text-gray-700 mb-2">Comments (Optional)</label>
-                            {{ form.comments }}
-                            {% if form.comments.errors %}
-                            <div class="text-red-600 text-sm mt-1">{{ form.comments.errors }}</div>
+                            <h2 class="text-2xl font-bold" style="color: #0e447c;">Delivery Timeline</h2>
+                            <p class="text-gray-600">Specify production and delivery timeframes</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 p-6 rounded-xl">
+                            <label for="lead_time" class="block text-sm font-semibold mb-3" style="color: #244a73;">
+                                <i class="fas fa-cog mr-2"></i>Lead Time (days for production/processing)
+                            </label>
+                            <input type="number" id="lead_time" name="lead_time" min="0" step="1" required class="input-focus mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-3 px-3 focus:outline-none sm:text-sm" >
+                            <div class="text-sm text-gray-600 mt-2 flex items-center">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Days needed to prepare goods for shipment
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-xl" >
+                            <label for="id_delivery_time" class="block text-sm font-semibold mb-3" style="color: #244a73;">
+                                <i class="fas fa-shipping-fast mr-2"></i>Delivery Time (days)
+                            </label>
+                            {{ form.delivery_time }}
+                            {% if form.delivery_time.errors %}
+                            <div class="text-red-600 text-sm mt-2 flex items-center">
+                                <i class="fas fa-exclamation-circle mr-1"></i>
+                                {{ form.delivery_time.errors }}
+                            </div>
                             {% endif %}
-                            <div class="text-sm text-gray-500 mt-1">
-                                Add any special conditions or notes about your bid
+                            <div class="text-sm text-gray-600 mt-2 flex items-center">
+                                <i class="fas fa-calculator mr-1"></i>
+                                Calculated automatically after route calculation
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Route Information -->
+                <div class="section-card rounded-2xl shadow-lg p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center mr-4">
+                            <i class="fas fa-route text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold" style="color: #0e447c;">Route Planning</h2>
+                            <p class="text-gray-600">Review shipping route and calculate delivery time</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-indigo-50 to-indigo-100 p-6 rounded-xl mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center mr-4">
+                                    <i class="fas fa-map-marker-alt text-white"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-sm font-semibold text-gray-700">From:</span>
+                                    <span class="font-bold" style="color: #0e447c;">{{ supplier.company_name }}</span>
+                                    <p class="text-gray-600 text-sm">{{ supplier.city }}, {{ supplier.state }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center mr-4">
+                                    <i class="fas fa-flag text-white"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-sm font-semibold text-gray-700">To:</span>
+                                    <span class="font-bold" style="color: #0e447c;">{{ quote.manufacturer.company_name }}</span>
+                                    <p class="text-gray-600 text-sm">{{ quote.manufacturer.city }}, {{ quote.manufacturer.state }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Submit Buttons -->
+                    <div id="route-results" class="route-card rounded-xl p-6 mb-4">
+                        <div class="text-center text-gray-600 py-8">
+                            <i class="fas fa-map text-4xl mb-4 text-gray-400"></i>
+                            <p class="text-lg font-medium">Select transportation mode and click "Calculate" to see route details</p>
+                        </div>
+                    </div>
+
+                    <div id="route-loading" style="display: none;" class="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-xl text-center">
+                        <div class="flex items-center justify-center">
+                            <svg class="animate-spin h-6 w-6 mr-3" style="color: #4684c3;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span class="font-medium">Calculating optimal route...</span>
+                        </div>
+                    </div>
+
+                    <div id="delivery-time-result" class="mt-4"></div>
+                    
+                    <div class="mt-6">
+                        <button type="button" id="calculate-btn" class="btn-secondary text-white py-3 px-8 rounded-xl font-semibold">
+                            <i class="fas fa-calculator mr-2"></i>Calculate Route & Delivery Time
+                        </button>
+                    </div>
+                </div>
+
+                   <!-- Additional Information -->
+                <div class="section-card rounded-2xl shadow-lg p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center mr-4">
+                            <i class="fas fa-comment-dots text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold" style="color: #0e447c;">Additional Information</h2>
+                            <p class="text-gray-600">Add any special conditions or notes about your bid</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-teal-50 to-teal-100 p-6 rounded-xl">
+                        <label for="id_comments" class="block text-sm font-semibold mb-3" style="color: #244a73;">
+                            <i class="fas fa-edit mr-2"></i>Comments (Optional)
+                        </label>
+                        {{ form.comments }}
+                        {% if form.comments.errors %}
+                        <div class="text-red-600 text-sm mt-2 flex items-center">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            {{ form.comments.errors }}
+                        </div>
+                        {% endif %}
+                        <div class="text-sm text-gray-600 mt-2 flex items-center">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            Include special requirements, terms, or additional details
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Buttons -->
+                <div class="section-card rounded-2xl shadow-lg p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mr-4">
+                            <i class="fas fa-paper-plane text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold" style="color: #0e447c;">Submit Your Bid</h2>
+                            <p class="text-gray-600">Review and submit your competitive proposal</p>
+                        </div>
+                    </div>
+
                     <div class="flex flex-col sm:flex-row items-center justify-between">
                         <div class="flex space-x-4 w-full sm:w-auto mb-4 sm:mb-0">
-                            <button type="button" id="calculate-btn" class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-6 rounded-md transition">
-                                <i class="fas fa-calculator mr-2"></i>Calculate Delivery Time
-                            </button>
-                            <button type="submit" id="submit-btn" class="bg-teal-600 hover:bg-teal-700 text-white py-2 px-6 rounded-md transition">
+                            <button type="submit" id="submit-btn" class="bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white py-3 px-8 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
                                 <i class="fas fa-paper-plane mr-2"></i>Submit Bid
                             </button>
                         </div>
-                        <a href="{% url 'supplier_dashboard' %}" class="text-teal-600 hover:text-teal-800">
-                            <i class="fas fa-arrow-left mr-1"></i>Cancel
+                        <a href="{% url 'supplier_dashboard' %}" class="text-teal-600 hover:text-teal-800 font-medium flex items-center transition-colors duration-200">
+                            <i class="fas fa-arrow-left mr-2"></i>Cancel & Return to Dashboard
                         </a>
                     </div>
+                </div>
                 </form>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 py-12 mt-auto">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div class="h-10 w-10 rounded-md bg-teal-600 flex items-center justify-center">
-                            <i class="fas fa-link text-lg text-white"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-teal-400">Chain</span></h1>
-                    </div>
-                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-teal-400">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-teal-400">About</a></li>
-                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-teal-400">Services</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-teal-400">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-teal-400">Help Center</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-teal-400">Contact</a></li>
-                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-teal-400">FAQ</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Contact</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-teal-400"></i>
-                            123 Supply Chain Blvd, Business District, 10001
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope mr-3 text-teal-400"></i>
-                            info@supplychain.com
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone mr-3 text-teal-400"></i>
-                            +1 (555) 123-4567
-                        </li>
-                    </ul>
-                </div>
+     <footer
+      class="text-white py-16 relative"
+      style="background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%)"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-lg"
+                style="
+                  background: linear-gradient(135deg, #2e75b7 0%, #4684c3 100%);
+                "
+              >
+                <i class="fas fa-link text-xl"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">
+                Supply<span style="color: #9cbde5">Chain</span>
+              </h1>
             </div>
-            
-            <div class="pt-8 mt-8 border-t border-gray-700 text-center">
-                <p class="text-gray-400">© 2025 Supply Chain Portal. All rights reserved.</p>
+            <p class="text-blue-200 mb-6 leading-relaxed">
+              Connecting manufacturers and suppliers through innovative
+              technology and intelligent solutions.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-facebook"></i>
+              </a>
             </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'home' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'about' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'services' %}"
+                  class="text-white flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'manufacturer_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Manufacturer
+                  Login</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'supplier_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Supplier
+                  Login</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'faq' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'help' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Help
+                  Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact
+                  Support</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Live Chat</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Legal</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'terms' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Terms &
+                  Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'privacy' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Privacy
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Cookie
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>GDPR
+                  Compliance</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="section-divider opacity-30"></div>
+
+        <div class="pt-8 text-center">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-blue-200 mb-4 md:mb-0">
+              © 2024 Supply Chain Portal. All Rights Reserved.
+            </p>
+            <div class="flex items-center space-x-6 text-sm text-blue-200">
+              <span class="flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>
+                SSL Secured
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-award mr-2"></i>
+                ISO Certified
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-clock mr-2"></i>
+                24/7 Support
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background decoration -->
+      <div class="absolute top-0 right-0 w-64 h-64 opacity-5">
+        <i class="fas fa-cogs text-9xl"></i>
+      </div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 opacity-5">
+        <i class="fas fa-shipping-fast text-8xl"></i>
+      </div>
     </footer>
 
     <script>
@@ -390,21 +843,28 @@
             const deliveryTimeResult = document.getElementById("delivery-time-result");
             const deliveryTimeInput = document.getElementById("id_delivery_time");
             const submitBtn = document.getElementById("submit-btn");
-            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            const mobileNav = document.getElementById('mobile-nav');
+        const toggleBtn = document.getElementById("mobile-menu-toggle");
+        const mobileNav = document.getElementById("mobile-nav");
 
-            // Mobile menu toggle
-            if (mobileMenuToggle && mobileNav) {
-                mobileMenuToggle.addEventListener('click', () => {
-                    if (mobileNav.classList.contains('hidden')) {
-                        mobileNav.classList.remove('hidden');
-                        mobileNav.classList.add('block');
-                    } else {
-                        mobileNav.classList.add('hidden');
-                        mobileNav.classList.remove('block');
-                    }
-                });
-            }
+        toggleBtn.addEventListener("click", () => {
+          const isOpen = mobileNav.classList.contains("max-h-[500px]");
+
+          if (isOpen) {
+            mobileNav.classList.remove("max-h-[500px]");
+            mobileNav.classList.add("max-h-0");
+          } else {
+            mobileNav.classList.remove("max-h-0");
+            mobileNav.classList.add("max-h-[500px]");
+          }
+        });
+
+        // Optional: Close mobile nav when any link is clicked
+        document.querySelectorAll("#mobile-nav a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileNav.classList.remove("max-h-[500px]");
+            mobileNav.classList.add("max-h-0");
+          });
+        });
 
             // Transport mode selector functionality
             transportOptions.forEach(option => {

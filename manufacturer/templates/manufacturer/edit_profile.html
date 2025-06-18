@@ -3,149 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | Supply Chain Portal</title>
+    <title>Edit Profile | Supply Chain Portal</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+     <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
     <style>
+        :root {
+            --light-steel-blue: #9cbde5;
+            --rich-medium-blue: #0e447c;
+            --muted-azure: #4684c3;
+            --soft-denim: #6a9ed3;
+            --very-pale-blue: #c9dff6;
+            --deep-slate-blue: #244a73;
+            --cool-blue: #3b699e;
+            --medium-ocean-blue: #1b5a9b;
+        }
+        
         body {
-            background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 30%, #6a9ed3 70%, #4684c3 100%);
+            background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 25%, #6a9ed3 75%, #4684c3 100%);
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
         }
+        
         .dashboard-card {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform-origin: center;
-            backdrop-filter: blur(15px);
-            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            background: linear-gradient(145deg, rgba(0, 136, 215, 0.471), rgba(201, 223, 246, 0.1));
             border: 1px solid rgba(156, 189, 229, 0.3);
         }
+        
         .dashboard-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(14, 68, 124, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 25px 50px rgba(14, 68, 124, 0.15);
         }
+        
         .action-link {
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
+        
         .action-link::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #0e447c, #1b5a9b);
+            height: 2px;
+            background: linear-gradient(90deg, #1b5a9b, #3b699e);
             transition: width 0.3s ease;
         }
+        
         .action-link:hover::after {
             width: 100%;
         }
-        .form-input {
-            transition: all 0.3s ease;
-            background: rgba(201, 223, 246, 0.1);
-            border: 2px solid rgba(106, 158, 211, 0.3);
-        }
-        .form-input:focus {
-            background: rgba(255, 255, 255, 0.9);
-            border-color: #0e447c;
-            box-shadow: 0 0 0 4px rgba(14, 68, 124, 0.1);
-            transform: translateY(-2px);
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 50%, #244a73 100%);
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(14, 68, 124, 0.3);
-        }
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #244a73 0%, #0e447c 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(14, 68, 124, 0.4);
-        }
-        .btn-secondary {
-            background: rgba(201, 223, 246, 0.3);
-            border: 2px solid #9cbde5;
-            color: #244a73;
-            transition: all 0.3s ease;
-        }
-        .btn-secondary:hover {
-            background: rgba(156, 189, 229, 0.4);
-            border-color: #0e447c;
-            transform: translateY(-2px);
-        }
-        .nav-gradient {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(201, 223, 246, 0.9) 100%);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(106, 158, 211, 0.3);
-        }
-        .section-divider {
-            background: linear-gradient(90deg, transparent, #9cbde5, transparent);
-            height: 1px;
-            margin: 32px 0;
-        }
-        .form-section {
-            background: rgba(201, 223, 246, 0.08);
-            border-radius: 16px;
-            padding: 28px;
-            margin-bottom: 28px;
-            border: 1px solid rgba(156, 189, 229, 0.2);
+        
+        .form-group {
             position: relative;
         }
-        .form-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #0e447c, #4684c3, #9cbde5);
-            border-radius: 16px 16px 0 0;
+        
+        .form-group input,
+        .form-group textarea {
+            transition: all 0.3s ease;
+            border: 2px solid rgba(156, 189, 229, 0.3);
+            background: rgba(255, 255, 255, 0.8);
         }
-        .floating-label {
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #4684c3;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 0 3px rgba(70, 132, 195, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .form-group label {
             color: #244a73;
             font-weight: 600;
             margin-bottom: 8px;
             display: block;
-            font-size: 0.875rem;
-            letter-spacing: 0.025em;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .registration-header {
-            background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 50%, #3b699e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        
+        .gradient-button {
+            background: linear-gradient(135deg, #1b5a9b 0%, #3b699e 50%, #4684c3 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        .step-indicator {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 32px;
+        
+        .gradient-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(27, 90, 155, 0.3);
         }
-        .step-item {
-            display: flex;
-            align-items: center;
-            color: #6a9ed3;
-            font-weight: 500;
+        
+        .gradient-button:active {
+            transform: translateY(0);
         }
-        .step-number {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #9cbde5, #c9dff6);
+        
+        .cancel-button {
+            background: linear-gradient(135deg, rgba(156, 189, 229, 0.2), rgba(201, 223, 246, 0.3));
+            border: 2px solid #9cbde5;
             color: #244a73;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 12px;
-            font-weight: bold;
-            font-size: 14px;
+            transition: all 0.3s ease;
         }
-        .step-line {
-            width: 60px;
+        
+        .cancel-button:hover {
+            background: linear-gradient(135deg, rgba(156, 189, 229, 0.3), rgba(201, 223, 246, 0.4));
+            border-color: #6a9ed3;
+            transform: translateY(-1px);
+        }
+        
+        .nav-gradient {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(201, 223, 246, 0.1));
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(156, 189, 229, 0.2);
+        }
+        
+        .footer-gradient {
+            background: linear-gradient(135deg, #244a73 0%, #0e447c 50%, #244a73 100%);
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, rgba(27, 90, 155, 0.1), rgba(70, 132, 195, 0.1));
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(156, 189, 229, 0.3);
+        }
+        
+        .section-divider {
             height: 2px;
-            background: linear-gradient(90deg, #9cbde5, #c9dff6);
-            margin: 0 16px;
+            background: linear-gradient(90deg, transparent, #9cbde5, transparent);
+            margin: 2rem 0;
         }
-          .pulse-glow {
+        
+        .input-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6a9ed3;
+            opacity: 0.6;
+        }
+        .pulse-glow {
         animation: pulse-glow 2s infinite;
       }
 
@@ -163,15 +173,20 @@
 </head>
 <body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav style=" background: linear-gradient(
+     <nav
+      style="
+        background: linear-gradient(
           135deg,
           #2e75b7,
           #4684c3,
+          #afd5ff,
           #6a9ed3,
-          #c9dff6,
           #3b699e,
           #1b5a9b
-        );" class=" backdrop-blur-lg shadow-md sticky top-0 z-50">
+        );
+      "
+      class="backdrop-blur-lg shadow-md sticky top-0 z-50"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
           <!-- Brand -->
@@ -191,28 +206,28 @@
           <div class="hidden md:flex space-x-8">
             <a
               href="#"
-              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#4caf50]"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
               onmouseover="this.style.background='rgba(76,175,80,0.1)'"
               onmouseout="this.style.background='transparent'"
               >Home</a
             >
             <a
               href="{% url 'about' %}"
-              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#e91e63]"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
               onmouseover="this.style.background='rgba(233,30,99,0.1)'"
               onmouseout="this.style.background='transparent'"
               >About</a
             >
             <a
               href="{% url 'services' %}"
-              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#9c27b0]"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
               onmouseover="this.style.background='rgba(156,39,176,0.1)'"
               onmouseout="this.style.background='transparent'"
               >Services</a
             >
             <a
               href="#"
-              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#00c853]"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
               onmouseover="this.style.background='rgba(0,200,83,0.1)'"
               onmouseout="this.style.background='transparent'"
               >Contact</a
@@ -223,7 +238,7 @@
           <div class="md:hidden">
             <button
               id="mobile-menu-toggle"
-              class="p-2 rounded-lg text-[#ff5722]"
+              class="p-2 rounded-lg "
               onmouseover="this.style.background='rgba(255,87,34,0.1)'"
               onmouseout="this.style.background='transparent'"
             >
@@ -253,22 +268,22 @@
         <div class="px-4 py-4 space-y-2">
           <a
             href="#"
-            class="block px-4 py-2 rounded-lg font-medium text-[#4caf50] hover:bg-green-100"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-green-100"
             >Home</a
           >
           <a
             href="{% url 'about' %}"
-            class="block px-4 py-2 rounded-lg font-medium text-[#e91e63] hover:bg-pink-100"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-pink-100"
             >About</a
           >
           <a
             href="{% url 'services' %}"
-            class="block px-4 py-2 rounded-lg font-medium text-[#9c27b0] hover:bg-purple-100"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-purple-100"
             >Services</a
           >
           <a
             href="#"
-            class="block px-4 py-2 rounded-lg font-medium text-[#00c853] hover:bg-green-50"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-green-50"
             >Contact</a
           >
         </div>
@@ -276,198 +291,149 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-4 py-12">
-        <div class="max-w-4xl mx-auto">
-            <!-- Registration Header -->
-            <div class="text-center mb-12">
-                <div class="inline-block p-6 rounded-full mb-6" style="background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 100%);">
-                    <div class="w-20 h-20 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 100%);">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
-                        </svg>
+    <main class="flex-grow container mx-auto px-4 py-8"style="
+        background: linear-gradient(
+          45deg,
+          #2e75b7,
+          #4684c3,
+          #a4d0ff,
+          #6a9ed3,
+          #3b699e,
+          #1b5a9b
+        );
+      ">
+        <div class="max-w-6xl mx-auto">
+            <!-- Profile Header -->
+            <div class="profile-header" style="background: linear-gradient(145deg, rgba(0, 136, 215, 0.471), rgba(201, 223, 246, 0.1))">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-4xl font-extrabold mb-2" style="color: #0e447c;">Edit Profile</h1>
+                        <p class="text-lg" style="color: #3b699e;">Update your manufacturer information and company details</p>
                     </div>
-                </div>
-                <h1 class="text-5xl font-bold mb-4 registration-header">Join Our Network</h1>
-                <p class="text-xl mb-6" style="color: #3b699e;">Register as a manufacturer and connect with supply chain partners worldwide</p>
-                
-                <!-- Step Indicator -->
-                <div class="step-indicator">
-                    <div class="step-item">
-                        <div class="step-number">1</div>
-                        <span>Personal Info</span>
-                    </div>
-                    <div class="step-line"></div>
-                    <div class="step-item">
-                        <div class="step-number">2</div>
-                        <span>Company Details</span>
-                    </div>
-                    <div class="step-line"></div>
-                    <div class="step-item">
-                        <div class="step-number">3</div>
-                        <span>Products & Services</span>
+                    <div class="hidden md:block">
+                        <div class="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold text-white" style="background: linear-gradient(135deg, #1b5a9b, #6a9ed3);">
+                            {{ manufacturer.first_name.0|default:"U" }}{{ manufacturer.last_name.0|default:"" }}
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Registration Form -->
-            <div class="dashboard-card rounded-2xl shadow-2xl overflow-hidden">
-                <div class="p-10">
-                    <form method="post" class="space-y-8">
-                        {% csrf_token %}
+            
+            <div class="dashboard-card p-8 rounded-2xl shadow-2xl">
+                <form method="post" class="space-y-8">
+                    {% csrf_token %}
+                    
+                    <!-- Personal Information Section -->
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-3 mb-6">
+                            
+                            <h2 class="text-xl font-bold" style="color: #244a73;">Personal Information</h2>
+                        </div>
                         
-                        <!-- Personal Information Section -->
-                        <div class="form-section">
-                            <div class="flex items-center mb-6">
-                                <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, #0e447c, #4684c3);">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                    </svg>
-                                </div>
-                                <h3 class="text-2xl font-bold" style="color: #244a73;">Personal Information</h3>
-                            </div>
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div class="form-group">
-                                    <label class="floating-label">First Name *</label>
-                                    <input type="text" name="first_name" value="{{ manufacturer.first_name }}" 
-                                           class="form-input w-full px-4 py-4 rounded-xl focus:outline-none transition-all duration-300"
-                                           placeholder="Enter your first name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="floating-label">Last Name *</label>
-                                    <input type="text" name="last_name" value="{{ manufacturer.last_name }}" 
-                                           class="form-input w-full px-4 py-4 rounded-xl focus:outline-none transition-all duration-300"
-                                           placeholder="Enter your last name" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Company Information Section -->
-                        <div class="form-section">
-                            <div class="flex items-center mb-6">
-                                <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, #1b5a9b, #6a9ed3);">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                                    </svg>
-                                </div>
-                                <h3 class="text-2xl font-bold" style="color: #244a73;">Company Details</h3>
-                            </div>
-                            <div class="space-y-6">
-                                <div class="form-group">
-                                    <label class="floating-label">Company Name *</label>
-                                    <input type="text" name="company_name" value="{{ manufacturer.company_name }}" 
-                                           class="form-input w-full px-4 py-4 rounded-xl focus:outline-none transition-all duration-300"
-                                           placeholder="Enter your company name" required>
-                                </div>
-                                <div class="grid md:grid-cols-2 gap-6">
-                                    <div class="form-group">
-                                        <label class="floating-label">Business Type *</label>
-                                        <input type="text" name="business_type" value="{{ manufacturer.business_type }}" 
-                                               class="form-input w-full px-4 py-4 rounded-xl focus:outline-none transition-all duration-300"
-                                               placeholder="e.g., Manufacturing, Electronics, Textiles" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="floating-label">Company Website</label>
-                                        <input type="url" name="website" value="{{ manufacturer.website }}" 
-                                               class="form-input w-full px-4 py-4 rounded-xl focus:outline-none transition-all duration-300"
-                                               placeholder="https://www.yourcompany.com">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Location & Contact Section -->
-                        <div class="form-section">
-                            <div class="flex items-center mb-6">
-                                <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, #3b699e, #9cbde5);">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    </svg>
-                                </div>
-                                <h3 class="text-2xl font-bold" style="color: #244a73;">Location & Contact</h3>
-                            </div>
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div class="form-group">
-                                    <label class="floating-label">City *</label>
-                                    <input type="text" name="city" value="{{ manufacturer.city }}" 
-                                           class="form-input w-full px-4 py-4 rounded-xl focus:outline-none transition-all duration-300"
-                                           placeholder="Enter city name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="floating-label">State/Province *</label>
-                                    <input type="text" name="state" value="{{ manufacturer.state }}" 
-                                           class="form-input w-full px-4 py-4 rounded-xl focus:outline-none transition-all duration-300"
-                                           placeholder="Enter state or province" required>
-                                </div>
-                                <div class="form-group md:col-span-2">
-                                    <label class="floating-label">Phone Number *</label>
-                                    <input type="text" name="phone_number" value="{{ manufacturer.phone_number }}" 
-                                           class="form-input w-full px-4 py-4 rounded-xl focus:outline-none transition-all duration-300"
-                                           placeholder="+1 (555) 123-4567" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Products & Services Section -->
-                        <div class="form-section">
-                            <div class="flex items-center mb-6">
-                                <div class="w-10 h-10 rounded-full flex items-center justify-center mr-4" style="background: linear-gradient(135deg, #4684c3, #c9dff6);">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                                    </svg>
-                                </div>
-                                <h3 class="text-2xl font-bold" style="color: #244a73;">Products & Services</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" name="first_name" value="{{ manufacturer.first_name }}" 
+                                       class="w-full px-4 py-3 rounded-lg focus:outline-none transition-all duration-300">
                             </div>
                             <div class="form-group">
-                                <label class="floating-label">Key Products & Services *</label>
-                                <textarea name="key_products" 
-                                          class="form-input w-full px-4 py-4 rounded-xl focus:outline-none transition-all duration-300 h-40 resize-none"
-                                          placeholder="Describe your main products, services, and capabilities. Include manufacturing specialties, certifications, and key offerings that would interest potential partners..."
-                                          required>{{ manufacturer.key_products }}</textarea>
-                                <div class="mt-3 flex items-center text-sm" style="color: #6a9ed3;">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span>Be specific about your products and services to help potential partners find you easily.</span>
-                                </div>
+                                <label>Last Name</label>
+                                <input type="text" name="last_name" value="{{ manufacturer.last_name }}" 
+                                       class="w-full px-4 py-3 rounded-lg focus:outline-none transition-all duration-300">
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Terms and Conditions -->
-                        <div class="form-section">
-                            <div class="flex items-start">
-                                <input type="checkbox" id="terms" name="terms" class="mt-1 mr-3 w-5 h-5 rounded border-2" style="border-color: #9cbde5; color: #0e447c;" required>
-                                <label for="terms" class="text-sm" style="color: #244a73;">
-                                    I agree to the <a href="#" class="font-semibold hover:underline" style="color: #0e447c;">Terms of Service</a> and 
-                                    <a href="#" class="font-semibold hover:underline" style="color: #0e447c;">Privacy Policy</a>. 
-                                    I understand that my information will be used to connect me with potential supply chain partners.
-                                </label>
-                            </div>
-                        </div>
+                    <div class="section-divider"></div>
 
-                        <!-- Action Buttons -->
-                        <div class="pt-8 border-t" style="border-color: rgba(156, 189, 229, 0.3);">
-                            <div class="flex flex-col sm:flex-row gap-4">
-                                <button type="submit" class="btn-primary flex-1 px-8 py-4 rounded-xl text-white font-bold text-lg">
-                                    <svg class="w-6 h-6 inline-block mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
-                                    </svg>
-                                    Complete Registration
-                                </button>
-                                <a href="{% url 'manufacturer_profile' %}" class="btn-secondary flex-1 px-8 py-4 rounded-xl font-bold text-lg text-center">
-                                    <svg class="w-6 h-6 inline-block mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                                    </svg>
-                                    Back to Login
-                                </a>
-                            </div>
-                            <p class="text-center mt-6 text-sm" style="color: #6a9ed3;">
-                                Already have an account? 
-                                <a href="#" class="font-semibold hover:underline" style="color: #0e447c;">Sign in here</a>
-                            </p>
+                    <!-- Company Information Section -->
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-3 mb-6">
+                            
+                            <h2 class="text-xl font-bold" style="color: #244a73;">Company Information</h2>
                         </div>
-                    </form>
-                </div>
+                        
+                        <div class="grid md:grid-cols-1 gap-6">
+                            <div class="form-group">
+                                <label>Company Name</label>
+                                <input type="text" name="company_name" value="{{ manufacturer.company_name }}" 
+                                       class="w-full px-4 py-3 rounded-lg focus:outline-none transition-all duration-300">
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="form-group">
+                                <label>Business Type</label>
+                                <input type="text" name="business_type" value="{{ manufacturer.business_type }}" 
+                                       class="w-full px-4 py-3 rounded-lg focus:outline-none transition-all duration-300">
+                            </div>
+                            <div class="form-group">
+                                <label>Website</label>
+                                <input type="url" name="website" value="{{ manufacturer.website }}" 
+                                       class="w-full px-4 py-3 rounded-lg focus:outline-none transition-all duration-300"
+                                       placeholder="https://example.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <!-- Contact Information Section -->
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-3 mb-6">
+                            
+                            <h2 class="text-xl font-bold" style="color: #244a73;">Contact Information</h2>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" name="city" value="{{ manufacturer.city }}" 
+                                       class="w-full px-4 py-3 rounded-lg focus:outline-none transition-all duration-300">
+                            </div>
+                            <div class="form-group">
+                                <label>State</label>
+                                <input type="text" name="state" value="{{ manufacturer.state }}" 
+                                       class="w-full px-4 py-3 rounded-lg focus:outline-none transition-all duration-300">
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-1 gap-6">
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="text" name="phone_number" value="{{ manufacturer.phone_number }}" 
+                                       class="w-full px-4 py-3 rounded-lg focus:outline-none transition-all duration-300"
+                                       placeholder="+1 (555) 123-4567">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <!-- Products Section -->
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-3 mb-6">
+                            
+                            <h2 class="text-xl font-bold" style="color: #244a73;">Products & Services</h2>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Key Products</label>
+                            <textarea name="key_products" 
+                                      class="w-full px-4 py-3 rounded-lg focus:outline-none transition-all duration-300 h-32 resize-none"
+                                      placeholder="Describe your main products and services...">{{ manufacturer.key_products }}</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-8">
+                        <button type="submit" class="gradient-button text-white px-8 py-3 rounded-lg font-semibold text-lg flex-1 sm:flex-none">
+                            💾 Save Changes
+                        </button>
+                        <a href="{% url 'manufacturer_profile' %}" class="cancel-button px-8 py-3 rounded-lg font-semibold text-lg text-center flex-1 sm:flex-none">
+                            ↩️ Cancel
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
     </main>
@@ -689,6 +655,7 @@
         <i class="fas fa-shipping-fast text-8xl"></i>
       </div>
     </footer>
+
     <script>
       const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
       const mobileNav = document.getElementById("mobile-nav");
@@ -713,5 +680,5 @@
         });
       });
     </script>
-</body>
+  </body>
 </html>

@@ -1,99 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manufacturer Profile | Supply Chain Portal</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --light-steel-blue: #9cbde5;
-            --rich-medium-blue: #0e447c;
-            --muted-azure: #4684c3;
-            --soft-denim: #6a9ed3;
-            --very-pale-blue: #c9dff6;
-            --deep-slate-blue: #244a73;
-            --cool-blue: #3b699e;
-            --medium-ocean-blue: #1b5a9b;
+      :root {
+        --light-steel-blue: #9cbde5;
+        --rich-medium-blue: #0e447c;
+        --muted-azure: #4684c3;
+        --soft-denim: #6a9ed3;
+        --very-pale-blue: #c9dff6;
+        --deep-slate-blue: #244a73;
+        --cool-blue: #3b699e;
+        --medium-ocean-blue: #1b5a9b;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 100%);
+        min-height: 100vh;
+      }
+
+      .dashboard-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(201, 223, 246, 0.3);
+      }
+
+      .dashboard-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(14, 68, 124, 0.1),
+          0 10px 10px -5px rgba(14, 68, 124, 0.04);
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .gradient-bg {
+        background: linear-gradient(
+          135deg,
+          #0e447c 0%,
+          #1b5a9b 50%,
+          #244a73 100%
+        );
+      }
+
+      .profile-avatar {
+        background: linear-gradient(135deg, #4684c3 0%, #6a9ed3 100%);
+        box-shadow: 0 8px 32px rgba(70, 132, 195, 0.3);
+      }
+
+      .action-card {
+        background: linear-gradient(
+          135deg,
+          rgba(201, 223, 246, 0.8) 0%,
+          rgba(156, 189, 229, 0.6) 100%
+        );
+        border: 1px solid rgba(70, 132, 195, 0.2);
+      }
+
+      .action-card:hover {
+        background: linear-gradient(
+          135deg,
+          rgba(201, 223, 246, 0.9) 0%,
+          rgba(156, 189, 229, 0.8) 100%
+        );
+        transform: translateY(-2px);
+      }
+
+      .nav-gradient {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(201, 223, 246, 0.9) 100%
+        );
+        backdrop-filter: blur(20px);
+      }
+
+      .floating-element {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
         }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 100%);
-            min-height: 100vh;
+        50% {
+          transform: translateY(-10px);
         }
-        
-        .dashboard-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(201, 223, 246, 0.3);
+      }
+
+      .info-tag {
+        background: linear-gradient(45deg, #c9dff6, #9cbde5);
+        color: #0e447c;
+        font-weight: 500;
+      }
+
+      @media (max-width: 768px) {
+        .nav-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.95) 0%,
+            rgba(201, 223, 246, 0.9) 100%
+          );
+          backdrop-filter: blur(20px);
+          box-shadow: 0 10px 15px -3px rgba(14, 68, 124, 0.1);
+          z-index: 50;
         }
-        
-        .dashboard-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(14, 68, 124, 0.1), 0 10px 10px -5px rgba(14, 68, 124, 0.04);
-            background: rgba(255, 255, 255, 0.95);
+        .nav-menu.active {
+          display: block;
         }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 50%, #244a73 100%);
-        }
-        
-        .profile-avatar {
-            background: linear-gradient(135deg, #4684c3 0%, #6a9ed3 100%);
-            box-shadow: 0 8px 32px rgba(70, 132, 195, 0.3);
-        }
-        
-        .action-card {
-            background: linear-gradient(135deg, rgba(201, 223, 246, 0.8) 0%, rgba(156, 189, 229, 0.6) 100%);
-            border: 1px solid rgba(70, 132, 195, 0.2);
-        }
-        
-        .action-card:hover {
-            background: linear-gradient(135deg, rgba(201, 223, 246, 0.9) 0%, rgba(156, 189, 229, 0.8) 100%);
-            transform: translateY(-2px);
-        }
-        
-        .nav-gradient {
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(201, 223, 246, 0.9) 100%);
-            backdrop-filter: blur(20px);
-        }
-        
-        .floating-element {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .info-tag {
-            background: linear-gradient(45deg, #c9dff6, #9cbde5);
-            color: #0e447c;
-            font-weight: 500;
-        }
-        
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(201, 223, 246, 0.9) 100%);
-                backdrop-filter: blur(20px);
-                box-shadow: 0 10px 15px -3px rgba(14, 68, 124, 0.1);
-                z-index: 50;
-            }
-            .nav-menu.active {
-                display: block;
-            }
-        }
-           .pulse-glow {
+      }
+      .pulse-glow {
         animation: pulse-glow 2s infinite;
       }
 
@@ -108,18 +144,23 @@
         }
       }
     </style>
-</head>
-<body class="min-h-screen flex flex-col">
+  </head>
+  <body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav style=" background: linear-gradient(
+    <nav
+      style="
+        background: linear-gradient(
           135deg,
           #2e75b7,
           #4684c3,
+          #afd5ff,
           #6a9ed3,
-          #c9dff6,
           #3b699e,
           #1b5a9b
-        );" class=" backdrop-blur-lg shadow-md sticky top-0 z-50">
+        );
+      "
+      class="backdrop-blur-lg shadow-md sticky top-0 z-50"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
           <!-- Brand -->
@@ -224,164 +265,356 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-3 gap-12">
-                <!-- Left Column - Profile Information -->
-                <div class="md:col-span-1 space-y-8">
-                    <div class="dashboard-card rounded-2xl shadow-xl p-8 floating-element">
-                        <div class="flex flex-col items-center space-y-6 mb-8">
-                            <div class="h-24 w-24 rounded-full profile-avatar flex items-center justify-center">
-                                <span class="text-3xl font-bold text-white">
-                                    {{ manufacturer.first_name.0 }}{{ manufacturer.last_name.0 }}
-                                </span>
-                            </div>
-                            <div class="text-center">
-                                <h2 class="text-2xl font-bold mb-2" style="color: #0e447c;">
-                                    {{ manufacturer.first_name }} {{ manufacturer.last_name }}
-                                </h2>
-                                <span class="info-tag px-4 py-2 rounded-full text-sm">{{ manufacturer.business_type }}</span>
-                            </div>
-                        </div>
-                        
-                        <div class="border-t border-opacity-20 pt-6 mt-6 space-y-4" style="border-color: #9cbde5;">
-                            <a href="{% url 'manufacturer_dashboard' %}" 
-                               class="flex items-center justify-center py-3 px-6 rounded-xl font-medium transition duration-300 transform hover:scale-105" 
-                               style="background: linear-gradient(135deg, #1b5a9b, #0e447c); color: white; box-shadow: 0 4px 15px rgba(27, 90, 155, 0.3);">
-                                <i class="fas fa-th-large mr-3"></i> Back to Dashboard
-                            </a>
-                            <a href="{% url 'manufacturer_edit_profile' %}" 
-                               class="flex items-center justify-center py-3 px-6 rounded-xl font-medium transition duration-300 transform hover:scale-105" 
-                               style="background: linear-gradient(135deg, #4684c3, #6a9ed3); color: white; box-shadow: 0 4px 15px rgba(70, 132, 195, 0.3);">
-                                <i class="fas fa-user-edit mr-3"></i> Edit Profile
-                            </a>
-                        </div>
-                    </div>
+    <main
+      class="flex-grow py-16"
+      style="
+        background: linear-gradient(
+          45deg,
+          #2e75b7,
+          #a8d2ff,
+          #4684c3,
+          #6a9ed3,
+          #5ea9ff,
+          #1b5a9b
+        );
+      "
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-3 gap-12">
+          <!-- Left Column - Profile Information -->
+          <div class="md:col-span-1 space-y-8">
+            <div
+              class="dashboard-card rounded-2xl shadow-xl p-8 floating-element"
+            >
+              <div class="flex flex-col items-center space-y-6 mb-8">
+                <div
+                  class="h-24 w-24 rounded-full profile-avatar flex items-center justify-center"
+                >
+                  <span class="text-3xl font-bold text-white">
+                    {{ manufacturer.first_name.0 }}{{ manufacturer.last_name.0}}
+                  </span>
                 </div>
-                
-                <!-- Right Column - Details -->
-                <div class="md:col-span-2 space-y-8">
-                    <!-- Profile Details -->
-                    <div class="dashboard-card rounded-2xl shadow-xl p-10">
-                        <div class="mb-8">
-                            <h1 class="text-4xl font-extrabold mb-4" style="color: #0e447c;">
-                                {{ manufacturer.company_name }}
-                            </h1>
-                            <div class="w-24 h-1 rounded-full" style="background: linear-gradient(90deg, #4684c3, #6a9ed3);"></div>
-                        </div>
-                        
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div class="space-y-6">
-                                <div>
-                                    <h2 class="text-2xl font-bold mb-6 flex items-center" style="color: #244a73;">
-                                        <i class="fas fa-building mr-3 text-xl" style="color: #4684c3;"></i>
-                                        Company Information
-                                    </h2>
-                                    <div class="space-y-4">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(45deg, #c9dff6, #9cbde5);">
-                                                <i class="fas fa-map-marker-alt text-sm" style="color: #0e447c;"></i>
-                                            </div>
-                                            <div>
-                                                <span class="text-sm font-medium" style="color: #244a73;">Location</span>
-                                                <p class="font-semibold" style="color: #0e447c;">{{ manufacturer.city }}, {{ manufacturer.state }}</p>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="flex items-center space-x-3">
-                                            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(45deg, #c9dff6, #9cbde5);">
-                                                <i class="fas fa-industry text-sm" style="color: #0e447c;"></i>
-                                            </div>
-                                            <div>
-                                                <span class="text-sm font-medium" style="color: #244a73;">Business Type</span>
-                                                <p class="font-semibold" style="color: #0e447c;">{{ manufacturer.business_type }}</p>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="flex items-center space-x-3">
-                                            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(45deg, #c9dff6, #9cbde5);">
-                                                <i class="fas fa-phone text-sm" style="color: #0e447c;"></i>
-                                            </div>
-                                            <div>
-                                                <span class="text-sm font-medium" style="color: #244a73;">Phone</span>
-                                                <p class="font-semibold" style="color: #0e447c;">{{ manufacturer.phone_number }}</p>
-                                            </div>
-                                        </div>
-                                        
-                                        {% if manufacturer.website %}
-                                        <div class="flex items-center space-x-3">
-                                            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(45deg, #c9dff6, #9cbde5);">
-                                                <i class="fas fa-globe text-sm" style="color: #0e447c;"></i>
-                                            </div>
-                                            <div>
-                                                <span class="text-sm font-medium" style="color: #244a73;">Website</span>
-                                                <a href="{{ manufacturer.website }}" target="_blank" class="font-semibold hover:underline transition duration-300" style="color: #1b5a9b;">
-                                                    {{ manufacturer.website }}
-                                                </a>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="space-y-6">
-                                <div>
-                                    <h2 class="text-2xl font-bold mb-6 flex items-center" style="color: #244a73;">
-                                        <i class="fas fa-cogs mr-3 text-xl" style="color: #4684c3;"></i>
-                                        Key Products
-                                    </h2>
-                                    <div class="p-6 rounded-xl" style="background: linear-gradient(135deg, rgba(201, 223, 246, 0.4) 0%, rgba(156, 189, 229, 0.3) 100%); border: 1px solid rgba(70, 132, 195, 0.2);">
-                                        <p class="text-lg leading-relaxed" style="color: #244a73;">{{ supplier.key_services }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="text-center">
+                  <h2 class="text-2xl font-bold mb-2" style="color: #0e447c">
+                    {{ manufacturer.first_name }} {{ manufacturer.last_name }}
+                  </h2>
+                  <span class="info-tag px-4 py-2 rounded-full text-sm"
+                    >{{ manufacturer.business_type }}</span
+                  >
+                </div>
+              </div>
 
-                    <!-- Quick Profile Actions -->
-                    <div class="dashboard-card rounded-2xl shadow-xl p-10">
-                        <h2 class="text-3xl font-bold mb-8 flex items-center" style="color: #0e447c;">
-                            <i class="fas fa-tools mr-4 text-2xl" style="color: #4684c3;"></i>
-                            Profile Actions
-                        </h2>
-                        <div class="grid sm:grid-cols-2 gap-8">
-                            <a href="{% url 'manufacturer_edit_profile' %}" 
-                               class="action-card p-8 rounded-xl transition duration-300 transform hover:scale-105 flex flex-col items-center text-center space-y-4 group">
-                                <div class="w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition duration-300" style="background: linear-gradient(135deg, #4684c3, #6a9ed3);">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-bold mb-2" style="color: #0e447c;">Edit Profile</h3>
-                                    <p class="text-sm" style="color: #244a73;">Update your company information and details</p>
-                                </div>
-                                <div class="w-full h-1 rounded-full group-hover:scale-x-100 scale-x-0 transition-transform duration-300" style="background: linear-gradient(90deg, #4684c3, #6a9ed3);"></div>
-                            </a>
-                            
-                            <a href="{% url 'manufacturer_dashboard' %}" 
-                               class="action-card p-8 rounded-xl transition duration-300 transform hover:scale-105 flex flex-col items-center text-center space-y-4 group">
-                                <div class="w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition duration-300" style="background: linear-gradient(135deg, #1b5a9b, #0e447c);">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-bold mb-2" style="color: #0e447c;">Back to Dashboard</h3>
-                                    <p class="text-sm" style="color: #244a73;">Return to your main dashboard overview</p>
-                                </div>
-                                <div class="w-full h-1 rounded-full group-hover:scale-x-100 scale-x-0 transition-transform duration-300" style="background: linear-gradient(90deg, #1b5a9b, #0e447c);"></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+              <div
+                class="border-t border-opacity-20 pt-6 mt-6 space-y-4"
+                style="border-color: #9cbde5"
+              >
+                <a
+                  href="{% url 'manufacturer_dashboard' %}"
+                  class="flex items-center justify-center py-3 px-6 rounded-xl font-medium transition duration-300 transform hover:scale-105"
+                  style="
+                    background: linear-gradient(135deg, #1b5a9b, #0e447c);
+                    color: white;
+                    box-shadow: 0 4px 15px rgba(27, 90, 155, 0.3);
+                  "
+                >
+                  <i class="fas fa-th-large mr-3"></i> Back to Dashboard
+                </a>
+                <a
+                  href="{% url 'manufacturer_edit_profile' %}"
+                  class="flex items-center justify-center py-3 px-6 rounded-xl font-medium transition duration-300 transform hover:scale-105"
+                  style="
+                    background: linear-gradient(135deg, #4684c3, #6a9ed3);
+                    color: white;
+                    box-shadow: 0 4px 15px rgba(70, 132, 195, 0.3);
+                  "
+                >
+                  <i class="fas fa-user-edit mr-3"></i> Edit Profile
+                </a>
+              </div>
             </div>
+          </div>
+
+          <!-- Right Column - Details -->
+          <div class="md:col-span-2 space-y-8">
+            <!-- Profile Details -->
+            <div class="dashboard-card rounded-2xl shadow-xl p-10">
+              <div class="mb-8">
+                <h1 class="text-4xl font-extrabold mb-4" style="color: #0e447c">
+                  {{ manufacturer.company_name }}
+                </h1>
+                <div
+                  class="w-24 h-1 rounded-full"
+                  style="background: linear-gradient(90deg, #4684c3, #6a9ed3)"
+                ></div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                  <div>
+                    <h2
+                      class="text-2xl font-bold mb-6 flex items-center"
+                      style="color: #244a73"
+                    >
+                      <i
+                        class="fas fa-building mr-3 text-xl"
+                        style="color: #4684c3"
+                      ></i>
+                      Company Information
+                    </h2>
+                    <div class="space-y-4">
+                      <div class="flex items-center space-x-3">
+                        <div
+                          class="w-8 h-8 rounded-lg flex items-center justify-center"
+                          style="
+                            background: linear-gradient(
+                              45deg,
+                              #c9dff6,
+                              #9cbde5
+                            );
+                          "
+                        >
+                          <i
+                            class="fas fa-map-marker-alt text-sm"
+                            style="color: #0e447c"
+                          ></i>
+                        </div>
+                        <div>
+                          <span
+                            class="text-sm font-medium"
+                            style="color: #244a73"
+                            >Location</span
+                          >
+                          <p class="font-semibold" style="color: #0e447c">
+                            {{ manufacturer.city }}, {{ manufacturer.state }}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="flex items-center space-x-3">
+                        <div
+                          class="w-8 h-8 rounded-lg flex items-center justify-center"
+                          style="
+                            background: linear-gradient(
+                              45deg,
+                              #c9dff6,
+                              #9cbde5
+                            );
+                          "
+                        >
+                          <i
+                            class="fas fa-industry text-sm"
+                            style="color: #0e447c"
+                          ></i>
+                        </div>
+                        <div>
+                          <span
+                            class="text-sm font-medium"
+                            style="color: #244a73"
+                            >Business Type</span
+                          >
+                          <p class="font-semibold" style="color: #0e447c">
+                            {{ manufacturer.business_type }}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="flex items-center space-x-3">
+                        <div
+                          class="w-8 h-8 rounded-lg flex items-center justify-center"
+                          style="
+                            background: linear-gradient(
+                              45deg,
+                              #c9dff6,
+                              #9cbde5
+                            );
+                          "
+                        >
+                          <i
+                            class="fas fa-phone text-sm"
+                            style="color: #0e447c"
+                          ></i>
+                        </div>
+                        <div>
+                          <span
+                            class="text-sm font-medium"
+                            style="color: #244a73"
+                            >Phone</span
+                          >
+                          <p class="font-semibold" style="color: #0e447c">
+                            {{ manufacturer.phone_number }}
+                          </p>
+                        </div>
+                      </div>
+
+                      {% if manufacturer.website %}
+                      <div class="flex items-center space-x-3">
+                        <div
+                          class="w-8 h-8 rounded-lg flex items-center justify-center"
+                          style="
+                            background: linear-gradient(
+                              45deg,
+                              #c9dff6,
+                              #9cbde5
+                            );
+                          "
+                        >
+                          <i
+                            class="fas fa-globe text-sm"
+                            style="color: #0e447c"
+                          ></i>
+                        </div>
+                        <div>
+                          <span
+                            class="text-sm font-medium"
+                            style="color: #244a73"
+                            >Website</span
+                          >
+                          <a
+                            href="{{ manufacturer.website }}"
+                            target="_blank"
+                            class="font-semibold hover:underline transition duration-300"
+                            style="color: #1b5a9b"
+                          >
+                            {{ manufacturer.website }}
+                          </a>
+                        </div>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div>
+                    <h2
+                      class="text-2xl font-bold mb-6 flex items-center"
+                      style="color: #244a73"
+                    >
+                      <i
+                        class="fas fa-cogs mr-3 text-xl"
+                        style="color: #4684c3"
+                      ></i>
+                      Key Products
+                    </h2>
+                    <div
+                      class="p-6 rounded-xl"
+                      style="
+                        background: linear-gradient(
+                          135deg,
+                          rgba(201, 223, 246, 0.4) 0%,
+                          rgba(156, 189, 229, 0.3) 100%
+                        );
+                        border: 1px solid rgba(70, 132, 195, 0.2);
+                      "
+                    >
+                      <p class="text-lg leading-relaxed" style="color: #244a73">
+                        {{ supplier.key_services }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Profile Actions -->
+            <div class="dashboard-card rounded-2xl shadow-xl p-10">
+              <h2
+                class="text-3xl font-bold mb-8 flex items-center"
+                style="color: #0e447c"
+              >
+                <i
+                  class="fas fa-tools mr-4 text-2xl"
+                  style="color: #4684c3"
+                ></i>
+                Profile Actions
+              </h2>
+              <div class="grid sm:grid-cols-2 gap-8">
+                <a
+                  href="{% url 'manufacturer_edit_profile' %}"
+                  class="action-card p-8 rounded-xl transition duration-300 transform hover:scale-105 flex flex-col items-center text-center space-y-4 group"
+                >
+                  <div
+                    class="w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition duration-300"
+                    style="
+                      background: linear-gradient(135deg, #4684c3, #6a9ed3);
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-8 w-8 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold mb-2" style="color: #0e447c">
+                      Edit Profile
+                    </h3>
+                    <p class="text-sm" style="color: #244a73">
+                      Update your company information and details
+                    </p>
+                  </div>
+                  <div
+                    class="w-full h-1 rounded-full group-hover:scale-x-100 scale-x-0 transition-transform duration-300"
+                    style="background: linear-gradient(90deg, #4684c3, #6a9ed3)"
+                  ></div>
+                </a>
+
+                <a
+                  href="{% url 'manufacturer_dashboard' %}"
+                  class="action-card p-8 rounded-xl transition duration-300 transform hover:scale-105 flex flex-col items-center text-center space-y-4 group"
+                >
+                  <div
+                    class="w-16 h-16 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition duration-300"
+                    style="
+                      background: linear-gradient(135deg, #1b5a9b, #0e447c);
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-8 w-8 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold mb-2" style="color: #0e447c">
+                      Back to Dashboard
+                    </h3>
+                    <p class="text-sm" style="color: #244a73">
+                      Return to your main dashboard overview
+                    </p>
+                  </div>
+                  <div
+                    class="w-full h-1 rounded-full group-hover:scale-x-100 scale-x-0 transition-transform duration-300"
+                    style="background: linear-gradient(90deg, #1b5a9b, #0e447c)"
+                  ></div>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </main>
 
     <!-- Footer -->
-     <footer
+    <footer
       class="text-white py-16 relative"
       style="background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%)"
     >
@@ -597,7 +830,7 @@
         <i class="fas fa-shipping-fast text-8xl"></i>
       </div>
     </footer>
-     <script>
+    <script>
       document.addEventListener("DOMContentLoaded", () => {
         const toggleBtn = document.getElementById("mobile-menu-toggle");
         const mobileNav = document.getElementById("mobile-nav");
@@ -623,5 +856,5 @@
         });
       });
     </script>
-</body>
+  </body>
 </html>

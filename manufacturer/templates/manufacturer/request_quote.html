@@ -10,13 +10,16 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f9fafb;
+            background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 100%);
         }
         .dashboard-card {
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
         }
         .dashboard-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(14, 68, 124, 0.15);
         }
         @media (max-width: 768px) {
             .nav-menu {
@@ -37,214 +40,415 @@
             content: " *";
             color: #ef4444;
         }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .input-focus:focus {
+            transform: scale(1.02);
+            transition: transform 0.2s ease;
+        }
+        .floating-label {
+            position: relative;
+        }
+        .floating-label input:focus + label,
+        .floating-label input:not(:placeholder-shown) + label,
+        .floating-label select:focus + label,
+        .floating-label textarea:focus + label,
+        .floating-label textarea:not(:placeholder-shown) + label {
+            transform: translateY(-1.5rem) scale(0.8);
+            color: #0e447c;
+        }
+        .floating-label label {
+            position: absolute;
+            left: 3rem;
+            top: 0.75rem;
+            transition: all 0.2s ease;
+            pointer-events: none;
+            background: white;
+            padding: 0 0.5rem;
+        }
+        .custom-gradient {
+            background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 50%, #4684c3 100%);
+        }
+        .form-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #c9dff6 100%);
+        }
+        .icon-gradient {
+            background: linear-gradient(135deg, #4684c3 0%, #6a9ed3 100%);
+        }
+        .tip-card {
+            background: linear-gradient(135deg, #c9dff6 0%, rgba(255, 255, 255, 0.9) 100%);
+            border-left: 4px solid #0e447c;
+        }
+        .profile-gradient {
+            background: linear-gradient(135deg, #244a73 0%, #3b699e 100%);
+        }
+        .pulse-glow {
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(46, 117, 183, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(46, 117, 183, 0.8),
+            0 0 30px rgba(46, 117, 183, 0.4);
+        }
+      }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo and Brand -->
-                <div class="flex items-center space-x-2">
-                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                        <i class="fas fa-link text-lg"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8 nav-menu">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
-                </div>
-
-                <!-- Mobile Hamburger Menu -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <nav
+      style="
+        background: linear-gradient(
+          135deg,
+          #2e75b7,
+          #4684c3,
+          #afd5ff,
+          #6a9ed3,
+          #3b699e,
+          #1b5a9b
+        );
+      "
+      class="backdrop-blur-lg shadow-md sticky top-0 z-50"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="flex items-center justify-center h-12 w-12 rounded-xl pulse-glow"
+              style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+            >
+              <i class="fas fa-link text-white text-2xl"></i>
             </div>
+            <h1 class="text-2xl font-bold" style="color: #0a2f56">
+              Supply<span style="color: #2e75b7">Chain</span>
+            </h1>
+          </div>
 
-            <!-- Mobile Navigation Menu -->
-            <div id="mobile-nav" class="md:hidden nav-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                </div>
-            </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#4caf50]"
+              onmouseover="this.style.background='rgba(76,175,80,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#e91e63]"
+              onmouseover="this.style.background='rgba(233,30,99,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#9c27b0]"
+              onmouseover="this.style.background='rgba(156,39,176,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Services</a
+            >
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 text-[#00c853]"
+              onmouseover="this.style.background='rgba(0,200,83,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Mobile Menu Toggle Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="p-2 rounded-lg text-[#ff5722]"
+              onmouseover="this.style.background='rgba(255,87,34,0.1)'"
+              onmouseout="this.style.background='transparent'"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div
+        id="mobile-nav"
+        class="md:hidden max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+      >
+        <div class="px-4 py-4 space-y-2">
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium text-[#4caf50] hover:bg-green-100"
+            >Home</a
+          >
+          <a
+            href="{% url 'about' %}"
+            class="block px-4 py-2 rounded-lg font-medium text-[#e91e63] hover:bg-pink-100"
+            >About</a
+          >
+          <a
+            href="{% url 'services' %}"
+            class="block px-4 py-2 rounded-lg font-medium text-[#9c27b0] hover:bg-purple-100"
+            >Services</a
+          >
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium text-[#00c853] hover:bg-green-50"
+            >Contact</a
+          >
+        </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow py-12 bg-gray-50">
+    <main class="flex-grow py-16" style="
+        background: linear-gradient(
+          45deg,
+          #2e75b7,
+          #a8d2ff,
+          #4684c3,
+          #6a9ed3,
+          #5ea9ff,
+          #1b5a9b
+        );
+      ">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Page Title Banner -->
-            <div class="mb-10 bg-blue-600 rounded-xl shadow-md p-8 text-white">
-                <h1 class="text-3xl font-bold mb-2">Request for Quotation</h1>
-                <p class="text-lg text-blue-100">Create a new request and receive quotes from verified suppliers.</p>
+            <div class="mb-16 custom-gradient rounded-3xl shadow-2xl p-12 text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 rounded-full opacity-20" style="background: #c9dff6;"></div>
+                <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-24 h-24 rounded-full opacity-20" style="background: #9cbde5;"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-16 h-16 rounded-2xl bg-white bg-opacity-20 flex items-center justify-center backdrop-filter backdrop-blur-lg">
+                            <i class="fas fa-file-invoice text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-4xl font-bold mb-2">Request for Quotation</h1>
+                            <p class="text-xl opacity-90">Create professional RFQs and connect with verified suppliers worldwide</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-10">
+            <div class="grid lg:grid-cols-4 gap-12">
                 <!-- Left Column - Profile Information -->
-                <div class="md:col-span-1 space-y-8">
+                <div class="lg:col-span-1 space-y-8">
                     <!-- Profile Card -->
-                    <div class="bg-white rounded-xl shadow-sm p-6 dashboard-card">
-                        <div class="flex items-center space-x-4 mb-6">
-                            <div class="h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center">
-                                <span class="text-2xl font-bold text-blue-600">
+                    <div class="dashboard-card rounded-3xl shadow-xl p-8 border border-white border-opacity-50">
+                        <div class="text-center mb-8">
+                            <div class="h-20 w-20 rounded-2xl profile-gradient flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                <span class="text-2xl font-bold text-white">
                                     {{ manufacturer.first_name.0 }}{{ manufacturer.last_name.0 }}
                                 </span>
                             </div>
-                            <div>
-                                <h2 class="text-xl font-semibold text-gray-800">
-                                    {{ manufacturer.first_name }} {{ manufacturer.last_name }}
-                                </h2>
-                                <p class="text-gray-500">{{ manufacturer.business_type }}</p>
-                            </div>
+                            <h2 class="text-xl font-bold text-gray-800 mb-1">
+                                {{ manufacturer.first_name }} {{ manufacturer.last_name }}
+                            </h2>
+                            <p style="color: #4684c3;" class="font-medium">{{ manufacturer.business_type }}</p>
                         </div>
                         
-                        <div class="border-t border-gray-100 pt-4 mt-4">
-                            <a href="{% url 'manufacturer_dashboard' %}" class="block py-2 text-blue-600 hover:text-blue-700 font-medium">
-                                <i class="fas fa-tachometer-alt mr-2"></i> Back to Dashboard
+                        <div class="space-y-3">
+                            <a href="{% url 'manufacturer_dashboard' %}" class="flex items-center p-4 rounded-2xl transition-all duration-300 hover:shadow-lg group" style="background: linear-gradient(135deg, #c9dff6 0%, rgba(255, 255, 255, 0.8) 100%);">
+                                <div class="w-10 h-10 rounded-xl icon-gradient flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-tachometer-alt text-white"></i>
+                                </div>
+                                <span style="color: #0e447c;" class="font-semibold">Dashboard</span>
                             </a>
-                            <a href="{% url 'manufacturer_quote_history' %}" class="block py-2 text-green-600 hover:text-green-700 font-medium">
-                                <i class="fas fa-history mr-2"></i> Quote History
+                            <a href="{% url 'manufacturer_quote_history' %}" class="flex items-center p-4 rounded-2xl transition-all duration-300 hover:shadow-lg group" style="background: linear-gradient(135deg, #9cbde5 0%, rgba(255, 255, 255, 0.8) 100%);">
+                                <div class="w-10 h-10 rounded-xl bg-green-500 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-history text-white"></i>
+                                </div>
+                                <span class="text-green-700 font-semibold">Quote History</span>
                             </a>
                         </div>
                     </div>
 
                     <!-- Tips Card -->
-                    <div class="bg-white rounded-xl shadow-md p-8 dashboard-card">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-6">Tips for Good RFQs</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-start space-x-3">
-                                <div class="bg-blue-100 p-2 rounded-full">
-                                    <i class="fas fa-check text-blue-600"></i>
-                                </div>
-                                <p class="text-gray-600">Be specific about product requirements and specifications</p>
+                    <div class="tip-card rounded-3xl shadow-xl p-8">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 rounded-xl icon-gradient flex items-center justify-center mr-4">
+                                <i class="fas fa-lightbulb text-white"></i>
                             </div>
-                            <div class="flex items-start space-x-3">
-                                <div class="bg-blue-100 p-2 rounded-full">
-                                    <i class="fas fa-check text-blue-600"></i>
+                            <h3 class="text-xl font-bold" style="color: #0e447c;">Pro Tips</h3>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1" style="background: #4684c3;">
+                                    <i class="fas fa-check text-white text-sm"></i>
                                 </div>
-                                <p class="text-gray-600">Set a reasonable deadline for supplier responses</p>
+                                <p style="color: #244a73;" class="font-medium leading-relaxed">Include detailed specifications and quality standards for accurate quotes</p>
                             </div>
-                            <div class="flex items-start space-x-3">
-                                <div class="bg-blue-100 p-2 rounded-full">
-                                    <i class="fas fa-check text-blue-600"></i>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1" style="background: #6a9ed3;">
+                                    <i class="fas fa-clock text-white text-sm"></i>
                                 </div>
-                                <p class="text-gray-600">Include quantity requirements to get accurate pricing</p>
+                                <p style="color: #244a73;" class="font-medium leading-relaxed">Set realistic deadlines to receive quality supplier responses</p>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1" style="background: #3b699e;">
+                                    <i class="fas fa-chart-line text-white text-sm"></i>
+                                </div>
+                                <p style="color: #244a73;" class="font-medium leading-relaxed">Specify exact quantities for precise pricing calculations</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Right Column - Form -->
-                <div class="md:col-span-2">
-                    <form method="post" class="bg-white rounded-xl shadow-md p-8 dashboard-card">
+                <div class="lg:col-span-3">
+                    <form method="post" class="dashboard-card rounded-3xl shadow-2xl p-10 border border-white border-opacity-50">
                         {% csrf_token %}
-                        <h2 class="text-2xl font-semibold text-blue-700 mb-8">Create New Request</h2>
+                        <div class="flex items-center mb-10">
+                            <div class="w-16 h-16 rounded-2xl custom-gradient flex items-center justify-center mr-6">
+                                <i class="fas fa-plus text-2xl text-white"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold" style="color: #0e447c;">Create New Request</h2>
+                                <p style="color: #4684c3;" class="text-lg mt-1">Fill in the details below to generate your RFQ</p>
+                            </div>
+                        </div>
                         
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="form-group md:col-span-2">
-                                <label class="block text-gray-700 font-semibold mb-2 required">Product</label>
-                                <input type="text" name="product" required 
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
-
-                            <div class="form-group md:col-span-2">
-                                <label class="block text-gray-700 font-semibold mb-2 required">Category</label>
-                                <select name="category" required 
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <option value="">Choose</option>
-                                    <optgroup label="Agricultural Raw Materials">
-                                        <option value="copra">Copra</option>
-                                        <option value="cotton">Cotton</option>
-                                        <option value="hides">Hides</option>
-                                        <option value="rubber">Rubber</option>
-                                        <option value="wool">Wool</option>
-                                    </optgroup>
-                                    <optgroup label="Agriculture">
-                                        <option value="coffee">Coffee</option>
-                                        <option value="other_agriculture">Other Agriculture</option>
-                                        <option value="peanuts">Peanuts</option>
-                                        <option value="soybeans">Soybeans</option>
-                                        <option value="sugar">Sugar</option>
-                                        <option value="tea">Tea</option>
-                                        <option value="tobacco">Tobacco</option>
-                                    </optgroup>
-                                    <optgroup label="Energy">
-                                        <option value="coal">Coal</option>
-                                        <option value="crude_oil">Crude Oil</option>
-                                        <option value="diesel">Diesel</option>
-                                        <option value="gasoline">Gasoline</option>
-                                        <option value="natural_gas">Natural Gas</option>
-                                    </optgroup>
-                                    <optgroup label="Metals">
-                                        <option value="aluminum">Aluminum</option>
-                                        <option value="antimony">Antimony</option>
-                                        <option value="copper">Copper</option>
-                                        <option value="gold">Gold</option>
-                                        <option value="iron">Iron</option>
-                                        <option value="lead">Lead</option>
-                                        <option value="manganese">Manganese</option>
-                                        <option value="nickel">Nickel</option>
-                                        <option value="other_metals">Other Metals</option>
-                                        <option value="silver">Silver</option>
-                                        <option value="steel">Steel</option>
-                                        <option value="tin">Tin</option>
-                                        <option value="titanium">Titanium</option>
-                                        <option value="tungsten">Tungsten</option>
-                                        <option value="zinc">Zinc</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-
-                            <div class="form-group md:col-span-2">
-                                <label class="block text-gray-700 font-semibold mb-2 required">Description</label>
-                                <textarea name="description" required 
-                                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"></textarea>
-                                <p class="text-sm text-gray-500 mt-1">Include all relevant specifications, quality standards, and requirements</p>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="block text-gray-700 font-semibold mb-2 required">Deadline</label>
+                        <div class="grid lg:grid-cols-2 gap-8">
+                            <!-- Product Name -->
+                            <div class="form-group lg:col-span-2 floating-label">
                                 <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <i class="fas fa-calendar-alt text-gray-400"></i>
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+                                        <i class="fas fa-box text-lg" style="color: #4684c3;"></i>
+                                    </div>
+                                    <input type="text" name="product" required placeholder=" " 
+                                           class="input-focus w-full pl-14 pr-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 focus:border-blue-500 text-lg transition-all duration-300" 
+                                           style="border-color: #9cbde5; ring-color: rgba(14, 68, 124, 0.1);">
+                                    <label class="required text-lg font-semibold" style="color: #244a73;">Product Name</label>
+                                </div>
+                            </div>
+
+                            <!-- Category -->
+                            <div class="form-group lg:col-span-2 floating-label">
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+                                        <i class="fas fa-tags text-lg" style="color: #4684c3;"></i>
+                                    </div>
+                                    <select name="category" required 
+                                            class="input-focus w-full pl-14 pr-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 focus:border-blue-500 text-lg transition-all duration-300 appearance-none" 
+                                            style="border-color: #9cbde5;">
+                                        <option value=""></option>
+                                        <optgroup label="Agricultural Raw Materials">
+                                            <option value="copra">Copra</option>
+                                            <option value="cotton">Cotton</option>
+                                            <option value="hides">Hides</option>
+                                            <option value="rubber">Rubber</option>
+                                            <option value="wool">Wool</option>
+                                        </optgroup>
+                                        <optgroup label="Agriculture">
+                                            <option value="coffee">Coffee</option>
+                                            <option value="other_agriculture">Other Agriculture</option>
+                                            <option value="peanuts">Peanuts</option>
+                                            <option value="soybeans">Soybeans</option>
+                                            <option value="sugar">Sugar</option>
+                                            <option value="tea">Tea</option>
+                                            <option value="tobacco">Tobacco</option>
+                                        </optgroup>
+                                        <optgroup label="Energy">
+                                            <option value="coal">Coal</option>
+                                            <option value="crude_oil">Crude Oil</option>
+                                            <option value="diesel">Diesel</option>
+                                            <option value="gasoline">Gasoline</option>
+                                            <option value="natural_gas">Natural Gas</option>
+                                        </optgroup>
+                                        <optgroup label="Metals">
+                                            <option value="aluminum">Aluminum</option>
+                                            <option value="antimony">Antimony</option>
+                                            <option value="copper">Copper</option>
+                                            <option value="gold">Gold</option>
+                                            <option value="iron">Iron</option>
+                                            <option value="lead">Lead</option>
+                                            <option value="manganese">Manganese</option>
+                                            <option value="nickel">Nickel</option>
+                                            <option value="other_metals">Other Metals</option>
+                                            <option value="silver">Silver</option>
+                                            <option value="steel">Steel</option>
+                                            <option value="tin">Tin</option>
+                                            <option value="titanium">Titanium</option>
+                                            <option value="tungsten">Tungsten</option>
+                                            <option value="zinc">Zinc</option>
+                                        </optgroup>
+                                    </select>
+                                    <label class="required text-lg font-semibold" style="color: #244a73;">Category</label>
+                                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                        <i class="fas fa-chevron-down" style="color: #6a9ed3;"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="form-group lg:col-span-2 floating-label">
+                                <div class="relative">
+                                    <div class="absolute top-4 left-0 pl-4 flex items-start pointer-events-none z-10">
+                                        <i class="fas fa-file-alt text-lg mt-1" style="color: #4684c3;"></i>
+                                    </div>
+                                    <textarea name="description" required placeholder=" " 
+                                              class="input-focus w-full pl-14 pr-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 focus:border-blue-500 text-lg h-40 resize-none transition-all duration-300" 
+                                              style="border-color: #9cbde5;"></textarea>
+                                    <label class="required text-lg font-semibold" style="color: #244a73;">Detailed Description</label>
+                                </div>
+                                <p class="text-sm mt-2 ml-2" style="color: #6a9ed3;">Include specifications, quality standards, and special requirements</p>
+                            </div>
+
+                            <!-- Deadline and Quantity Row -->
+                            <div class="form-group floating-label">
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+                                        <i class="fas fa-calendar-alt text-lg" style="color: #4684c3;"></i>
                                     </div>
                                     <input type="date" name="deadline" required 
-                                           class="w-full pl-10 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                           class="input-focus w-full pl-14 pr-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 focus:border-blue-500 text-lg transition-all duration-300" 
+                                           style="border-color: #9cbde5;">
+                                    <label class="required text-lg font-semibold" style="color: #244a73;">Response Deadline</label>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="block text-gray-700 font-semibold mb-2 required">Quantity</label>
+                            <div class="form-group floating-label">
                                 <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <i class="fas fa-cube text-gray-400"></i>
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+                                        <i class="fas fa-cubes text-lg" style="color: #4684c3;"></i>
                                     </div>
-                                    <input type="number" name="quantity" required 
-                                           class="w-full pl-10 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <input type="number" name="quantity" required placeholder=" " 
+                                           class="input-focus w-full pl-14 pr-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 focus:border-blue-500 text-lg transition-all duration-300" 
+                                           style="border-color: #9cbde5;">
+                                    <label class="required text-lg font-semibold" style="color: #244a73;">Quantity Required</label>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="block text-gray-700 font-semibold mb-2 required">Unit</label>
+                            <!-- Unit and Currency Row -->
+                            <div class="form-group floating-label">
                                 <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <i class="fas fa-balance-scale text-gray-400"></i>
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+                                        <i class="fas fa-balance-scale text-lg" style="color: #4684c3;"></i>
                                     </div>
                                     <select name="unit" required 
-                                            class="w-full pl-10 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                        <option value="">Choose</option>
+                                            class="input-focus w-full pl-14 pr-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 focus:border-blue-500 text-lg transition-all duration-300 appearance-none" 
+                                            style="border-color: #9cbde5;">
+                                        <option value="">Select Unit</option>
                                         <option value="kg">Kilograms (kg)</option>
                                         <option value="lb">Pounds (lb)</option>
                                         <option value="ton">Tons</option>
@@ -252,18 +456,22 @@
                                         <option value="liter">Liters</option>
                                         <option value="gallon">Gallons</option>
                                     </select>
+                                    <label class="required text-lg font-semibold" style="color: #244a73;">Unit of Measurement</label>
+                                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                        <i class="fas fa-chevron-down" style="color: #6a9ed3;"></i>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="block text-gray-700 font-semibold mb-2 required">Currency</label>
+                            <div class="form-group floating-label">
                                 <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <i class="fas fa-coins text-gray-400"></i>
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+                                        <i class="fab fa-bitcoin text-lg" style="color: #4684c3;"></i>
                                     </div>
                                     <select name="currency" required 
-                                            class="w-full pl-10 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                        <option value="">Choose</option>
+                                            class="input-focus w-full pl-14 pr-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 focus:border-blue-500 text-lg transition-all duration-300 appearance-none" 
+                                            style="border-color: #9cbde5;">
+                                        <option value="">Select Currency</option>
                                         <option value="BTC">Bitcoin (₿)</option>
                                         <option value="ETH">Ethereum (Ξ)</option>
                                         <option value="USDT">Tether (USDT)</option>
@@ -275,16 +483,24 @@
                                         <option value="DOT">Polkadot (DOT)</option>
                                         <option value="SHIB">Shiba Inu (SHIB)</option>
                                     </select>
+                                    <label class="required text-lg font-semibold" style="color: #244a73;">Preferred Currency</label>
+                                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                        <i class="fas fa-chevron-down" style="color: #6a9ed3;"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="flex space-x-4 mt-8">
-                            <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-300 ease-in-out flex items-center">
-                                <i class="fas fa-paper-plane mr-2"></i> Create Request
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 mt-12">
+                            <button type="submit" class="flex-1 custom-gradient text-white px-8 py-4 rounded-2xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center text-lg font-semibold group">
+                                <i class="fas fa-paper-plane mr-3 group-hover:scale-110 transition-transform"></i> 
+                                Create Request
                             </button>
-                            <a href="{% url 'manufacturer_dashboard' %}" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-md hover:bg-gray-300 transition duration-300 ease-in-out flex items-center">
-                                <i class="fas fa-times mr-2"></i> Cancel
+                            <a href="{% url 'manufacturer_dashboard' %}" class="flex-1 border-2 text-lg font-semibold px-8 py-4 rounded-2xl transition-all duration-300 flex items-center justify-center group hover:shadow-lg" 
+                               style="border-color: #9cbde5; color: #4684c3; background: #c9dff6;">
+                                <i class="fas fa-arrow-left mr-3 group-hover:scale-110 transition-transform"></i> 
+                                Back to Dashboard
                             </a>
                         </div>
                     </form>
@@ -294,95 +510,238 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                            <i class="fas fa-link text-lg"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
-                    </div>
-                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
-                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
-                        <li><a href="{% url 'terms' %}" class="text-gray-400 hover:text-blue-400 transition">Terms & Conditions</a></li>
-                        <li><a href="{% url 'privacy' %}" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Contact Us</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
-                            <span>123 Supply Chain Blvd, Business District, 10001</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
-                            <span>info@supplychain.com</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone mr-3 text-blue-400"></i>
-                            <span>+1 (555) 123-4567</span>
-                        </li>
-                    </ul>
-                </div>
+    <footer
+      class="text-white py-16 relative"
+      style="background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%)"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-lg"
+                style="
+                  background: linear-gradient(135deg, #2e75b7 0%, #4684c3 100%);
+                "
+              >
+                <i class="fas fa-link text-xl"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">
+                Supply<span style="color: #9cbde5">Chain</span>
+              </h1>
             </div>
-            
-            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
-                <p>© 2024 Supply Chain Portal. All Rights Reserved.</p>
+            <p class="text-blue-200 mb-6 leading-relaxed">
+              Connecting manufacturers and suppliers through innovative
+              technology and intelligent solutions.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-facebook"></i>
+              </a>
             </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'home' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'about' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'services' %}"
+                  class="text-white flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'manufacturer_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Manufacturer
+                  Login</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'supplier_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Supplier
+                  Login</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'faq' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'help' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Help
+                  Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact
+                  Support</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Live Chat</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Legal</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'terms' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Terms &
+                  Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'privacy' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Privacy
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Cookie
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>GDPR
+                  Compliance</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="section-divider opacity-30"></div>
+
+        <div class="pt-8 text-center">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-blue-200 mb-4 md:mb-0">
+              © 2024 Supply Chain Portal. All Rights Reserved.
+            </p>
+            <div class="flex items-center space-x-6 text-sm text-blue-200">
+              <span class="flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>
+                SSL Secured
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-award mr-2"></i>
+                ISO Certified
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-clock mr-2"></i>
+                24/7 Support
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background decoration -->
+      <div class="absolute top-0 right-0 w-64 h-64 opacity-5">
+        <i class="fas fa-cogs text-9xl"></i>
+      </div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 opacity-5">
+        <i class="fas fa-shipping-fast text-8xl"></i>
+      </div>
     </footer>
-
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
+      document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById("mobile-menu-toggle");
+        const mobileNav = document.getElementById("mobile-nav");
 
-        if (mobileMenuToggle && mobileNav) {
-            mobileMenuToggle.addEventListener('click', () => {
-                mobileNav.classList.toggle('active');
-            });
+        toggleBtn.addEventListener("click", () => {
+          const isOpen = mobileNav.classList.contains("max-h-[500px]");
 
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', (event) => {
-                const isClickInsideMenu = mobileNav.contains(event.target);
-                const isClickOnToggle = mobileMenuToggle.contains(event.target);
-                
-                if (!isClickInsideMenu && !isClickOnToggle && mobileNav.classList.contains('active')) {
-                    mobileNav.classList.remove('active');
-                }
-            });
-        }
+          if (isOpen) {
+            mobileNav.classList.remove("max-h-[500px]");
+            mobileNav.classList.add("max-h-0");
+          } else {
+            mobileNav.classList.remove("max-h-0");
+            mobileNav.classList.add("max-h-[500px]");
+          }
+        });});
     </script>
-</body>
+  </body>
 </html>

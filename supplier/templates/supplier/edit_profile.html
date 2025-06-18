@@ -7,239 +7,499 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        .wallet-field {
+         .wallet-field {
             font-family: monospace;
         }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 25%, #4684c3 75%, #9cbde5 100%);
+        }
+        .gradient-card {
+            background: linear-gradient(145deg, #c9dff6 0%, #9cbde5 100%);
+        }
+        .input-focus:focus {
+            border-color: #4684c3;
+            box-shadow: 0 0 0 3px rgba(70, 132, 195, 0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 100%);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #244a73 0%, #0e447c 100%);
+        }
+        .profile-avatar {
+            background: linear-gradient(135deg, #6a9ed3 0%, #4684c3 100%);
+        }
+        .form-section {
+            background: linear-gradient(135deg, rgba(201, 223, 246, 0.3) 0%, rgba(156, 189, 229, 0.1) 100%);
+        }
+         .success-message {
+            background: linear-gradient(135deg, rgba(201, 223, 246, 0.5) 0%, rgba(156, 189, 229, 0.3) 100%);
+            border-color: #9cbde5;
+        }
+         .pulse-glow {
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(46, 117, 183, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(46, 117, 183, 0.8),
+            0 0 30px rgba(46, 117, 183, 0.4);
+        }
+      }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-gray-50">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center space-x-2">
-                    <div class="h-10 w-10 rounded-md bg-teal-600 flex items-center justify-center">
-                        <i class="fas fa-link text-lg text-white"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-teal-600">Supply<span class="text-gray-700">Chain</span></h1>
-                </div>
-
-                <!-- Desktop Nav -->
-                <div class="hidden md:flex space-x-8">
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Contact</a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-teal-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <nav
+      style="
+        background: linear-gradient(
+          135deg,
+          #2e75b7,
+          #4684c3,
+          #afd5ff,
+          #6a9ed3,
+          #3b699e,
+          #1b5a9b
+        );
+      "
+      class="backdrop-blur-lg shadow-md sticky top-0 z-50"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="flex items-center justify-center h-12 w-12 rounded-xl pulse-glow"
+              style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+            >
+              <i class="fas fa-link text-white text-2xl"></i>
             </div>
+            <h1 class="text-2xl font-bold" style="color: #0a2f56">
+              Supply<span style="color: #2e75b7">Chain</span>
+            </h1>
+          </div>
 
-            <!-- Mobile Navigation -->
-            <div id="mobile-nav" class="md:hidden hidden">
-                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                </div>
-            </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(76,175,80,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(233,30,99,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(156,39,176,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Services</a
+            >
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(0,200,83,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Mobile Menu Toggle Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="p-2 rounded-lg "
+              onmouseover="this.style.background='rgba(255,87,34,0.1)'"
+              onmouseout="this.style.background='transparent'"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div
+        id="mobile-nav"
+        class="md:hidden max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+      >
+        <div class="px-4 py-4 space-y-2">
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-green-100"
+            >Home</a
+          >
+          <a
+            href="{% url 'about' %}"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-pink-100"
+            >About</a
+          >
+          <a
+            href="{% url 'services' %}"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-purple-100"
+            >Services</a
+          >
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-green-50"
+            >Contact</a
+          >
+        </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow py-12">
+     <main class="flex-grow py-8"style="
+        background: linear-gradient(
+          45deg,
+          #2e75b7,
+          #a8d2ff,
+          #4684c3,
+          #6a9ed3,
+          #5ea9ff,
+          #1b5a9b
+        );
+      ">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Welcome Banner -->
-            <div class="mb-10 bg-teal-600 rounded-xl shadow-md p-8 text-white">
-                <h1 class="text-3xl font-bold mb-2">Edit Profile</h1>
-                <p class="text-lg text-teal-100">Update your company information and payment details.</p>
+            <!-- Enhanced Welcome Banner -->
+            <div class="mb-8 gradient-bg rounded-2xl shadow-xl p-8 text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full -ml-12 -mb-12"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="p-3 bg-white bg-opacity-20 rounded-xl">
+                            <i class="fas fa-user-edit text-2xl"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-4xl font-bold mb-2">Edit Profile</h1>
+                            <p class="text-xl opacity-90">Update your company information and payment details</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-10">
-                <!-- Left Column -->
-                <div class="md:col-span-1">
-                    <!-- Profile Card -->
-                    <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow duration-200">
-                        <div class="flex items-center space-x-4 mb-6">
-                            <div class="h-16 w-16 rounded-full bg-teal-100 flex items-center justify-center">
-                                <span class="text-2xl font-bold text-teal-600">{{ supplier.company_name.0 }}</span>
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Enhanced Left Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="sticky top-24">
+                        <!-- Profile Overview Card -->
+                        <div class="gradient-card rounded-2xl shadow-lg p-6 mb-6 border border-white border-opacity-50">
+                            <div class="text-center mb-6">
+                                <div class="profile-avatar h-20 w-20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                    <span class="text-2xl font-bold text-white">{{ supplier.company_name.0 }}</span>
+                                </div>
+                                <h2 class="text-xl font-bold text-gray-800 mb-1">{{ supplier.company_name }}</h2>
+                                <span class="inline-block px-3 py-1 text-sm font-medium text-white rounded-full" style="background-color: #0e447c;">
+                                    <i class="fas fa-building mr-1"></i>Supplier
+                                </span>
                             </div>
-                            <div>
-                                <h2 class="text-xl font-semibold text-gray-800">{{ supplier.company_name }}</h2>
-                                <p class="text-gray-500">Supplier</p>
+                            
+                            <div class="space-y-3">
+                                <a href="{% url 'supplier_edit_profile' %}" class="flex items-center p-3 rounded-xl text-white font-medium transition-all duration-200" style="background-color: #1b5a9b;">
+                                    <i class="fas fa-user-edit mr-3"></i>Edit Profile
+                                </a>
+                                <a href="{% url 'supplier_dashboard' %}" class="flex items-center p-3 rounded-xl hover:bg-white hover:bg-opacity-20 text-gray-700 font-medium transition-all duration-200">
+                                    <i class="fas fa-tachometer-alt mr-3" style="color: #4684c3;"></i>Back to Dashboard
+                                </a>
+                                <a href="{% url 'logout' %}" class="flex items-center p-3 rounded-xl hover:bg-red-50 text-red-600 font-medium transition-all duration-200">
+                                    <i class="fas fa-sign-out-alt mr-3"></i>Logout
+                                </a>
                             </div>
                         </div>
-                        <div class="border-t border-gray-100 pt-4 mt-4 space-y-2">
-                            <a href="{% url 'supplier_edit_profile' %}" class="block py-2 text-teal-600 hover:text-teal-800 font-medium">
-                                <i class="fas fa-user-edit mr-2"></i>Edit Profile
-                            </a>
-                            <a href="{% url 'supplier_dashboard' %}" class="block py-2 text-teal-600 hover:text-teal-800 font-medium">
-                                <i class="fas fa-tachometer-alt mr-2"></i>Back to Dashboard
-                            </a>
-                            <a href="{% url 'logout' %}" class="block py-2 text-red-600 hover:text-red-700 font-medium">
-                                <i class="fas fa-sign-out-alt mr-2"></i>Logout
-                            </a>
+
+                        <!-- Quick Stats Card -->
+                        <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4" style="border-left-color: #4684c3;">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-chart-line mr-2" style="color: #6a9ed3;"></i>
+                                Profile Completion
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-600">Basic Info</span>
+                                    <span class="font-medium" style="color: #1b5a9b;">100%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="h-2 rounded-full" style="background: linear-gradient(90deg, #6a9ed3 0%, #4684c3 100%); width: 100%;"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Column -->
-                <div class="md:col-span-2">
-                    <div class="bg-white rounded-xl shadow-md p-8 hover:shadow-md transition-shadow duration-200">
+                <!-- Enhanced Right Content -->
+                <div class="lg:col-span-3">
+                    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                        <!-- Messages Section -->
                         {% if messages %}
-                            {% for message in messages %}
-                            <div class="mb-6 p-4 rounded-lg {% if message.tags == 'error' %}bg-red-50 text-red-700{% else %}bg-green-50 text-green-700{% endif %}">
-                                {{ message }}
+                            <div class="p-6 border-b border-gray-100">
+                                {% for message in messages %}
+                                <div class="p-4 rounded-xl mb-4 {% if message.tags == 'error' %}bg-red-50 border border-red-200 text-red-700{% else %}success-message border text-green-700{% endif %}">
+                                    <div class="flex items-center">
+                                        <i class="fas {% if message.tags == 'error' %}fa-exclamation-triangle{% else %}fa-check-circle{% endif %} mr-3"></i>
+                                        {{ message }}
+                                    </div>
+                                </div>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
                         {% endif %}
 
-                        <form method="post">
-                            {% csrf_token %}
+                        <!-- Form Content -->
+                        <div class="p-8">
+                            <form method="post">
+                                {% csrf_token %}
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="form-group">
-                                    <label for="first_name" class="block text-gray-700 font-medium mb-2">First Name</label>
-                                    <input
-                                        type="text"
-                                        id="first_name"
-                                        name="first_name"
-                                        value="{{ supplier.first_name }}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
-                                        required
-                                    />
+                                <!-- Personal Information Section -->
+                                <div class="form-section rounded-2xl p-6 mb-8 border border-gray-100">
+                                    <div class="flex items-center mb-6">
+                                        <div class="p-2 rounded-lg mr-3" style="background-color: #c9dff6;">
+                                            <i class="fas fa-user" style="color: #0e447c;"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-800">Personal Information</h3>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="form-group">
+                                            <label for="first_name" class="block text-gray-700 font-semibold mb-3 flex items-center">
+                                                <i class="fas fa-user-circle mr-2" style="color: #6a9ed3;"></i>
+                                                First Name
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="first_name"
+                                                name="first_name"
+                                                value="{{ supplier.first_name }}"
+                                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl input-focus transition-all duration-200 focus:outline-none"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="last_name" class="block text-gray-700 font-semibold mb-3 flex items-center">
+                                                <i class="fas fa-user-circle mr-2" style="color: #6a9ed3;"></i>
+                                                Last Name
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="last_name"
+                                                name="last_name"
+                                                value="{{ supplier.last_name }}"
+                                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl input-focus transition-all duration-200 focus:outline-none"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="last_name" class="block text-gray-700 font-medium mb-2">Last Name</label>
-                                    <input
-                                        type="text"
-                                        id="last_name"
-                                        name="last_name"
-                                        value="{{ supplier.last_name }}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
-                                        required
-                                    />
+                                <!-- Company Information Section -->
+                                <div class="form-section rounded-2xl p-6 mb-8 border border-gray-100">
+                                    <div class="flex items-center mb-6">
+                                        <div class="p-2 rounded-lg mr-3" style="background-color: #c9dff6;">
+                                            <i class="fas fa-building" style="color: #0e447c;"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-800">Company Details</h3>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 gap-6">
+                                        <div class="form-group">
+                                            <label for="company_name" class="block text-gray-700 font-semibold mb-3 flex items-center">
+                                                <i class="fas fa-building mr-2" style="color: #6a9ed3;"></i>
+                                                Company Name
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="company_name"
+                                                name="company_name"
+                                                value="{{ supplier.company_name }}"
+                                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl input-focus transition-all duration-200 focus:outline-none"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div class="form-group">
+                                                <label for="business_type" class="block text-gray-700 font-semibold mb-3 flex items-center">
+                                                    <i class="fas fa-briefcase mr-2" style="color: #6a9ed3;"></i>
+                                                    Business Type
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    id="business_type"
+                                                    name="business_type"
+                                                    value="{{ supplier.business_type }}"
+                                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl input-focus transition-all duration-200 focus:outline-none"
+                                                    required
+                                                />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="website" class="block text-gray-700 font-semibold mb-3 flex items-center">
+                                                    <i class="fas fa-globe mr-2" style="color: #6a9ed3;"></i>
+                                                    Website
+                                                </label>
+                                                <input
+                                                    type="url"
+                                                    id="website"
+                                                    name="website"
+                                                    value="{{ supplier.website }}"
+                                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl input-focus transition-all duration-200 focus:outline-none"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="key_services" class="block text-gray-700 font-semibold mb-3 flex items-center">
+                                                <i class="fas fa-cogs mr-2" style="color: #6a9ed3;"></i>
+                                                Key Services
+                                            </label>
+                                            <textarea 
+                                                id="key_services" 
+                                                name="key_services" 
+                                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl input-focus transition-all duration-200 focus:outline-none h-32 resize-none"
+                                                required
+                                                placeholder="Describe your main services and capabilities..."
+                                            >{{ supplier.key_services }}</textarea>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="form-group md:col-span-2">
-                                    <label for="company_name" class="block text-gray-700 font-medium mb-2">Company Name</label>
-                                    <input
-                                        type="text"
-                                        id="company_name"
-                                        name="company_name"
-                                        value="{{ supplier.company_name }}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
-                                        required
-                                    />
+                                <!-- Location & Contact Section -->
+                                <div class="form-section rounded-2xl p-6 mb-8 border border-gray-100">
+                                    <div class="flex items-center mb-6">
+                                        <div class="p-2 rounded-lg mr-3" style="background-color: #c9dff6;">
+                                            <i class="fas fa-map-marker-alt" style="color: #0e447c;"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-800">Location & Contact</h3>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="form-group">
+                                            <label for="city" class="block text-gray-700 font-semibold mb-3 flex items-center">
+                                                <i class="fas fa-city mr-2" style="color: #6a9ed3;"></i>
+                                                City
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="city"
+                                                name="city"
+                                                value="{{ supplier.city }}"
+                                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl input-focus transition-all duration-200 focus:outline-none"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="state" class="block text-gray-700 font-semibold mb-3 flex items-center">
+                                                <i class="fas fa-map mr-2" style="color: #6a9ed3;"></i>
+                                                State
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="state"
+                                                name="state"
+                                                value="{{ supplier.state }}"
+                                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl input-focus transition-all duration-200 focus:outline-none"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div class="form-group md:col-span-2">
+                                            <label for="phone_number" class="block text-gray-700 font-semibold mb-3 flex items-center">
+                                                <i class="fas fa-phone mr-2" style="color: #6a9ed3;"></i>
+                                                Phone Number
+                                            </label>
+                                            <input
+                                                type="tel"
+                                                id="phone_number"
+                                                name="phone_number"
+                                                value="{{ supplier.phone_number }}"
+                                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl input-focus transition-all duration-200 focus:outline-none"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="city" class="block text-gray-700 font-medium mb-2">City</label>
-                                    <input
-                                        type="text"
-                                        id="city"
-                                        name="city"
-                                        value="{{ supplier.city }}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
-                                        required
-                                    />
+                                <!-- Payment Information Section -->
+                                <div class="form-section rounded-2xl p-6 mb-8 border border-gray-100">
+                                    <div class="flex items-center mb-6">
+                                        <div class="p-2 rounded-lg mr-3" style="background-color: #c9dff6;">
+                                            <i class="fab fa-ethereum" style="color: #0e447c;"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-gray-800">Payment Information</h3>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="wallet_address" class="block text-gray-700 font-semibold mb-3 flex items-center">
+                                            <i class="fas fa-wallet mr-2" style="color: #6a9ed3;"></i>
+                                            Ethereum Wallet Address
+                                        </label>
+                                        <div class="relative">
+                                            <input
+                                                type="text"
+                                                id="wallet_address"
+                                                name="wallet_address"
+                                                value="{{ supplier.wallet_address }}"
+                                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl input-focus transition-all duration-200 focus:outline-none wallet-field pr-12"
+                                                required
+                                                pattern="^0x[a-fA-F0-9]{40}$"
+                                                title="Please enter a valid Ethereum wallet address starting with 0x"
+                                                placeholder="0x..."
+                                            />
+                                            <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                                                <i class="fab fa-ethereum text-xl" style="color: #9cbde5;"></i>
+                                            </div>
+                                        </div>
+                                        {% if form.errors.wallet_address %}
+                                        <div class="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+                                            <div class="flex items-center text-red-700">
+                                                <i class="fas fa-exclamation-triangle mr-2"></i>
+                                                {{ form.errors.wallet_address }}
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        <div class="mt-3 p-3 rounded-lg border" style="background-color: rgba(201, 223, 246, 0.3); border-color: #9cbde5;">
+                                            <div class="flex items-center text-sm" style="color: #244a73;">
+                                                <i class="fas fa-info-circle mr-2"></i>
+                                                This is where you'll receive payments securely via blockchain
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="state" class="block text-gray-700 font-medium mb-2">State</label>
-                                    <input
-                                        type="text"
-                                        id="state"
-                                        name="state"
-                                        value="{{ supplier.state }}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
-                                        required
-                                    />
+                                <!-- Action Buttons -->
+                                <div class="flex flex-col sm:flex-row justify-end space-y-4 sm:space-y-0 sm:space-x-4 pt-6 border-t border-gray-200">
+                                    <a href="{% url 'supplier_profile' %}" class="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition-all duration-200 text-center border-2 border-gray-200 hover:border-gray-300">
+                                        <i class="fas fa-times mr-2"></i>Cancel
+                                    </a>
+                                    <button type="submit" class="px-8 py-3 btn-primary text-white rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                                        <i class="fas fa-save mr-2"></i>Save Changes
+                                    </button>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="business_type" class="block text-gray-700 font-medium mb-2">Business Type</label>
-                                    <input
-                                        type="text"
-                                        id="business_type"
-                                        name="business_type"
-                                        value="{{ supplier.business_type }}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
-                                        required
-                                    />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="website" class="block text-gray-700 font-medium mb-2">Website</label>
-                                    <input
-                                        type="url"
-                                        id="website"
-                                        name="website"
-                                        value="{{ supplier.website }}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
-                                    />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="phone_number" class="block text-gray-700 font-medium mb-2">Phone Number</label>
-                                    <input
-                                        type="tel"
-                                        id="phone_number"
-                                        name="phone_number"
-                                        value="{{ supplier.phone_number }}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500"
-                                        required
-                                    />
-                                </div>
-
-                                <div class="form-group md:col-span-2">
-                                    <label for="key_services" class="block text-gray-700 font-medium mb-2">Key Services</label>
-                                    <textarea 
-                                        id="key_services" 
-                                        name="key_services" 
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500 h-32"
-                                        required
-                                    >{{ supplier.key_services }}</textarea>
-                                </div>
-
-                                <div class="form-group md:col-span-2">
-                                    <label for="wallet_address" class="block text-gray-700 font-medium mb-2">Ethereum Wallet Address</label>
-                                    <input
-                                        type="text"
-                                        id="wallet_address"
-                                        name="wallet_address"
-                                        value="{{ supplier.wallet_address }}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500 wallet-field"
-                                        required
-                                        pattern="^0x[a-fA-F0-9]{40}$"
-                                        title="Please enter a valid Ethereum wallet address starting with 0x"
-                                    />
-                                    {% if form.errors.wallet_address %}
-                                    <div class="mt-2 text-sm text-red-600">{{ form.errors.wallet_address }}</div>
-                                    {% endif %}
-                                    <p class="mt-2 text-sm text-gray-500">This is where you'll receive payments</p>
-                                </div>
-                            </div>
-
-                            <div class="mt-8 pt-6 border-t border-gray-100 flex justify-end space-x-4">
-                                <a href="{% url 'supplier_profile' %}" class="px-6 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg font-medium transition duration-200">
-                                    Cancel
-                                </a>
-                                <button type="submit" class="px-6 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg font-medium transition duration-200">
-                                    Save Changes
-                                </button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -247,88 +507,239 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 py-12 mt-auto">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div class="h-10 w-10 rounded-md bg-teal-600 flex items-center justify-center">
-                            <i class="fas fa-link text-lg text-white"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-teal-400">Chain</span></h1>
-                    </div>
-                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-teal-400">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-teal-400">About</a></li>
-                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-teal-400">Services</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-teal-400">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-teal-400">Help Center</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-teal-400">Contact</a></li>
-                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-teal-400">FAQ</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Contact</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-teal-400"></i>
-                            123 Supply Chain Blvd, Business District, 10001
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope mr-3 text-teal-400"></i>
-                            info@supplychain.com
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone mr-3 text-teal-400"></i>
-                            +1 (555) 123-4567
-                        </li>
-                    </ul>
-                </div>
+        <footer
+      class="text-white py-16 relative"
+      style="background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%)"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-lg"
+                style="
+                  background: linear-gradient(135deg, #2e75b7 0%, #4684c3 100%);
+                "
+              >
+                <i class="fas fa-link text-xl"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">
+                Supply<span style="color: #9cbde5">Chain</span>
+              </h1>
             </div>
-            
-            <div class="pt-8 mt-8 border-t border-gray-700 text-center">
-                <p class="text-gray-400">© 2025 Supply Chain Portal. All rights reserved.</p>
+            <p class="text-blue-200 mb-6 leading-relaxed">
+              Connecting manufacturers and suppliers through innovative
+              technology and intelligent solutions.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-facebook"></i>
+              </a>
             </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'home' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'about' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'services' %}"
+                  class="text-white flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'manufacturer_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Manufacturer
+                  Login</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'supplier_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Supplier
+                  Login</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'faq' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'help' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Help
+                  Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact
+                  Support</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Live Chat</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Legal</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'terms' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Terms &
+                  Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'privacy' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Privacy
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Cookie
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>GDPR
+                  Compliance</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="section-divider opacity-30"></div>
+
+        <div class="pt-8 text-center">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-blue-200 mb-4 md:mb-0">
+              © 2024 Supply Chain Portal. All Rights Reserved.
+            </p>
+            <div class="flex items-center space-x-6 text-sm text-blue-200">
+              <span class="flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>
+                SSL Secured
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-award mr-2"></i>
+                ISO Certified
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-clock mr-2"></i>
+                24/7 Support
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background decoration -->
+      <div class="absolute top-0 right-0 w-64 h-64 opacity-5">
+        <i class="fas fa-cogs text-9xl"></i>
+      </div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 opacity-5">
+        <i class="fas fa-shipping-fast text-8xl"></i>
+      </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
+       document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById("mobile-menu-toggle");
+        const mobileNav = document.getElementById("mobile-nav");
 
-        if (mobileMenuToggle && mobileNav) {
-            mobileMenuToggle.addEventListener('click', () => {
-                mobileNav.classList.toggle('hidden');
-            });
+        toggleBtn.addEventListener("click", () => {
+          const isOpen = mobileNav.classList.contains("max-h-[500px]");
 
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', (event) => {
-                const isClickInsideMenu = mobileNav.contains(event.target);
-                const isClickOnToggle = mobileMenuToggle.contains(event.target);
-                
-                if (!isClickInsideMenu && !isClickOnToggle && !mobileNav.classList.contains('hidden')) {
-                    mobileNav.classList.add('hidden');
-                }
-            });
-        }
+          if (isOpen) {
+            mobileNav.classList.remove("max-h-[500px]");
+            mobileNav.classList.add("max-h-0");
+          } else {
+            mobileNav.classList.remove("max-h-0");
+            mobileNav.classList.add("max-h-[500px]");
+          }
+        });});
     </script>
 </body>
 </html>

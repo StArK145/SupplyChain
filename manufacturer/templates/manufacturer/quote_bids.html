@@ -10,14 +10,139 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f9fafb;
+            background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 100%);
+            min-height: 100vh;
         }
+        
         .dashboard-card {
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
+        
         .dashboard-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(14, 68, 124, 0.1), 0 10px 10px -5px rgba(14, 68, 124, 0.04);
         }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 50%, #3b699e 100%);
+        }
+        
+        .accent-gradient {
+            background: linear-gradient(135deg, #4684c3 0%, #6a9ed3 100%);
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            gap: 4px;
+        }
+        
+        .status-open { 
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0); 
+            color: #047857; 
+            border: 1px solid #a7f3d0;
+        }
+        .status-closed { 
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb); 
+            color: #6b7280; 
+            border: 1px solid #d1d5db;
+        }
+        .status-awarded { 
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd); 
+            color: #0369a1; 
+            border: 1px solid #7dd3fc;
+        }
+        .status-expired { 
+            background: linear-gradient(135deg, #fee2e2, #fecaca); 
+            color: #b91c1c; 
+            border: 1px solid #fca5a5;
+        }
+        .status-submitted { 
+            background: linear-gradient(135deg, #fef3c7, #fde68a); 
+            color: #92400e; 
+            border: 1px solid #f59e0b;
+        }
+        .status-accepted { 
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0); 
+            color: #16a34a; 
+            border: 1px solid #4ade80;
+        }
+        
+        .carbon-result-box {
+            background: linear-gradient(135deg, rgba(201, 223, 246, 0.3), rgba(156, 189, 229, 0.2));
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(14, 68, 124, 0.2);
+            box-shadow: 0 8px 32px rgba(14, 68, 124, 0.1);
+        }
+        
+        .carbon-result-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .carbon-result-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(14, 68, 124, 0.1);
+        }
+        
+        .carbon-icon {
+            margin-right: 0.75rem;
+            color: #0e447c;
+            font-size: 1.25rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 100%);
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #244a73 0%, #0e447c 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 16px rgba(14, 68, 124, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #4684c3 0%, #6a9ed3 100%);
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #3b699e 0%, #4684c3 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 16px rgba(70, 132, 195, 0.3);
+        }
+        
+        .floating-header {
+            /* position: sticky; */
+            top: 20px;
+            z-index: 10;
+        }
+        
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
@@ -33,238 +158,440 @@
                 display: block;
             }
         }
-        .status-badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
         }
-        .status-open { background-color: #d1fae5; color: #047857; }
-        .status-closed { background-color: #f3f4f6; color: #6b7280; }
-        .status-awarded { background-color: #e0f2fe; color: #0369a1; }
-        .status-expired { background-color: #fee2e2; color: #b91c1c; }
-        .status-submitted { background-color: #fef3c7; color: #92400e; }
-        .status-accepted { background-color: #dcfce7; color: #16a34a; }
-        
-        .carbon-result-box {
-            background-color: #f0f9ff;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-top: 1rem;
-            border: 1px solid #bae6fd;
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
         }
-        .carbon-result-item {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem;
-            border-bottom: 1px solid #e0f2fe;
+
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
         }
-        .carbon-result-item:last-child {
-            border-bottom: none;
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .carbon-icon {
-            margin-right: 0.75rem;
-            color: #0284c7;
+        .pulse-glow {
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(46, 117, 183, 0.5);
         }
+        50% {
+          box-shadow: 0 0 20px rgba(46, 117, 183, 0.8),
+            0 0 30px rgba(46, 117, 183, 0.4);
+        }
+      }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo and Brand -->
-                <div class="flex items-center space-x-2">
-                    <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                        <i class="fas fa-link text-lg"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-blue-700">Supply<span class="text-gray-700">Chain</span></h1>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-8 nav-menu">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
-                </div>
-
-                <!-- Mobile Hamburger Menu -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <nav
+      style="
+        background: linear-gradient(
+          135deg,
+          #2e75b7,
+          #4684c3,
+          #afd5ff,
+          #6a9ed3,
+          #3b699e,
+          #1b5a9b
+        );
+      "
+      class="backdrop-blur-lg shadow-md sticky top-0 z-50"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="flex items-center justify-center h-12 w-12 rounded-xl pulse-glow"
+              style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+            >
+              <i class="fas fa-link text-white text-2xl"></i>
             </div>
+            <h1 class="text-2xl font-bold" style="color: #0a2f56">
+              Supply<span style="color: #2e75b7">Chain</span>
+            </h1>
+          </div>
 
-            <!-- Mobile Navigation Menu -->
-            <div id="mobile-nav" class="md:hidden nav-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                </div>
-            </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(76,175,80,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(233,30,99,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(156,39,176,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Services</a
+            >
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(0,200,83,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Mobile Menu Toggle Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="p-2 rounded-lg "
+              onmouseover="this.style.background='rgba(255,87,34,0.1)'"
+              onmouseout="this.style.background='transparent'"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div
+        id="mobile-nav"
+        class="md:hidden max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+      >
+        <div class="px-4 py-4 space-y-2">
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-green-100"
+            >Home</a
+          >
+          <a
+            href="{% url 'about' %}"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-pink-100"
+            >About</a
+          >
+          <a
+            href="{% url 'services' %}"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-purple-100"
+            >Services</a
+          >
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-green-50"
+            >Contact</a
+          >
+        </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow py-12 bg-gray-50">
+    <main class="flex-grow py-8 min-h-screen"style="
+        background: linear-gradient(
+          45deg,
+          #2e75b7,
+          #a8d2ff,
+          #4684c3,
+          #6a9ed3,
+          #5ea9ff,
+          #1b5a9b
+        );
+      ">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Page Title Banner -->
-            <div class="mb-10 bg-blue-600 rounded-xl shadow-md p-8 text-white">
-                <h1 class="text-3xl font-bold mb-2">Bids for {{ quote.product }}</h1>
-                <p class="text-lg text-blue-100">Compare and evaluate supplier bids for your quote request.</p>
+            <!-- Enhanced Page Title Banner -->
+            <div class="mb-8 floating-header slide-in">
+                <div class="gradient-bg rounded-2xl shadow-2xl p-8 text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
+                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full -ml-12 -mb-12"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center mb-3">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+                                <i class="fas fa-file-invoice text-2xl"></i>
+                            </div>
+                            <div>
+                                <h1 class="text-4xl font-bold mb-1">Bids for {{ quote.product }}</h1>
+                                <p class="text-xl text-blue-100 font-light">Compare and evaluate supplier bids for your quote request.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4 mt-4">
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm font-medium">
+                                <i class="fas fa-clock mr-2"></i>Live Bidding
+                            </span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm font-medium">
+                                <i class="fas fa-users mr-2"></i>Multiple Suppliers
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid md:grid-cols-4 gap-8">
-                <!-- Left Sidebar -->
-                <div class="md:col-span-1 space-y-6">
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Enhanced Left Sidebar -->
+                <div class="lg:col-span-1 space-y-6">
                     <!-- Quote Details Card -->
-                    <div class="bg-white rounded-xl shadow-sm p-6 dashboard-card">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                            <i class="fas fa-info-circle mr-2 text-blue-600"></i> Quote Details
-                        </h2>
-                        <div class="space-y-3 text-gray-700">
-                            <p class="flex justify-between">
-                                <span class="font-medium text-gray-600">Product:</span> 
-                                <span class="text-gray-800">{{ quote.product }}</span>
-                            </p>
-                            <p class="flex justify-between">
-                                <span class="font-medium text-gray-600">Status:</span> 
-                                <span class="status-badge status-{{ quote.status }}">{{ quote.get_status_display }}</span>
-                            </p>
-                            <div class="pt-4 mt-2 border-t border-gray-100">
-                                <a href="{% url 'manufacturer_quote_history' %}" class="flex items-center text-blue-600 hover:text-blue-800 font-medium">
-                                    <i class="fas fa-arrow-left mr-2"></i> Back to Quote History
-                                </a>
+                    <div class="dashboard-card rounded-2xl shadow-xl p-6 slide-in">
+                        <div class="flex items-center mb-6">
+                            <div class="w-10 h-10 accent-gradient rounded-xl flex items-center justify-center mr-3">
+                                <i class="fas fa-info-circle text-white"></i>
                             </div>
+                            <h2 class="text-xl font-semibold text-gray-800">Quote Details</h2>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-xl">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-medium text-gray-600 flex items-center">
+                                        <i class="fas fa-box mr-2 text-gray-500"></i>Product:
+                                    </span>
+                                    <span class="font-semibold text-gray-800">{{ quote.product }}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-xl">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-medium text-gray-600 flex items-center">
+                                        <i class="fas fa-flag mr-2 text-gray-500"></i>Status:
+                                    </span>
+                                    <span class="status-badge status-{{ quote.status }}">
+                                        <i class="fas fa-circle text-xs"></i>
+                                        {{ quote.get_status_display }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-6 mt-6 border-t border-gray-200">
+                            <a href="{% url 'manufacturer_quote_history' %}" class="flex items-center justify-center w-full py-3 px-4 btn-secondary text-white rounded-xl font-medium transition-all duration-300 hover:shadow-lg">
+                                <i class="fas fa-arrow-left mr-2"></i> Back to Quote History
+                            </a>
                         </div>
                     </div>
 
-                    <!-- Quick Links Card -->
-                    <div class="bg-white rounded-xl shadow-sm p-6 dashboard-card">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                            <i class="fas fa-bolt mr-2 text-yellow-500"></i> Quick Links
-                        </h3>
+                    <!-- Enhanced Quick Links Card -->
+                    <div class="dashboard-card rounded-2xl shadow-xl p-6 slide-in">
+                        <div class="flex items-center mb-6">
+                            <div class="w-10 h-10 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center mr-3">
+                                <i class="fas fa-bolt text-white"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800">Quick Actions</h3>
+                        </div>
+                        
                         <div class="space-y-3">
-                            <a href="{% url 'manufacturer_dashboard' %}" class="block py-2 px-4 bg-gray-50 hover:bg-gray-100 rounded-md text-gray-700 hover:text-gray-900 transition-all font-medium">
-                                <i class="fas fa-tachometer-alt mr-2 text-blue-500"></i> Dashboard
+                            <a href="{% url 'manufacturer_dashboard' %}" class="group block p-4 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 rounded-xl transition-all duration-300 border border-blue-200 hover:border-blue-300">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
+                                        <i class="fas fa-tachometer-alt text-white text-sm"></i>
+                                    </div>
+                                    <span class="font-medium text-gray-700 group-hover:text-gray-900">Dashboard</span>
+                                </div>
                             </a>
-                            <a href="{% url 'manufacturer_request_quote' %}" class="block py-2 px-4 bg-gray-50 hover:bg-gray-100 rounded-md text-gray-700 hover:text-gray-900 transition-all font-medium">
-                                <i class="fas fa-file-invoice mr-2 text-green-500"></i> Request New Quote
+                            
+                            <a href="{% url 'manufacturer_request_quote' %}" class="group block p-4 bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 rounded-xl transition-all duration-300 border border-green-200 hover:border-green-300">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
+                                        <i class="fas fa-file-invoice text-white text-sm"></i>
+                                    </div>
+                                    <span class="font-medium text-gray-700 group-hover:text-gray-900">Request New Quote</span>
+                                </div>
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Bids Content -->
-                <div class="md:col-span-3 space-y-6">
+                <!-- Enhanced Bids Content -->
+                <div class="lg:col-span-3 space-y-8">
                     {% if bids %}
                         {% for bid in bids %}
-                        <div class="bg-white rounded-xl shadow-md overflow-hidden dashboard-card">
-                            <!-- Bid Header -->
-                            <div class="bg-gray-50 px-6 py-4 flex justify-between items-center border-b border-gray-100">
-                                <div class="flex items-center space-x-2">
-                                    <h3 class="text-lg font-semibold text-gray-800">
-                                        <a href="{% url 'view_supplier_profile' bid.supplier.id %}?quote_id={{ quote.id }}" class="text-blue-600 hover:text-blue-800">
-                                            {{ bid.supplier.company_name }}
-                                        </a>
-                                    </h3>
-                                    
-                                    {% if bid.supplier.reviews.count > 0 %}
-                                    <div class="text-yellow-500 flex items-center text-sm">
-                                        {% for i in "12345" %}
-                                            {% if forloop.counter <= bid.supplier_avg_rating|floatformat:0 %}
-                                                <i class="fas fa-star"></i>
-                                            {% else %}
-                                                <i class="far fa-star"></i>
+                        <div class="dashboard-card rounded-2xl shadow-xl overflow-hidden slide-in">
+                            <!-- Enhanced Bid Header -->
+                            <div class="bg-gradient-to-r from-gray-50 via-white to-gray-50 px-8 py-6 border-b border-gray-200">
+                                <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-4 lg:space-y-0">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-12 h-12 accent-gradient rounded-xl flex items-center justify-center">
+                                            <i class="fas fa-building text-white text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-xl font-bold">
+                                                <a href="{% url 'view_supplier_profile' bid.supplier.id %}?quote_id={{ quote.id }}" class="text-gray-800 hover:text-blue-600 transition-colors duration-300">
+                                                    {{ bid.supplier.company_name }}
+                                                </a>
+                                            </h3>
+                                            {% if bid.supplier.reviews.count > 0 %}
+                                            <div class="flex items-center mt-1">
+                                                <div class="flex text-yellow-400 mr-2">
+                                                    {% for i in "12345" %}
+                                                        {% if forloop.counter <= bid.supplier_avg_rating|floatformat:0 %}
+                                                            <i class="fas fa-star text-sm"></i>
+                                                        {% else %}
+                                                            <i class="far fa-star text-sm"></i>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                                <span class="text-sm text-gray-600 font-medium">({{ bid.supplier_avg_rating|floatformat:1 }} rating)</span>
+                                            </div>
                                             {% endif %}
-                                        {% endfor %}
-                                        <span class="ml-1 text-gray-600">({{ bid.supplier_avg_rating|floatformat:1 }})</span>
+                                        </div>
                                     </div>
-                                    {% endif %}
+                                    <span class="status-badge status-{{ bid.status }} text-sm">
+                                        <i class="fas fa-circle text-xs pulse-animation"></i>
+                                        {{ bid.get_status_display }}
+                                    </span>
                                 </div>
-                                <span class="status-badge status-{{ bid.status }}">
-                                    {{ bid.get_status_display }}
-                                </span>
                             </div>
                             
-                            <!-- Bid Content -->
-                            <div class="p-6">
-                                <div class="grid md:grid-cols-2 gap-6">
-                                    <!-- Bid Details -->
-                                    <div class="space-y-3">
-                                        <h4 class="font-semibold text-gray-700 mb-2 border-b border-gray-100 pb-2">Bid Details</h4>
-                                        <p class="flex justify-between">
-                                            <span class="font-medium text-gray-600">Bid Amount:</span>
-                                            <span class="font-semibold text-green-600">{{ quote.currency }} {{ bid.bid_amount }}</span>
-                                        </p>
-                                        <p class="flex justify-between">
-                                            <span class="font-medium text-gray-600">Delivery Time:</span>
-                                            <span>{{ bid.delivery_time }} days</span>
-                                        </p>
+                            <!-- Enhanced Bid Content -->
+                            <div class="p-8">
+                                <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                                    <!-- Bid Details Section -->
+                                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-200">
+                                        <div class="flex items-center mb-6">
+                                            <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-3">
+                                                <i class="fas fa-file-invoice text-white text-sm"></i>
+                                            </div>
+                                            <h4 class="text-lg font-semibold text-gray-800">Bid Details</h4>
+                                        </div>
+                                        
+                                        <div class="space-y-4">
+                                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                                <div class="flex justify-between items-center">
+                                                    <span class="font-medium text-gray-600 flex items-center">
+                                                        <i class="fas fa-dollar-sign mr-2 text-green-500"></i>Bid Amount:
+                                                    </span>
+                                                    <span class="text-xl font-bold text-green-600">{{ quote.currency }} {{ bid.bid_amount }}</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                                <div class="flex justify-between items-center">
+                                                    <span class="font-medium text-gray-600 flex items-center">
+                                                        <i class="fas fa-clock mr-2 text-blue-500"></i>Delivery Time:
+                                                    </span>
+                                                    <span class="font-semibold text-gray-800">{{ bid.delivery_time }} days</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                         {% if bid.comments %}
-                                        <div class="mt-3 pt-2 border-t border-gray-100">
-                                            <p class="font-medium text-gray-600 mb-1">Comments:</p>
-                                            <p class="text-gray-700 bg-gray-50 p-3 rounded-md">{{ bid.comments }}</p>
+                                        <div class="mt-6 pt-4 border-t border-blue-200">
+                                            <p class="font-medium text-gray-700 mb-3 flex items-center">
+                                                <i class="fas fa-comment mr-2 text-blue-500"></i>Comments:
+                                            </p>
+                                            <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-blue-500">
+                                                <p class="text-gray-700 leading-relaxed">{{ bid.comments }}</p>
+                                            </div>
                                         </div>
                                         {% endif %}
                                     </div>
                                     
-                                    <!-- Transport Details -->
-                                    <div class="space-y-3">
-                                        <h4 class="font-semibold text-gray-700 mb-2 flex items-center border-b border-gray-100 pb-2">
-                                            <i class="fas fa-truck mr-2 text-blue-500"></i> Transport Details
-                                        </h4>
-                                        <p class="flex justify-between">
-                                            <span class="font-medium text-gray-600">Transport Mode:</span>
-                                            <span>{{ bid.get_transport_mode_display }}</span>
-                                        </p>
+                                    <!-- Transport Details Section -->
+                                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-2xl border border-purple-200">
+                                        <div class="flex items-center mb-6">
+                                            <div class="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center mr-3">
+                                                <i class="fas fa-truck text-white text-sm"></i>
+                                            </div>
+                                            <h4 class="text-lg font-semibold text-gray-800">Transport Details</h4>
+                                        </div>
                                         
-                                        {% if bid.transport_mode == 'road' %}
-                                            <p class="flex justify-between">
-                                                <span class="font-medium text-gray-600">Vehicle Type:</span>
-                                                <span>{{ bid.get_vehicle_type_display|default:"Not specified" }}</span>
-                                            </p>
-                                            <p class="flex justify-between">
-                                                <span class="font-medium text-gray-600">Vehicle Count:</span>
-                                                <span>{{ bid.vehicle_count|default:"Not specified" }}</span>
-                                            </p>
-                                            <p class="flex justify-between">
-                                                <span class="font-medium text-gray-600">Load Percentage:</span>
-                                                <span>{{ bid.load_percentage|default:"Not specified" }}%</span>
-                                            </p>
-                                            <p class="flex justify-between">
-                                                <span class="font-medium text-gray-600">Empty Return:</span>
-                                                <span>{{ bid.empty_return|yesno:"Yes,No" }}</span>
-                                            </p>
-                                        {% else %}
-                                            <p class="flex justify-between">
-                                                <span class="font-medium text-gray-600">Aircraft Type:</span>
-                                                <span>{{ bid.get_aircraft_type_display|default:"Not specified" }}</span>
-                                            </p>
-                                            <p class="flex justify-between">
-                                                <span class="font-medium text-gray-600">Flight Count:</span>
-                                                <span>{{ bid.flight_count|default:"Not specified" }}</span>
-                                            </p>
-                                        {% endif %}
+                                        <div class="space-y-4">
+                                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                                <div class="flex justify-between items-center">
+                                                    <span class="font-medium text-gray-600">Transport Mode:</span>
+                                                    <span class="font-semibold text-gray-800 capitalize">{{ bid.get_transport_mode_display }}</span>
+                                                </div>
+                                            </div>
+                                            
+                                            {% if bid.transport_mode == 'road' %}
+                                                <div class="grid grid-cols-1 gap-3">
+                                                    <div class="bg-white p-3 rounded-lg shadow-sm">
+                                                        <div class="flex justify-between text-sm">
+                                                            <span class="text-gray-600">Vehicle Type:</span>
+                                                            <span class="font-medium">{{ bid.get_vehicle_type_display|default:"Not specified" }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bg-white p-3 rounded-lg shadow-sm">
+                                                        <div class="flex justify-between text-sm">
+                                                            <span class="text-gray-600">Vehicle Count:</span>
+                                                            <span class="font-medium">{{ bid.vehicle_count|default:"Not specified" }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bg-white p-3 rounded-lg shadow-sm">
+                                                        <div class="flex justify-between text-sm">
+                                                            <span class="text-gray-600">Load Percentage:</span>
+                                                            <span class="font-medium">{{ bid.load_percentage|default:"Not specified" }}%</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bg-white p-3 rounded-lg shadow-sm">
+                                                        <div class="flex justify-between text-sm">
+                                                            <span class="text-gray-600">Empty Return:</span>
+                                                            <span class="font-medium">{{ bid.empty_return|yesno:"Yes,No" }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="grid grid-cols-1 gap-3">
+                                                    <div class="bg-white p-3 rounded-lg shadow-sm">
+                                                        <div class="flex justify-between text-sm">
+                                                            <span class="text-gray-600">Aircraft Type:</span>
+                                                            <span class="font-medium">{{ bid.get_aircraft_type_display|default:"Not specified" }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bg-white p-3 rounded-lg shadow-sm">
+                                                        <div class="flex justify-between text-sm">
+                                                            <span class="text-gray-600">Flight Count:</span>
+                                                            <span class="font-medium">{{ bid.flight_count|default:"Not specified" }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Action Buttons -->
-                                <div class="mt-6 flex flex-wrap gap-3">
-                                    <button class="flex items-center px-4 py-2 bg-blue-50 text-blue-700 rounded-md hover:bg-blue-100 transition-colors" data-supplier-id="{{ bid.supplier.id }}">
+                                <!-- Enhanced Action Buttons -->
+                                <div class="flex flex-wrap gap-4 mb-6">
+                                    <button class="flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 font-medium" data-supplier-id="{{ bid.supplier.id }}">
                                         <i class="fas fa-chart-pie mr-2"></i> Analyze Supplier
                                     </button>
                                     
                                     {% if bid.transport_mode == 'road' %}
                                     <button 
-                                        class="flex items-center px-4 py-2 bg-green-50 text-green-700 rounded-md hover:bg-green-100 transition-colors"
+                                        class="flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 font-medium"
                                         data-bid-id="{{ bid.id }}"
                                         data-start-addr="{{ bid.supplier.city }}, {{ bid.supplier.state }}"
                                         data-end-addr="{{ quote.manufacturer.city }}, {{ quote.manufacturer.state }}"
@@ -278,78 +605,108 @@
                                     {% endif %}
                                     
                                     {% if bid.status == 'submitted' and quote.status == 'open' %}
-                                    <!-- <form method="post" action="{% url 'direct_accept_bid' bid.id %}" class="inline">
-                                        {% csrf_token %}
-                                        <button type="submit" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
-                                            <i class="fas fa-check mr-2"></i> Accept Bid
-                                        </button>
-                                    </form> -->
-                                    <a href="{% url 'start_negotiation' bid.id %}" class="flex items-center px-4 py-2 bg-yellow-100 text-yellow-700 rounded-md hover:bg-yellow-200 transition-colors">
+                                    <a href="{% url 'start_negotiation' bid.id %}" class="flex items-center px-6 py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white rounded-xl hover:from-yellow-600 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 font-medium">
                                         <i class="fas fa-comments mr-2"></i> Negotiate
                                     </a>
                                     {% endif %}
                                     
                                     {% if bid.status == 'accepted' and not bid.feedback_given %}
-                                    <a href="{% url 'submit_review' bid.id %}" class="flex items-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-md hover:bg-indigo-100 transition-colors">
+                                    <a href="{% url 'submit_review' bid.id %}" class="flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl hover:from-purple-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 font-medium">
                                         <i class="fas fa-star mr-2"></i> Submit Feedback
                                     </a>
                                     {% endif %}
                                 </div>
+                                
                                 {% csrf_token %}
                                 
-                                <!-- Carbon Footprint Results -->
+                                <!-- Enhanced Carbon Footprint Results -->
                                 {% if bid.transport_mode == 'road' %}
                                 <div id="carbonResults-{{ bid.id }}" class="carbon-result-box" style="display: none;">
-                                    <h4 class="font-semibold text-blue-700 mb-3 flex items-center">
-                                        <i class="fas fa-leaf mr-2"></i> Carbon Footprint Assessment
-                                    </h4>
-                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    <div class="flex items-center mb-6">
+                                        <div class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center mr-3">
+                                            <i class="fas fa-leaf text-white"></i>
+                                        </div>
+                                        <h4 class="text-xl font-semibold text-gray-800">Carbon Footprint Assessment</h4>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                                         <div class="carbon-result-item">
-                                            <i class="fas fa-route carbon-icon"></i>
-                                            <div>
-                                                <div class="text-xs text-gray-500">Distance</div>
-                                                <div class="font-medium distance">Click button to calculate</div>
+                                            <div class="carbon-icon bg-blue-100 p-3 rounded-xl">
+                                                <i class="fas fa-route text-blue-600"></i>
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-xs font-medium text-gray-500 uppercase tracking-wide">Distance</div>
+                                                <div class="font-bold text-lg text-gray-800 distance">Click to calculate</div>
                                             </div>
                                         </div>
+                                        
                                         <div class="carbon-result-item">
-                                            <i class="fas fa-cloud carbon-icon"></i>
-                                            <div>
-                                                <div class="text-xs text-gray-500">Total Emissions</div>
-                                                <div class="font-medium total-emissions">-</div>
+                                            <div class="carbon-icon bg-red-100 p-3 rounded-xl">
+                                                <i class="fas fa-cloud text-red-600"></i>
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-xs font-medium text-gray-500 uppercase tracking-wide">Total Emissions</div>
+                                                <div class="font-bold text-lg text-gray-800 total-emissions">-</div>
                                             </div>
                                         </div>
+                                        
                                         <div class="carbon-result-item">
-                                            <i class="fas fa-truck carbon-icon"></i>
-                                            <div>
-                                                <div class="text-xs text-gray-500">Per Vehicle</div>
-                                                <div class="font-medium per-vehicle">-</div>
+                                            <div class="carbon-icon bg-purple-100 p-3 rounded-xl">
+                                                <i class="fas fa-truck text-purple-600"></i>
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-xs font-medium text-gray-500 uppercase tracking-wide">Per Vehicle</div>
+                                                <div class="font-bold text-lg text-gray-800 per-vehicle">-</div>
                                             </div>
                                         </div>
+                                        
                                         <div class="carbon-result-item">
-                                            <i class="fas fa-tree carbon-icon"></i>
-                                            <div>
-                                                <div class="text-xs text-gray-500">Tree Equivalent</div>
-                                                <div class="font-medium trees">-</div>
+                                            <div class="carbon-icon bg-green-100 p-3 rounded-xl">
+                                                <i class="fas fa-tree text-green-600"></i>
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-xs font-medium text-gray-500 uppercase tracking-wide">Tree Equivalent</div>
+                                                <div class="font-bold text-lg text-gray-800 trees">-</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 {% endif %}
                                 
-                                <!-- Bid Footer -->
-                                <div class="mt-4 pt-3 border-t border-gray-100 text-sm text-gray-500 flex items-center">
-                                    <i class="far fa-clock mr-2"></i> Submitted on {{ bid.submitted_at|date:"M d, Y" }}
+                                <!-- Enhanced Bid Footer -->
+                                <div class="mt-8 pt-6 border-t border-gray-200">
+                                    <div class="flex items-center justify-between text-sm text-gray-500">
+                                        <div class="flex items-center">
+                                            <i class="far fa-clock mr-2 text-blue-500"></i> 
+                                            <span class="font-medium">Submitted on {{ bid.submitted_at|date:"M d, Y" }}</span>
+                                        </div>
+                                        <div class="flex items-center space-x-4">
+                                            <span class="bg-gray-100 px-3 py-1 rounded-full text-xs font-medium">
+                                                <i class="fas fa-eye mr-1"></i> View Details
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         {% endfor %}
                     {% else %}
-                        <div class="bg-white rounded-xl shadow-md p-10 text-center dashboard-card">
-                            <div class="flex justify-center mb-4 text-gray-400">
-                                <i class="fas fa-file-invoice text-5xl"></i>
+                        <div class="dashboard-card rounded-2xl shadow-xl p-12 text-center slide-in">
+                            <div class="flex justify-center mb-6">
+                                <div class="w-24 h-24 bg-gradient-to-br from-gray-200 to-gray-300 rounded-2xl flex items-center justify-center">
+                                    <i class="fas fa-file-invoice text-4xl text-gray-400"></i>
+                                </div>
                             </div>
-                            <h3 class="text-xl font-semibold text-gray-700 mb-2">No bids available</h3>
-                            <p class="text-gray-600">There are currently no bids for this quote request.</p>
+                            <h3 class="text-2xl font-bold text-gray-700 mb-3">No bids available</h3>
+                            <p class="text-gray-600 text-lg mb-8">There are currently no bids for this quote request.</p>
+                            <div class="flex justify-center space-x-4">
+                                <button class="btn-primary px-6 py-3 text-white rounded-xl font-medium transition-all duration-300 hover:shadow-lg">
+                                    <i class="fas fa-refresh mr-2"></i> Refresh Page
+                                </button>
+                                <a href="{% url 'manufacturer_request_quote' %}" class="btn-secondary px-6 py-3 text-white rounded-xl font-medium transition-all duration-300 hover:shadow-lg">
+                                    <i class="fas fa-plus mr-2"></i> Create New Quote
+                                </a>
+                            </div>
                         </div>
                     {% endif %}
                 </div>
@@ -358,71 +715,221 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 py-12 mt-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div class="flex items-center justify-center h-10 w-10 rounded-md bg-blue-600 text-white">
-                            <i class="fas fa-link text-lg"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-blue-400">Chain</span></h1>
-                    </div>
-                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-blue-400 transition">About Us</a></li>
-                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-blue-400 transition">Services</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-blue-400 transition">Help Center</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-blue-400 transition">Contact Support</a></li>
-                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-blue-400 transition">FAQ</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Connect With Us</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-400"></i>
-                            <span>123 Supply Chain Blvd, Business District, 10001</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope mr-3 text-blue-400"></i>
-                            <span>info@supplychain.com</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone mr-3 text-blue-400"></i>
-                            <span>+1 (555) 123-4567</span>
-                        </li>
-                    </ul>
-                </div>
+         <footer
+      class="text-white py-16 relative"
+      style="background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%)"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-lg"
+                style="
+                  background: linear-gradient(135deg, #2e75b7 0%, #4684c3 100%);
+                "
+              >
+                <i class="fas fa-link text-xl"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">
+                Supply<span style="color: #9cbde5">Chain</span>
+              </h1>
             </div>
-            
-            <div class="pt-8 mt-8 border-t border-gray-700 text-center text-gray-400">
-                <p>© 2024 Supply Chain Portal. All Rights Reserved.</p>
+            <p class="text-blue-200 mb-6 leading-relaxed">
+              Connecting manufacturers and suppliers through innovative
+              technology and intelligent solutions.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-facebook"></i>
+              </a>
             </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'home' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'about' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'services' %}"
+                  class="text-white flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'manufacturer_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Manufacturer
+                  Login</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'supplier_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Supplier
+                  Login</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'faq' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'help' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Help
+                  Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact
+                  Support</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Live Chat</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Legal</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'terms' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Terms &
+                  Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'privacy' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Privacy
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Cookie
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>GDPR
+                  Compliance</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="section-divider opacity-30"></div>
+
+        <div class="pt-8 text-center">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-blue-200 mb-4 md:mb-0">
+              © 2024 Supply Chain Portal. All Rights Reserved.
+            </p>
+            <div class="flex items-center space-x-6 text-sm text-blue-200">
+              <span class="flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>
+                SSL Secured
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-award mr-2"></i>
+                ISO Certified
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-clock mr-2"></i>
+                24/7 Support
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background decoration -->
+      <div class="absolute top-0 right-0 w-64 h-64 opacity-5">
+        <i class="fas fa-cogs text-9xl"></i>
+      </div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 opacity-5">
+        <i class="fas fa-shipping-fast text-8xl"></i>
+      </div>
     </footer>
 
     <!-- Analysis Modal -->
@@ -446,19 +953,20 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle functionality
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileNav = document.getElementById('mobile-nav');
-    
-    if (mobileMenuToggle && mobileNav) {
-        mobileMenuToggle.addEventListener('click', function() {
-            if (mobileNav.classList.contains('active')) {
-                mobileNav.classList.remove('active');
-            } else {
-                mobileNav.classList.add('active');
-            }
+    const toggleBtn = document.getElementById("mobile-menu-toggle");
+        const mobileNav = document.getElementById("mobile-nav");
+
+        toggleBtn.addEventListener("click", () => {
+          const isOpen = mobileNav.classList.contains("max-h-[500px]");
+
+          if (isOpen) {
+            mobileNav.classList.remove("max-h-[500px]");
+            mobileNav.classList.add("max-h-0");
+          } else {
+            mobileNav.classList.remove("max-h-0");
+            mobileNav.classList.add("max-h-[500px]");
+          }
         });
-    }
 
     // Modal functionality
     const modal = document.getElementById('analysisModal');
