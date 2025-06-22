@@ -27,206 +27,644 @@
         .status-expired { color: #dc3545; }
         .status-accepted { color: #17a2b8; }
         .status-rejected { color: #6c757d; }
+        .pulse-glow {
+        animation: pulse-glow 2s infinite;
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px rgba(46, 117, 183, 0.5);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(46, 117, 183, 0.8),
+            0 0 30px rgba(46, 117, 183, 0.4);
+        }
+      }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-gray-50">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center space-x-2">
-                    <div class="h-10 w-10 rounded-md bg-teal-600 flex items-center justify-center">
-                        <i class="fas fa-link text-lg text-white"></i>
-                    </div>
-                    <h1 class="text-2xl font-bold text-teal-600">Supply<span class="text-gray-700">Chain</span></h1>
-                </div>
-
-                <!-- Desktop Nav -->
-                <div class="hidden md:flex space-x-8">
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-teal-600 px-3 py-2 text-sm font-medium">Contact</a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-teal-600 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <nav
+      style="
+        background: linear-gradient(
+          135deg,
+          #2e75b7,
+          #4684c3,
+          #afd5ff,
+          #6a9ed3,
+          #3b699e,
+          #1b5a9b
+        );
+      "
+      class="backdrop-blur-lg shadow-md sticky top-0 z-50"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          <!-- Brand -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="flex items-center justify-center h-12 w-12 rounded-xl pulse-glow"
+              style="background: linear-gradient(135deg, #2e75b7, #1b5a9b)"
+            >
+              <i class="fas fa-link text-white text-2xl"></i>
             </div>
+            <h1 class="text-2xl font-bold" style="color: #0a2f56">
+              Supply<span style="color: #2e75b7">Chain</span>
+            </h1>
+          </div>
 
-            <!-- Mobile Navigation -->
-            <div id="mobile-nav" class="md:hidden hidden">
-                <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200">
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Home</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">About</a>
-                    <a href="{% url 'services' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Services</a>
-                    <a href="{% url 'contact' %}" class="text-gray-700 hover:bg-gray-100 block px-3 py-2 rounded-md font-medium">Contact</a>
-                </div>
-            </div>
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(76,175,80,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Home</a
+            >
+            <a
+              href="{% url 'about' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(233,30,99,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >About</a
+            >
+            <a
+              href="{% url 'services' %}"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(156,39,176,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Services</a
+            >
+            <a
+              href="#"
+              class="font-medium px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+              onmouseover="this.style.background='rgba(0,200,83,0.1)'"
+              onmouseout="this.style.background='transparent'"
+              >Contact</a
+            >
+          </div>
+
+          <!-- Mobile Menu Toggle Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-toggle"
+              class="p-2 rounded-lg "
+              onmouseover="this.style.background='rgba(255,87,34,0.1)'"
+              onmouseout="this.style.background='transparent'"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div
+        id="mobile-nav"
+        class="md:hidden max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+      >
+        <div class="px-4 py-4 space-y-2">
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-green-100"
+            >Home</a
+          >
+          <a
+            href="{% url 'about' %}"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-pink-100"
+            >About</a
+          >
+          <a
+            href="{% url 'services' %}"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-purple-100"
+            >Services</a
+          >
+          <a
+            href="#"
+            class="block px-4 py-2 rounded-lg font-medium hover:bg-green-50"
+            >Contact</a
+          >
+        </div>
+      </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Page Header -->
-            <div class="mb-10 bg-teal-600 rounded-xl shadow-md p-8 text-white">
-                <h1 class="text-3xl font-bold mb-2">Your Negotiations</h1>
-                <p class="text-lg text-teal-100">Track and manage all your active and past negotiations with manufacturers.</p>
+    <main class="flex-grow py-8 "style="
+        background: linear-gradient(
+          45deg,
+          #2e75b7,
+          #a8d2ff,
+          #4684c3,
+          #6a9ed3,
+          #5ea9ff,
+          #1b5a9b
+        );
+      ">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Page Header with Enhanced Design -->
+        <div class="mb-8 relative overflow-hidden rounded-2xl shadow-xl" style="background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 50%, #3b699e 100%);">
+            <div class="absolute inset-0 bg-black/10"></div>
+            <div class="relative p-8 md:p-12">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-xl shadow-lg flex items-center justify-center mr-4" style="background-color: #c9dff6;">
+                                <i class="fas fa-handshake text-xl" style="color: #0e447c;"></i>
+                            </div>
+                            <h1 class="text-4xl font-bold text-white">Your Negotiations</h1>
+                        </div>
+                        <p class="text-xl text-blue-100 max-w-2xl">Track and manage all your active and past negotiations with manufacturers in real-time.</p>
+                    </div>
+                    <div class="hidden lg:block">
+                        <div class="w-32 h-32 rounded-full opacity-20 border-4 border-white/30 flex items-center justify-center">
+                            <i class="fas fa-comments-dollar text-6xl text-white/60"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-blue-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium" style="color: #244a73;">Active</p>
+                        <p class="text-2xl font-bold" style="color: #0e447c;">12</p>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg flex items-center justify-center" style="background-color: #c9dff6;">
+                        <i class="fas fa-clock text-lg" style="color: #0e447c;"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-blue-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium" style="color: #244a73;">Accepted</p>
+                        <p class="text-2xl font-bold" style="color: #0e447c;">8</p>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg flex items-center justify-center" style="background-color: #9cbde5;">
+                        <i class="fas fa-check-circle text-lg" style="color: #0e447c;"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-blue-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium" style="color: #244a73;">Pending</p>
+                        <p class="text-2xl font-bold" style="color: #0e447c;">5</p>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg flex items-center justify-center" style="background-color: #6a9ed3;">
+                        <i class="fas fa-hourglass-half text-lg text-white"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-blue-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium" style="color: #244a73;">Total Value</p>
+                        <p class="text-2xl font-bold" style="color: #0e447c;">$2.4M</p>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg flex items-center justify-center" style="background-color: #4684c3;">
+                        <i class="fas fa-dollar-sign text-lg text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Negotiations Container -->
+        <div class="bg-white rounded-2xl shadow-xl border border-blue-100 overflow-hidden">
+            <!-- Container Header -->
+            <div class="px-8 py-6 border-b border-blue-100" style="background: linear-gradient(90deg, #c9dff6 0%, #9cbde5 100%);">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold" style="color: #0e447c;">Active Negotiations</h2>
+                        <p class="text-sm mt-1" style="color: #244a73;">Manage your ongoing discussions with manufacturers</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium border hover:shadow-md transition-all duration-200" style="border-color: #4684c3; color: #4684c3;">
+                            <i class="fas fa-filter mr-2"></i>Filter
+                        </button>
+                        <button class="px-4 py-2 rounded-lg text-sm font-medium text-white shadow-md hover:shadow-lg transition-all duration-200" style="background-color: #0e447c;">
+                            <i class="fas fa-sort mr-2"></i>Sort
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <!-- Negotiations Container -->
-            <div class="bg-white rounded-xl shadow-md p-8 hover:shadow-md transition">
+            <div class="p-8">
                 {% if negotiations %}
                     <div class="space-y-6">
                         {% for negotiation in negotiations %}
-                            <div class="negotiation-card bg-teal-50 p-6 rounded-lg hover:bg-teal-100 transition">
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <h3 class="text-lg font-semibold text-teal-800 mb-2">
-                                            {{ negotiation.bid.quote.product }} - 
-                                            {{ negotiation.bid.quote.manufacturer.company_name }}
-                                        </h3>
-                                        <div class="text-sm text-gray-600 space-y-2">
-                                            <p><strong>Original Bid:</strong> {{ negotiation.bid.quote.currency }} {{ negotiation.bid.bid_amount }}</p>
-                                            <p><strong>Status:</strong> 
-                                                <span class="px-2 py-1 rounded-full text-xs 
-                                                    {% if negotiation.status == 'active' %}bg-green-200 text-green-800
-                                                    {% elif negotiation.status == 'expired' %}bg-red-200 text-red-800
-                                                    {% elif negotiation.status == 'accepted' %}bg-blue-200 text-blue-800
-                                                    {% elif negotiation.status == 'rejected' %}bg-gray-200 text-gray-800
-                                                    {% endif %}">
-                                                    {{ negotiation.get_status_display }}
-                                                </span>
-                                            </p>
-                                            <p><strong>Last Updated:</strong> {{ negotiation.updated_at }}</p>
+                            <div class="negotiation-card group relative bg-gradient-to-r from-white to-blue-50 p-6 rounded-xl border-2 border-blue-100 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                                <!-- Priority Indicator -->
+                                <div class="absolute top-0 left-6 w-16 h-1 rounded-b-full" style="background-color: #0e447c;"></div>
+                                
+                                <div class="negotiation-card group relative bg-gradient-to-r from-white to-blue-50 p-6 rounded-xl border-2 border-blue-100 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                                    <div class="flex-1">
+                                        <!-- Product Header -->
+                                        <div class="flex items-start justify-between mb-4">
+                                            <div class="flex items-center space-x-3">
+                                                <div class="w-14 h-14 rounded-xl shadow-md flex items-center justify-center" style="background: linear-gradient(135deg, #4684c3, #6a9ed3);">
+                                                    <i class="fas fa-box text-xl text-white"></i>
+                                                </div>
+                                                <div>
+                                                    <h3 class="text-xl font-bold mb-1" style="color: #0e447c;">
+                                                        {{ negotiation.bid.quote.product }}
+                                                    </h3>
+                                                    <p class="text-sm font-medium" style="color: #244a73;">
+                                                        {{ negotiation.bid.quote.manufacturer.company_name }}
+                                                    </p>
+                                                </div>
+                                            </div>
                                             
-                                            {% if negotiation.status == 'active' %}
-                                                {% if negotiation.expiry_date < now %}
-                                                    <p class="text-red-600 font-medium"><i class="fas fa-exclamation-circle mr-1"></i> Negotiation expired on {{ negotiation.expiry_date }}</p>
-                                                {% else %}
-                                                    <p><strong>Expires on:</strong> {{ negotiation.expiry_date }}</p>
-                                                {% endif %}
-                                            {% endif %}
+                                            <!-- Status Badge -->
+                                            <div class="flex flex-col items-end">
+                                                {% if negotiation.status == 'active' %}
+  <span class="px-4 py-2 rounded-full text-sm font-bold shadow-sm text-white" style="background-color: #1b5a9b;">
+{% elif negotiation.status == 'expired' %}
+  <span class="px-4 py-2 rounded-full text-sm font-bold shadow-sm text-white" style="background-color: #dc3545;">
+{% elif negotiation.status == 'accepted' %}
+  <span class="px-4 py-2 rounded-full text-sm font-bold shadow-sm text-white" style="background-color: #3b699e;">
+{% elif negotiation.status == 'rejected' %}
+  <span class="px-4 py-2 rounded-full text-sm font-bold shadow-sm text-white" style="background-color: #6c757d;">
+{% else %}
+  <span class="px-4 py-2 rounded-full text-sm font-bold shadow-sm text-white" style="background-color: #adb5bd;">
+{% endif %}
+  <i class="fas fa-circle text-xs mr-2"></i>
+  {{ negotiation.get_status_display }}
+</span>
+
                                         </div>
+
+                                        <!-- Details Grid -->
+                                        <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                            <div class="bg-white/70 rounded-lg p-4 border border-blue-100">
+                                                <div class="flex items-center mb-2">
+                                                    <i class="fas fa-money-bill-wave mr-2" style="color: #4684c3;"></i>
+                                                    <span class="text-sm font-medium" style="color: #244a73;">Original Bid</span>
+                                                </div>
+                                                <p class="text-lg font-bold" style="color: #0e447c;">
+                                                    {{ negotiation.bid.quote.currency }} {{ negotiation.bid.bid_amount }}
+                                                </p>
+                                            </div>
+                                            
+                                            <div class="bg-white/70 rounded-lg p-4 border border-blue-100">
+                                                <div class="flex items-center mb-2">
+                                                    <i class="fas fa-calendar-alt mr-2" style="color: #4684c3;"></i>
+                                                    <span class="text-sm font-medium" style="color: #244a73;">Last Updated</span>
+                                                </div>
+                                                <p class="text-lg font-bold" style="color: #0e447c;">
+                                                    {{ negotiation.updated_at }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        
+                                        {% if negotiation.status == 'active' %}
+                                            {% if negotiation.expiry_date < now %}
+                                                <div class="flex items-center p-3 rounded-lg bg-red-50 border border-red-200 mb-4">
+                                                    <i class="fas fa-exclamation-triangle text-red-500 mr-3"></i>
+                                                    <span class="text-red-700 font-medium text-sm">
+                                                        Negotiation expired on {{ negotiation.expiry_date }}
+                                                    </span>
+                                                </div>
+                                            {% else %}
+                                                <div class="flex items-center p-3 rounded-lg border mb-4" style="background-color: #c9dff6; border-color: #9cbde5;">
+                                                    <i class="fas fa-clock mr-3" style="color: #0e447c;"></i>
+                                                    <span class="font-medium text-sm" style="color: #244a73;">
+                                                        Expires on {{ negotiation.expiry_date }}
+                                                    </span>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
                                     </div>
-                                    <div>
-                                        <a href="{% url 'supplier_view_negotiation' negotiation.id %}" class="bg-teal-600 text-white px-4 py-2 rounded-md text-sm hover:bg-teal-700 transition">
+
+                                    <!-- Action Button -->
+                                    <div class="flex flex-col space-y-3 lg:ml-6">
+                                        <a href="{% url 'supplier_view_negotiation' negotiation.id %}" 
+                                           class="group inline-flex items-center justify-center px-6 py-3 rounded-xl text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 transform"
+                                           style="background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 100%);">
+                                            <i class="fas fa-eye mr-2 group-hover:scale-110 transition-transform"></i>
                                             View Details
                                         </a>
+                                        
+                                        <div class="flex space-x-2">
+                                            <button class="flex-1 px-4 py-2 rounded-lg text-sm font-medium border-2 hover:shadow-md transition-all duration-200" 
+                                                    style="border-color: #4684c3; color: #4684c3;">
+                                                <i class="fas fa-comment mr-1"></i>
+                                                Message
+                                            </button>
+                                            <button class="flex-1 px-4 py-2 rounded-lg text-sm font-medium border-2 hover:shadow-md transition-all duration-200" 
+                                                    style="border-color: #6a9ed3; color: #6a9ed3;">
+                                                <i class="fas fa-download mr-1"></i>
+                                                Export
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         {% endfor %}
                     </div>
                 {% else %}
-                    <div class="text-center py-10">
-                        <div class="text-teal-600 text-5xl mb-4">
-                            <i class="fas fa-comments-dollar"></i>
+                    <!-- Empty State -->
+                    <div class="text-center py-16">
+                        <div class="inline-flex items-center justify-center w-24 h-24 rounded-full mb-6 shadow-lg" 
+                             style="background: linear-gradient(135deg, #c9dff6 0%, #9cbde5 100%);">
+                            <i class="fas fa-comments-dollar text-3xl" style="color: #0e447c;"></i>
                         </div>
-                        <h3 class="text-xl font-medium text-gray-700 mb-2">You have no active negotiations</h3>
-                        <p class="text-gray-500 mb-6">When a manufacturer wants to discuss your bid, negotiations will appear here.</p>
+                        <h3 class="text-2xl font-bold mb-3" style="color: #244a73;">No Active Negotiations</h3>
+                        <p class="text-lg mb-6 max-w-md mx-auto" style="color: #6a9ed3;">
+                            When manufacturers want to discuss your bids, negotiations will appear here with real-time updates.
+                        </p>
+                        
+                        <!-- CTA Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button class="px-8 py-3 rounded-xl text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
+                                    style="background: linear-gradient(135deg, #0e447c 0%, #1b5a9b 100%);">
+                                <i class="fas fa-plus mr-2"></i>
+                                Create New Bid
+                            </button>
+                            <button class="px-8 py-3 rounded-xl font-semibold border-2 hover:shadow-md transition-all duration-200"
+                                    style="border-color: #4684c3; color: #4684c3;">
+                                <i class="fas fa-search mr-2"></i>
+                                Browse Opportunities
+                            </button>
+                        </div>
                     </div>
                 {% endif %}
                 
-                <div class="mt-8 pt-6 border-t border-gray-100">
-                    <a href="{% url 'supplier_dashboard' %}" class="inline-flex items-center text-teal-600 hover:text-teal-800 font-medium">
-                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
-                    </a>
+                <!-- Back to Dashboard -->
+                <div class="mt-10 pt-8 border-t-2" style="border-color: #c9dff6;">
+                    <div class="flex items-center justify-between">
+                        <a href="{% url 'supplier_dashboard' %}" 
+                           class="inline-flex items-center px-6 py-3 rounded-xl font-semibold border-2 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 group"
+                           style="border-color: #4684c3; color: #4684c3;">
+                            <i class="fas fa-arrow-left mr-3 group-hover:-translate-x-1 transition-transform"></i>
+                            Back to Dashboard
+                        </a>
+                        
+                        <div class="flex items-center space-x-2 text-sm" style="color: #6a9ed3;">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Last updated: 2 minutes ago</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-300 py-12 mt-auto">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <div class="h-10 w-10 rounded-md bg-teal-600 flex items-center justify-center">
-                            <i class="fas fa-link text-lg text-white"></i>
-                        </div>
-                        <h1 class="text-2xl font-bold text-white">Supply<span class="text-teal-400">Chain</span></h1>
-                    </div>
-                    <p class="text-gray-400 mb-4">Connecting manufacturers and suppliers through innovative technology.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-teal-400">Home</a></li>
-                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-teal-400">About</a></li>
-                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-teal-400">Services</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-teal-400">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Support</h3>
-                    <ul class="space-y-2">
-                        <li><a href="{% url 'help' %}" class="text-gray-400 hover:text-teal-400">Help Center</a></li>
-                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-teal-400">Contact</a></li>
-                        <li><a href="{% url 'faq' %}" class="text-gray-400 hover:text-teal-400">FAQ</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Contact</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-teal-400"></i>
-                            123 Supply Chain Blvd, Business District, 10001
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-envelope mr-3 text-teal-400"></i>
-                            info@supplychain.com
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-phone mr-3 text-teal-400"></i>
-                            +1 (555) 123-4567
-                        </li>
-                    </ul>
-                </div>
+    <footer
+      class="text-white py-16 relative"
+      style="background: linear-gradient(135deg, #0a2f56 0%, #244a73 100%)"
+    >
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-12 mb-12">
+          <div>
+            <div class="flex items-center space-x-3 mb-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-lg"
+                style="
+                  background: linear-gradient(135deg, #2e75b7 0%, #4684c3 100%);
+                "
+              >
+                <i class="fas fa-link text-xl"></i>
+              </div>
+              <h1 class="text-2xl font-bold text-white">
+                Supply<span style="color: #9cbde5">Chain</span>
+              </h1>
             </div>
-            
-            <div class="pt-8 mt-8 border-t border-gray-700 text-center">
-                <p class="text-gray-400">© 2025 Supply Chain Portal. All rights reserved.</p>
+            <p class="text-blue-200 mb-6 leading-relaxed">
+              Connecting manufacturers and suppliers through innovative
+              technology and intelligent solutions.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-110"
+                style="
+                  background-color: rgba(156, 189, 229, 0.2);
+                  color: #9cbde5;
+                "
+              >
+                <i class="fab fa-facebook"></i>
+              </a>
             </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'home' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'about' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'services' %}"
+                  class="text-white flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Services</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'manufacturer_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Manufacturer
+                  Login</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'supplier_login' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Supplier
+                  Login</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Support</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'faq' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>FAQ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'help' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Help
+                  Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'contact' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Contact
+                  Support</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Live Chat</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-white">Legal</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="{% url 'terms' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Terms &
+                  Conditions</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'privacy' %}"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Privacy
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>Cookie
+                  Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-blue-200 hover:text-white transition-colors duration-300 flex items-center"
+                  ><i class="fas fa-chevron-right mr-2 text-xs"></i>GDPR
+                  Compliance</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="section-divider opacity-30"></div>
+
+        <div class="pt-8 text-center">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-blue-200 mb-4 md:mb-0">
+              © 2024 Supply Chain Portal. All Rights Reserved.
+            </p>
+            <div class="flex items-center space-x-6 text-sm text-blue-200">
+              <span class="flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>
+                SSL Secured
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-award mr-2"></i>
+                ISO Certified
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-clock mr-2"></i>
+                24/7 Support
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background decoration -->
+      <div class="absolute top-0 right-0 w-64 h-64 opacity-5">
+        <i class="fas fa-cogs text-9xl"></i>
+      </div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 opacity-5">
+        <i class="fas fa-shipping-fast text-8xl"></i>
+      </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileNav = document.getElementById('mobile-nav');
+       document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById("mobile-menu-toggle");
+        const mobileNav = document.getElementById("mobile-nav");
 
-        if (mobileMenuToggle && mobileNav) {
-            mobileMenuToggle.addEventListener('click', () => {
-                mobileNav.classList.toggle('hidden');
-            });
+        toggleBtn.addEventListener("click", () => {
+          const isOpen = mobileNav.classList.contains("max-h-[500px]");
 
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', (event) => {
-                const isClickInsideMenu = mobileNav.contains(event.target);
-                const isClickOnToggle = mobileMenuToggle.contains(event.target);
-                
-                if (!isClickInsideMenu && !isClickOnToggle && !mobileNav.classList.contains('hidden')) {
-                    mobileNav.classList.add('hidden');
-                }
-            });
-        }
+          if (isOpen) {
+            mobileNav.classList.remove("max-h-[500px]");
+            mobileNav.classList.add("max-h-0");
+          } else {
+            mobileNav.classList.remove("max-h-0");
+            mobileNav.classList.add("max-h-[500px]");
+          }
+        });});
     </script>
 </body>
 </html>

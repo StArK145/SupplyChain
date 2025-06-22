@@ -11043,3 +11043,126 @@ django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 509: '
 2025-06-18 22:29:19,073 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
 2025-06-18 23:44:59,340 - WARNING - Not Found: /supplier/direct-accept-bid/12/
 2025-06-18 23:45:21,487 - WARNING - Not Found: /supplier/accept-bid/12/
+2025-06-22 15:24:43,699 - WARNING - Not Found: /favicon.ico
+2025-06-22 15:57:53,240 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-06-22 15:58:55,952 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-06-22 16:02:19,765 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-06-22 16:04:21,191 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-06-22 16:08:40,893 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-06-22 16:11:10,937 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-06-22 16:12:23,696 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-06-22 16:21:44,763 - ERROR - Internal Server Error: /supplier/negotiations/4/
+Traceback (most recent call last):
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sushil\OneDrive\Desktop\gujrat 2\HackToFuture-1-0\supplier\views.py", line 388, in supplier_view_negotiation
+    return render(request, 'supplier/view_negotiation.html', {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Users\Sushil\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\template\base.py", line 573, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 303: 'endif'. Did you forget to register or load this tag?
+2025-06-22 16:41:09,876 - DEBUG - connect_tcp.started host='api.phidata.com' port=443 local_address=None timeout=60 socket_options=None
+2025-06-22 16:41:10,267 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001EE94978850>
+2025-06-22 16:41:10,269 - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001EE94BD16D0> server_hostname='api.phidata.com' timeout=60
+2025-06-22 16:41:10,879 - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001EE9555E490>
+2025-06-22 16:41:10,882 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-06-22 16:41:10,885 - DEBUG - send_request_headers.complete
+2025-06-22 16:41:10,888 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-06-22 16:41:10,892 - DEBUG - send_request_body.complete
+2025-06-22 16:41:10,894 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-06-22 16:41:11,163 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sun, 22 Jun 2025 11:11:12 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'72'), (b'Connection', b'keep-alive'), (b'server', b'uvicorn')])
+2025-06-22 16:41:11,166 - INFO - HTTP Request: POST https://api.phidata.com/v1/telemetry/agent/run/create "HTTP/1.1 200 OK"
+2025-06-22 16:41:11,169 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-06-22 16:41:11,170 - DEBUG - receive_response_body.complete
+2025-06-22 16:41:11,172 - DEBUG - response_closed.started
+2025-06-22 16:41:11,173 - DEBUG - response_closed.complete
+2025-06-22 16:41:11,175 - DEBUG - close.started
+2025-06-22 16:41:11,183 - DEBUG - close.complete
+2025-06-22 16:49:42,446 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-06-22 16:50:08,220 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-06-22 16:52:46,467 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-06-22 16:53:38,131 - WARNING - Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2025-06-22 17:06:37,945 - WARNING - Not Found: /manufacturer/submit-review/12/
+2025-06-22 17:06:53,992 - WARNING - Not Found: /submit-review/12/
+2025-06-22 17:07:03,868 - WARNING - Forbidden (CSRF token from POST incorrect.): /manufacturer/login/
+2025-06-22 17:11:51,336 - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-06-22 17:11:51,337 - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-06-22 17:11:51,338 - INFO - Geocoder initialized successfully
+2025-06-22 17:11:51,339 - DEBUG - Nominatim.geocode: https://nominatim.openstreetmap.org/search?q=Nashik%2C+Maharashtra&format=json&limit=1
+2025-06-22 17:11:51,342 - DEBUG - Starting new HTTPS connection (1): nominatim.openstreetmap.org:443
+2025-06-22 17:11:52,896 - DEBUG - https://nominatim.openstreetmap.org:443 "GET /search?q=Nashik%2C+Maharashtra&format=json&limit=1 HTTP/1.1" 200 440
+2025-06-22 17:11:52,898 - DEBUG - Nominatim.geocode: https://nominatim.openstreetmap.org/search?q=Pune%2C+Maharashtra&format=json&limit=1
+2025-06-22 17:11:53,992 - DEBUG - https://nominatim.openstreetmap.org:443 "GET /search?q=Pune%2C+Maharashtra&format=json&limit=1 HTTP/1.1" 200 436
+2025-06-22 17:11:54,039 - DEBUG - Starting new HTTPS connection (1): api.openrouteservice.org:443
+2025-06-22 17:11:54,713 - DEBUG - https://api.openrouteservice.org:443 "POST /v2/directions/driving-car HTTP/1.1" 200 None
+2025-06-22 17:13:33,720 - DEBUG - connect_tcp.started host='api.phidata.com' port=443 local_address=None timeout=60 socket_options=None
+2025-06-22 17:13:34,102 - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001EE9547B090>
+2025-06-22 17:13:34,103 - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001EE94BD3770> server_hostname='api.phidata.com' timeout=60
+2025-06-22 17:13:34,637 - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001EE94C887D0>
+2025-06-22 17:13:34,638 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-06-22 17:13:34,641 - DEBUG - send_request_headers.complete
+2025-06-22 17:13:34,644 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-06-22 17:13:34,646 - DEBUG - send_request_body.complete
+2025-06-22 17:13:34,648 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-06-22 17:13:34,914 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sun, 22 Jun 2025 11:43:35 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'72'), (b'Connection', b'keep-alive'), (b'server', b'uvicorn')])
+2025-06-22 17:13:34,916 - INFO - HTTP Request: POST https://api.phidata.com/v1/telemetry/agent/run/create "HTTP/1.1 200 OK"
+2025-06-22 17:13:34,916 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-06-22 17:13:34,917 - DEBUG - receive_response_body.complete
+2025-06-22 17:13:34,918 - DEBUG - response_closed.started
+2025-06-22 17:13:34,919 - DEBUG - response_closed.complete
+2025-06-22 17:13:34,919 - DEBUG - close.started
+2025-06-22 17:13:34,920 - DEBUG - close.complete
+2025-06-22 17:13:46,969 - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-06-22 17:13:46,970 - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2025-06-22 17:13:46,971 - DEBUG - Nominatim.geocode: https://nominatim.openstreetmap.org/search?q=Nashik%2C+Maharashtra&format=json&limit=1
+2025-06-22 17:13:46,973 - DEBUG - Starting new HTTPS connection (1): nominatim.openstreetmap.org:443
+2025-06-22 17:13:47,544 - DEBUG - https://nominatim.openstreetmap.org:443 "GET /search?q=Nashik%2C+Maharashtra&format=json&limit=1 HTTP/1.1" 200 440
+2025-06-22 17:13:47,547 - DEBUG - RateLimiter sleep(0.42480570008046925)
+2025-06-22 17:13:47,973 - DEBUG - Nominatim.geocode: https://nominatim.openstreetmap.org/search?q=Pune%2C+Maharashtra&format=json&limit=1
+2025-06-22 17:13:48,672 - DEBUG - https://nominatim.openstreetmap.org:443 "GET /search?q=Pune%2C+Maharashtra&format=json&limit=1 HTTP/1.1" 200 436
+2025-06-22 17:13:48,678 - DEBUG - Starting new HTTPS connection (1): api.openrouteservice.org:443
+2025-06-22 17:13:49,450 - DEBUG - https://api.openrouteservice.org:443 "POST /v2/directions/driving-car HTTP/1.1" 200 None
